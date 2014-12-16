@@ -1,0 +1,144 @@
+/**
+ * Created by user on 1/12/14.
+ */
+(function () {
+
+    window.sprites = window.sprites || {};
+
+    var Enemy = function (config) {
+        this.config = config || {};
+        this.life = config.life || 3;
+        this.lifes = [];
+        this.speed = config.speed || 1;
+        this.lifeRectSize = 5;
+        this.hit = false;
+        this.initialize();
+
+    }
+
+    var p = Enemy.prototype = new createjs.Container;
+    p.Sprite_initialize = p.initialize;
+    p.initialize = function () {
+
+        this.spriteData = new SpriteSheet({"id" : this.config.id, "data": EnemyData[this.config.id], "loader" : this.config.loader});
+        this.spriteSheet = new createjs.Sprite(this.spriteData, "stand");
+        this.setScale(1,1);
+        this.Sprite_initialize();
+        this.addChild(this.spriteSheet);
+        generateLife(this);
+
+        this.bounds = this.getBounds();
+
+
+    }
+    var drawBorder = function(me){
+        var shape = new createjs.Shape();
+        shape.graphics.beginStroke("#000").setStrokeStyle(0.2).drawRect(0,0,me.getWidth(), me.getHeight());
+        me.addChild(shape);
+
+    }
+    window.sprites.Enemy = Enemy;
+
+    Enemy.prototype.run  = function(){
+        var me = this;
+        this.spriteSheet.gotoAndPlay("run");
+        this.myTick = function(){tick(me)};
+        this.addEventListener("tick",  this.myTick);
+    }
+
+    Enemy.prototype.pause = function(){
+        this.removeEventListener("tick",  this.myTick);
+        this.spriteSheet.gotoAndPlay("stand");
+    }
+
+    Enemy.prototype.die = function(){
+        this.spriteSheet.gotoAndPlay("die");
+    }
+    Enemy.prototype.kill = function(){
+        var me = this;
+        this.removeLife();
+        if(this.lifes.length == 0){
+            this.hit = true;
+            this.spriteSheet.gotoAndPlay("die");
+            this.removeEventListener("tick", this.myTick);
+            this.myAnimationEnd = function(){removeFallingAnimation(me)};
+            this.spriteSheet.addEventListener("animationend",this.myAnimationEnd);
+        }
+        return this.lifes.length;
+    }
+    Enemy.prototype.setSpeed = function(speed){
+        this.speed = speed;
+        this.spriteSheet._animation.speed = speed;
+    }
+
+    Enemy.prototype.setPosition = function(x, y){
+        this.x  = x;
+        this.y = y;
+    }
+    Enemy.prototype.addLife = function(start){
+        var life = new createjs.Shape();
+        life.graphics.beginFill("#123").drawRect(0,0,this.lifeRectSize,this.lifeRectSize);
+        this.addChild(life);
+        this.lifes.push(life);
+        if(!start){
+            updateLifePos(this);
+        }
+    }
+    Enemy.prototype.removeLife = function(){
+        var life = this.lifes.pop();
+        this.removeChild(life);
+        updateLifePos(this);
+    }
+    Enemy.prototype.getHeight = function(){
+        return (this.spriteSheet.spriteSheet._frameHeight * this.spriteSheet.scaleY) + this.lifeRectSize + 1;
+    }
+    Enemy.prototype.getWidth = function(){
+        return (this.spriteSheet.spriteSheet._frameWidth * this.spriteSheet.scaleX) ;
+    }
+
+    Enemy.prototype.setScale = function(sx,sy){
+        this.spriteSheet.setTransform(0,6,sx,sy);
+        drawBorder(this);
+    }
+    var generateLife = function(me){
+        for(var i = 0 ; i< me.life; i++){
+            me.addLife(false);
+        }
+        updateLifePos(me);
+    }
+
+    var updateLifePos = function(me){
+
+        var sx = (me.spriteData.getFrameWidth()/2) - (me.life * (me.lifeRectSize))/2 ;
+        var sy = 0;
+
+        for(var i= 0 ; i< me.lifes.length ; i++){
+            var life = me.lifes[i];
+            life.x = sx;
+            sx = sx+(me.lifeRectSize+1);
+            life.y = sy;
+        }
+    }
+    Enemy.prototype.setEndPoint = function(endPointX){
+        this.endPoint = endPointX;
+    }
+
+    var tick = function(me){
+        me.x = me.x - me.speed;
+        if(me.endPoint != null && me.hit == false && me.x < me.endPoint+me.getWidth()){
+            me.hit = true;
+            me.lifes.length =0;
+            me.kill();
+            EventBus.dispatch("killLife");
+
+        }
+    }
+
+    var removeFallingAnimation = function(me){
+        me.spriteSheet.removeEventListener("animationend",me.myAnimationEnd);
+        EventBus.dispatch("killme", me);
+        EventBus.dispatch("resetTimer");
+    }
+
+
+}());
