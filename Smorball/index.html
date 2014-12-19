@@ -43,12 +43,6 @@
 <body onload="init()" style="background:#ccc" >
 
 <canvas id="myCanvas" ></canvas>
-<div id="canvasHolder" style="padding-top: 50px">
-    <input id="passButton" type="button" value="Pass" onclick="EventBus.dispatch(&quot;passText&quot;)" ></input>
-    <input id="inputText" type="text" placeholder="Enter captcha" onkeydown="if(event.keyCode == 13){EventBus.dispatch(&quot;compareCaptcha&quot;)}"></input>
-    <input id="submitButton" type="button" value="Submit" onclick="EventBus.dispatch(&quot;compareCaptcha&quot;)"></input>
-</div>
-
 
 <div style="position: absolute; top: 0%; left: 0%; width: 90%; height: 90%; ">
     <canvas id="loaderCanvas"></canvas>
@@ -76,7 +70,12 @@
     </p>
 </div>
 
-
+<div id="canvasHolder" style="padding-top: 50px">
+    <input id="passButton" type="button" value="Pass" onclick="EventBus.dispatch(&quot;passText&quot;)" ></input>
+    <input id="inputText" type="text" placeholder="Enter captcha" onkeydown="if(event.keyCode == 13){EventBus.dispatch(&quot;compareCaptcha&quot;)}"></input>
+    <input id="submitButton" type="button" value="Submit" onclick="EventBus.dispatch(&quot;compareCaptcha&quot;)"></input>
 </div>
+
+
 </body>
 </html>
