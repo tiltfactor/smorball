@@ -93,6 +93,7 @@ function StageController(config) {
     }
 
     var newGame = function (me) {
+        me.config.gameState.gs.currentState = me.config.gameState.gs.States.RUN;
         me.levelConfig = Levels[me.config.gameState.gs.currentLevel];
         me.time = 0;
         document.getElementById('canvasHolder').style.display = "block";
@@ -138,9 +139,6 @@ function StageController(config) {
     }
 
     var generateWaves = function(me){
-        //var totalWaves = ;
-        //var config = {"level": 2, "waves": 5, "enemyPerWave" : 2, "lanes" : 2, "life" : 1, "types" : ["boss"]}
-
         for(var i = 0 ; i< me.levelConfig.waves; i++ ){
            var config = {"enemyPerWave" : me.levelConfig.enemyPerWave, "life" : me.levelConfig.life,
                types : me.levelConfig.types, "lanes": me.levelConfig.lanes,  "loader" : me.config.loader };
@@ -156,7 +154,8 @@ function StageController(config) {
         if(me.config.waves.length == 0){
             if( me.config.enemies.length == 0){
                 //todo : udate to next level
-               // me.config.gameState.gs.currentLevel++;
+                //me.config.gameState.gs.currentLevel++;
+                me.config.gameState.gs.currentState = me.config.gameState.gs.States.GAME_OVER;
                 clearTimer(me);
                 showGameOverMessage(me,"Level Completed !!");
             }
@@ -202,7 +201,6 @@ function StageController(config) {
         var laneHeight = lane.getHeight()-20;
         var obHeight = ob.getHeight();
         var scaleFactor = 1;
-        laneHeight = laneHeight-20;
         if(laneHeight/obHeight < 1){
             scaleFactor = laneHeight/obHeight;
         }
@@ -228,6 +226,7 @@ function StageController(config) {
         var life = me.config.lifes.pop();
         me.config.stage.removeChild(life);
         if(--me.config.gameState.gs.life == 0){
+            me.config.gameState.gs.currentState = me.config.gameState.gs.States.GAME_OVER;
             showGameOverMessage(me,"Game Over")
         }
     }
@@ -418,44 +417,10 @@ function StageController(config) {
     }
 
     var isCollision = function(player, object){
-        //var pb = player.getBounds();
-      //  var eb = object.getBounds();
         return (object.x <= player.x + player.getWidth() &&
             player.x <= object.x + object.getWidth() &&
             object.y <= player.y + player.getHeight()  &&
             player.y <= object.y +object.getHeight())
-    }
-//
-//    var isCollision = function(player, object){
-//        var pb = player.getBounds();
-//        var eb = object.getBounds();
-//         return (object.x <= player.x + pb.width * player.scaleX &&
-//            player.x <= object.x + eb.width * object.scaleX &&
-//            object.y <= player.y + pb.height * player.scaleY  &&
-//            player.y <= object.y +eb.height * object.scaleY)
-//    }
-
-    var textHolder = function(me){
-        var passButton = new createjs.DOMElement('passButton');
-        passButton.x = me.config.stage.canvas.width/2 - 100;//me.config.stage.canvas.width/4 + 130;
-        passButton.y = me.config.stage.canvas.height/2 - 350;
-      //  me.events.passButtonEvent = function(){passText(me);}
-        //passButton.htmlElement.addEventListener("click", me.events.passButtonEvent);
-
-        var inputText = new createjs.DOMElement('inputText');
-        inputText.x = me.config.stage.canvas.width/2;//me.config.stage.canvas.width/4 + 200;
-        inputText.y = me.config.stage.canvas.height/2 - 350;
-        //me.events.compareEnterEvent = function(event){ if(event.keyCode == 13){compareCaptcha(me);} }
-       // inputText.htmlElement.addEventListener("keydown",me.events.compareEnterEvent);
-
-        var submitBtn = new createjs.DOMElement('submitButton');
-        submitBtn.x = me.config.stage.canvas.width/2 + 175//me.config.stage.canvas.width/4 + 375;
-        submitBtn.y = me.config.stage.canvas.height/2 - 350;
-        //me.events.compareBtnEvent = function(){compareCaptcha(me);}
-       // submitBtn.htmlElement.addEventListener("click",me.events.compareBtnEvent);
-
-        me.config.stage.addChild(passButton,inputText,submitBtn);
-
     }
 
     var compareCaptcha = function(me){
@@ -483,13 +448,9 @@ function StageController(config) {
 
     var passText = function(me){
         clearText();
-        showMessage(me,"Used Pass!!!");
+
         if(++me.passCount >= me.levelConfig.pass){
             disablePassButton();
-        }
-        else{
-            var passLabel = me.levelConfig.pass - me.passCount;
-            document.getElementById('passButton').value = 'Pass('+ passLabel + ')';
         }
         for(var i = 0 ; i< me.config.lanes.length; i++){
             var lane = me.config.lanes[i];

@@ -20,31 +20,31 @@
     var initCaptchaImage = function(me){
         me.captcha = new createjs.Bitmap();
         me.captcha.x = 10;
-        me.captcha.y = me.config.height/2-20;
+        me.captcha.y = me.config.height/2;
         me.addChild(me.captcha);
     }
 
     Lane.prototype.setCaptcha = function(captcha){
         this.captcha.image = this.config.loader.getResult(captcha.id);
+        this.captcha.regY = this.captcha.image.height/2;
         this.captcha.text = captcha.ocr2;//id.value
     }
     Lane.prototype.getStartPoint = function(){
         var point = {};
         point.x = this.config.x +10;
-        point.y = this.config.y + (this.config.height/7);
+        point.y = this.config.y + this.config.height/2;//this.config.y + (this.config.height/7);
         return point;
     }
     Lane.prototype.getEnemyEndPoint = function(){
         var point = {};
-        point.x = this.leftArea;
-        point.y = this.config.y + (this.config.height/7);
+        point.x = this.leftArea+this.config.x;
+        point.y = this.config.y + this.config.height/2;//this.config.y + (this.config.height/7);
         return point;
     }
-
     Lane.prototype.getEndPoint = function(){
         var point = {};
         point.x = this.config.x + this.config.width;
-        point.y = this.config.y + (this.config.height/7);
+        point.y = this.config.y + this.config.height/2;//this.config.y + (this.config.height/7);
         return point;
     }
     Lane.prototype.getHeight = function(){

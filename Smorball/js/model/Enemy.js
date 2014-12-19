@@ -21,10 +21,10 @@
     p.initialize = function () {
 
         this.spriteData = new SpriteSheet({"id" : this.config.id, "data": EnemyData[this.config.id], "loader" : this.config.loader});
-        this.spriteSheet = new createjs.Sprite(this.spriteData, "stand");
+        this.sprite = new createjs.Sprite(this.spriteData, "stand");
         this.setScale(1,1);
         this.Sprite_initialize();
-        this.addChild(this.spriteSheet);
+        this.addChild(this.sprite);
         generateLife(this);
 
         this.bounds = this.getBounds();
@@ -33,7 +33,7 @@
     }
     var drawBorder = function(me){
         var shape = new createjs.Shape();
-        shape.graphics.beginStroke("#000").setStrokeStyle(0.2).drawRect(0,0,me.getWidth(), me.getHeight());
+        shape.graphics.beginStroke("#000").setStrokeStyle(0.1).drawRect(0,0,me.getWidth(),me.getHeight());
         me.addChild(shape);
 
     }
@@ -41,39 +41,41 @@
 
     Enemy.prototype.run  = function(){
         var me = this;
-        this.spriteSheet.gotoAndPlay("run");
+        this.sprite.gotoAndPlay("run");
         this.myTick = function(){tick(me)};
         this.addEventListener("tick",  this.myTick);
     }
 
     Enemy.prototype.pause = function(){
         this.removeEventListener("tick",  this.myTick);
-        this.spriteSheet.gotoAndPlay("stand");
+        this.sprite.gotoAndPlay("stand");
     }
 
     Enemy.prototype.die = function(){
-        this.spriteSheet.gotoAndPlay("die");
+        this.sprite.gotoAndPlay("die");
     }
     Enemy.prototype.kill = function(){
         var me = this;
         this.removeLife();
         if(this.lifes.length == 0){
             this.hit = true;
-            this.spriteSheet.gotoAndPlay("die");
+            this.sprite.gotoAndPlay("die");
             this.removeEventListener("tick", this.myTick);
             this.myAnimationEnd = function(){removeFallingAnimation(me)};
-            this.spriteSheet.addEventListener("animationend",this.myAnimationEnd);
+            this.sprite.addEventListener("animationend",this.myAnimationEnd);
         }
         return this.lifes.length;
     }
     Enemy.prototype.setSpeed = function(speed){
         this.speed = speed;
-        this.spriteSheet._animation.speed = speed;
+        this.sprite._animation.speed = speed;
     }
 
     Enemy.prototype.setPosition = function(x, y){
-        this.x  = x;
+        this.x = x;
         this.y = y;
+        this.regX = 0;
+        this.regY = this.getHeight()/2;
     }
     Enemy.prototype.addLife = function(start){
         var life = new createjs.Shape();
@@ -90,15 +92,16 @@
         updateLifePos(this);
     }
     Enemy.prototype.getHeight = function(){
-        return (this.spriteSheet.spriteSheet._frameHeight * this.spriteSheet.scaleY) + this.lifeRectSize + 1;
+        return (this.sprite.spriteSheet._frameHeight * this.sprite.scaleY) + this.lifeRectSize + 1;
     }
     Enemy.prototype.getWidth = function(){
-        return (this.spriteSheet.spriteSheet._frameWidth * this.spriteSheet.scaleX) ;
+        return (this.sprite.spriteSheet._frameWidth * this.sprite.scaleX) ;
     }
 
     Enemy.prototype.setScale = function(sx,sy){
-        this.spriteSheet.setTransform(0,6,sx,sy);
+        this.sprite.setTransform(0,6,sx,sy);
         drawBorder(this);
+        updateLifePos(this);
     }
     var generateLife = function(me){
         for(var i = 0 ; i< me.life; i++){
@@ -109,7 +112,7 @@
 
     var updateLifePos = function(me){
 
-        var sx = (me.spriteData.getFrameWidth()/2) - (me.life * (me.lifeRectSize))/2 ;
+        var sx = (me.getWidth()/2) - (me.life * (me.lifeRectSize))/2 ;
         var sy = 0;
 
         for(var i= 0 ; i< me.lifes.length ; i++){
@@ -125,7 +128,7 @@
 
     var tick = function(me){
         me.x = me.x - me.speed;
-        if(me.endPoint != null && me.hit == false && me.x < me.endPoint+me.getWidth()){
+        if(me.endPoint != null && me.hit == false && me.x < me.endPoint){
             me.hit = true;
             me.lifes.length =0;
             me.kill();
@@ -135,10 +138,11 @@
     }
 
     var removeFallingAnimation = function(me){
-        me.spriteSheet.removeEventListener("animationend",me.myAnimationEnd);
+        me.sprite.removeEventListener("animationend",me.myAnimationEnd);
         EventBus.dispatch("killme", me);
         EventBus.dispatch("resetTimer");
     }
 
 
 }());
+

@@ -7,10 +7,13 @@ function MenuController(config) {
 
     var loadEvents = function (me) {
         EventBus.addEventListener("exitMenu", me.hideMenu);
-        EventBus.addEventListener("showMenu", me.showMenu);
+        var sm = function(){me.showMenu(me)};
+        EventBus.addEventListener("showMenu",sm);
     }
 
-    MenuController.prototype.showMenu = function () {
+    MenuController.prototype.showMenu = function (me) {
+        checkStatus(me);
+        me.config.gameState.gs.currentState = me.config.gameState.gs.States.MAIN_MENU;
         $( "#dialog-message" ).dialog("open");
     }
     MenuController.prototype.hideMenu = function () {
@@ -25,5 +28,14 @@ function MenuController(config) {
                 closeOnEscape: false
             });
         $("#dialog-message Button" ).button();
+    }
+    var checkStatus = function(me){
+        var state = me.config.gameState.gs.States;
+        switch(me.config.gameState.gs.currentState){
+            case state.MAIN_MENU:{break;}
+            case state.RUN:{$("#resumeButton").show();break;}
+            case state.GAME_OVER: {$("#resumeButton").hide();break;}
+            case state.SHOP:break;
+        }
     }
 }

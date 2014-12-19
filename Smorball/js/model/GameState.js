@@ -10,6 +10,11 @@ function GameState(config){
 
         this.totalLevels = 20;
 
+        this.gs.States = {
+            MAIN_MENU:0,RUN:1,SHOP:2,GAME_OVER :3
+        }
+        this.gs.currentState = this.gs.States.MAIN_MENU;
+
         this.gs.currentLevel = this.json.currentLevel || 1;
         this.gs.life = this.json.life || 3;
         this.gs.points = this.json.points || 0;

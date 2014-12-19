@@ -15,10 +15,10 @@
 
     p.initialize = function () {
         this.spriteData = new SpriteSheet({"id" : this.config.id, "data": PlayerData[this.config.id], "loader" : this.config.loader});
-        this.spriteSheet = new createjs.Sprite(this.spriteData, "stand");
-        //this.setScale(0.40,0.40);
+        this.sprite = new createjs.Sprite(this.spriteData, "stand");
+        this.setScale(1,1);
         this.Sprite_initialize();
-        this.addChild(this.spriteSheet);
+        this.addChild(this.sprite);
         this.hit = false;
         this.speed = this.config.speed || 6;
 
@@ -37,47 +37,49 @@
 
     SpriteMan1.prototype.run  = function(){
         var me = this;
-        this.spriteSheet.gotoAndPlay("run");
+        this.sprite.gotoAndPlay("run");
         this.myTick = function(){tick(me)};
         this.addEventListener("tick", this.myTick);
     }
 
     SpriteMan1.prototype.pause = function(){
         this.removeEventListener("tick",  this.myTick);
-        this.spriteSheet.gotoAndPlay("stand");
+        this.sprite.gotoAndPlay("stand");
     }
 
     SpriteMan1.prototype.jump = function(){
-        this.spriteSheet.gotoAndPlay("jump");
+        this.sprite.gotoAndPlay("jump");
     }
     SpriteMan1.prototype.setPosition = function(x, y){
         this.x  = x;
         this.y = y;
+        this.regX = 0;
+        this.regY = this.getHeight()/2;
     }
     SpriteMan1.prototype.setSpeed = function(speed){
         this.speed = speed;
-        this.spriteSheet._animation.speed = speed;
+        this.sprite._animation.speed = speed;
     }
     SpriteMan1.prototype.kill = function(){
         var me = this;
-        this.spriteSheet.gotoAndPlay("fall");
+        this.sprite.gotoAndPlay("fall");
         this.myAnimationEnd = function(){removeFallingAnimation(me)};
         me.removeEventListener("tick",  this.myTick);
-        this.spriteSheet.addEventListener("animationend",this.myAnimationEnd);
+        this.sprite.addEventListener("animationend",this.myAnimationEnd);
         return 0;
     }
     SpriteMan1.prototype.setEndPoint = function(endPointX){
         this.endPoint = endPointX;
     }
     SpriteMan1.prototype.getHeight = function(){
-        return (this.spriteSheet.spriteSheet._frameHeight * this.spriteSheet.scaleY) ;
+        return (this.sprite.spriteSheet._frameHeight * this.sprite.scaleY) ;
     }
     SpriteMan1.prototype.getWidth = function(){
-        return (this.spriteSheet.spriteSheet._frameWidth * this.spriteSheet.scaleX) ;
+        return (this.sprite.spriteSheet._frameWidth * this.sprite.scaleX) ;
     }
 
     SpriteMan1.prototype.setScale = function(sx,sy){
-        this.spriteSheet.setTransform(0,6,sx,sy);
+        this.sprite.setTransform(0,6,sx,sy);
         drawBorder(this);
     }
 
@@ -91,7 +93,7 @@
     }
 
     var removeFallingAnimation = function(me){
-        me.spriteSheet.removeEventListener("animationend",me.myAnimationEnd);
+        me.sprite.removeEventListener("animationend",me.myAnimationEnd);
         EventBus.dispatch("killme", me);
     }
 
