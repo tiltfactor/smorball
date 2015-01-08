@@ -14,14 +14,15 @@
     <script src="js/model/SpriteSheet.js"></script>
     <script src="js/model/Lane.js"></script>
     <script src="js/model/Wave.js"></script>
+    <script src="js/model/CaptchaProcessor.js"></script>
     <script src="js/controller/MenuController.js"></script>
     <script src="js/controller/StageController.js"></script>
     <script src="js/controller/GameController.js"></script>
     <script src="js/controller/ShopController.js"></script>
+    <script src="js/controller/GameLevelController.js"></script>
     <script src="js/EventBus.js"></script>
     <script src="js/model/Life.js"></script>
     <script src="js/model/SpriteMan.js"></script>
-    <script src="js/model/SpriteMan1.js"></script>
     <script src="js/model/Enemy.js"></script>
     <script src="js/model/Gem.js"></script>
     <script src="js/model/Product.js"></script>
@@ -70,11 +71,18 @@
     </p>
 </div>
 
+<div id="dialog-level" style="display:none; text-align:center">
+    <p>
+        <input id="levelButton" type="button" onclick="EventBus.dispatch(&quot;exitMenu&quot;);EventBus.dispatch(&quot;hideLevel&quot;);EventBus.dispatch(&quot;newGame&quot;)"></input>
+    </p>
+</div>
+
 <div id="canvasHolder" style="padding-top: 50px">
     <input id="passButton" type="button" value="Pass" onclick="EventBus.dispatch(&quot;passText&quot;)" ></input>
     <input id="inputText" type="text" placeholder="Enter captcha" onkeydown="if(event.keyCode == 13){EventBus.dispatch(&quot;compareCaptcha&quot;)}"></input>
     <input id="submitButton" type="button" value="Submit" onclick="EventBus.dispatch(&quot;compareCaptcha&quot;)"></input>
 </div>
+
 
 
 </body>

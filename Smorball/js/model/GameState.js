@@ -18,6 +18,7 @@ function GameState(config){
         this.gs.currentLevel = this.json.currentLevel || 1;
         this.gs.life = this.json.life || 3;
         this.gs.points = this.json.points || 0;
+        this.gs.gameLevelPoints = this.json.gameLevelPoints || [];
         this.gs.level = this.json.level || 1;
         this.gs.lane = this.json.lane || 1;
 

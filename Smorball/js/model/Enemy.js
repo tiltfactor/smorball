@@ -20,7 +20,7 @@
     p.Sprite_initialize = p.initialize;
     p.initialize = function () {
 
-        this.spriteData = new SpriteSheet({"id" : this.config.id, "data": EnemyData[this.config.id], "loader" : this.config.loader});
+        this.spriteData = new SpriteSheet({"id" : this.config.id, "data": EnemyData[this.config.id].data, "loader" : this.config.loader});
         this.sprite = new createjs.Sprite(this.spriteData, "stand");
         this.setScale(1,1);
         this.Sprite_initialize();

@@ -3,6 +3,7 @@ function MenuController(config) {
     MenuController.prototype.init = function(){
         createDialog();
         loadEvents(this);
+        $("#resumeButton").hide();
     }
 
     var loadEvents = function (me) {

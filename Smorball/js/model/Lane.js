@@ -1,7 +1,7 @@
 (function (){
     var Lane = function(config){
         this.config = config;
-        this.id = config.id;
+        this.laneId = config.id;
         this.leftArea = config.width/4; //300;
         this.initialize();
     };
@@ -14,7 +14,7 @@
         drawLayout(this);
         //setBackgroundText(this);
         setLeftArea(this);
-        initCaptchaImage(this);
+       // initCaptchaImage(this);
         //this.laneNumber = num;
     };
     var initCaptchaImage = function(me){
@@ -22,6 +22,12 @@
         me.captcha.x = 10;
         me.captcha.y = me.config.height/2;
         me.addChild(me.captcha);
+    }
+    Lane.prototype.getCaptchaPosition = function(){
+        var point = {};
+        point.x = 10;
+        point.y = this.config.height/2;
+        return point;
     }
 
     Lane.prototype.setCaptcha = function(captcha){

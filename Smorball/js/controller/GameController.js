@@ -24,6 +24,8 @@ function GameController(config) {
         me.config.stageController.init();
         me.config.shopController = new ShopController({"gameState": me.config.gameState , "loader" :me.config.smbLoadQueue, "stage" : me.config.popupStage})
         me.config.shopController.init();
+        me.config.gameLeveController = new GameLevelController({"gameState": me.config.gameState, "loader" :me.config.smbLoadQueue });
+        me.config.gameLeveController.init();
 
         EventBus.dispatch("exitShop");
        // EventBus.dispatch("exitMenu");

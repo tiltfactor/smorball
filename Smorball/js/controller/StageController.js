@@ -45,9 +45,6 @@ function StageController(config) {
         var cc = function(){compareCaptcha(me)};
         EventBus.addEventListener("compareCaptcha", cc);
 
-        var pt = function(e){passText(me)};
-        EventBus.addEventListener("passText", pt);
-
         var st = function(){setTickerStatus()};
         EventBus.addEventListener("setTickerStatus",st);
 
@@ -84,22 +81,21 @@ function StageController(config) {
         var canvas = document.getElementById("myCanvas");
         me.width  = canvas.width =  window.innerWidth-20;
         me.height = canvas.height =  window.innerHeight-20-me.freeBottomAreaY;
-        setDivPosition(me);
+        //setDivPosition(me);
 
-    }
-    var setDivPosition = function(me){
-        $("#canvasHolder").parent().css({position: 'relative'});
-        $("#canvasHolder").css({top: me.height, left: me.width/2 - me.freeLeftAreaX, position:'absolute'});
     }
 
     var newGame = function (me) {
+        $("#inputText").val("");
         me.config.gameState.gs.currentState = me.config.gameState.gs.States.RUN;
         me.levelConfig = Levels[me.config.gameState.gs.currentLevel];
         me.time = 0;
-        document.getElementById('canvasHolder').style.display = "block";
-        document.getElementById('passButton').value = 'Pass('+ me.levelConfig.pass + ')';
+        me.captchaProcessor = new CaptchaProcessor({"loader": me.config.loader, "canvasWidth": me.width, "canvasHeight": me.height});
 
         EventBus.dispatch("setTickerStatus");
+        if(me.config.gameState.gs.currentLevel == 1){
+            me.config.gameState.gs.points = 0;
+        }
         resetGame(me);
         generateWaves(me);
 
@@ -108,16 +104,25 @@ function StageController(config) {
        // textHolder(me);
         //createPlayer(me);
         showLife(me);
+        showScore(me);
         startTimer(me);
         initShowMessage(me);
         setTimeout(function(){showMessage(me,"Jujubees coming!!!");},2000); //TODO : change
 
 
     }
+    var showScore = function(me){
+        me.scoreText = new createjs.Text("Total Score :"+me.config.gameState.gs.points, "20px Arial", "#000000");
+        me.scoreText.setTransform(me.width-500,10,1,1);
+        me.config.stage.addChild(me.scoreText);
+    }
+    var updateScore = function(me){
+        me.scoreText.text = "Total Score :"+me.config.gameState.gs.points;
+    }
 
     var startTimer = function(me){
+       me.timer = setInterval(function(){EventBus.dispatch("popEnemy")},getTime(me));
        EventBus.dispatch("popEnemy");
-       me.timer = setInterval(function(){EventBus.dispatch("popEnemy")},getTime(me) )
     }
     var resetTimer = function(me){
         if(me.config.enemies.length < me.levelConfig.maxOnGround){
@@ -145,19 +150,22 @@ function StageController(config) {
            var wave = new Wave(config);
            me.config.waves.push(wave);
         }
-
-
     }
 
     var popEnemy = function(me){
         console.log("enemyy")
         if(me.config.waves.length == 0){
-            if( me.config.enemies.length == 0){
+            if( me.config.enemies.length == 0 && me.config.gameState.gs.life != 0){
                 //todo : udate to next level
-                //me.config.gameState.gs.currentLevel++;
+                me.config.gameState.gs.currentLevel++;
                 me.config.gameState.gs.currentState = me.config.gameState.gs.States.GAME_OVER;
                 clearTimer(me);
-                showGameOverMessage(me,"Level Completed !!");
+                me.config.gameState.gs.points += me.config.gameState.gs.life;
+                me.config.gameState.gs.gameLevelPoints.push(me.config.gameState.gs.life);
+                updateScore(me);
+                showMessage(me,"Level Completed !!");
+                setTimeout(function(){EventBus.dispatch("setTickerStatus");EventBus.dispatch("showLevel");},3000); //TODO : change
+                //showGameOverMessage(me,"Level Completed !!");
             }
 
         }else{
@@ -227,7 +235,8 @@ function StageController(config) {
         me.config.stage.removeChild(life);
         if(--me.config.gameState.gs.life == 0){
             me.config.gameState.gs.currentState = me.config.gameState.gs.States.GAME_OVER;
-            showGameOverMessage(me,"Game Over")
+            showGameOverMessage(me,"Game Over");
+            me.config.gameState.gs.currentLevel = 1;
         }
     }
 
@@ -239,12 +248,15 @@ function StageController(config) {
         var laneHeight = height/totalLanes;
 
         for(var i = 0; i< totalLanes ; i++){
-            var config = {"x":me.freeLeftAreaX, "y" : (laneHeight*i)+me.freeTopAreaY, "width": width, "height": laneHeight, "id" : i+1,
+            var laneId = i+1;
+            var config = {"x":me.freeLeftAreaX, "y" : (laneHeight*i)+me.freeTopAreaY, "width": width, "height": laneHeight, "id" : laneId,
                 "loader" : me.config.loader};
             var lane = new Lane(config);
+            var captchaHolder = me.captchaProcessor.getCaptchaPlaceHolder(lane.getCaptchaPosition(), laneId);
+            lane.addChild(captchaHolder);
             me.config.stage.addChild(lane);
             me.config.lanes.push(lane);
-            loadCaptcha(me,lane);
+            //loadCaptcha(me,lane);
         }
 
     }
@@ -278,7 +290,7 @@ function StageController(config) {
         if(object instanceof  sprites.Enemy){
             var index = me.config.enemies.indexOf(object);
             me.config.enemies.splice(index,1);
-        }else if(object instanceof sprites.SpriteMan || object instanceof  sprites.SpriteMan1){
+        }else if(object instanceof sprites.SpriteMan){
             var index = me.config.players.indexOf(object);
             me.config.players.splice(index,1);
         }else if(object instanceof Gem){
@@ -287,11 +299,21 @@ function StageController(config) {
         }
     }
 
-    StageController.prototype.addPlayer = function(x,y){
-        var config = {"id": "man1", "loader" : this.config.loader}
-        var player = new sprites.SpriteMan1(config);
+    var getRandomID=function(){
+      var idArray =["hat","nohat"];
+      var id=idArray[Math.round(Math.random())];
+        return id;
+    };
+    StageController.prototype.addPlayer = function(lane){
+        var config = {"id": getRandomID(), "loader" : this.config.loader}
+        var player = new sprites.SpriteMan(config);
         this.config.players.push(player);
-        player.setPosition(x, y);
+        var sf = getScaleFactor(lane,player);
+        player.setScale(sf,sf);
+        var start = lane.getStartPoint();
+        var end = lane.getEndPoint();
+        player.setPosition(start.x, start.y);
+        player.setEndPoint(end.x);
         this.config.stage.addChild(player);
         player.run();
         return player;
@@ -321,7 +343,7 @@ function StageController(config) {
 
         if(me.config.gameState.gs.currentLevel == 1){
             me.config.lifes = [];
-            me.config.gameState.gs.life = 3;
+            me.config.gameState.gs.life = 6;
         }
 
     }
@@ -424,55 +446,26 @@ function StageController(config) {
     }
 
     var compareCaptcha = function(me){
-        var flag = false;
-        var inputText = document.getElementById("inputText").value;
-        for(var i = 0 ; i < me.config.lanes.length; i++){
-            var lane = me.config.lanes[i];
-            if(inputText == lane.captcha.text){
-                flag = true;
-                showMessage(me, "Correct");
-                var start = lane.getStartPoint();
-                var end = lane.getEndPoint();
-                var player = me.addPlayer(start.x, start.y);
-                player.setEndPoint(end.x);
-                var sf = getScaleFactor(lane,player);
-                player.setScale(sf,sf);
-                loadCaptcha(me,lane);
-            }
-        }
-        if(!flag){
-            showMessage(me, "InCorrect");
-        }
-        clearText();
-    }
-
-    var passText = function(me){
-        clearText();
-
-        if(++me.passCount >= me.levelConfig.pass){
-            disablePassButton();
-        }
-        for(var i = 0 ; i< me.config.lanes.length; i++){
-            var lane = me.config.lanes[i];
-            loadCaptcha(me, lane);
+        var output = me.captchaProcessor.compare();
+        showMessage(me, output.message);
+        if(output.pass){
+            var lane = getLaneById(me,output.laneId);
+            me.addPlayer(lane);
         }
     }
 
-    var clearText = function(){
-        document.getElementById("inputText").value = "";
-    }
-    var disablePassButton = function(){
-        document.getElementById('passButton').disabled = true;
-    }
-
-    var loadCaptcha = function(me, lane){
-       var index = me.currentIndex++;
-       if(index == 6) me.currentIndex = 0; //todo: change when images load fully
-       var captcha = captchaJson[index];
-       lane.setCaptcha(captcha);
-    }
     var setTickerStatus = function(){
        createjs.Ticker.setPaused(!createjs.Ticker.getPaused());
+    }
+
+    var getLaneById = function(me, laneId){
+        for(var i = 0 ; i < me.config.lanes.length; i++){
+            var lane = me.config.lanes[i];
+            if(lane.laneId == laneId){
+                return lane;
+            }
+        }
+        return null;
     }
 
 

@@ -17,13 +17,17 @@
         var randomLaneNum = Math.floor( Math.random() * this.config.lanes);
         return randomLaneNum;
     }
+    var getEnemyType = function(me){
+        var id = Math.floor( Math.random() * me.config.types.length);
+        return id;
+    }
 
     var generateEnemies = function(me){
 
         for(var i = 0; i< me.config.enemyPerWave; i++){
-            var enemyType = me.config.types[0]; // todo : get a type from types and change images too, random types
+            var enemyType = me.config.types[getEnemyType(me)]; // todo : get a type from types and change images too, random types
             var life = me.config.life; //random
-            var config = {"id": enemyType, "life": life, "loader" : me.config.loader};
+            var config = {"id": enemyType, "life": EnemyData[enemyType].extras.life, "speed": EnemyData[enemyType].extras.speed, "loader" : me.config.loader};// TO DO points load from EnemyData
             var enemy = new sprites.Enemy(config);
             me.enemies.push(enemy);
         }
