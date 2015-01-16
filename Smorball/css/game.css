@@ -6,4 +6,10 @@
 }
 #canvasHolder{
     display: none;
+    height: 20px;
+    margin-top: -5px;
+}
+body {
+    margin: 0px;
+    padding: 0px;
 }
