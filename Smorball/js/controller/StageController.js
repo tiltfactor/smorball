@@ -96,32 +96,10 @@ function StageController(config) {
 
     }
 
-    //var newGame = function (me) {
-    //    me.config.gameState.gs.currentState = me.config.gameState.gs.States.RUN;
-    //    me.levelConfig = Levels[me.config.gameState.gs.currentLevel];
-    //    me.time = 0;
-    //    me.captchaProcessor = new CaptchaProcessor({"loader": me.config.loader, "canvasWidth": me.width, "canvasHeight": me.height});
-    //
-    //    EventBus.dispatch("setTickerStatus");
-    //    resetGame(me);
-    //
-    //
-    //    drawLane(me);
-    //    drawWall(me);
-    //    // textHolder(me);
-    //    //createPlayer(me);
-    //    showLife(me);
-    //    generateWaves(me);
-    //    initShowMessage(me);
-    //    setTimeout(function(){showMessage(me,"Jujubees coming!!!");},2000); //TODO : change
-    //
-    //
-    //}
 
     var newGame = function (me) {
         $("#inputText").val("");
         resetGame(me);
-
 
         me.config.gameState.gs.currentState = me.config.gameState.gs.States.RUN;
         me.levelConfig = Levels[me.config.gameState.gs.currentLevel];
@@ -139,8 +117,6 @@ function StageController(config) {
         var manifest = Manifest.level1;
         else
         manifest = [];
-       // var image = me.captchaProcessor.getCaptchaImageData();
-       // if(image != null) manifest.push(image);
 
         me.config.loader.loadQueue(manifest, _onImagesLoad, me);
     }
@@ -148,14 +124,9 @@ function StageController(config) {
         if(me.config.gameState.gs.currentLevel == 1){
             me.config.gameState.gs.points = 0;
         }
-
-        //drawLane(me);
-        //drawWall(me);
         drawBackGround(me);
         drawScoreBoard(me);
         drawChairs(me);
-
-
         drawLane(me);
 
         drawAdBoards(me);

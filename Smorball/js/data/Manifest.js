@@ -2,7 +2,7 @@
  * Created by user on 9/12/14.
  */
 Manifest = {};
-Manifest.game = [{src: "shapes/grass.jpg", id: "grass"},
+Manifest.game = [
     {src: "shapes/runningBoy.png",id: "man"},
     {src: "shapes/man1.png",id: "man1"},
     {src: "shapes/enemy.png", id: "enemy"},
