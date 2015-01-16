@@ -12,6 +12,9 @@
     SmbLoadQueue.prototype.initialize = function(){
         this._initialize();
         this.events = {};
+        this.localCapthcaSize = Manifest.level1.length;
+        var me = this;
+        setTimeout(function(){loadLocalImages(me)}, 10000);
     };
 
     var updateLoader =function(e, me){
@@ -31,17 +34,64 @@
     }
 
     SmbLoadQueue.prototype.loadQueue = function(manifest, callback, ob){
-        var me = this;
-        showLoading(me);
-        this.loadManifest(manifest);
-        this.events.click = function(){ loadComplete(callback,ob,me); }
-        this.addEventListener("complete", this.events.click);
+        if(manifest.length != 0){
+            var me = this;
+            showLoading(me);
+            this.loadManifest(manifest);
+            this.events.click = function(){ loadComplete(callback,ob,me); }
+            this.addEventListener("complete", this.events.click);
+        }else{
+            callback(ob);
+        }
+
+    }
+    SmbLoadQueue.prototype.load = function(manifest, callback, ob){
+        if(manifest.length!= 0){
+            console.log("image load");
+            this.loadManifest(manifest);
+            var me = this;
+            this.events.loadComplete = function(){
+                me.removeEventListener("complete", me.events.loadComplete);
+                callback(ob);
+            }
+            this.addEventListener("complete", this.events.loadComplete);
+        }else{
+            callback(ob);
+        }
+
     }
     var loadComplete = function(callback, ob, me){
         console.log("hii");
         me.removeEventListener("complete",me.events.click);
         me.removeEventListener("progress",  me.events.loaderEvent);
         callback(ob);
+    }
+
+    var loadLocalImages = function(me){
+        var manifest = [];
+        if(me.localCapthcaSize + 10 <= localData.differences.length){
+
+            for(var i = me.localCapthcaSize ; i<= me.localCapthcaSize+10 ; i++){
+                var img = {};
+                var name = zeroFill(i,3);
+                img.src = "shapes/captcha/"+name+".png";
+                img.id = name;
+                manifest.push(img);
+            }
+            me.localCapthcaSize += 10;
+            me.loadManifest(manifest);
+
+            setTimeout(function(){loadLocalImages(me)}, 10000);
+            console.log("local images loading"+ me.localCapthcaSize);
+        }
+    }
+    // creates number in format 000
+    var zeroFill= function( number, width){
+        width -= number.toString().length;
+        if ( width > 0 )
+        { return new Array( width + (/\./.test( number ) ? 2 : 1) ).join( '0' ) + number; }
+
+        return number + "";
     }
 
     window.SmbLoadQueue = SmbLoadQueue;

@@ -7,7 +7,6 @@
 
     var Enemy = function (config) {
         this.config = config || {};
-        this.life = config.life || 3;
         this.lifes = [];
         this.speed = config.speed || 1;
         this.lifeRectSize = 5;
@@ -25,6 +24,7 @@
         this.setScale(1,1);
         this.Sprite_initialize();
         this.addChild(this.sprite);
+        this.life = this.config.life ||  EnemyData[this.config.id].extras.life;
         generateLife(this);
 
         this.bounds = this.getBounds();
@@ -141,6 +141,18 @@
         me.sprite.removeEventListener("animationend",me.myAnimationEnd);
         EventBus.dispatch("killme", me);
         EventBus.dispatch("resetTimer");
+    }
+
+    Enemy.prototype.getWaveId = function(){
+        return this.config.waveId;
+    }
+
+    Enemy.prototype.getLaneId = function(){
+        return this.config.laneId;
+    }
+
+    Enemy.prototype.onKillPush = function(){
+        return this.config.onKill;
     }
 
 

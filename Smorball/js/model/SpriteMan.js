@@ -20,6 +20,7 @@
         this.Sprite_initialize();
         this.addChild(this.sprite);
         this.hit = false;
+        this.hitPowerup = false;
         this.speed = this.config.speed || 6;
 
         this.bounds = this.getBounds();

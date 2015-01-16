@@ -33,14 +33,19 @@ function StageController(config) {
         var kl = function(){killLife(me)};
         EventBus.addEventListener("killLife", kl);
 
-        var pe = function(){popEnemy(me)}
-        EventBus.addEventListener("popEnemy", pe);
+        var pe = function(object){pushEnemy(me, object.target)}
+        EventBus.addEventListener("pushEnemy", pe);
 
-        var rt = function() {resetTimer(me)};
-        EventBus.addEventListener("resetTimer", rt);
+        var pp = function(object){pushPowerup(me, object.target)}
+        EventBus.addEventListener("pushPowerup", pp);
 
-        var ct = function() {clearTimer(me)};
-        EventBus.addEventListener("clearTimer", ct);
+//        var rt = function() {resetTimer(me)};
+//        EventBus.addEventListener("resetTimer", rt);
+//
+//        var ct = function() {clearTimer(me)};
+//        EventBus.addEventListener("clearTimer", ct);
+        var sm = function(text){showGameMessage(me,text)};
+        EventBus.addEventListener("showMessage",sm);
 
         var cc = function(){compareCaptcha(me)};
         EventBus.addEventListener("compareCaptcha", cc);
@@ -56,6 +61,11 @@ function StageController(config) {
         me.message.y = me.config.stage.canvas.height/2 - 50;
         me.message.alpha = 0;
         me.config.stage.addChild(me.message);
+    }
+    var showGameMessage = function(me,msg){
+        var text =msg.target
+        console.log(text);
+        showMessage(me,text);
     }
 
     var showMessage = function(me,text){
@@ -75,41 +85,367 @@ function StageController(config) {
     }
 
     var setCanvasAttributes = function(me){
-        me.freeBottomAreaY = 100;
-        me.freeLeftAreaX = 100;
-        me.freeTopAreaY = 150;
+
+        me.freeBottomAreaY = 35;
+        me.freeLeftAreaX = 0;
         var canvas = document.getElementById("myCanvas");
-        me.width  = canvas.width =  window.innerWidth-20;
-        me.height = canvas.height =  window.innerHeight-20-me.freeBottomAreaY;
+        me.width  = canvas.width =  window.innerWidth;
+        me.height = canvas.height =  window.innerHeight;
+        me.freeTopAreaY = me.height/2;
         //setDivPosition(me);
 
     }
 
+    //var newGame = function (me) {
+    //    me.config.gameState.gs.currentState = me.config.gameState.gs.States.RUN;
+    //    me.levelConfig = Levels[me.config.gameState.gs.currentLevel];
+    //    me.time = 0;
+    //    me.captchaProcessor = new CaptchaProcessor({"loader": me.config.loader, "canvasWidth": me.width, "canvasHeight": me.height});
+    //
+    //    EventBus.dispatch("setTickerStatus");
+    //    resetGame(me);
+    //
+    //
+    //    drawLane(me);
+    //    drawWall(me);
+    //    // textHolder(me);
+    //    //createPlayer(me);
+    //    showLife(me);
+    //    generateWaves(me);
+    //    initShowMessage(me);
+    //    setTimeout(function(){showMessage(me,"Jujubees coming!!!");},2000); //TODO : change
+    //
+    //
+    //}
+
     var newGame = function (me) {
         $("#inputText").val("");
+        resetGame(me);
+
+
         me.config.gameState.gs.currentState = me.config.gameState.gs.States.RUN;
         me.levelConfig = Levels[me.config.gameState.gs.currentLevel];
         me.time = 0;
-        me.captchaProcessor = new CaptchaProcessor({"loader": me.config.loader, "canvasWidth": me.width, "canvasHeight": me.height});
+        me.captchaProcessor = new CaptchaProcessor({"loader": me.config.loader, "canvasWidth": me.width, "canvasHeight": me.height, "gameState" : me.config.gameState});
+        loadImages(me);
 
-        EventBus.dispatch("setTickerStatus");
+
+
+    }
+    var loadImages = function(me){
+        var _onImagesLoad= function(me){ onImagesLoad(me)};
+        var manifest;
+        if(me.config.gameState.gs.currentLevel == 1)
+        var manifest = Manifest.level1;
+        else
+        manifest = [];
+       // var image = me.captchaProcessor.getCaptchaImageData();
+       // if(image != null) manifest.push(image);
+
+        me.config.loader.loadQueue(manifest, _onImagesLoad, me);
+    }
+    var onImagesLoad = function(me){
         if(me.config.gameState.gs.currentLevel == 1){
             me.config.gameState.gs.points = 0;
         }
-        resetGame(me);
-        generateWaves(me);
+
+        //drawLane(me);
+        //drawWall(me);
+        drawBackGround(me);
+        drawScoreBoard(me);
+        drawChairs(me);
+
 
         drawLane(me);
-        drawWall(me);
-       // textHolder(me);
-        //createPlayer(me);
-        showLife(me);
-        showScore(me);
-        startTimer(me);
+
+        drawAdBoards(me);
+        //drawWall(me);
+
+       // showLife(me);
+       // showScore(me);
         initShowMessage(me);
-        setTimeout(function(){showMessage(me,"Jujubees coming!!!");},2000); //TODO : change
+        generateWaves(me);
+        //startTimer(me);
+//        initShowMessage(me);
+        EventBus.dispatch("setTickerStatus");
+
+        //setTimeout(function(){showMessage(me,"Jujubees coming!!!");},2000); //TODO : change
+    }
+    var drawBackGround = function(me){
+        me.bgContainer = new createjs.Container();
+        me.config.stage.addChild(me.bgContainer);
+        var shape = new createjs.Shape();
+        shape.graphics.beginBitmapFill(me.config.loader.getResult("background"))
+            .drawRect(0,0,me.width,me.height);
+        //me.bgContainer.scaleX = me.width/800;
+        me.bgContainer.scaleY = 0.5;
+        me.bgContainer.addChild(shape);
+        //container.scaleY =0.555;
+    }
+    var drawScoreBoard = function(me){
+        me.scoreContainer = new createjs.Container();
+        me.config.stage.addChild(me.scoreContainer);
+        var score = new createjs.Bitmap(me.config.loader.getResult("score"));
+        score.regX = score.getTransformedBounds().width/2;
+        score.y = 5;
+        score.scaleX = 0.5;
+        score.scaleY = 0.5;
+        me.scoreContainer.addChild(score);
+        var cmtBox = new createjs.Bitmap(me.config.loader.getResult("cmt"));
+        cmtBox.regX = cmtBox.getTransformedBounds().width/2;
+        cmtBox.scaleX = 0.5;
+        cmtBox.scaleY = 0.5;
+        cmtBox.y = score.getTransformedBounds().height;
+
+        drawSpeakers(me,cmtBox,score);
+
+        me.scoreContainer.addChild(cmtBox );
+        me.scoreContainer.x =me.width/2;
+
+        me.scoreContainer.scaleX = me.width/800;
+        me.scoreContainer.scaleY = me.height/600;
+    }
+    var drawSpeakers = function(me,cmtBox,score){
+        var speakerContainer = new createjs.Container();
+        var speakerContainer1 = new createjs.Container();
+        var speaker = new createjs.Bitmap(me.config.loader.getResult("speaker"));
+        var pole = new createjs.Bitmap(me.config.loader.getResult("pole"));
+        pole.scaleX = 0.5;
+        pole.scaleY = 0.5;
+        speaker.regX = speaker.getTransformedBounds().width/2;
+        speaker.scaleX = 0.5;
+        speaker.scaleY = 0.5;
+        speaker.x = me.scoreContainer.x-((cmtBox.getTransformedBounds().width/2)+(speaker.getTransformedBounds().width/2));
+        speaker.y = score.getTransformedBounds().height+(score.getTransformedBounds().height/2);
+        pole.x = speaker.x-speaker.getTransformedBounds().width/2+20;
+        pole.y = speaker.y+speaker.getTransformedBounds().height/2;
+        speakerContainer.addChild(pole,speaker);
+        me.scoreContainer.addChild(speakerContainer);
+
+        var speaker = new createjs.Bitmap(me.config.loader.getResult("speaker"));
+        speaker.regX = speaker.getTransformedBounds().width/2;
+        speaker.scaleX = -0.5;
+        speaker.scaleY = 0.5;
+        var pole = new createjs.Bitmap(me.config.loader.getResult("pole"));
+        pole.scaleX = 0.5;
+        pole.scaleY = 0.5;
+        speaker.x = me.scoreContainer.x+cmtBox.getTransformedBounds().width/2+speaker.getTransformedBounds().width/2;
+        speaker.y = score.getTransformedBounds().height+score.getTransformedBounds().height/2;
+        pole.x = speaker.x-speaker.getTransformedBounds().width/2+20;
+        pole.y = speaker.y+speaker.getTransformedBounds().height/2;
+        speakerContainer1.addChild(pole,speaker);
+        me.scoreContainer.addChild(speakerContainer1);
+    }
+    var drawChairs= function(me){
+        me.seatContainer1 = new createjs.Container();
+        me.seatContainer2 = new createjs.Container();
+        me.config.stage.addChild(me.seatContainer1,me.seatContainer2);
+        var seat1 = createSeats(-25,80,me);
+        me.seatContainer1.addChild(seat1);
+        var w = seat1.getTransformedBounds().width  -   25;
+        var seat1=createSeats(w,80,me);
+        me.seatContainer1.addChild(seat1);
+        var w = w + seat1.getTransformedBounds().width;
+        var seat1=createSeats(w,80,me);
+        me.seatContainer1.addChild(seat1);
+        var w = w + seat1.getTransformedBounds().width;
+        var seat1=createSeats(w,80,me);
+        me.seatContainer1.addChild(seat1);
+        var w = w + seat1.getTransformedBounds().width;
+        var seat1=createSeats(w,80,me);
+        me.seatContainer1.addChild(seat1);
 
 
+
+        var seat2 = createSeats(0,110,me);
+        me.seatContainer1.addChild(seat2);
+        var w = seat2.getTransformedBounds().width-0;
+        var seat2 = createSeats(w,110,me);
+        me.seatContainer1.addChild(seat2);
+        var w = w + seat2.getTransformedBounds().width;
+        var seat2 = createSeats(w,110,me);
+        me.seatContainer1.addChild(seat2);
+        var w = w + seat2.getTransformedBounds().width;
+        var seat2 = createSeats(w,110,me);
+        me.seatContainer1.addChild(seat2);
+        var w = w + seat2.getTransformedBounds().width;
+        var seat2 = createSeats(w,110,me);
+        me.seatContainer1.addChild(seat2);
+
+
+        var seat3 = createSeats(-25,140,me);
+        me.seatContainer1.addChild(seat3);
+        var w = seat3.getTransformedBounds().width  -   25;
+        var seat3 =createSeats(w,140,me);
+        me.seatContainer1.addChild(seat3);
+        var w = w + seat3.getTransformedBounds().width;
+        var seat3 =createSeats(w,140,me);
+        me.seatContainer1.addChild(seat3);
+        var w = w + seat3.getTransformedBounds().width;
+        var seat3 =createSeats(w,140,me);
+        me.seatContainer1.addChild(seat3);
+        var w = w + seat3.getTransformedBounds().width;
+        var seat3 =createSeats(w,140,me);
+        me.seatContainer1.addChild(seat3);
+
+
+        var seat4 = createSeats(0,170,me);
+        me.seatContainer1.addChild(seat4);
+        var w = seat4.getTransformedBounds().width-0;
+        var seat4 =createSeats(w,170,me);
+        me.seatContainer1.addChild(seat4);
+        var w = w + seat4.getTransformedBounds().width;
+        var seat4 =createSeats(w,170,me);
+        me.seatContainer1.addChild(seat4);
+        var w = w + seat4.getTransformedBounds().width;
+        var seat4 =createSeats(w,170,me);
+        me.seatContainer1.addChild(seat4);
+        var w = w + seat4.getTransformedBounds().width;
+        var seat4 =createSeats(w,170,me);
+        me.seatContainer1.addChild(seat4);
+
+        var seat5 = createSeats(-25,200,me);
+        me.seatContainer1.addChild(seat5);
+        var w = seat5.getTransformedBounds().width  -   25;
+        var seat5 =createSeats(w,200,me);
+        me.seatContainer1.addChild(seat5);
+        var w = w + seat5.getTransformedBounds().width;
+        var seat5 =createSeats(w,200,me);
+        me.seatContainer1.addChild(seat5);
+        var w = w + seat5.getTransformedBounds().width;
+        var seat5 =createSeats(w,200,me);
+        me.seatContainer1.addChild(seat5);
+        var w = w + seat5.getTransformedBounds().width;
+        var seat5 =createSeats(w,200,me);
+        me.seatContainer1.addChild(seat5);
+
+
+
+
+//            var tWidth = container3.x+container3.getBounds().width;
+
+        me.seatContainer2.x= me.scoreContainer.x+(me.scoreContainer.getTransformedBounds().width/2)-seat1.getTransformedBounds().width/2;
+        var next1 = createSeats(25,80,me);
+        me.seatContainer2.addChild(next1);
+        var w = next1.getTransformedBounds().width  +25;
+        var next1 = createSeats(w,80,me);
+        me.seatContainer2.addChild(next1);
+        var w = w + next1.getTransformedBounds().width;
+        var next1 = createSeats(w,80,me);
+        me.seatContainer2.addChild(next1);
+        var w = w + next1.getTransformedBounds().width;
+        var next1 = createSeats(w,80,me);
+        me.seatContainer2.addChild(next1);
+        var w = w + next1.getTransformedBounds().width;
+        var next1 = createSeats(w,80,me);
+        me.seatContainer2.addChild(next1);
+
+
+        var next1 = createSeats(0,110,me);
+        me.seatContainer2.addChild(next1);
+        var w = next1.getTransformedBounds().width ;
+        var next1 = createSeats(w,110,me);
+        me.seatContainer2.addChild(next1);
+        var w = w + next1.getTransformedBounds().width;
+        var next1 = createSeats(w,110,me);
+        me.seatContainer2.addChild(next1);
+        var w = w + next1.getTransformedBounds().width;
+        var next1 = createSeats(w,110,me);
+        me.seatContainer2.addChild(next1);
+        var w = w + next1.getTransformedBounds().width;
+        var next1 = createSeats(w,110,me);
+        me.seatContainer2.addChild(next1);
+
+        var next1 = createSeats(25,140,me);
+        me.seatContainer2.addChild(next1);
+        var w = next1.getTransformedBounds().width  +25;
+        var next1 = createSeats(w,140,me);
+        me.seatContainer2.addChild(next1);
+        var w = w + next1.getTransformedBounds().width;
+        var next1 = createSeats(w,140,me);
+        me.seatContainer2.addChild(next1);
+        var w = w + next1.getTransformedBounds().width;
+        var next1 = createSeats(w,140,me);
+        me.seatContainer2.addChild(next1);
+        var w = w + next1.getTransformedBounds().width;
+        var next1 = createSeats(w,140,me);
+        me.seatContainer2.addChild(next1);
+
+        var next1 = createSeats(0,170,me);
+        me.seatContainer2.addChild(next1);
+        var w = next1.getTransformedBounds().width;
+        var next1 = createSeats(w,170,me);
+        me.seatContainer2.addChild(next1);
+        var w = w + next1.getTransformedBounds().width;
+        var next1 = createSeats(w,170,me);
+        me.seatContainer2.addChild(next1);
+        var w = w + next1.getTransformedBounds().width;
+        var next1 = createSeats(w,170,me);
+        me.seatContainer2.addChild(next1);
+        var w = w + next1.getTransformedBounds().width;
+        var next1 = createSeats(w,170,me);
+        me.seatContainer2.addChild(next1);
+
+        var next1 = createSeats(25,200,me);
+        me.seatContainer2.addChild(next1);
+        var w = next1.getTransformedBounds().width  +25;
+        var next1 = createSeats(w,200,me);
+        me.seatContainer2.addChild(next1);
+        var w = w + next1.getTransformedBounds().width;
+        var next1 = createSeats(w,200,me);
+        me.seatContainer2.addChild(next1);
+        var w = w + next1.getTransformedBounds().width;
+        var next1 = createSeats(w,200,me);
+        me.seatContainer2.addChild(next1);
+        var w = w + next1.getTransformedBounds().width;
+        var next1 = createSeats(w,200,me);
+        me.seatContainer2.addChild(next1);
+
+
+
+
+        me.seatContainer1.scaleX = me.width/800;
+        me.seatContainer2.scaleX = me.width/800;
+        me.seatContainer1.scaleY = me.height/600;
+        me.seatContainer2.scaleY = me.height/600;
+    }
+    var createSeats=function (x,y,me){
+        var seat = new createjs.Bitmap(me.config.loader.getResult("seat"));
+        seat.setTransform(x,y,0.5,0.5);
+        seat.point={"x":seat.x,"y":seat.y};
+
+
+
+        return seat;
+
+    }
+    var drawAdBoards = function(me){
+        me.adBoardContainer = new createjs.Container();
+        me.config.stage.addChild(me.adBoardContainer);
+        var ad = new createjs.Bitmap(me.config.loader.getResult("ad"));
+        ad.scaleX=0.5;
+        ad.scaleY=0.5;
+        me.adBoardContainer.addChild(ad);
+        var ad = new createjs.Bitmap(me.config.loader.getResult("ad"));
+        ad.scaleX=0.5;
+        ad.scaleY=0.5;
+
+        var w = me.adBoardContainer.x+ad.getTransformedBounds().width;
+        ad.x = w;
+        me.adBoardContainer.addChild(ad);
+        var ad = new createjs.Bitmap(me.config.loader.getResult("ad"));
+        ad.scaleX=0.5;
+        ad.scaleY=0.5;
+        var w = w + ad.getTransformedBounds().width;
+        ad.x = w;
+        me.adBoardContainer.addChild(ad);
+
+        me.adBoardContainer.y = me.seatContainer1.getTransformedBounds().y + me.seatContainer1.getTransformedBounds().height -45;
+
+
+        me.adBoardContainer.scaleX = me.width/800;
+
+        me.adBoardContainer.scaleY = me.height/600;
     }
     var showScore = function(me){
         me.scoreText = new createjs.Text("Total Score :"+me.config.gameState.gs.points, "20px Arial", "#000000");
@@ -120,90 +456,18 @@ function StageController(config) {
         me.scoreText.text = "Total Score :"+me.config.gameState.gs.points;
     }
 
-    var startTimer = function(me){
-       me.timer = setInterval(function(){EventBus.dispatch("popEnemy")},getTime(me));
-       EventBus.dispatch("popEnemy");
-    }
-    var resetTimer = function(me){
-        if(me.config.enemies.length < me.levelConfig.maxOnGround){
-            clearInterval(me.timer);
-            startTimer(me);
-        }
-
-    }
-
-    var clearTimer = function(me){
-        clearInterval(me.timer);
-    }
-
 
     var getTime = function(me){
-       var width = me.width - me.freeLeftAreaX- 300; //left lane area
-       me.timeDelay = ((width/createjs.Ticker.getFPS()*1)- me.levelConfig.time) *1000;
-       return me.timeDelay;
+        var width = me.width - me.freeLeftAreaX- 300; //left lane area
+        me.timeDelay = ((width/createjs.Ticker.getFPS()*1)- me.levelConfig.time) *1000;
+        return me.timeDelay;
     }
 
     var generateWaves = function(me){
-        for(var i = 0 ; i< me.levelConfig.waves; i++ ){
-           var config = {"enemyPerWave" : me.levelConfig.enemyPerWave, "life" : me.levelConfig.life,
-               types : me.levelConfig.types, "lanes": me.levelConfig.lanes,  "loader" : me.config.loader };
-           var wave = new Wave(config);
-           me.config.waves.push(wave);
-        }
+        me.waves = new Waves({"waves": me.levelConfig.waves,"lanes": me.levelConfig.lanes, "loader" : me.config.loader});
+        me.waves.init();
     }
 
-    var popEnemy = function(me){
-        console.log("enemyy")
-        if(me.config.waves.length == 0){
-            if( me.config.enemies.length == 0 && me.config.gameState.gs.life != 0){
-                //todo : udate to next level
-                me.config.gameState.gs.currentLevel++;
-                me.config.gameState.gs.currentState = me.config.gameState.gs.States.GAME_OVER;
-                clearTimer(me);
-                me.config.gameState.gs.points += me.config.gameState.gs.life;
-                me.config.gameState.gs.gameLevelPoints.push(me.config.gameState.gs.life);
-                updateScore(me);
-                showMessage(me,"Level Completed !!");
-                setTimeout(function(){EventBus.dispatch("setTickerStatus");EventBus.dispatch("showLevel");},3000); //TODO : change
-                //showGameOverMessage(me,"Level Completed !!");
-            }
-
-        }else{
-            if(me.config.enemies.length == 0){
-                popEnemyFromWave(me);
-            }else if(me.config.enemies.length < me.levelConfig.maxOnGround){
-                var timeDiff = Date.now()- me.time;
-                if(timeDiff > me.timeDelay/3){
-                    popEnemyFromWave(me);
-                }
-            }
-
-
-        }
-
-
-    }
-    var popEnemyFromWave = function(me){
-        me.time = Date.now();
-        var wave = me.config.waves[me.config.waves.length -1];
-        var enemy = wave.enemies.pop();
-        me.config.enemies.push(enemy);
-        me.config.stage.addChild(enemy);
-        var lane = me.config.lanes[wave.getLaneNumber()];
-
-        var sf = getScaleFactor(lane,enemy);
-        enemy.setScale(sf,sf);
-        var start = lane.getEndPoint();
-        var end = lane.getEnemyEndPoint();
-
-        enemy.setPosition(start.x, start.y);
-        enemy.setEndPoint(end.x);
-        enemy.run();
-
-        if(wave.enemies.length == 0){
-            me.config.waves.pop();
-        }
-    }
 
     var getScaleFactor = function(lane,ob){
         var laneHeight = lane.getHeight()-20;
@@ -235,15 +499,14 @@ function StageController(config) {
         me.config.stage.removeChild(life);
         if(--me.config.gameState.gs.life == 0){
             me.config.gameState.gs.currentState = me.config.gameState.gs.States.GAME_OVER;
-            showGameOverMessage(me,"Game Over");
-            me.config.gameState.gs.currentLevel = 1;
+            showGameOverMessage(me,"Game Over")
         }
     }
 
 
     var drawLane = function(me){
         var width = (me.width- me.freeLeftAreaX);
-        var height = (me.height - me.freeTopAreaY);
+        var height = (me.height - me.freeTopAreaY-me.freeBottomAreaY);
         var totalLanes = me.levelConfig.lanes;
         var laneHeight = height/totalLanes;
 
@@ -252,12 +515,20 @@ function StageController(config) {
             var config = {"x":me.freeLeftAreaX, "y" : (laneHeight*i)+me.freeTopAreaY, "width": width, "height": laneHeight, "id" : laneId,
                 "loader" : me.config.loader};
             var lane = new Lane(config);
-            var captchaHolder = me.captchaProcessor.getCaptchaPlaceHolder(lane.getCaptchaPosition(), laneId);
+            var captchaHolder = me.captchaProcessor.getCaptchaPlaceHolder(lane.getMaxCaptchaWidth(),lane.getHeight(), laneId);
             lane.addChild(captchaHolder);
+
             me.config.stage.addChild(lane);
             me.config.lanes.push(lane);
             //loadCaptcha(me,lane);
         }
+
+        var config = {"x":me.freeLeftAreaX, "y" : me.height-me.freeBottomAreaY, "width": width, "height": me.freeBottomAreaY, "id" : 4,
+            "loader" : me.config.loader};
+        var lane = new Lane(config);
+        me.config.stage.addChild(lane);
+
+
 
     }
 
@@ -290,6 +561,7 @@ function StageController(config) {
         if(object instanceof  sprites.Enemy){
             var index = me.config.enemies.indexOf(object);
             me.config.enemies.splice(index,1);
+            updateLevelStatus(me,object);
         }else if(object instanceof sprites.SpriteMan){
             var index = me.config.players.indexOf(object);
             me.config.players.splice(index,1);
@@ -299,13 +571,8 @@ function StageController(config) {
         }
     }
 
-    var getRandomID=function(){
-      var idArray =["hat","nohat"];
-      var id=idArray[Math.round(Math.random())];
-        return id;
-    };
     StageController.prototype.addPlayer = function(lane){
-        var config = {"id": getRandomID(), "loader" : this.config.loader}
+        var config = {"id": "man1", "loader" : this.config.loader}
         var player = new sprites.SpriteMan(config);
         this.config.players.push(player);
         var sf = getScaleFactor(lane,player);
@@ -337,8 +604,10 @@ function StageController(config) {
         me.config.players = [];
         me.config.enemies = [];
         me.config.gems = [];
+        me.config.powerups = [];
         me.config.lanes = [];
         me.config.waves = [];
+        me.config.myPowerups = [];
         me.passCount = 0;
 
         if(me.config.gameState.gs.currentLevel == 1){
@@ -350,6 +619,7 @@ function StageController(config) {
 
     var removeAllChildren = function(me){
         me.config.stage.removeAllChildren();
+        me.config.stage.update();
     }
 
     var removeAllEvents = function(me){
@@ -365,7 +635,7 @@ function StageController(config) {
             player.setSpeed(i+1);
             player.setEndPoint(end.x);
 
-          if(i == 1) continue;
+            if(i == 1) continue;
             var start = me.config.lanes[i].getEndPoint();
             var end = me.config.lanes[i].getEnemyEndPoint();
 
@@ -381,7 +651,7 @@ function StageController(config) {
         me.config.gems.push(gem);
 
 
-       me.config.stage.addChild( gem);
+        me.config.stage.addChild( gem);
 
 
     }
@@ -399,18 +669,39 @@ function StageController(config) {
                 var player = me.config.players[i];
                 if(player.hit == true) continue;
                 var enemy = hitTestEnemies(player,me);
-                var gem = hitTestGems(player,me);
+                var powerup = hitTestPowerups(player,me);
                 if(enemy != null && player.hit == false && enemy.hit == false){
                     player.kill();
                     player.hit = true;
                     enemy.kill();
+
                 }
-                if(gem != null){
+                /*if(gem != null){
                     gem.kill();
+                }*/
+                if(powerup != null && player.hitPowerup == false && powerup.hit == false){
+                    player.hitPowerup = true;
+                    var index = me.config.powerups.indexOf(powerup);
+                    me.config.powerups.splice(index,1);
+                    me.config.myPowerups.push(powerup);
+                    showMyPowerups(me);
+                    updateLevelStatus(me,powerup);
                 }
             }
         }
 
+    }
+    var showMyPowerups = function(me){
+        var x = me.width-1000;
+        var y = 20;
+        var padding = 5;
+        for(var i=0; i<me.config.myPowerups.length; i++){
+            var powerup = me.config.myPowerups[i];
+            x = x + powerup.getWidth() + padding;
+            powerup.x = x;
+            powerup.y = y;
+            powerup.stand();
+        }
     }
 
     var hitTestEnemies = function(player,me){
@@ -420,13 +711,28 @@ function StageController(config) {
                 if(enemy.hit == true) continue;
                 var hit = isCollision(player,enemy);
                 if(hit){
-                   return enemy;
+                    return enemy;
                 }
             }
         }
     }
+    var hitTestPowerups = function(player,me){
+        if(me.config.powerups.length != 0){
+            for(var i = 0; i< me.config.powerups.length ; i++){
+                var powerup = me.config.powerups[i];
+                var hit = isCollisionPowerup(player,powerup);
+                if(hit){
+                    return powerup;
+                }
+            }
+        }
+    }
+    var isCollisionPowerup = function(player, object){
+        return (object.x <= player.x + player.getWidth() &&
+            player.x <= object.x + object.getWidth());
+    }
 
-    var hitTestGems = function(player,me){
+    /*var hitTestGems = function(player,me){
         if(me.config.gems.length != 0){
             for(var i = 0; i< me.config.gems.length ; i++){
                 var gem = me.config.gems[i];
@@ -436,7 +742,7 @@ function StageController(config) {
                 }
             }
         }
-    }
+    }*/
 
     var isCollision = function(player, object){
         return (object.x <= player.x + player.getWidth() &&
@@ -455,7 +761,7 @@ function StageController(config) {
     }
 
     var setTickerStatus = function(){
-       createjs.Ticker.setPaused(!createjs.Ticker.getPaused());
+        createjs.Ticker.setPaused(!createjs.Ticker.getPaused());
     }
 
     var getLaneById = function(me, laneId){
@@ -468,6 +774,56 @@ function StageController(config) {
         return null;
     }
 
+    var updateLevelStatus = function(me, object){
+        var type = "";
+        if(object instanceof sprites.Enemy) type = "enemy";
+        me.waves.update(object.getWaveId(), object.onKillPush(), type)
+        if(me.waves.getStatus() && me.config.enemies.length == 0){
+           updateLevel(me);
+        }
+    }
+
+    var updateLevel = function(me){
+        me.config.gameState.gs.currentLevel++;
+        me.config.gameState.gs.currentState = me.config.gameState.gs.States.GAME_OVER;
+        showMessage(me,"Level Completed !!");
+        me.config.gameState.gs.points += me.config.gameState.gs.life;
+        me.config.gameState.gs.gameLevelPoints.push(me.config.gameState.gs.life);
+        setTimeout(function(){EventBus.dispatch("setTickerStatus");EventBus.dispatch("showLevel");},3000); //TODO : change
+    }
+
+    var pushEnemy = function(me,enemy){
+        setEnemyProperties(me,enemy);
+        me.config.stage.addChild(enemy);
+        me.config.enemies.push(enemy);
+    }
+
+    var setEnemyProperties  = function(me,enemy){
+        var lane = me.config.lanes[enemy.getLaneId()]; //enemy.getLaneId();
+        var sf = getScaleFactor(lane,enemy);
+        enemy.setScale(sf,sf);
+        var start = lane.getEndPoint();
+        var end = lane.getEnemyEndPoint();
+        enemy.setPosition(start.x, start.y);
+        enemy.setEndPoint(end.x);
+        enemy.run();
+
+    }
+    var pushPowerup = function(me,powerup){
+        setPowerupProperties(me,powerup);
+        me.config.stage.addChild(powerup);
+        me.config.powerups.push(powerup);
+    }
+
+    var setPowerupProperties  = function(me,powerup){
+        var lane = me.config.lanes[powerup.getLaneId()]; //enemy.getLaneId();
+        var sf = getScaleFactor(lane,powerup);
+        powerup.setScale(sf,sf);
+        var powerupPos = lane.getPowerupPosition();
+        powerup.setPosition(powerupPos.x,powerupPos.y);
+        powerup.run();
+
+    }
 
 
 }

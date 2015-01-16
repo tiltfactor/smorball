@@ -12,15 +12,3 @@ PlayerData.man1 = {
     "frames": {"regX": 0, "height": 148, "count": 30, "regY": 0, "width": 120},
     "animations": {"run": [0, 29, "run", 1.5], "jump": [12, 17], "stand": [3], "fall" :[18,24,4]}
 }
-PlayerData.nohat = {
-    "images":["nohat"],
-    "frames": {"regX": 0, "height": 237, "count": 1, "regY": 0, "width": 181},
-    "animations": {"run": [0, 0, "run", 1.5], "jump": [0, 0], "stand": [0], "fall" :[0,0,4]}
-}
-PlayerData.hat = {
-    "images":["hat"],
-    "frames": {"regX": 0, "height": 237, "count": 1, "regY": 0, "width": 181},
-    "animations": {"run": [0, 0, "run", 1.5], "jump": [0, 0], "stand": [0], "fall" :[0,0,4]}
-}
-
-

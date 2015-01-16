@@ -9,6 +9,7 @@ function GameState(config){
         this.gs = {};
 
         this.totalLevels = 20;
+        this.captchaDatasArray = [localData];
 
         this.gs.States = {
             MAIN_MENU:0,RUN:1,SHOP:2,GAME_OVER :3
@@ -16,7 +17,7 @@ function GameState(config){
         this.gs.currentState = this.gs.States.MAIN_MENU;
 
         this.gs.currentLevel = this.json.currentLevel || 1;
-        this.gs.life = this.json.life || 3;
+        this.gs.life = this.json.life || 6;
         this.gs.points = this.json.points || 0;
         this.gs.gameLevelPoints = this.json.gameLevelPoints || [];
         this.gs.level = this.json.level || 1;
