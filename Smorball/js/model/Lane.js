@@ -11,11 +11,9 @@
         this.Container_initialize();
         this.x = this.config.x;
         this.y = this.config.y;
-        drawLayout1(this);
+        drawLayout(this);
         //setBackgroundText(this);
         setLeftArea(this);
-       // initCaptchaImage(this);
-        //this.laneNumber = num;
     };
     var initCaptchaImage = function(me){
         me.captcha = new createjs.Bitmap();
@@ -70,27 +68,8 @@
     Lane.prototype.getHeight = function(){
         return this.config.height;
     }
-    var drawLayout=function(me){
-        var totalTiles = 5;
-        var tileWidth = 352;
-        var tileHeight = 192;
-        var padding = 10;
-        var reqTileWidth = me.config.width/totalTiles;
-        var sX = reqTileWidth/tileWidth;
-        var sY = (me.config.height+padding)/tileHeight;
-        var matrix = new createjs.Matrix2D;
-        matrix.scale(sX, sY);
-        var tileImage = "grassLane"+(me.config.id % 2);
-        var shape = new createjs.Shape();
-        shape.graphics
-            .beginBitmapFill(me.config.loader.getResult(tileImage),"repeat", matrix)
-            .drawRect(0,0,me.config.width,me.config.height+padding);
 
-        me.addChild(shape);
-
-    };
-
-    var drawLayout1 = function(me){
+    var drawLayout = function(me){
         var totalTiles = 9;
         var tileWidth = 178;
         var tileHeight = 192;
@@ -126,7 +105,7 @@
     var setLeftArea = function(me){
         var shape = new createjs.Shape();
         shape.graphics.beginBitmapFill(me.config.loader.getResult("left"))
-            .drawRect(me.leftArea,0,2, me.config.height);
+            .drawRect(me.leftArea,0,3, me.config.height);
         me.addChild(shape);
     }
     var setBackgroundText=function(me){

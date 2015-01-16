@@ -504,14 +504,6 @@ function StageController(config) {
     }
 
 
-    var drawWall = function(me){
-        var shape = new createjs.Shape();
-        shape.graphics.beginBitmapFill(me.config.loader.getResult("wall"))
-            .drawRect(me.freeLeftAreaX,0,me.width,100);
-        shape.y = me.freeTopAreaY - 100;
-        me.config.stage.addChild(shape);
-    }
-
     var resumeGame = function (me) {
         EventBus.dispatch("exitMenu");
         EventBus.dispatch("setTickerStatus");
