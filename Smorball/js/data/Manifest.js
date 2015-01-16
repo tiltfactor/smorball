@@ -12,8 +12,6 @@ Manifest.game = [{src: "shapes/grass.jpg", id: "grass"},
     {src: "shapes/wall.jpg", id: "wall"},
     {src: "shapes/heart.png", id: "heart"},
 
-    {src: "shapes/grass_lane0.png", id: "grassLane0"},
-    {src: "shapes/grass_lane1.png", id: "grassLane1"},
     {src: "shapes/grass_tile1.png", id: "grassTile1"},
     {src: "shapes/grass_tile2.png", id: "grassTile2"},
     {src: "shapes/grass_tile3.png", id: "grassTile3"},
