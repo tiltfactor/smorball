@@ -64,7 +64,7 @@
         //dispatch to pushGem.
         //currently set some constant postion in lane, later can modify.
         var type = properties[0];
-        var lane = properties[1]-1;
+        var lane = properties[1];
         var time = properties[2];
         var onKill = (time == undefined || time == -1) ? true: false;
         var config = {"id": type, "laneId": lane, "waveId": this.config.id, "onKill": onKill, "loader" : this.config.loader};

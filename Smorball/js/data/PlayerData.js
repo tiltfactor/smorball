@@ -12,3 +12,8 @@ PlayerData.man1 = {
     "frames": {"regX": 0, "height": 148, "count": 30, "regY": 0, "width": 120},
     "animations": {"run": [0, 29, "run", 1.5], "jump": [12, 17], "stand": [3], "fall" :[18,24,4]}
 }
+PlayerData.player_normal = {
+    "images":["player_normal"],
+    "frames": {"regX": 0, "height": 292, "count": 1, "regY": 0, "width": 177},
+    "animations": {"run": [0, 0, "run", 1.5], "jump": [0, 0], "stand": [0], "fall" :[0,0,4]}
+}

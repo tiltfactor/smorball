@@ -50,23 +50,26 @@
     Lane.prototype.getStartPoint = function(){
         var point = {};
         point.x = this.config.x +10;
-        point.y = this.config.y + this.config.height/2;//this.config.y + (this.config.height/7);
+        point.y = this.config.y + this.config.height*0.75 ///2;//this.config.y + (this.config.height/7);
         return point;
     }
     Lane.prototype.getEnemyEndPoint = function(){
         var point = {};
         point.x = this.leftArea+this.config.x;
-        point.y = this.config.y + this.config.height/2;//this.config.y + (this.config.height/7);
+        point.y = this.config.y + this.config.height*0.75///2;//this.config.y + (this.config.height/7);
         return point;
     }
     Lane.prototype.getEndPoint = function(){
         var point = {};
         point.x = this.config.x + this.config.width;
-        point.y = this.config.y + this.config.height/2;//this.config.y + (this.config.height/7);
+        point.y = this.config.y + this.config.height*0.75;//this.config.y + (this.config.height/7);
         return point;
     }
     Lane.prototype.getHeight = function(){
         return this.config.height;
+    }
+    Lane.prototype.getLaneId = function(){
+        return this.config.id;
     }
 
     var drawLayout = function(me){
@@ -116,6 +119,7 @@
         me.addChild(msg);
 
     };
+
 
     window.Lane = Lane;
 }());

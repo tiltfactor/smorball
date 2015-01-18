@@ -3,6 +3,7 @@
  */
 Manifest = {};
 Manifest.game = [
+    {src: "shapes/player_normal.png",id: "player_normal"},
     {src: "shapes/runningBoy.png",id: "man"},
     {src: "shapes/man1.png",id: "man1"},
     {src: "shapes/enemy.png", id: "enemy"},
@@ -16,7 +17,7 @@ Manifest.game = [
     {src: "shapes/grass_tile4.png", id: "grassTile4"},
 
 
-
+    {src: "shapes/enemy_regular.png", id: "enemy_regular"},
     {src: "shapes/boss_walk.png", id: "boss_walk"},
     {src: "shapes/boss_die.png",id: "boss_die"},
     {src:"shapes/badGuy_walk.png",id:"badGuy_walk"},

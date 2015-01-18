@@ -58,3 +58,14 @@ EnemyData.regular = {
         "life": 1
     }
 };
+EnemyData.enemy_regular = {
+    "data":{
+        "images":["enemy_regular"],
+        "frames": {"regX": 0, "height": 513, "count": 1, "regY": 0, "width": 493},
+        "animations": {"run": [0, 0, "run", 0.2],  "die" : [0,0,0.2],"stand":[0,0]}
+    },
+    "extras":{
+        "speed": 2,
+        "life": 6
+    }
+};

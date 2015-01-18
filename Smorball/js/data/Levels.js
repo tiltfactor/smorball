@@ -5,7 +5,7 @@ Levels = [];
 
 Levels[1] = { "level" : 1, "lanes" : 3 , "pass" : 1,
     "waves" : { "activeWaves" : 1, "time" : 1000, "maxOnGround" : 4, "data": [
-        {"types" : ["weak"], "time": 1000, "size" : 2, stageDatas: [] },
+        {"types" : ["enemy_regular"], "time": 5000, "size" : 2, stageDatas: [] },
         {"types" : ["fast"], "time": -1, "size" : 1, stageDatas: [["fast",1,6000],["fast",1]] }
     ]  }
 }

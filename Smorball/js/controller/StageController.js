@@ -441,7 +441,7 @@ function StageController(config) {
 
 
     var getScaleFactor = function(lane,ob){
-        var laneHeight = lane.getHeight()-20;
+        var laneHeight = lane.getHeight()+ lane.getHeight()/2;
         var obHeight = ob.getHeight();
         var scaleFactor = 1;
         if(laneHeight/obHeight < 1){
@@ -535,7 +535,7 @@ function StageController(config) {
     }
 
     StageController.prototype.addPlayer = function(lane){
-        var config = {"id": "man1", "loader" : this.config.loader}
+        var config = {"id": "player_normal", "loader" : this.config.loader, "laneId" : lane.getLaneId() }
         var player = new sprites.SpriteMan(config);
         this.config.players.push(player);
         var sf = getScaleFactor(lane,player);
@@ -671,7 +671,7 @@ function StageController(config) {
         if(me.config.enemies.length != 0){
             for(var i = 0; i< me.config.enemies.length ; i++){
                 var enemy = me.config.enemies[i];
-                if(enemy.hit == true) continue;
+                if(enemy.hit == true || player.getLaneId() != enemy.getLaneId()) continue;
                 var hit = isCollision(player,enemy);
                 if(hit){
                     return enemy;
@@ -718,23 +718,13 @@ function StageController(config) {
         var output = me.captchaProcessor.compare();
         showMessage(me, output.message);
         if(output.pass){
-            var lane = getLaneById(me,output.laneId);
+            var lane = getLaneById(output.laneId, me);
             me.addPlayer(lane);
         }
     }
 
     var setTickerStatus = function(){
         createjs.Ticker.setPaused(!createjs.Ticker.getPaused());
-    }
-
-    var getLaneById = function(me, laneId){
-        for(var i = 0 ; i < me.config.lanes.length; i++){
-            var lane = me.config.lanes[i];
-            if(lane.laneId == laneId){
-                return lane;
-            }
-        }
-        return null;
     }
 
     var updateLevelStatus = function(me, object){
@@ -762,7 +752,7 @@ function StageController(config) {
     }
 
     var setEnemyProperties  = function(me,enemy){
-        var lane = me.config.lanes[enemy.getLaneId()]; //enemy.getLaneId();
+        var lane = getLaneById(enemy.getLaneId(), me); //enemy.getLaneId();
         var sf = getScaleFactor(lane,enemy);
         enemy.setScale(sf,sf);
         var start = lane.getEndPoint();
@@ -772,6 +762,15 @@ function StageController(config) {
         enemy.run();
 
     }
+    var getLaneById = function(id, me){
+        for(var i = 0 ; i< me.config.lanes.length; i++){
+            var lane = me.config.lanes[i];
+            if(lane.getLaneId() == id){
+                return lane;
+            }
+        }
+        return null;
+    }
     var pushPowerup = function(me,powerup){
         setPowerupProperties(me,powerup);
         me.config.stage.addChild(powerup);
@@ -779,7 +778,7 @@ function StageController(config) {
     }
 
     var setPowerupProperties  = function(me,powerup){
-        var lane = me.config.lanes[powerup.getLaneId()]; //enemy.getLaneId();
+        var lane = getLaneById(powerup.getLaneId(), me);; //enemy.getLaneId();
         var sf = getScaleFactor(lane,powerup);
         powerup.setScale(sf,sf);
         var powerupPos = lane.getPowerupPosition();

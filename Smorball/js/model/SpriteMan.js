@@ -55,7 +55,7 @@
         this.x  = x;
         this.y = y;
         this.regX = 0;
-        this.regY = this.getHeight()/2;
+        this.regY = this.getHeight();///2;
     }
     SpriteMan.prototype.setSpeed = function(speed){
         this.speed = speed;
@@ -82,6 +82,9 @@
     SpriteMan.prototype.setScale = function(sx,sy){
         this.sprite.setTransform(0,6,sx,sy);
         drawBorder(this);
+    }
+    SpriteMan.prototype.getLaneId = function(){
+        return this.config.laneId;
     }
 
     var tick = function(me){

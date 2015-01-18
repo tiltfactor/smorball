@@ -75,7 +75,7 @@
         this.x = x;
         this.y = y;
         this.regX = 0;
-        this.regY = this.getHeight()/2;
+        this.regY = this.getHeight() ///2;
     }
     Enemy.prototype.addLife = function(start){
         var life = new createjs.Shape();
