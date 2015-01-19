@@ -47,6 +47,9 @@ function StageController(config) {
         var sm = function(text){showGameMessage(me,text)};
         EventBus.addEventListener("showMessage",sm);
 
+        var si = function(text){showInformation(me,text)};
+        EventBus.addEventListener("showInformation",si);
+
         var cc = function(){compareCaptcha(me)};
         EventBus.addEventListener("compareCaptcha", cc);
 
@@ -75,6 +78,38 @@ function StageController(config) {
         createjs.Tween.get(me.message).to({alpha:0.4},1000).wait(1000).to({alpha:0},1000);
         console.log("show");
     }
+    
+    var showInformation = function(me, text){
+        if(text.target) {
+           me.infoAry.push(text.target);   
+        }            
+    };
+        
+    var initShowInformation = function(me, speech) {
+        me.info = new createjs.Text();
+        me.info.text = "Jujubees, is coming!";
+        me.info.font = "bold 10px Arial";
+        me.info.color = "black";
+        me.info.alpha = 1;
+        me.info.x = speech.getTransformedBounds().x + 10;
+        me.info.y = speech.getTransformedBounds().y + 10;
+        me.info.lineWidth = speech.getTransformedBounds().width - 15;
+        me.scoreContainer.addChild(me.info);
+        createjs.Tween.get(me.info).wait(5000);
+        me.infoAry = [];
+    };
+    
+    var startInformationTimer = function(me) {
+        setInterval(function() {
+           var txt = me.infoAry.pop();
+           console.log(txt);
+           if (txt){
+              me.info.text = txt; 
+              createjs.Tween.get(me.info).wait(5000);
+           }
+        }, 5000); 
+    };
+    
     var showGameOverMessage = function(me,text){
         me.message.text = text;
         createjs.Tween.get(me.message).to({alpha:0.4},1000).wait(1000).to({alpha:0},1000).wait(100)
@@ -178,9 +213,12 @@ function StageController(config) {
 
         me.scoreContainer.addChild(cmtBox,speech );
         me.scoreContainer.x =me.width/2;
-
+        
         me.scoreContainer.scaleX = me.width/800;
         me.scoreContainer.scaleY = me.height/600;
+        
+        initShowInformation(me, speech);
+        startInformationTimer(me);
     }
     var drawSpeakers = function(me,cmtBox,score){
 

@@ -62,7 +62,7 @@
         if(this.captchaDatas.local){
             setScale(captcha,captcha.image.width, captcha.image.height);
             captcha.texts = [captchaData.ocr1, captchaData.ocr2];
-
+            EventBus.dispatch("showInformation", captchaData.message);
 
         }else{
             var myCords = getCaptchaCoordinates(captchaData.coords);
