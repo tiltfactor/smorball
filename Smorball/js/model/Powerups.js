@@ -7,9 +7,7 @@
 
     var Powerup = function (config) {
         this.config = config || {};
-        //this.lifes = [];
         this.speed = config.speed || 1;
-        //this.lifeRectSize = 5;
         this.hit = false;
         this.onTop = false;
         this.initialize();
@@ -25,12 +23,9 @@
         this.setScale(1,1);
         this.Sprite_initialize();
         this.addChild(this.sprite);
-        //this.life = this.config.life ||  PowerupsData[this.config.id].extras.life;
-        //generateLife(this);
 
-        //this.bounds = this.getBounds();
-
-
+        var handle = function(){me.handleClick(me)};
+        this.addEventListener("click", handle);
     }
     var drawBorder = function(me){
         var shape = new createjs.Shape();
@@ -52,7 +47,6 @@
         this.sprite.gotoAndPlay("stand");
     }
     Powerup.prototype.showOnTop = function(){
-        //var me = this;
         this.x = 200;
         this.y = 20;
         this.onTop = true;
@@ -66,21 +60,35 @@
     }
     Powerup.prototype.kill = function(){
         var me = this;
-        //this.removeLife();
-        //if(this.lifes.length == 0){
-            this.hit = true;
-            this.sprite.gotoAndPlay("die");
-            this.removeEventListener("tick", this.myTick);
-            this.myAnimationEnd = function(){removeFallingAnimation(me)};
-            this.sprite.addEventListener("animationend",this.myAnimationEnd);
-        //}
-        //return this.lifes.length;
+        this.hit = true;
+        this.sprite.gotoAndPlay("die");
+        this.removeEventListener("tick", this.myTick);
+        this.myAnimationEnd = function(){removeFallingAnimation(me)};
+        this.sprite.addEventListener("animationend",this.myAnimationEnd);
     }
     Powerup.prototype.setSpeed = function(speed){
         this.speed = speed;
         this.sprite._animation.speed = speed;
     }
-    
+    /*Powerup.prototype.powerupClick = function(event){
+     //if(event.target.config.id == 'amber'){
+     console.log("AMBER!!!!!!!!!!!!!!!!!!")
+     //}
+     }*/
+    Powerup.prototype.handleClick = function(ob){
+        /*if (ob.config.status == "Buy"){
+         ob.config.status = "InBag";
+         updatePriceTag(ob);
+         EventBus.dispatch("addToBag", ob);
+
+         } else {
+         ob.config.status = "Buy";
+         updatePriceTag(ob);
+         EventBus.dispatch("removeFromBag", ob);
+
+         }*/
+        console.log("KFDTUDTUGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG");
+    };
     Powerup.prototype.getHeight = function(){
         return (this.sprite.spriteSheet._frameHeight * this.sprite.scaleY) + 1;
     }
@@ -100,18 +108,18 @@
     var tick = function(me){
         me.x = me.x ;
         //if(me.endPoint != null && me.hit == false && me.x < me.endPoint){
-            //me.hit = true;
-            //me.lifes.length =0;
-            //me.kill();
-            //EventBus.dispatch("killLife");
+        //me.hit = true;
+        //me.lifes.length =0;
+        //me.kill();
+        //EventBus.dispatch("killLife");
 
         //}
         /*if(me.hit == false && me.endPoint == ){
 
-        }*/
+         }*/
         /*if(me.onTop){
-            console.log(me.onTop);
-        }*/
+         console.log(me.onTop);
+         }*/
     }
 
     var removeFallingAnimation = function(me){

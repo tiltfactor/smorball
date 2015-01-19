@@ -4,8 +4,8 @@
 Manifest = {};
 Manifest.game = [
     {src: "shapes/player_normal.png",id: "player_normal"},
-    {src: "shapes/runningBoy.png",id: "man"},
-    {src: "shapes/man1.png",id: "man1"},
+   // {src: "shapes/runningBoy.png",id: "man"},
+   // {src: "shapes/man1.png",id: "man1"},
     {src: "shapes/enemy.png", id: "enemy"},
     {src: "shapes/gem.png", id: "gem"},
     {src: "shapes/left.jpg", id: "left"},

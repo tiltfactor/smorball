@@ -7,14 +7,16 @@
         this.config = config;
         this.initialize();
     };
-    SmbLoadQueue.prototype  = new createjs.LoadQueue(false);
+    SmbLoadQueue.prototype  = new createjs.LoadQueue(false, "", false);
     SmbLoadQueue.prototype._initialize = SmbLoadQueue.prototype.initialize;
     SmbLoadQueue.prototype.initialize = function(){
         this._initialize();
         this.events = {};
+        this.active = false;
         this.localCapthcaSize = Manifest.level1.length;
         var me = this;
-        setTimeout(function(){loadLocalImages(me)}, 10000);
+        ld = this;
+        setTimeout(function(){loadLocalImages(me)}, 1000);
     };
 
     var updateLoader =function(e, me){
@@ -36,6 +38,7 @@
     SmbLoadQueue.prototype.loadQueue = function(manifest, callback, ob){
         if(manifest.length != 0){
             var me = this;
+            this.active = true;
             showLoading(me);
             this.loadManifest(manifest);
             this.events.click = function(){ loadComplete(callback,ob,me); }
@@ -62,6 +65,7 @@
     }
     var loadComplete = function(callback, ob, me){
         console.log("hii");
+        me.active = false;
         me.removeEventListener("complete",me.events.click);
         me.removeEventListener("progress",  me.events.loaderEvent);
         callback(ob);
@@ -71,15 +75,18 @@
         var manifest = [];
         if(me.localCapthcaSize + 10 <= localData.differences.length){
 
-            for(var i = me.localCapthcaSize ; i<= me.localCapthcaSize+10 ; i++){
-                var img = {};
-                var name = zeroFill(i,3);
-                img.src = "shapes/captcha/"+name+".png";
-                img.id = name;
-                manifest.push(img);
+            if(!me.active){
+                for(var i = me.localCapthcaSize ; i<= me.localCapthcaSize+10 ; i++){
+                    var img = {};
+                    var name = zeroFill(i,3);
+                    img.src = "shapes/captcha/"+name+".png";
+                    img.id = name;
+                    manifest.push(img);
+                }
+                me.localCapthcaSize += 10;
+                me.loadManifest(manifest);
             }
-            me.localCapthcaSize += 10;
-            me.loadManifest(manifest);
+
 
             setTimeout(function(){loadLocalImages(me)}, 10000);
             console.log("local images loading"+ me.localCapthcaSize);
