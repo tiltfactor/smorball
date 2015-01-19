@@ -38,7 +38,8 @@ Manifest.game = [
     {src:"shapes/SB Level Assets/commentators.png",id:"cmt"},
     {src:"shapes/SB Level Assets/scoreboard.png",id:"score"},
     {src:"shapes/SB Level Assets/speaker.png",id:"speaker"},
-    {src:"shapes/SB Level Assets/speaker_pole.png",id:"pole"}
+    {src:"shapes/SB Level Assets/speaker_pole.png",id:"pole"},
+    {src:"shapes/SB Level Assets/speech_bubble.png",id:"speech"}
 
 
 
