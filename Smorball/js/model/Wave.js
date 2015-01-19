@@ -80,7 +80,7 @@
        // if(!this.complete){
            // var enemyProperties = this.config.data.enemies[this.currentIndex];
             var type = enemyProperties[0];
-            var lane = enemyProperties[1]-1;
+            var lane = enemyProperties[1];
             var time = enemyProperties[2];
             var msg =  enemyProperties[3];
             var onKill = (time == undefined || time == -1) ? true: false;

@@ -48,19 +48,10 @@
         captchaHolder.maxHeight = height;
         captchaHolder.maxWidth = maxWidth;
         captchaHolder.id = laneId;//by me
-        captchaHolder.messageHolder = initCaptchaMessage();
 
         //  activateCaptchaSet(this);
         this.load(captchaHolder);
         return captchaHolder;
-    }
-
-    var initCaptchaMessage = function(){
-        var messageHolder = new createjs.Text();
-        messageHolder.font = "bold 12px Arial";
-        messageHolder.color = "#000";
-        messageHolder.alpha = 1;
-        return messageHolder;
     }
 
     CaptchaProcessor.prototype.load = function(captcha){

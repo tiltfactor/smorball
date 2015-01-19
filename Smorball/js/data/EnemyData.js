@@ -66,6 +66,6 @@ EnemyData.enemy_regular = {
     },
     "extras":{
         "speed": 2,
-        "life": 6
+        "life": 1
     }
 };
