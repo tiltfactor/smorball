@@ -13,10 +13,11 @@
         this._initialize();
         this.events = {};
         this.active = false;
+        this.captchaLoad = false;
         this.localCapthcaSize = Manifest.level1.length;
         var me = this;
         ld = this;
-        setTimeout(function(){loadLocalImages(me)}, 1000);
+        setTimeout(function(){loadLocalImages(me)}, 60000);
     };
 
     var updateLoader =function(e, me){
@@ -54,6 +55,8 @@
             this.loadManifest(manifest);
             var me = this;
             this.events.loadComplete = function(){
+                console.log("on complete of sever image call");
+                me.active = false;
                 me.removeEventListener("complete", me.events.loadComplete);
                 callback(ob);
             }
@@ -75,7 +78,8 @@
         var manifest = [];
         if(me.localCapthcaSize + 10 <= localData.differences.length){
 
-            if(!me.active){
+            if(!me.active && !me.captchaLoad){
+                me.captchaLoad = true;
                 for(var i = me.localCapthcaSize ; i<= me.localCapthcaSize+10 ; i++){
                     var img = {};
                     var name = zeroFill(i,3);
@@ -85,6 +89,10 @@
                 }
                 me.localCapthcaSize += 10;
                 me.loadManifest(manifest);
+                me.addEventListener("complete", function(){
+                    me.captchaLoad = false;
+                    console.log("-------------> loaded "+me.localCapthcaSize )
+                });
             }
 
 
