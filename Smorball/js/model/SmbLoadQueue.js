@@ -17,7 +17,7 @@
         this.localCapthcaSize = Manifest.level1.length;
         var me = this;
         ld = this;
-        setTimeout(function(){loadLocalImages(me)}, 60000);
+        setTimeout(function(){loadLocalImages(me)}, 10000);
     };
 
     var updateLoader =function(e, me){
