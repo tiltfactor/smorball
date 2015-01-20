@@ -66,6 +66,8 @@
         var type = properties[0];
         var lane = properties[1];
         var time = properties[2];
+
+        lane = this.config.lanes == 1? 2 : lane;
         var onKill = (time == undefined || time == -1) ? true: false;
         var config = {"id": type, "laneId": lane, "waveId": this.config.id, "onKill": onKill, "loader" : this.config.loader};
         var powerup = new sprites.Powerup(config);
@@ -83,6 +85,7 @@
             var lane = enemyProperties[1];
             var time = enemyProperties[2];
             var msg =  enemyProperties[3];
+            lane = this.config.lanes == 1? 2 : lane;
             var onKill = (time == undefined || time == -1) ? true: false;
             var config = {"id": type, "laneId": lane, "waveId": this.config.id, "onKill": onKill, "loader" : this.config.loader};
             var enemy = new sprites.Enemy(config);

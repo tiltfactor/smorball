@@ -61,38 +61,11 @@ function StageController(config) {
         var ab = function(ob){addToMyPowerups(me, ob)}
         EventBus.addEventListener("addToMyPowerups", ab);
 
-        var rb = function(ob){removeFromMyPowerups(me, ob)}
-        EventBus.addEventListener("removeFromMyPowerups", rb);
+        var rb = function(ob){activatePowerup(me, ob.target)}
+        EventBus.addEventListener("activatePowerup", rb);
 
     }
-    var addToMyPowerups = function(me,ob){
-        console.log(me);
-        var powerup = ob.target;
-        me.config.myPowerups.push(powerup);
-        updateMyPowerups(me);
-    }
-    var removeFromMyPowerups = function(me,ob){
-        var powerup = ob.target;
-        me.config.currentActivePowerup = powerup;
-        //powerup.used = true;
-        var index = me.config.myPowerups.indexOf(powerup);
-        me.config.myPowerups.splice(index,1);
-        me.config.stage.removeChild(powerup);
-        updateMyPowerups(me);
-    }
-    var updateMyPowerups = function(me){
-        var x = me.width-1400;
-        var y = 20;
-        var padding = 5;
-        for(var i=0; i<me.config.myPowerups.length; i++){
-            var powerup = me.config.myPowerups[i];
-            x = x + powerup.getWidth() + padding;
-            powerup.x = x;
-            powerup.y = y;
-            powerup.stand();
-            console.log(powerup);
-        }
-    }
+
     var initShowMessage = function(me){
         me.message = new createjs.Text();
         me.message.x = me.config.stage.canvas.width/2- me.message.getMeasuredWidth()/2;
@@ -313,8 +286,11 @@ function StageController(config) {
             me.config.stage.addChild(lane);
             me.config.lanes.push(lane);
 
-            var captchaHolder = me.captchaProcessor.getCaptchaPlaceHolder(lane.getMaxCaptchaWidth(),lane.getHeight(), laneId);
-            lane.addChild(captchaHolder);
+            if(!(me.levelConfig.lanes == 1 && (laneId == 1 || laneId == 3))){
+                var captchaHolder = me.captchaProcessor.getCaptchaPlaceHolder(lane.getMaxCaptchaWidth(),lane.getHeight(), laneId);
+                lane.addChild(captchaHolder);
+            }
+
 
 
             //loadCaptcha(me,lane);
@@ -371,13 +347,11 @@ function StageController(config) {
         var config = {"id": "player_normal", "loader" : this.config.loader, "laneId" : lane.getLaneId() }
         var player = new sprites.SpriteMan(config);
         //player.singleHit = true;
-        var powerup = this.config.currentActivePowerup;
+        var powerup = this.config.activePowerup;
         if(powerup){
-            if(powerup.config.id == 'ruby'){
-                player.singleHit = true;
-            }
-            player.addPowerups(powerup);
+            player.addPowerups(this.config.activePowerup.getPower());
         }
+
         this.config.players.push(player);
         var sf = getScaleFactor(lane,player);
         player.setScale(sf,sf);
@@ -412,7 +386,7 @@ function StageController(config) {
         me.config.lanes = [];
         me.config.waves = [];
         me.config.myPowerups = [];
-        me.config.currentActivePowerup;
+        me.config.activePowerup = undefined;
         me.passCount = 0;
 
         if(me.config.gameState.gs.currentLevel == 1){
@@ -506,13 +480,8 @@ function StageController(config) {
                 }
 
                 if(powerup != null && player.hitPowerup == false && powerup.hit == false){
+                    addToMyPowerups(me, powerup);
                     player.hitPowerup = true;
-                    var index = me.config.powerups.indexOf(powerup);
-                    me.config.powerups.splice(index,1);
-                    powerup.config.status = 'ToActivate';
-                    //me.config.myPowerups.push(powerup);
-                    //showMyPowerups(me);
-                    EventBus.dispatch("addToMyPowerups",powerup);
                     updateLevelStatus(me,powerup);
                 }
             }
@@ -585,40 +554,51 @@ function StageController(config) {
 
         var output = me.captchaProcessor.compare();
         showMessage(me, output.message);
-        if(output.pass){   
-            if(me.config.currentActivePowerup){
-                if(me.config.currentActivePowerup.config.id == 'amber' && (!me.config.currentActivePowerup.used)){
-                    startPlayersFromAllLanes(me);
-                }
-                else if(me.config.currentActivePowerup.config.id == 'ice' && (!me.config.currentActivePowerup.used)){
-                     console.log("ICEEEEEEEEEEEEEEEEEEEEEEEEEEE");
-                     me.addPlayer(getLaneById(output.laneId,me));
-                }
-                else if(me.config.currentActivePowerup.config.id == 'ruby' && (!me.config.currentActivePowerup.used)){
-                    console.log("RUBYYYYYYYYYYYYYYYYYYYYYYY");
-                    me.addPlayer(getLaneById(output.laneId,me));
-                }
-                me.config.currentActivePowerup.used = true;
-                me.addPlayer(getLaneById(output.laneId,me));
-            } 
-            else{
-                var lane = getLaneById(output.laneId,me);
-                me.addPlayer(lane);
-            }       
-            /*if(me.config.myPowerups[0]!=undefined && me.config.myPowerups[0].config.id == "amber"){
-                for(var i=0; i<me.config.lanes.length; i++){
-                    me.addPlayer(getLaneById(me.config.lanes[i].laneId,me));
-                }
+        if(output.pass){
+            if(me.config.activePowerup != null && me.config.activePowerup.getId() == "amber"){
+                startPlayersFromAllLanes(me);
+            }else{
+                var lane = getLaneById(output.laneId, me);
+                me.addPlayer(lane, me);
             }
-            else{
-                var lane = getLaneById(output.laneId,me);
-                me.addPlayer(lane);
-            }*/
         }
+
+
+//        if(output.pass){
+//            if(me.config.activePowerup){
+//                if(me.config.activePowerup.config.id == 'amber' && (!me.config.activePowerup.used)){
+//                    startPlayersFromAllLanes(me);
+//                }
+//                else if(me.config.activePowerup.config.id == 'ice' && (!me.config.activePowerup.used)){
+//                     console.log("ICEEEEEEEEEEEEEEEEEEEEEEEEEEE");
+//                     me.addPlayer(getLaneById(output.laneId,me));
+//                }
+//                else if(me.config.activePowerup.config.id == 'ruby' && (!me.config.activePowerup.used)){
+//                    console.log("RUBYYYYYYYYYYYYYYYYYYYYYYY");
+//                    me.addPlayer(getLaneById(output.laneId,me));
+//                }
+//                me.config.activePowerup.used = true;
+//                me.addPlayer(getLaneById(output.laneId,me));
+//            }
+//            else{
+//                var lane = getLaneById(output.laneId,me);
+//                me.addPlayer(lane);
+//            }
+//            /*if(me.config.myPowerups[0]!=undefined && me.config.myPowerups[0].config.id == "amber"){
+//                for(var i=0; i<me.config.lanes.length; i++){
+//                    me.addPlayer(getLaneById(me.config.lanes[i].laneId,me));
+//                }
+//            }
+//            else{
+//                var lane = getLaneById(output.laneId,me);
+//                me.addPlayer(lane);
+//            }*/
+//        }
     }
     var startPlayersFromAllLanes = function(me){
         for(var i=0; i<me.config.lanes.length; i++){
-            me.addPlayer(getLaneById(me.config.lanes[i].laneId,me));
+            var lane = me.config.lanes[i];
+            me.addPlayer(getLaneById(lane.laneId,me));
         }
     }
     var setTickerStatus = function(){
@@ -683,6 +663,33 @@ function StageController(config) {
         powerup.setPosition(powerupPos.x,powerupPos.y);
         powerup.run();
 
+    }
+
+    var addToMyPowerups = function(me,powerup){
+        var index = me.config.powerups.indexOf(powerup);
+        me.config.powerups.splice(index,1);
+        me.config.myPowerups.push(powerup);
+        powerup.addActivation();
+        powerup.stand();
+        updateMyPowerups(me);
+    }
+    var activatePowerup = function(me,powerup){
+        me.config.activePowerup = powerup;
+        var index = me.config.myPowerups.indexOf(powerup);
+        me.config.myPowerups.splice(index,1);
+        me.config.stage.removeChild(powerup);
+        updateMyPowerups(me);
+    }
+    var updateMyPowerups = function(me){
+        var x = 0;
+        var y = 20;
+        var padding = 5;
+        for(var i=0; i<me.config.myPowerups.length; i++){
+            var powerup = me.config.myPowerups[i];
+            x = x + powerup.getWidth() + padding;
+            powerup.setPosition(x,y);
+            console.log(powerup);
+        }
     }
 
 

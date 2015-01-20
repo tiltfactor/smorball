@@ -57,12 +57,26 @@
             if(onKillPush)
                 wave.push();
         }
-        if(status && this.currentIndex < this.config.waves.data.length){
-            console.log("starting wave");
-            this.start();
-        }else{
-            this.complete = true;
+
+        if(status){
+            if(this.currentIndex < this.config.waves.data.length){
+                this.start();
+                console.log("New wave started");
+            }else{
+                this.complete = true;
+                console.log("Level Completed");
+            }
         }
+
+//        if(status && this.currentIndex < this.config.waves.data.length){
+//            console.log("starting wave");
+//            this.start();
+//        }else{
+//            if(status){
+//                this.complete = true;
+//            }
+//
+//        }
 
     }
 

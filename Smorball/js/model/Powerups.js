@@ -7,6 +7,7 @@
 
     var Powerup = function (config) {
         this.config = config || {};
+        this.events = {};
         this.config.status = "";
         this.used = false;
         this.speed = config.speed || 1;
@@ -19,8 +20,8 @@
     var p = Powerup.prototype = new createjs.Container;
     p.Sprite_initialize = p.initialize;
     p.initialize = function () {
-
-        this.spriteData = new SpriteSheet({"id" : this.config.id, "data": PowerupsData[this.config.id].data, "loader" : this.config.loader});
+        this.powerupData = PowerupsData[this.config.id];
+        this.spriteData = new SpriteSheet({"id" : this.config.id, "data": this.powerupData.data, "loader" : this.config.loader});
         this.sprite = new createjs.Sprite(this.spriteData, "stand");
         this.setScale(1,1);
         this.Sprite_initialize();
@@ -28,18 +29,28 @@
         loadEvents(this);
         
     }
-    var loadEvents = function(me){
-        var handle = function(){me.handleClick(me)};
-        me.addEventListener("click", handle);
+    Powerup.prototype.getId = function(){
+        return this.config.id;
     }
-    Powerup.prototype.handleClick = function(ob){
-        console.log("KFDTUDTUGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG");
-        if (ob.config.status == "ToActivate"){
-            ob.config.status = "Activated";
-            EventBus.dispatch("removeFromMyPowerups", ob);    
+    var loadEvents = function(me){
+       // var handle = function(){me.handleClick(me)};
+       // me.addEventListener("click", handle);
+    }
+    Powerup.prototype.addActivation = function(){
+        var me = this;
+        this.events.click = function(){activate(me)}
+        me.addEventListener("click", this.events.click);
+    }
 
-        } 
-    };
+    var activate = function(me){
+        EventBus.dispatch("showCommentary", me.powerupData.extras.message);
+        me.removeEventListener("click", me.events.click);
+        EventBus.dispatch("activatePowerup", me);
+    }
+    Powerup.prototype.getPower = function(){
+        return PowerupsData[this.config.id].extras;
+    }
+
     window.sprites.Powerup = Powerup;
 
     Powerup.prototype.run  = function(){
@@ -79,7 +90,7 @@
     }
     
     Powerup.prototype.getHeight = function(){
-        return (this.sprite.spriteSheet._frameHeight * this.sprite.scaleY) + 1;
+        return (this.sprite.spriteSheet._frameHeight * this.sprite.scaleY);
     }
     Powerup.prototype.getWidth = function(){
         return (this.sprite.spriteSheet._frameWidth * this.sprite.scaleX) ;

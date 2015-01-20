@@ -7,7 +7,9 @@ PowerupsData.ice = {
 	    "animations": {"run": [0, 31, "run", 0.5], "stand":[0,0]}
 	},
 	"extras":{
-		"life": 3
+		"life": 3,
+        "singleHit" : false,
+        "message" : "ice is activated"
 	}
 };
 PowerupsData.ruby = {
@@ -17,7 +19,9 @@ PowerupsData.ruby = {
 	    "animations": {"run": [0, 31, "run", 0.5], "stand":[0,0]}
 	},
 	"extras":{
-		"life": 1
+		"life": 1,
+        "singleHit" : true,
+        "message" : "Ruby is activated"
 	}
 };
 PowerupsData.amber = {
@@ -27,6 +31,8 @@ PowerupsData.amber = {
 	    "animations": {"run": [0, 31, "run", 0.5], "stand":[0,0]}
 	},
 	"extras":{
-		"life": 1
+		"life": 1,
+        "singleHit" : false,
+        "message" : "Amber is activated"
 	}
 };

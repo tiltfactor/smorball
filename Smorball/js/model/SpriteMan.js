@@ -45,8 +45,9 @@
         this.myTick = function(){tick(me)};
         this.addEventListener("tick", this.myTick);
     }
-    SpriteMan.prototype.addPowerups = function(powerup){
-        this.life = PowerupsData[powerup.config.id].extras.life;
+    SpriteMan.prototype.addPowerups = function(power){
+        this.life = power.life;
+        this.singleHit = power.singleHit;
     }
     SpriteMan.prototype.pause = function(){
         this.removeEventListener("tick",  this.myTick);
