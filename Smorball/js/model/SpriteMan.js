@@ -21,6 +21,9 @@
         this.addChild(this.sprite);
         this.hit = false;
         this.hitPowerup = false;
+        this.life = 1;
+        this.singleHit = false;
+        this.hitEnemies = [];
         this.speed = this.config.speed || 6;
 
         this.bounds = this.getBounds();
@@ -42,7 +45,9 @@
         this.myTick = function(){tick(me)};
         this.addEventListener("tick", this.myTick);
     }
-
+    SpriteMan.prototype.addPowerups = function(powerup){
+        this.life = PowerupsData[powerup.config.id].extras.life;
+    }
     SpriteMan.prototype.pause = function(){
         this.removeEventListener("tick",  this.myTick);
         this.sprite.gotoAndPlay("stand");
@@ -63,11 +68,17 @@
     }
     SpriteMan.prototype.kill = function(){
         var me = this;
-        this.sprite.gotoAndPlay("fall");
-        this.myAnimationEnd = function(){removeFallingAnimation(me)};
-        me.removeEventListener("tick",  this.myTick);
-        this.sprite.addEventListener("animationend",this.myAnimationEnd);
-        return 0;
+        this.life -= 1;  
+        if(this.life == 0){
+            this.hit = true;
+            this.sprite.gotoAndPlay("fall");
+            this.myAnimationEnd = function(){removeFallingAnimation(me)};
+            me.removeEventListener("tick",  this.myTick);
+            this.sprite.addEventListener("animationend",this.myAnimationEnd);
+            return 0;
+        } 
+
+
     }
     SpriteMan.prototype.setEndPoint = function(endPointX){
         this.endPoint = endPointX;

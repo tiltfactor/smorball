@@ -7,6 +7,8 @@
 
     var Powerup = function (config) {
         this.config = config || {};
+        this.config.status = "";
+        this.used = false;
         this.speed = config.speed || 1;
         this.hit = false;
         this.onTop = false;
@@ -23,16 +25,21 @@
         this.setScale(1,1);
         this.Sprite_initialize();
         this.addChild(this.sprite);
-
+        loadEvents(this);
+        
+    }
+    var loadEvents = function(me){
         var handle = function(){me.handleClick(me)};
-        this.addEventListener("click", handle);
+        me.addEventListener("click", handle);
     }
-    var drawBorder = function(me){
-        var shape = new createjs.Shape();
-        shape.graphics.beginStroke("#000").setStrokeStyle(0.1).drawRect(0,0,me.getWidth(),me.getHeight());
-        me.addChild(shape);
+    Powerup.prototype.handleClick = function(ob){
+        console.log("KFDTUDTUGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG");
+        if (ob.config.status == "ToActivate"){
+            ob.config.status = "Activated";
+            EventBus.dispatch("removeFromMyPowerups", ob);    
 
-    }
+        } 
+    };
     window.sprites.Powerup = Powerup;
 
     Powerup.prototype.run  = function(){
@@ -70,25 +77,7 @@
         this.speed = speed;
         this.sprite._animation.speed = speed;
     }
-    /*Powerup.prototype.powerupClick = function(event){
-     //if(event.target.config.id == 'amber'){
-     console.log("AMBER!!!!!!!!!!!!!!!!!!")
-     //}
-     }*/
-    Powerup.prototype.handleClick = function(ob){
-        /*if (ob.config.status == "Buy"){
-         ob.config.status = "InBag";
-         updatePriceTag(ob);
-         EventBus.dispatch("addToBag", ob);
-
-         } else {
-         ob.config.status = "Buy";
-         updatePriceTag(ob);
-         EventBus.dispatch("removeFromBag", ob);
-
-         }*/
-        console.log("KFDTUDTUGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG");
-    };
+    
     Powerup.prototype.getHeight = function(){
         return (this.sprite.spriteSheet._frameHeight * this.sprite.scaleY) + 1;
     }
@@ -108,18 +97,18 @@
     var tick = function(me){
         me.x = me.x ;
         //if(me.endPoint != null && me.hit == false && me.x < me.endPoint){
-        //me.hit = true;
-        //me.lifes.length =0;
-        //me.kill();
-        //EventBus.dispatch("killLife");
+            //me.hit = true;
+            //me.lifes.length =0;
+            //me.kill();
+            //EventBus.dispatch("killLife");
 
         //}
         /*if(me.hit == false && me.endPoint == ){
 
-         }*/
+        }*/
         /*if(me.onTop){
-         console.log(me.onTop);
-         }*/
+            console.log(me.onTop);
+        }*/
     }
 
     var removeFallingAnimation = function(me){

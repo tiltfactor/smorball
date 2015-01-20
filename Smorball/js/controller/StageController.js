@@ -39,11 +39,11 @@ function StageController(config) {
         var pp = function(object){pushPowerup(me, object.target)}
         EventBus.addEventListener("pushPowerup", pp);
 
-//        var rt = function() {resetTimer(me)};
-//        EventBus.addEventListener("resetTimer", rt);
+//      var rt = function() {resetTimer(me)};
+//      EventBus.addEventListener("resetTimer", rt);
 //
-//        var ct = function() {clearTimer(me)};
-//        EventBus.addEventListener("clearTimer", ct);
+//      var ct = function() {clearTimer(me)};
+//      EventBus.addEventListener("clearTimer", ct);
         var sm = function(text){showGameMessage(me,text)};
         EventBus.addEventListener("showMessage",sm);
 
@@ -56,8 +56,41 @@ function StageController(config) {
         var st = function(){setTickerStatus()};
         EventBus.addEventListener("setTickerStatus",st);
 
-    }
+        var ab = function(ob){addToMyPowerups(me, ob)}
+        EventBus.addEventListener("addToMyPowerups", ab);
 
+        var rb = function(ob){removeFromMyPowerups(me, ob)}
+        EventBus.addEventListener("removeFromMyPowerups", rb);
+
+    }
+    var addToMyPowerups = function(me,ob){
+        console.log(me);
+        var powerup = ob.target;
+        me.config.myPowerups.push(powerup);
+        updateMyPowerups(me);
+    }
+    var removeFromMyPowerups = function(me,ob){
+        var powerup = ob.target;
+        me.config.currentActivePowerup = powerup;
+        //powerup.used = true;
+        var index = me.config.myPowerups.indexOf(powerup);
+        me.config.myPowerups.splice(index,1);
+        me.config.stage.removeChild(powerup);
+        updateMyPowerups(me);
+    }
+    var updateMyPowerups = function(me){
+        var x = me.width-1400;
+        var y = 20;
+        var padding = 5;
+        for(var i=0; i<me.config.myPowerups.length; i++){
+            var powerup = me.config.myPowerups[i];
+            x = x + powerup.getWidth() + padding;
+            powerup.x = x;
+            powerup.y = y;
+            powerup.stand();
+            console.log(powerup);
+        }
+    }
     var initShowMessage = function(me){
         me.message = new createjs.Text();
         me.message.x = me.config.stage.canvas.width/2- me.message.getMeasuredWidth()/2;
@@ -134,6 +167,7 @@ function StageController(config) {
 
     var newGame = function (me) {
         $("#inputText").val("");
+        $('#myDiv').remove();  
         resetGame(me);
 
         me.config.gameState.gs.currentState = me.config.gameState.gs.States.RUN;
@@ -446,6 +480,14 @@ function StageController(config) {
     StageController.prototype.addPlayer = function(lane){
         var config = {"id": "player_normal", "loader" : this.config.loader, "laneId" : lane.getLaneId() }
         var player = new sprites.SpriteMan(config);
+        //player.singleHit = true;
+        var powerup = this.config.currentActivePowerup;
+        if(powerup){
+            if(powerup.config.id == 'ruby'){
+                player.singleHit = true;
+            }
+            player.addPowerups(powerup);
+        }
         this.config.players.push(player);
         var sf = getScaleFactor(lane,player);
         player.setScale(sf,sf);
@@ -480,6 +522,7 @@ function StageController(config) {
         me.config.lanes = [];
         me.config.waves = [];
         me.config.myPowerups = [];
+        me.config.currentActivePowerup;
         me.passCount = 0;
 
         if(me.config.gameState.gs.currentLevel == 1){
@@ -498,7 +541,7 @@ function StageController(config) {
 
     }
 
-    var createPlayer = function (me) {
+    /*var createPlayer = function (me) {
 
         for(var i = 0; i < me.config.lanes.length; i++){
             var start = me.config.lanes[i].getStartPoint();
@@ -527,14 +570,21 @@ function StageController(config) {
 
 
     }
-
+*/
     var tick = function (me) {
         if(!createjs.Ticker.getPaused()){
             me.config.stage.update();
             hitTest(me);
         }
     }
-
+    var contains = function(arr,id) {
+        for (var i = 0; i < arr.length; i++) {
+            if (arr[i].id == id) {
+                return true;
+            }
+        }
+        return false;
+    }
     var hitTest = function(me){
         if(me.config.players != undefined && me.config.players.length != 0){
             for(var i= 0 ; i< me.config.players.length ; i++){
@@ -543,28 +593,44 @@ function StageController(config) {
                 var enemy = hitTestEnemies(player,me);
                 var powerup = hitTestPowerups(player,me);
                 if(enemy != null && player.hit == false && enemy.hit == false){
-                    player.kill();
-                    player.hit = true;
-                    enemy.kill();
+
+                    if(player.singleHit){
+                        //if(!player.hitEnemies.contains(enemy.id)){
+                        if(!contains(player.hitEnemies,enemy.id)){
+                            player.hitEnemies.push(enemy);
+                            enemy.kill();
+                        }
+                        
+                    }else{
+                        player.kill();
+                        //player.hit = true;
+                        enemy.kill();
+                    }
+
+
+                    //player.kill();
+                    //player.hit = true;
+                    //enemy.kill();
+                   
 
                 }
-                /*if(gem != null){
-                 gem.kill();
-                 }*/
+
                 if(powerup != null && player.hitPowerup == false && powerup.hit == false){
                     player.hitPowerup = true;
                     var index = me.config.powerups.indexOf(powerup);
                     me.config.powerups.splice(index,1);
-                    me.config.myPowerups.push(powerup);
-                    showMyPowerups(me);
+                    powerup.config.status = 'ToActivate';
+                    //me.config.myPowerups.push(powerup);
+                    //showMyPowerups(me);
+                    EventBus.dispatch("addToMyPowerups",powerup);
                     updateLevelStatus(me,powerup);
                 }
             }
         }
 
     }
-    var showMyPowerups = function(me){
-        var x = me.width-1000;
+    /*var showMyPowerups = function(me){
+        var x = me.width-1400;
         var y = 20;
         var padding = 5;
         for(var i=0; i<me.config.myPowerups.length; i++){
@@ -573,14 +639,16 @@ function StageController(config) {
             powerup.x = x;
             powerup.y = y;
             powerup.stand();
+            console.log(powerup);
         }
-    }
+    }*/
 
     var hitTestEnemies = function(player,me){
         if(me.config.enemies.length != 0){
             for(var i = 0; i< me.config.enemies.length ; i++){
                 var enemy = me.config.enemies[i];
                 if(enemy.hit == true || player.getLaneId() != enemy.getLaneId()) continue;
+                //if(enemy.hit == true) continue;
                 var hit = isCollision(player,enemy);
                 if(hit){
                     return enemy;
@@ -624,14 +692,45 @@ function StageController(config) {
     }
 
     var compareCaptcha = function(me){
+
         var output = me.captchaProcessor.compare();
         showMessage(me, output.message);
-        if(output.pass){
-            var lane = getLaneById(output.laneId, me);
-            me.addPlayer(lane);
+        if(output.pass){   
+            if(me.config.currentActivePowerup){
+                if(me.config.currentActivePowerup.config.id == 'amber' && (!me.config.currentActivePowerup.used)){
+                    startPlayersFromAllLanes(me);
+                }
+                else if(me.config.currentActivePowerup.config.id == 'ice' && (!me.config.currentActivePowerup.used)){
+                     console.log("ICEEEEEEEEEEEEEEEEEEEEEEEEEEE");
+                     me.addPlayer(getLaneById(output.laneId,me));
+                }
+                else if(me.config.currentActivePowerup.config.id == 'ruby' && (!me.config.currentActivePowerup.used)){
+                    console.log("RUBYYYYYYYYYYYYYYYYYYYYYYY");
+                    me.addPlayer(getLaneById(output.laneId,me));
+                }
+                me.config.currentActivePowerup.used = true;
+                me.addPlayer(getLaneById(output.laneId,me));
+            } 
+            else{
+                var lane = getLaneById(output.laneId,me);
+                me.addPlayer(lane);
+            }       
+            /*if(me.config.myPowerups[0]!=undefined && me.config.myPowerups[0].config.id == "amber"){
+                for(var i=0; i<me.config.lanes.length; i++){
+                    me.addPlayer(getLaneById(me.config.lanes[i].laneId,me));
+                }
+            }
+            else{
+                var lane = getLaneById(output.laneId,me);
+                me.addPlayer(lane);
+            }*/
         }
     }
-
+    var startPlayersFromAllLanes = function(me){
+        for(var i=0; i<me.config.lanes.length; i++){
+            me.addPlayer(getLaneById(me.config.lanes[i].laneId,me));
+        }
+    }
     var setTickerStatus = function(){
         createjs.Ticker.setPaused(!createjs.Ticker.getPaused());
     }
