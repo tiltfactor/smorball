@@ -47,8 +47,7 @@ function StageController(config) {
         var sm = function(text){showGameMessage(me,text)};
         EventBus.addEventListener("showMessage",sm);
 
-        var si = function(text){showInformation(me,text)};
-        EventBus.addEventListener("showInformation",si);
+
 
         var cc = function(){compareCaptcha(me)};
         EventBus.addEventListener("compareCaptcha", cc);
@@ -114,7 +113,7 @@ function StageController(config) {
     
     var showInformation = function(me, text){
         if(text.target) {
-           me.infoAry.push(text.target);   
+          // me.infoAry.push(text.target);
         }            
     };
         
@@ -194,11 +193,10 @@ function StageController(config) {
             me.config.gameState.gs.points = 0;
         }
         drawBackGround(me);
-        drawScoreBoard(me);
-        drawChairs(me);
+        drawStadium(me);
         drawLane(me);
 
-        drawAdBoards(me);
+        //drawAdBoards(me);
         //drawWall(me);
 
         // showLife(me);
@@ -211,6 +209,23 @@ function StageController(config) {
 
         //setTimeout(function(){showMessage(me,"Jujubees coming!!!");},2000); //TODO : change
     }
+
+    var drawStadium=function(me){
+        var width = 800;
+        me.stadium = new createjs.Container();
+        me.seatContainer = new Blocks({"loader":me.config.loader,"width":width});
+        var lc = me.seatContainer.drawLeftChairBlock();
+        var rc= me.seatContainer.drawRightChairBlock();
+        me.cbBox = new CommentaryBox({"loader":me.config.loader,"width":width});
+        me.adBoard = new AdBoard({"loader":me.config.loader});
+        me.adBoard.y = me.cbBox.getTransformedBounds().height-me.adBoard.getTransformedBounds().height/2-me.adBoard.getTransformedBounds().height/6;
+
+        me.stadium.addChild(lc,rc,me.cbBox,me.adBoard);
+        me.stadium.scaleX = me.width/800;
+        me.stadium.scaleY = me.height/600;
+        me.config.stage.addChild(me.stadium);
+
+    }
     var drawBackGround = function(me){
         me.bgContainer = new createjs.Container();
         me.config.stage.addChild(me.bgContainer);
@@ -218,147 +233,12 @@ function StageController(config) {
         shape.graphics.beginBitmapFill(me.config.loader.getResult("background"))
             .drawRect(0,0,me.width,me.height);
         //me.bgContainer.scaleX = me.width/800;
-        me.bgContainer.scaleY = 0.5;
+        shape.scaleY = 0.5;
+        me.bgContainer.scaleY = me.height/600;
         me.bgContainer.addChild(shape);
         //container.scaleY =0.555;
     }
-    var drawScoreBoard = function(me){
-        me.scoreContainer = new createjs.Container();
-        me.config.stage.addChild(me.scoreContainer);
-        var score = new createjs.Bitmap(me.config.loader.getResult("score"));
-        score.regX = score.getTransformedBounds().width/2;
-        score.y = 5;
-        score.scaleX = 0.5;
-        score.scaleY = 0.5;
-        me.scoreContainer.addChild(score);
-        var cmtBox = new createjs.Bitmap(me.config.loader.getResult("cmt"));
-        cmtBox.regX = cmtBox.getTransformedBounds().width/2;
-        cmtBox.scaleX = 0.5;
-        cmtBox.scaleY = 0.5;
-        cmtBox.y = score.getTransformedBounds().height;
 
-        drawSpeakers(me,cmtBox,score);
-
-        var speech = new createjs.Bitmap(me.config.loader.getResult("speech"));
-        speech.regX = speech.getTransformedBounds().width/2;
-        speech.y = cmtBox.getTransformedBounds().height/2+speech.getTransformedBounds().height/4;
-        speech.scaleX = 0.5;
-        speech.scaleY = 0.5;
-
-        me.scoreContainer.addChild(cmtBox,speech );
-        me.scoreContainer.x =me.width/2;
-        
-        me.scoreContainer.scaleX = me.width/800;
-        me.scoreContainer.scaleY = me.height/600;
-        
-        initShowInformation(me, speech);
-        startInformationTimer(me);
-    }
-    var drawSpeakers = function(me,cmtBox,score){
-
-        for(var i=0;i<2;i++){
-            var speakerContainer = new createjs.Container();
-            var speaker = new createjs.Bitmap(me.config.loader.getResult("speaker"));
-            var pole = new createjs.Bitmap(me.config.loader.getResult("pole"));
-            pole.scaleX = 0.5;
-            pole.scaleY = 0.5;
-            speaker.regX = speaker.getTransformedBounds().width/2;
-            speaker.scaleX = 0.5*(Math.pow(-1,i));
-            speaker.scaleY = 0.5;
-            speaker.x = me.scoreContainer.x+(Math.pow(-1,i))*((cmtBox.getTransformedBounds().width/2)+(speaker.getTransformedBounds().width/2));
-            speaker.y = score.getTransformedBounds().height+(score.getTransformedBounds().height/2);
-            pole.x = speaker.x-speaker.getTransformedBounds().width/2+20;
-            pole.y = speaker.y+speaker.getTransformedBounds().height/2;
-            speakerContainer.addChild(pole,speaker);
-            speakerContainer.y=-5;
-            me.scoreContainer.addChild(speakerContainer);
-        }
-
-    }
-    var drawChairs= function(me){
-        me.seatContainer1 = new createjs.Container();
-        me.seatContainer2 = new createjs.Container();
-        me.config.stage.addChild(me.seatContainer1,me.seatContainer2);
-
-        var x,y=80,w=0;
-        for(var i=0;i<5;i++){
-            var ty = y+(i*30);
-            if(i%2==0){
-                x=-25;
-            }else{
-                x=0;
-            }
-            var seat = createSeats(x,ty,me);
-            me.seatContainer1.addChild(seat);
-            w = seat.getTransformedBounds().width+x;
-            for(var j=0;j<4;j++){
-                seat = createSeats(w,ty,me);
-                me.seatContainer1.addChild(seat);
-                w = w+ seat.getTransformedBounds().width;
-            }
-
-        }
-
-        me.seatContainer2.x= me.scoreContainer.x+(me.scoreContainer.getTransformedBounds().width/2)-seat.getTransformedBounds().width/2;
-
-        for(var i=0;i<5;i++){
-            var ty = y+(i*30);
-            if(i%2==0){
-                x=25;
-            }else{
-                x=0;
-            }
-            seat = createSeats(x,ty,me);
-            me.seatContainer2.addChild(seat);
-            w = seat.getTransformedBounds().width+x;
-            for(var j=0;j<4;j++){
-                var seat = createSeats(w,ty,me);
-                me.seatContainer2.addChild(seat);
-                w = w+ seat.getTransformedBounds().width;
-            }
-
-        }
-
-        me.seatContainer1.scaleX = me.width/800;
-        me.seatContainer2.scaleX = me.width/800;
-        me.seatContainer1.scaleY = me.height/600;
-        me.seatContainer2.scaleY = me.height/600;
-    }
-    var createSeats=function (x,y,me){
-        var seat = new createjs.Bitmap(me.config.loader.getResult("seat"));
-        seat.setTransform(x,y,0.5,0.5);
-        seat.point={"x":seat.x,"y":seat.y};
-        return seat;
-
-    }
-    var drawAdBoards = function(me){
-        me.adBoardContainer = new createjs.Container();
-        me.config.stage.addChild(me.adBoardContainer);
-        var ad = new createjs.Bitmap(me.config.loader.getResult("ad"));
-        ad.scaleX=0.5;
-        ad.scaleY=0.5;
-        me.adBoardContainer.addChild(ad);
-        var ad = new createjs.Bitmap(me.config.loader.getResult("ad"));
-        ad.scaleX=0.5;
-        ad.scaleY=0.5;
-
-        var w = me.adBoardContainer.x+ad.getTransformedBounds().width;
-        ad.x = w;
-        me.adBoardContainer.addChild(ad);
-        var ad = new createjs.Bitmap(me.config.loader.getResult("ad"));
-        ad.scaleX=0.5;
-        ad.scaleY=0.5;
-        var w = w + ad.getTransformedBounds().width;
-        ad.x = w;
-        me.adBoardContainer.addChild(ad);
-
-        me.adBoardContainer.y = me.seatContainer1.getTransformedBounds().y + me.seatContainer1.getTransformedBounds().height -45;
-
-
-        me.adBoardContainer.scaleX = me.width/800;
-
-        me.adBoardContainer.scaleY = me.height/600;
-    }
     var showScore = function(me){
         me.scoreText = new createjs.Text("Total Score :"+me.config.gameState.gs.points, "20px Arial", "#000000");
         me.scoreText.setTransform(me.width-500,10,1,1);
