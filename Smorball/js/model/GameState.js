@@ -29,6 +29,8 @@ function GameState(config){
         this.gs.gems = this.json.gems || [];
         this.gs.players = this.json.players || []; //not much idea
         this.gs.enemies = this.json.enemies || []; //not sure
+        this.gs.music = this.json.music || 50; 
+        this.gs.soundEffects = this.json.soundEffects || 50;
     }
 
 

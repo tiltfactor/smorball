@@ -6,13 +6,143 @@
 }
 #canvasHolder{
     display: none;
-    height: 20px;
-    margin-top: -5px;
+    height: 30px;
 }
 body {
     margin: 0px;
     padding: 0px;
+    width: 100%;
+    overflow: hidden;
 }
 
 @font-face { font-family: 'Boogaloo'; src: url('fonts/Boogaloo-Regular.otf'); }
 @font-face { font-family: 'Scoreboard'; src: url('fonts/scoreboard.ttf'); }
+
+#canvasHolder input {
+    height: 80%;
+    margin: 0px;
+    padding: 0px;
+}
+
+/*timeout screen style*/
+
+#timeout-popup {
+    display:none;
+    text-align:center
+}
+
+.timeout-popup-box.ui-widget-content {
+    background-image: url("../shapes/timeout_bg.png");
+    background-color: transparent;
+    background-size: 100% 100%;
+    border: none;
+    padding: 0 1%;
+}
+
+.timeout-popup-box #timeout-popup {
+    color: white;
+    font-family: 'Boogaloo';
+}
+
+.timeout-popup-box .ui-dialog-titlebar {
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+.timeout-popup-box .ui-dialog-titlebar-close,
+.timeout-popup-box .ui-widget-header {
+    display: block;
+}
+
+.timeout-popup-box .ui-dialog-titlebar-close {
+    background: none;
+    background-image: url("../shapes/slider_btn.png");
+    background-size: 100% 100%;
+    border: none;
+    padding: 7%;
+    right: -3%;
+    top: 21%;
+}
+
+.timeout-popup-box #timout-text {
+    background-image: url("../shapes/timeout_text_bg.png");
+    background-size: 100% 100%;
+    color: white;
+    padding: 5%;
+    margin: 0 2%;
+    font-size: 1.8em;
+}
+
+.slider-text {
+    text-align: left;
+    margin-left: 10%;
+    font-size: .7em;
+}
+
+.timeout-popup-box .slider {
+    background: #ef2929;
+    height: 7px;
+    border: none;
+    margin: 6% 13%;
+    cursor: pointer;
+}
+
+.slider .ui-slider-range { 
+    background: #fff;
+}
+
+.slider .ui-slider-handle{
+    background-image: url("../shapes/slider_btn.png");
+    background-size: 100% 100%;
+    background-color: transparent;
+    border: none;
+    height: 2em;
+    width: 2em;
+    top: -.9em;
+    cursor: pointer;
+}
+
+.ui-slider-handle.ui-state-focus,
+.ui-slider-handle.ui-state-hover {
+    outline: none;
+}
+
+.timeout-popup-box .ui-dialog-buttonpane {
+    background: none;
+    border: none;
+    margin-top: 0;
+}
+
+.timeout-popup-box .ui-dialog-buttonset {
+    margin: 0 25%;
+}
+
+.timeout-popup-box .ui-dialog-buttonset button {
+    color:#fff;
+    cursor:pointer;
+    padding: 3% 0% 11% 0%;
+    font-family: 'Boogaloo';
+    font-size: 1.5em;
+    margin-top: 0;
+}
+
+.timeout-popup-box .ui-button-text-only {
+    background: none;
+    border: none;
+    background-image: url("../shapes/timeout_btn_bg.png");
+    background-size: 100% 100%;
+}
+
+@media screen and (max-width: 700px) { 
+    .timeout-popup-box .ui-dialog-buttonset button {
+        font-size: .8em;
+    }
+    .timeout-popup-box #timout-text {
+        font-size: 1.1em;
+        padding: 2%;
+    }
+    .slider-text {
+        font-size: .5em;
+    }
+}

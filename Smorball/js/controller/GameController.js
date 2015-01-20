@@ -82,7 +82,7 @@ function GameController(config) {
                 //currentActivePlayer.gotoAndPlay("jump")
                 break;
             case ESC_KEY:
-                EventBus.dispatch("pauseGame");
+                EventBus.dispatch("showTimeoutScreen");
                 break;
             case ONE:
                 if (e.shiftKey) {

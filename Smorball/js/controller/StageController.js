@@ -39,6 +39,9 @@ function StageController(config) {
         var pp = function(object){pushPowerup(me, object.target)}
         EventBus.addEventListener("pushPowerup", pp);
 
+        var pg = function(){showTimeoutScreen(me)};
+        EventBus.addEventListener("showTimeoutScreen", pg);
+
 //      var rt = function() {resetTimer(me)};
 //      EventBus.addEventListener("resetTimer", rt);
 //
@@ -340,6 +343,13 @@ function StageController(config) {
         }
     }
 
+
+    var showTimeoutScreen = function (me) {
+        if(!createjs.Ticker.getPaused()){
+            EventBus.dispatch("setTickerStatus");
+            EventBus.dispatch("showTimeout");
+        }
+    }  
 
     var killMe = function (me,actor) {
         var object = actor.target;
