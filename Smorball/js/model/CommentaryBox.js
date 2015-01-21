@@ -21,11 +21,11 @@
         this.x = this.config.width/2;
 
     };
-    CommentaryBox.prototype.setScore=function(score){
+    var setScore=function(me,score){
         me.score.text = score;
     }
-    CommentaryBox.prototype.setScore=function(score){
-        me.opponents.text = score;
+    var setOpponenets=function(me,opponents){
+        me.opponents.text = opponents;
     }
     CommentaryBox.prototype.kill = function(){
         clearInterval(this.timer);
@@ -33,6 +33,9 @@
     var loadEvents = function(me){
         var si = function(object){showCommentary(me,object.target)};
         EventBus.addEventListener("showCommentary",si);
+
+        var sp = function(object){setOpponenets(me,object.target)};
+        EventBus.addEventListener("showPendingEnemies",sp);
     };
     var drawScoreBoard = function(me){
 
