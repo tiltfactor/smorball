@@ -11,7 +11,7 @@
     }
 
     Waves.prototype.init = function(){
-
+        this.totalOpponents = this.config.waves.enemySize;
         this.start();
         //activateMultipleWaves(this);
     }
@@ -20,14 +20,17 @@
         EventBus.addEventListener("forcePush",fp);
     }
 
+    Waves.prototype.getPendingEnemies = function(){
+        return --this.totalOpponents;
+    }
 
     Waves.prototype.start = function(){
         var config = {"id": this.currentIndex, data : this.config.waves.data[this.currentIndex],"lanes": this.config.lanes, "loader" : this.config.loader };
         var wave = new Wave(config);
         this.currentIndex++;
         this.activeWaves.push(wave);
-
     }
+
 
     var activateMultipleWaves = function(me){
         for(var i= 1 ; i< me.config.waves.activeWaves; i++){

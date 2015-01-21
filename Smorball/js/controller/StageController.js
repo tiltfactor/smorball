@@ -534,6 +534,7 @@ function StageController(config) {
     }
 
     var pushEnemy = function(me,enemy){
+        EventBus.dispatch("showPendingEnemies", me.waves.getPendingEnemies());
         setEnemyProperties(me,enemy);
         me.config.stage.addChild(enemy);
         me.config.enemies.push(enemy);
