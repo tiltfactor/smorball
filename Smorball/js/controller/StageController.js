@@ -452,6 +452,7 @@ function StageController(config) {
         if(me.config.powerups.length != 0){
             for(var i = 0; i< me.config.powerups.length ; i++){
                 var powerup = me.config.powerups[i];
+                if(powerup.getLaneId() != player.getLaneId()) continue;
                 var hit = isCollisionPowerup(player,powerup);
                 if(hit){
                     return powerup;
