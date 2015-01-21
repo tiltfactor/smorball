@@ -6,51 +6,59 @@ var localData = {
             "image": "000.png",
             "ocr1": "2)retty",
             "ocr2": "pretty",
-            "message" : "Careful, because punctuation maters !"
+            "message" : "Type the word and press enter to stop the Jujube."
         },
         {
             "image": "001.png",
-            "ocr1": "pobescent",
-            "ocr2": "pubescent",
-            "message" : "Captialization matters too !"
+            "ocr1": "thraugliout,",
+            "ocr2": "throughout,",
+            "message" : "Careful, because punctuation maters !"
+
         },
         {
             "image": "002.png",
-            "ocr1": "thraugliout,",
-            "ocr2": "throughout,",
-            "message" : "Every letter is capitals !"
+            "ocr1": "ToTT.",
+            "ocr2": "Torr.",
+            "message" : "Captialization matters too !"
         },
         {
             "image": "003.png",
-            "ocr1": "1^-2",
-            "ocr2": "1-2",
+            "ocr1": "EosA",
+            "ocr2": "ROSA",
+            "message" :"Every letter in this word is capital"
+
         },
         {
             "image": "004.png",
-            "ocr1": "hranchlets",
-            "ocr2": "branchlets",
-            "message" : "use space !"
+            "ocr1": "Gray'sFlora^",
+            "ocr2": "Gray's Flora,",
+            "message" : "Use space  to separate multiple words!"
         },
         {
             "image": "005.png",
-            "ocr1": "umhellose,",
-            "ocr2": "umbellose,",
-            "message" : "Type AE.."
+            "ocr1": "ROSACEiE.",
+            "ocr2": "ROSACEJE.",
+            "message" : "Type Æ as AE.."
         },
         {
             "image": "006.png",
-            "ocr1": "subflexuous^",
-            "ocr2": "subflexuous,",
+            "ocr1": "l-l|",
+            "ocr2": "1-1j",
+            "message" : "...and use / for fractions"
         },
         {
             "image": "007.png",
-            "ocr1": "subsessik),",
-            "ocr2": "subsessik,",
+            "ocr1": "m dvu",
+            "ocr2": "«Em",
+            "message" : "You dont need to type accents."
+
         },
         {
             "image": "008.png",
             "ocr1": "decumhens",
             "ocr2": "decumbens",
+            "message" : "If you can't type it, click 'pass'"
+
         },
         {
             "image": "009.png",
@@ -74,8 +82,8 @@ var localData = {
         },
         {
             "image": "013.png",
-            "ocr1": "ToTT.",
-            "ocr2": "Torr.",
+            "ocr1": "pobescent",
+            "ocr2": "pubescent",
         },
         {
             "image": "014.png",
@@ -99,8 +107,9 @@ var localData = {
         },
         {
             "image": "018.png",
-            "ocr1": "Gray'sFlora^",
-            "ocr2": "Gray's Flora,",
+            "ocr1": "hranchlets",
+            "ocr2": "branchlets",
+
         },
         {
             "image": "019.png",
@@ -119,13 +128,14 @@ var localData = {
         },
         {
             "image": "022.png",
-            "ocr1": "ROSACEiE.",
-            "ocr2": "ROSACEJE.",
+            "ocr1": "umhellose,",
+            "ocr2": "umbellose,",
+
         },
         {
             "image": "023.png",
-            "ocr1": "EosA",
-            "ocr2": "ROSA",
+            "ocr1": "1^-2",
+            "ocr2": "1-2"
         },
         {
             "image": "024.png",
@@ -249,8 +259,9 @@ var localData = {
         },
         {
             "image": "048.png",
-            "ocr1": "l-l|",
-            "ocr2": "1-1j",
+            "ocr1": "subflexuous^",
+            "ocr2": "subflexuous,"
+
         },
         {
             "image": "049.png",
@@ -2360,8 +2371,8 @@ var localData = {
         },
         {
             "image": "470.png",
-            "ocr1": "m dvu",
-            "ocr2": "«Em"
+            "ocr1": "subsessik),",
+            "ocr2": "subsessik,"
         },
         {
             "image": "471.png",

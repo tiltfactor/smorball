@@ -92,7 +92,7 @@
             //this.currentIndex++;
             //this.activeIndex++;
             if(!(msg==""||msg==undefined)){
-                EventBus.dispatch("showMessage",msg);
+                EventBus.dispatch("showCommentary",msg);
             }
             EventBus.dispatch("pushEnemy",enemy);
             //console.log(this.currentIndex)

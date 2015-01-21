@@ -48,7 +48,7 @@
         me.speech = new createjs.Bitmap(me.config.loader.getResult("speech"));
         me.speech.regX = me.speech.getTransformedBounds().width/2;
         me.speech.y = cmtBox.getTransformedBounds().height/2+me.speech.getTransformedBounds().height/5;
-
+        me.speech.alpha=0;
         me.speech.scaleX = 0.5;
         me.speech.scaleY = 0.5;
         me.addChild(cmtBox,me.speech);
@@ -101,10 +101,12 @@
     var show = function(me,msg){
         me.free = false;
         me.info.text = msg.text;
+        me.speech.alpha=1;
         createjs.Tween.get(me.info).wait(msg.time)
             .call(function(){
                 me.free = true;
                 me.info.text = "";
+                me.speech.alpha=0;
                 if(me.infoAry.length != 0){
                     show(me,me.infoAry.shift());
                 }

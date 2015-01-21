@@ -87,16 +87,23 @@
         checkCaptchaSetting(me);
         var captchaData = me.captchaDatas.differences[me.currentIndex];
         var imageId = null;
+        var myText = null;
         if(me.captchaDatas.local){
-            imageId = captchaData.image.split(".")[0]
+            imageId = captchaData.image.split(".")[0];
+            myText = captchaData.message;
         }else{
             imageId = me.captchaDatas._id;
+            myText = captchaData.texts[0];
         }
         captchaData.url  =  me.config.loader.getResult(imageId);
         if(captchaData.url == null){
             me.currentIndex++;
             captchaData = getCaptchaData(me);
         }
+        if(getCaptcha(me,myText) != null){
+            captchaData = getCaptchaData(me);
+        }
+
         return captchaData;
     }
 

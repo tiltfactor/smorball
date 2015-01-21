@@ -20,7 +20,7 @@ function GameLevelController(config){
         EventBus.addEventListener("hideLevel", el);
     }
     GameLevelController.prototype.showLevel = function () {
-        if(this.config.gameState.gs.currentLevel<=2){
+        if(this.config.gameState.gs.currentLevel<=7){
             levelText(this);
             $( "#dialog-level" ).dialog("open");
         }
