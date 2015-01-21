@@ -4,7 +4,7 @@ function GameController(config) {
         this.config.stage = new createjs.Stage("loaderCanvas");
         this.config.popupStage = new createjs.Stage("popupCanvas");
         //this.config.stage.canvas.width = window.innerWidth - 150;//TODO make this better
-        // this.config.stage.canvas.height = window.innerHeight - 150;//TODO make this better
+       // this.config.stage.canvas.height = window.innerHeight - 150;//TODO make this better
         loadImages(this);
         window.onkeydown = onKeyBoardEvents;
     }

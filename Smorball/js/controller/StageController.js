@@ -68,7 +68,7 @@ function StageController(config) {
 
     var newGame = function (me) {
         $("#inputText").val("");
-        $('#myDiv').remove();
+        //$('#myDiv').remove();
         resetGame(me);
 
         me.config.gameState.gs.currentState = me.config.gameState.gs.States.RUN;
@@ -340,6 +340,7 @@ function StageController(config) {
         var powerup = this.config.activePowerup;
         if(powerup){
             player.addPowerups(this.config.activePowerup.getPower());
+            this.config.activePowerup = undefined;
         }
 
         this.config.players.push(player);
@@ -500,10 +501,22 @@ function StageController(config) {
     var updateLevelStatus = function(me, object){
         var type = "";
         if(object instanceof sprites.Enemy) type = "enemy";
-        me.waves.update(object.getWaveId(), object.onKillPush(), type)
-        if(me.waves.getStatus() && me.config.enemies.length == 0){
+        me.waves.update(object.getWaveId(), object.onKillPush(), type);
+        var enemyCount =  me.config.enemies.length;
+        var powerupCount = me.config.powerups.length;
+        if(enemyCount == 0 && powerupCount == 0){
+            waitForForcePush(me,object.getWaveId());
+        }
+        if(me.waves.getStatus() && enemyCount == 0){
             updateLevel(me);
         }
+    }
+    var waitForForcePush = function(me,waveId){
+        setTimeout(function(){
+            if(me.config.enemies.length == 0){
+                EventBus.dispatch("forcePush",waveId);
+            }
+        },2000);
     }
 
     var updateLevel = function(me){
@@ -583,6 +596,7 @@ function StageController(config) {
             console.log(powerup);
         }
     }
+
 
 
 }

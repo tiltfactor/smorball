@@ -26,11 +26,13 @@
         if(e.progress == 1){
             me.config.stage.removeAllChildren();
             me.config.stage.update();
+            $("#loaderDiv").hide();
         }
     };
 
     var showLoading = function(me){
         me.preLoader = new ui.Preloader({stage : me.config.stage});
+        $("#loaderDiv").show();
         me.config.stage.addChild(me.preLoader);
         me.events.loaderEvent =  function(e){ updateLoader(e,me)}
         me.addEventListener("progress",me.events.loaderEvent);

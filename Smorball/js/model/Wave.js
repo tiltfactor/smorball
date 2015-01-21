@@ -8,6 +8,7 @@
         this.currentIndex = 0;
         this.activeIndex = 0;
         this.complete = false;
+        this.timer = 0;
         generateEnemyProperties(this);
         this.push();
         console.log("start of wave");
@@ -31,11 +32,17 @@
 
 
     }
+
     var setNext = function(time, me){
         console.log(time);
-        setTimeout(function(){
+        me.timer = setTimeout(function(){
             me.push();
         }, time);
+    }
+
+    Wave.prototype.forcePush = function(){
+        clearTimeout(this.timer);
+        this.push();
     }
 
     Wave.prototype.push = function(){
@@ -73,14 +80,12 @@
         var powerup = new sprites.Powerup(config);
         EventBus.dispatch("pushPowerup",powerup);
         if(!onKill){
-            setNext (time, this);
+            setNext(time, this);
         }
     }
     
   Wave.prototype.pushEnemy = function(enemyProperties){
       console.log(this.currentIndex +"  //"+ this.complete)
-       // if(!this.complete){
-           // var enemyProperties = this.config.data.enemies[this.currentIndex];
             var type = enemyProperties[0];
             var lane = enemyProperties[1];
             var time = enemyProperties[2];
@@ -89,23 +94,14 @@
             var onKill = (time == undefined || time == -1) ? true: false;
             var config = {"id": type, "laneId": lane, "waveId": this.config.id, "onKill": onKill, "loader" : this.config.loader};
             var enemy = new sprites.Enemy(config);
-            //this.currentIndex++;
-            //this.activeIndex++;
             if(!(msg==""||msg==undefined)){
                 EventBus.dispatch("showCommentary",msg);
             }
             EventBus.dispatch("pushEnemy",enemy);
-            //console.log(this.currentIndex)
-            //if(this.currentIndex >= this.config.data.size) {
-            //    console.log("complete");
-            //    this.complete = true;
-            //}else{
-                if(!onKill){
-                    setNext (time, this);
-                }
-          //  }
-       //  }
-          
+            if(!onKill){
+                setNext(time, this);
+            }
+
     }
 
     Wave.prototype.killEnemy = function(){

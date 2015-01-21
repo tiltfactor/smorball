@@ -7,6 +7,7 @@
         this.activeWaves = [];
         this.currentIndex = 0;
         this.complete = false;
+        loadEvents(this);
     }
 
     Waves.prototype.init = function(){
@@ -14,6 +15,11 @@
         this.start();
         //activateMultipleWaves(this);
     }
+    var loadEvents = function(me){
+        var fp = function(object){forcePush(me,object.target)};
+        EventBus.addEventListener("forcePush",fp);
+    }
+
 
     Waves.prototype.start = function(){
         var config = {"id": this.currentIndex, data : this.config.waves.data[this.currentIndex],"lanes": this.config.lanes, "loader" : this.config.loader };
@@ -69,6 +75,12 @@
             }
         }
 
+    }
+    var forcePush = function(me, waveId){
+        var wave = getWaveFromId(waveId, me);
+        if(wave != null && !wave.isComplete()){
+            wave.forcePush();
+        }
     }
 
 
