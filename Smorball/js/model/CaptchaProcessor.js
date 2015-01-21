@@ -278,6 +278,16 @@
             }
         }
     }
+    CaptchaProcessor.prototype.hideCaptchas = function(){
+        for(var i =0;i<this.captchasOnScreen.length;i++){
+            this.captchasOnScreen[i].alpha=0;
+        }
+    }
+    CaptchaProcessor.prototype.showCaptchas = function(){
+        for(var i =0;i<this.captchasOnScreen.length;i++){
+            this.captchasOnScreen[i].alpha=1;
+        }
+    }
 
 
     window.CaptchaProcessor = CaptchaProcessor;

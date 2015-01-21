@@ -21,6 +21,12 @@
         this.x = this.config.width/2;
 
     };
+    CommentaryBox.prototype.setScore=function(score){
+        me.score.text = score;
+    }
+    CommentaryBox.prototype.setScore=function(score){
+        me.opponents.text = score;
+    }
     CommentaryBox.prototype.kill = function(){
         clearInterval(this.timer);
     };
@@ -37,11 +43,15 @@
         score.scaleX = 0.5;
         score.scaleY = 0.5;
         me.addChild(score);
+        initScorePosition(me,score);
+        initOpponentsPosition(me,score);
+
         var cmtBox = new createjs.Bitmap(me.config.loader.getResult("cmt"));
         cmtBox.regX = cmtBox.getTransformedBounds().width/2;
         cmtBox.scaleX = 0.5;
         cmtBox.scaleY = 0.5;
         cmtBox.y = score.getTransformedBounds().height-5;
+
 
         drawSpeakers(me,cmtBox,score);
 
@@ -125,6 +135,27 @@
         me.addChild(me.info);
         me.infoAry = [];
         me.free = true;
+    };
+
+    var initScorePosition = function(me,score){
+        me.score = new createjs.Text();
+        me.score.font = "bold 20px Scoreboard";
+        me.score.color = "white";
+        me.score.alpha = 1;
+        me.score.text = "999999";
+        me.score.x  = score.x+score.getTransformedBounds().width/2-me.score.getMeasuredWidth()-10;
+        me.score.y = score.y + score.getTransformedBounds().height/2;
+        me.addChild(me.score);
+    };
+    var initOpponentsPosition=function(me,score){
+        me.opponents =new createjs.Text();
+        me.opponents.font = "bold 20px Arial";
+        me.opponents.color = "white";
+        me.opponents.alpha = 1;
+        me.opponents.text = "5";
+        me.opponents.x  = score.x-me.opponents.getMeasuredWidth()-score.getTransformedBounds().width/5;
+        me.opponents.y = score.y + score.getTransformedBounds().height/2;
+        me.addChild(me.opponents);
     };
 
 

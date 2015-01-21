@@ -84,8 +84,8 @@ function StageController(config) {
             var manifest = Manifest.level1;
         else
             manifest = [];
-
         me.config.loader.loadQueue(manifest, _onImagesLoad, me);
+
     }
     var onImagesLoad = function(me){
         if(me.config.gameState.gs.currentLevel == 1){
@@ -297,6 +297,7 @@ function StageController(config) {
 
 
     var resumeGame = function (me) {
+        me.captchaProcessor.showCaptchas();
         EventBus.dispatch("exitMenu");
         EventBus.dispatch("setTickerStatus");
         createjs.Ticker.addEventListener("tick", me.events.tick);
@@ -304,6 +305,7 @@ function StageController(config) {
 
     var pauseGame = function (me) {
         if(!createjs.Ticker.getPaused()){
+            //me.captchaProcessor.hideCaptchas();
             EventBus.dispatch("setTickerStatus");
             EventBus.dispatch("showMenu");
         }
@@ -312,8 +314,11 @@ function StageController(config) {
 
     var showTimeoutScreen = function (me) {
         if(!createjs.Ticker.getPaused()){
+            me.captchaProcessor.hideCaptchas();
+            me.config.stage.update();
             EventBus.dispatch("setTickerStatus");
             EventBus.dispatch("showTimeout");
+
         }
     }  
 
