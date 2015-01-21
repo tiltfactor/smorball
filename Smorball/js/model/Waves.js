@@ -10,8 +10,9 @@
     }
 
     Waves.prototype.init = function(){
+
         this.start();
-        activateMultipleWaves(this);
+        //activateMultipleWaves(this);
     }
 
     Waves.prototype.start = function(){
@@ -68,35 +69,8 @@
             }
         }
 
-//        if(status && this.currentIndex < this.config.waves.data.length){
-//            console.log("starting wave");
-//            this.start();
-//        }else{
-//            if(status){
-//                this.complete = true;
-//            }
-//
-//        }
-
     }
 
-//    Waves.prototype.kill = function(waveId,onKillPush){
-//        var wave = getWaveFromId(waveId, this);
-//        var status = wave.kill();
-//        if(status){
-//            var index = this.activeWaves.indexOf(wave)
-//            this.activeWaves.splice(index,1);
-//        }else{
-//            if(onKillPush)
-//                wave.push();
-//        }
-//        if(status && this.currentIndex < this.config.waves.data.length){
-//            console.log("starting wave");
-//            this.start();
-//        }else{
-//            this.complete = true;
-//        }
-//    }
 
     window.Waves = Waves;
 

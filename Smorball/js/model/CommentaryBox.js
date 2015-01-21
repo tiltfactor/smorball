@@ -17,7 +17,7 @@
         this.Container_initialize();
         drawScoreBoard(this);
         initShowCommentary(this,this.speech);
-        startCommentaryTimer(this);
+        //startCommentaryTimer(this);
         this.x = this.config.width/2;
 
     };
@@ -77,13 +77,43 @@
 
     var showCommentary = function(me, text){
         if(text) {
-            me.infoAry.push(text);
+            formatText(me,text);
+            if(me.free){
+                show(me,me.infoAry.shift());
+            }
         }
     };
 
+    var formatText = function(me,text){
+        var texts = text.split("@@");
+        var time = 5000;
+        if(texts.length != 1){
+            time = 2000;
+        }
+        for(var i= 0 ; i< texts.length; i++){
+            var msg = {};
+            msg.text = texts[i];
+            msg.time = time;
+            me.infoAry.push(msg);
+        }
+    }
+
+    var show = function(me,msg){
+        me.free = false;
+        me.info.text = msg.text;
+        createjs.Tween.get(me.info).wait(msg.time)
+            .call(function(){
+                me.free = true;
+                me.info.text = "";
+                if(me.infoAry.length != 0){
+                    show(me,me.infoAry.shift());
+                }
+            });
+    }
+
+
     var initShowCommentary = function(me) {
         me.info = new createjs.Text();
-        me.info.text = "Jujubees, is coming!";
         me.info.font = "bold 10px Arial";
         me.info.color = "black";
         me.info.alpha = 1;
@@ -91,22 +121,10 @@
         me.info.y = me.speech.y+10 ;
         me.info.lineWidth = me.speech.getTransformedBounds().width - 15;
         me.addChild(me.info);
-        //createjs.Tween.get(me.info).wait(5000);
         me.infoAry = [];
+        me.free = true;
     };
 
-    var startCommentaryTimer = function(me) {
-        me.timer = setInterval(function() {
-            var txt = me.infoAry.pop();
-            console.log(txt);
-            if (txt){
-                me.info.text = txt;
-                createjs.Tween.get(me.info).wait(5000);
-            }else{
-                me.info.text = "";
-            }
-        }, 5000);
-    };
 
     window.CommentaryBox = CommentaryBox;
 }());

@@ -66,6 +66,42 @@ function StageController(config) {
 
     }
 
+    var newGame = function (me) {
+        $("#inputText").val("");
+        $('#myDiv').remove();
+        resetGame(me);
+
+        me.config.gameState.gs.currentState = me.config.gameState.gs.States.RUN;
+        me.levelConfig = Levels[me.config.gameState.gs.currentLevel];
+        me.time = 0;
+        me.captchaProcessor = new CaptchaProcessor({"loader": me.config.loader, "canvasWidth": me.width, "canvasHeight": me.height, "gameState" : me.config.gameState});
+        loadImages(me);
+    }
+    var loadImages = function(me){
+        var _onImagesLoad= function(me){ onImagesLoad(me)};
+        var manifest;
+        if(me.config.gameState.gs.currentLevel == 1)
+            var manifest = Manifest.level1;
+        else
+            manifest = [];
+
+        me.config.loader.loadQueue(manifest, _onImagesLoad, me);
+    }
+    var onImagesLoad = function(me){
+        if(me.config.gameState.gs.currentLevel == 1){
+            me.config.gameState.gs.points = 0;
+        }
+        drawBackGround(me);
+        drawStadium(me);
+        EventBus.dispatch("showCommentary", me.levelConfig.message);
+        drawLane(me);
+        initShowMessage(me);
+
+        generateWaves(me);
+        EventBus.dispatch("setTickerStatus");
+
+    }
+
     var initShowMessage = function(me){
         me.message = new createjs.Text();
         me.message.x = me.config.stage.canvas.width/2- me.message.getMeasuredWidth()/2;
@@ -139,52 +175,6 @@ function StageController(config) {
 
     }
 
-
-    var newGame = function (me) {
-        $("#inputText").val("");
-        $('#myDiv').remove();  
-        resetGame(me);
-
-        me.config.gameState.gs.currentState = me.config.gameState.gs.States.RUN;
-        me.levelConfig = Levels[me.config.gameState.gs.currentLevel];
-        me.time = 0;
-        me.captchaProcessor = new CaptchaProcessor({"loader": me.config.loader, "canvasWidth": me.width, "canvasHeight": me.height, "gameState" : me.config.gameState});
-        loadImages(me);
-
-
-
-    }
-    var loadImages = function(me){
-        var _onImagesLoad= function(me){ onImagesLoad(me)};
-        var manifest;
-        if(me.config.gameState.gs.currentLevel == 1)
-            var manifest = Manifest.level1;
-        else
-            manifest = [];
-
-        me.config.loader.loadQueue(manifest, _onImagesLoad, me);
-    }
-    var onImagesLoad = function(me){
-        if(me.config.gameState.gs.currentLevel == 1){
-            me.config.gameState.gs.points = 0;
-        }
-        drawBackGround(me);
-        drawStadium(me);
-        drawLane(me);
-
-        //drawAdBoards(me);
-        //drawWall(me);
-
-        // showLife(me);
-        // showScore(me);
-        initShowMessage(me);
-        generateWaves(me);
-        //startTimer(me);
-//        initShowMessage(me);
-        EventBus.dispatch("setTickerStatus");
-
-        //setTimeout(function(){showMessage(me,"Jujubees coming!!!");},2000); //TODO : change
-    }
 
     var drawStadium=function(me){
         var width = 800;
@@ -405,50 +395,13 @@ function StageController(config) {
 
     }
 
-    /*var createPlayer = function (me) {
-
-        for(var i = 0; i < me.config.lanes.length; i++){
-            var start = me.config.lanes[i].getStartPoint();
-            var end = me.config.lanes[i].getEndPoint();
-            var player = me.addPlayer(start.x,start.y);
-            player.setSpeed(i+1);
-            player.setEndPoint(end.x);
-
-            if(i == 1) continue;
-            var start = me.config.lanes[i].getEndPoint();
-            var end = me.config.lanes[i].getEnemyEndPoint();
-
-            var enemy = me.addEnemy(start.x,start.y,2);
-            enemy.setSpeed(i+1);
-            enemy.setEndPoint(end.x);
-
-            //break;
-        }
-
-        var gem = new Gem(me.config.loader);
-        gem.setPosition(600, 150);
-        me.config.gems.push(gem);
-
-
-        me.config.stage.addChild( gem);
-
-
-    }
-*/
     var tick = function (me) {
         if(!createjs.Ticker.getPaused()){
             me.config.stage.update();
             hitTest(me);
         }
     }
-    var contains = function(arr,id) {
-        for (var i = 0; i < arr.length; i++) {
-            if (arr[i].id == id) {
-                return true;
-            }
-        }
-        return false;
-    }
+
     var hitTest = function(me){
         if(me.config.players != undefined && me.config.players.length != 0){
             for(var i= 0 ; i< me.config.players.length ; i++){
@@ -459,48 +412,28 @@ function StageController(config) {
                 if(enemy != null && player.hit == false && enemy.hit == false){
 
                     if(player.singleHit){
-                        //if(!player.hitEnemies.contains(enemy.id)){
-                        if(!contains(player.hitEnemies,enemy.id)){
-                            player.hitEnemies.push(enemy);
+                        var hitList = player.hitEnemies;
+                        if(hitList.indexOf(enemy.id) == -1){
+                            player.hitEnemies.push(enemy.id);
                             enemy.kill();
                         }
+
                         
                     }else{
                         player.kill();
-                        //player.hit = true;
                         enemy.kill();
                     }
-
-
-                    //player.kill();
-                    //player.hit = true;
-                    //enemy.kill();
-                   
-
                 }
 
                 if(powerup != null && player.hitPowerup == false && powerup.hit == false){
                     addToMyPowerups(me, powerup);
-                    player.hitPowerup = true;
+                    player.hitPowerup = false;
                     updateLevelStatus(me,powerup);
                 }
             }
         }
 
     }
-    /*var showMyPowerups = function(me){
-        var x = me.width-1400;
-        var y = 20;
-        var padding = 5;
-        for(var i=0; i<me.config.myPowerups.length; i++){
-            var powerup = me.config.myPowerups[i];
-            x = x + powerup.getWidth() + padding;
-            powerup.x = x;
-            powerup.y = y;
-            powerup.stand();
-            console.log(powerup);
-        }
-    }*/
 
     var hitTestEnemies = function(player,me){
         if(me.config.enemies.length != 0){
@@ -531,17 +464,6 @@ function StageController(config) {
             player.x <= object.x + object.getWidth());
     }
 
-    /*var hitTestGems = function(player,me){
-     if(me.config.gems.length != 0){
-     for(var i = 0; i< me.config.gems.length ; i++){
-     var gem = me.config.gems[i];
-     var hit = isCollision(player,gem);
-     if(hit){
-     return gem;
-     }
-     }
-     }
-     }*/
 
     var isCollision = function(player, object){
         return (object.x <= player.x + player.getWidth() &&
@@ -563,37 +485,6 @@ function StageController(config) {
             }
         }
 
-
-//        if(output.pass){
-//            if(me.config.activePowerup){
-//                if(me.config.activePowerup.config.id == 'amber' && (!me.config.activePowerup.used)){
-//                    startPlayersFromAllLanes(me);
-//                }
-//                else if(me.config.activePowerup.config.id == 'ice' && (!me.config.activePowerup.used)){
-//                     console.log("ICEEEEEEEEEEEEEEEEEEEEEEEEEEE");
-//                     me.addPlayer(getLaneById(output.laneId,me));
-//                }
-//                else if(me.config.activePowerup.config.id == 'ruby' && (!me.config.activePowerup.used)){
-//                    console.log("RUBYYYYYYYYYYYYYYYYYYYYYYY");
-//                    me.addPlayer(getLaneById(output.laneId,me));
-//                }
-//                me.config.activePowerup.used = true;
-//                me.addPlayer(getLaneById(output.laneId,me));
-//            }
-//            else{
-//                var lane = getLaneById(output.laneId,me);
-//                me.addPlayer(lane);
-//            }
-//            /*if(me.config.myPowerups[0]!=undefined && me.config.myPowerups[0].config.id == "amber"){
-//                for(var i=0; i<me.config.lanes.length; i++){
-//                    me.addPlayer(getLaneById(me.config.lanes[i].laneId,me));
-//                }
-//            }
-//            else{
-//                var lane = getLaneById(output.laneId,me);
-//                me.addPlayer(lane);
-//            }*/
-//        }
     }
     var startPlayersFromAllLanes = function(me){
         for(var i=0; i<me.config.lanes.length; i++){
