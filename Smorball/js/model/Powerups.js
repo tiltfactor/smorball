@@ -44,7 +44,7 @@
 
     var activate = function(me){
         EventBus.dispatch("showCommentary", me.powerupData.extras.message);
-        me.removeEventListener("click", me.events.click);
+        //me.removeEventListener("click", me.events.click);
         EventBus.dispatch("activatePowerup", me);
     }
     Powerup.prototype.getPower = function(){

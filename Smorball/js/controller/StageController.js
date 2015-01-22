@@ -585,6 +585,10 @@ function StageController(config) {
         updateMyPowerups(me);
     }
     var activatePowerup = function(me,powerup){
+        if(me.config.activePowerup != undefined){
+            me.config.myPowerups.push(me.config.activePowerup);
+            me.config.stage.addChild(me.config.activePowerup);
+        }
         me.config.activePowerup = powerup;
         var index = me.config.myPowerups.indexOf(powerup);
         me.config.myPowerups.splice(index,1);
