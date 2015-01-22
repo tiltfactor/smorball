@@ -4,15 +4,15 @@
 Levels = [];
 
 Levels[1] = { "level" : 1, "lanes" : 1 , "pass" : 1,
-    "waves" : { "activeWaves" : 1, "time" : 1000, "maxOnGround" : 4, "enemySize":12,"messages":"Jujubes come from the right.@@ Keep the Jujubes from getting to the grass. @@Type the word and press enter to stop the Jujube.","data": [
+    "waves" : { "activeWaves" : 1, "time" : 1000, "maxOnGround" : 4, "enemySize":12,"message":"Jujubes come from the right.@@ Keep the Jujubes from getting to the grass. @@Type the word and press enter to stop the Jujube.","data": [
         {"types" : ["enemy_regular"], "time": -1, "size" : 10, stageDatas: [] },
         {"types" : ["fast"], "time": -1, "size" : 2, stageDatas: [["fast",1,6000,"Look out! Here they come!"],["fast",1]] }
     ]  }
 };
 
 Levels[2] = { "level" : 2, "lanes" : 3 , "pass" : 2,
-    "waves" : { "activeWaves" : 1, "time" : 1000, "maxOnGround" : 4,"enemySize":17, "data": [
-        {"types" : ["enemy_regular"], "time": -1, "size" : 2, stageDatas: [["enemy_regular",1,10000,"Jujubes come in 3 different rows now. Type the word in the same row as the Jujube to hit that Jujube."],["enemy_regular",2,0,""]] },
+    "waves" : { "activeWaves" : 1, "time" : 1000, "maxOnGround" : 4,"enemySize":17,"message":"Jujubes come in 3 different rows now.", "data": [
+        {"types" : ["enemy_regular"], "time": -1, "size" : 2, stageDatas: [["enemy_regular",1,10000," Type the word in the same row as the Jujube to hit that Jujube."],["enemy_regular",2,0,""]] },
         {"types" : ["enemy_regular"], "time": -1, "size" : 1, stageDatas: [] },
         {"types" : ["enemy_regular"], "time": -1, "size" : 1, stageDatas: [] },
         {"types" : ["enemy_regular"], "time": -1, "size" : 3, stageDatas: [["enemy_regular",2,4000,""],["enemy_regular",2,15000,""],["enemy_regular",1,0,""]] },
@@ -35,7 +35,7 @@ Levels[3] = { "level" : 3, "lanes" : 3 , "pass" : 2,
     ]  }
 };
 Levels[4] = { "level" : 4, "lanes" : 3 , "pass" : 2,
-    "waves" : { "activeWaves" : 1, "time" : 1000, "maxOnGround" : 4,"enemySize":14,"messages":"Powerups make your next word super powerful!@@Type the word to pick up the powerup.@@ Use tab to select your powerup", "data": [
+    "waves" : { "activeWaves" : 1, "time" : 1000, "maxOnGround" : 4,"enemySize":14,"message":"Powerups make your next word super powerful!@@Type the word to pick up the powerup.@@ Use tab to select your powerup", "data": [
         {"types" : ["boss","ice"], "time": -1, "size" : 4, stageDatas: [["ice",2,2000,"This one deals extra damage!@@ Try it now! ","powerup"],["boss",2,20000],["ice",1,0,"","powerup"],["ice",3,0,"","powerup"]] },
         {"types" : ["boss","ice"], "time": -1, "size" : 3, stageDatas: [["boss",1,5000],["ice",3,5000,"","powerup"],["boss",2]] },
         {"types" : ["ice"], "time": -1, "size" : 3, stageDatas: [["ice",1,0,"","powerup"],["ice",2,0,"","powerup"],["ice",3,0,"","powerup"]] },
@@ -57,7 +57,7 @@ Levels[5] = { "level" : 5, "lanes" : 3 , "pass" : 2,
     ]  }
 };
 Levels[6] = { "level" : 6, "lanes" : 3 , "pass" : 2,
-    "waves" : { "activeWaves" : 1, "time" : 1000, "maxOnGround" : 4,"enemySize":50,"messages":"Pick up the powerup.@@Use tab to select it", "data": [
+    "waves" : { "activeWaves" : 1, "time" : 1000, "maxOnGround" : 4,"enemySize":50,"message":"Pick up the powerup.@@Use tab to select it", "data": [
         {"types" : ["enemy_regular","ruby"], "time": -1, "size" : 5, stageDatas: [["ruby",1,0,"This one hit every jujube in the row@@ Try it now !","powerup"],["enemy_regular",1,2000,""],["enemy_regular",1,2000,""],["enemy_regular",1,0,""],["ruby",2,0,"","powerup"]] },
         {"types" : ["badGuy","ruby","ice"], "time": -1, "size" : 5, stageDatas: [["badGuy",1,""],["enemy_regular",3,3000],["enemy_regular",3,3000],["enemy_regular",3,3000],["ice",3,0,"","powerup"]] },
         {"types" : ["ruby","badGuy","enemy_regular","fast","regular"], "time": -1, "size" : 7, stageDatas: [["ruby",1,5000,"","powerup"],["badGuy",1,0],["enemy_regular",1,2000],["badGuy",1,4000],["enemy_regular",1,2000],["fast",3,7000],["regular",2,0]] },

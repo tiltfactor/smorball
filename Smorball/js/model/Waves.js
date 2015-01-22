@@ -61,7 +61,7 @@
         var status = wave.isComplete();
 
         if(status){
-            var index = this.activeWaves.indexOf(wave)
+            var index = this.activeWaves.indexOf(wave);
             this.activeWaves.splice(index,1);
         }else{
             if(onKillPush)

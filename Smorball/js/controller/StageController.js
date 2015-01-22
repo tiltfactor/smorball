@@ -93,7 +93,7 @@ function StageController(config) {
         }
         drawBackGround(me);
         drawStadium(me);
-        EventBus.dispatch("showCommentary", me.levelConfig.message);
+        EventBus.dispatch("showCommentary", me.levelConfig.waves.message);
         drawLane(me);
         initShowMessage(me);
 
