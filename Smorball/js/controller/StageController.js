@@ -257,6 +257,7 @@ function StageController(config) {
         me.config.stage.removeChild(life);
         if(--me.config.gameState.gs.life == 0){
             me.config.gameState.gs.currentState = me.config.gameState.gs.States.GAME_OVER;
+            me.config.gameState.gs.currentLevel = 1;
             showGameOverMessage(me,"Game Over")
         }
     }
