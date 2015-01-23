@@ -3,6 +3,7 @@ function GameController(config) {
     GameController.prototype.init = function () {
         this.config.stage = new createjs.Stage("loaderCanvas");
         this.config.popupStage = new createjs.Stage("popupCanvas");
+        this.config.utilityStage = new createjs.Stage("utilityCanvas");
         //this.config.stage.canvas.width = window.innerWidth - 150;//TODO make this better
        // this.config.stage.canvas.height = window.innerHeight - 150;//TODO make this better
         loadImages(this);
@@ -38,7 +39,8 @@ function GameController(config) {
         me.config.shopController.init();
         me.config.gameLeveController = new GameLevelController({
             "gameState": me.config.gameState,
-            "loader": me.config.smbLoadQueue
+            "loader": me.config.smbLoadQueue,
+            "stage":me.config.utilityStage
         });
         me.config.gameLeveController.init();
 

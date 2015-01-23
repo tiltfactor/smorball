@@ -106,7 +106,7 @@
         for(var i= 0 ; i< texts.length; i++){
             var msg = {};
             msg.text = texts[i];
-            msg.time = time;
+            msg.time = getTime(texts[i]);
             me.infoAry.push(msg);
         }
     }
@@ -159,6 +159,9 @@
         me.opponents.x  = score.x-me.opponents.getMeasuredWidth()-score.getTransformedBounds().width/5;
         me.opponents.y = score.y + score.getTransformedBounds().height/2;
         me.addChild(me.opponents);
+    };
+    var getTime = function(text){
+        return (text.length*100);
     };
 
 
