@@ -101,6 +101,7 @@
             captchaData = getCaptchaData(me);
         }
         if(getCaptcha(me,myText) != null){
+            me.currentIndex++;
             captchaData = getCaptchaData(me);
         }
 
