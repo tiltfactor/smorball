@@ -24,11 +24,12 @@
     p.initialize = function () {
         this.Container_initialize();
         this.drawPreloader();
+        this.setBackground(this);
         this.setMessage("Loading...");
         this.setPosition(this);
         //this.setPosition(this.stage);
     };
-
+    
     p.drawPreloader = function () {
         var outline = new createjs.Shape();
         outline.graphics.beginStroke(this.strokeColor);
@@ -54,12 +55,33 @@
         var msgField = new createjs.Text(text,"20px Arial","#ff770");
         msgField.y = this.y-30;
         msgField.x = this.x+150;
+        msgField.scaleX = this.config.stage.canvas.width/800;
+        msgField.scaleY = this.config.stage.canvas.height/600;
         this.addChild(msgField);
     };
-    //p.setBackground=function(){
-    //    var bmp = new createjs.Bitmap("shapes/home.jpg");
-    //    this.addChild(bmp);
-    //};
+    
+    p.setBackground=function(me){
+        if(me.config.currentLevel != "start"){
+            var image = me.config.loader.getResult(LoaderData[me.config.currentLevel].id);
+            if(typeof image!= undefined) {
+                var bmp = new createjs.Bitmap(image);
+                var theBounds = bmp.getBounds();
+                var loaderTest = LoaderData[me.config.currentLevel].messge;
+                var loaderMsg = new createjs.Text(loaderTest,"20px Arial","#ff770");
+                loaderMsg.lineWidth = this.width;
+                loaderMsg.y = this.y-70;
+                loaderMsg.x = this.width/2 - loaderMsg.getTransformedBounds().width/2;
+                loaderMsg.scaleX = this.config.stage.canvas.width/800;
+                loaderMsg.scaleY = this.config.stage.canvas.height/600;
+                this.addChild(loaderMsg);
+
+                bmp.x = bmp.y = 0;
+                bmp.scaleX = this.config.stage.canvas.width/theBounds.width;
+                bmp.scaleY = this.config.stage.canvas.height/theBounds.height;
+                this.config.stage.addChildAt(bmp,0);  
+            }
+        }
+    };
 
     window.ui.Preloader = Preloader;
 

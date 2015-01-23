@@ -82,9 +82,12 @@ function StageController(config) {
         var manifest;
         if(me.config.gameState.gs.currentLevel == 1)
             var manifest = Manifest.level1;
-        else
+         else
             manifest = [];
-        me.config.loader.loadQueue(manifest, _onImagesLoad, me);
+           
+        var splash = LoaderData[me.config.gameState.gs.currentLevel+1];
+        manifest.push({"src": splash.image, "id" : splash.id});
+        me.config.loader.loadQueue(manifest, _onImagesLoad, me, me.config.gameState.gs.currentLevel);
 
     }
     var onImagesLoad = function(me){
@@ -319,7 +322,13 @@ function StageController(config) {
             me.config.stage.update();
             EventBus.dispatch("setTickerStatus");
             EventBus.dispatch("showTimeout");
-
+//            $(".ui-dialog").css({
+//            '-webkit-transform': 'scale('+1+',' + me.height/600 + ')',
+//            '-moz-transform'    : 'scale('+1+',' + me.height/600 + ')',
+//            '-ms-transform'     : 'scale('+1+',' + me.height/600 + ')',
+//            '-o-transform'      : 'scale('+1+',' + me.height/600 + ')',
+//            'transform'         : 'scale('+1+',' + me.height/600 + ')'
+//        });
         }
     }  
 
@@ -586,10 +595,6 @@ function StageController(config) {
         updateMyPowerups(me);
     }
     var activatePowerup = function(me,powerup){
-        if(me.config.activePowerup != undefined){
-            me.config.myPowerups.push(me.config.activePowerup);
-            me.config.stage.addChild(me.config.activePowerup);
-        }
         me.config.activePowerup = powerup;
         var index = me.config.myPowerups.indexOf(powerup);
         me.config.myPowerups.splice(index,1);

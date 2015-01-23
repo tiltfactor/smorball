@@ -30,19 +30,19 @@
         }
     };
 
-    var showLoading = function(me){
-        me.preLoader = new ui.Preloader({stage : me.config.stage});
+    var showLoading = function(me, gameLevel){
+        me.preLoader = new ui.Preloader({"stage" : me.config.stage, "currentLevel" : gameLevel, "loader":me});
         $("#loaderDiv").show();
         me.config.stage.addChild(me.preLoader);
         me.events.loaderEvent =  function(e){ updateLoader(e,me)}
         me.addEventListener("progress",me.events.loaderEvent);
     }
 
-    SmbLoadQueue.prototype.loadQueue = function(manifest, callback, ob){
+    SmbLoadQueue.prototype.loadQueue = function(manifest, callback, ob , gameLevel){
         if(manifest.length != 0){
             var me = this;
             this.active = true;
-            showLoading(me);
+            showLoading(me, gameLevel);
             this.loadManifest(manifest);
             this.events.click = function(){ loadComplete(callback,ob,me); }
             this.addEventListener("complete", this.events.click);

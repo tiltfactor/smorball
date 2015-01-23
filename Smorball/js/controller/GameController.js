@@ -3,23 +3,26 @@ function GameController(config) {
     GameController.prototype.init = function () {
         this.config.stage = new createjs.Stage("loaderCanvas");
         this.config.popupStage = new createjs.Stage("popupCanvas");
-        //this.config.stage.canvas.width = window.innerWidth - 150;//TODO make this better
-       // this.config.stage.canvas.height = window.innerHeight - 150;//TODO make this better
+        this.config.stage.canvas.width = window.innerWidth ;//TODO make this better
+        this.config.stage.canvas.height = window.innerHeight;//TODO make this better
         loadImages(this);
         window.onkeydown = onKeyBoardEvents;
     }
 
     var loadImages = function (me) {
+        me.config.gameState = new GameState();
+        me.config.gameState.init();
         var _doInit = function (me) {
             doInit(me)
         }
-        me.config.smbLoadQueue = new SmbLoadQueue({"stage": me.config.stage});
-        me.config.smbLoadQueue.loadQueue(Manifest.game, _doInit, me);
+        var manifest = Manifest.game;
+        var splash = LoaderData[1];
+        manifest.push({"src": splash.image, "id" : splash.id});
+        me.config.smbLoadQueue = new SmbLoadQueue({"stage": me.config.stage, "gameState":me.config.gameState });
+        me.config.smbLoadQueue.loadQueue(manifest, _doInit, me,"start");
     }
 
     var doInit = function (me) {
-        me.config.gameState = new GameState();
-        me.config.gameState.init();
         me.config.menuController = new MenuController({
             "gameState": me.config.gameState,
             "loader": me.config.smbLoadQueue
