@@ -29,13 +29,6 @@ function MenuController(config) {
         checkStatus(me);
         me.config.gameState.gs.currentState = me.config.gameState.gs.States.MAIN_MENU;
         $( "#timeout-popup" ).dialog("open");
-//        $(".ui-dialog").css({
-//            '-webkit-transform': 'scale('+1+',' + window.innerHeight/600 + ')',
-//            '-moz-transform'    : 'scale('+1+',' + window.innerHeight/600 + ')',
-//            '-ms-transform'     : 'scale('+1+',' + window.innerHeight/600 + ')',
-//            '-o-transform'      : 'scale('+1+',' + window.innerHeight/600 + ')',
-//            'transform'         : 'scale('+1+',' + window.innerHeight/600 + ')'
-//        });
     }   
 
     var closeTimeoutDialog =  function() {
@@ -43,33 +36,21 @@ function MenuController(config) {
     };
 
     var createDialog = function(me){
-        var width = window.innerWidth/800 *300;
         $( "#dialog-message" ).dialog(
             {
                 dialogClass: "no-close",
                 modal: true,
-                closeOnEscape: false,
-                width: width,
-                minHeight: 50
+                closeOnEscape: false
             });
-//         $(".ui-dialog").css({
-//            '-webkit-transform': 'scale('+1+',' + window.innerHeight/600 + ')',
-//            '-moz-transform'    : 'scale('+1+',' + window.innerHeight/600 + ')',
-//            '-ms-transform'     : 'scale('+1+',' + window.innerHeight/600 + ')',
-//            '-o-transform'      : 'scale('+1+',' + window.innerHeight/600 + ')',
-//            'transform'         : 'scale('+1+',' + window.innerHeight/600 + ')'
-//        });
             $( "#timeout-popup" ).dialog({
                 dialogClass: "timeout-popup-box",
                 modal: true,
                 closeOnEscape: false,
                 autoOpen: false,
                 close: closeTimeoutDialog,
-                width: width,
-                minHeight: 50,
-                 open: function () {
-          $(this).dialog('option', 'position', 'center');
-    },
+                open: function () {
+                    $(this).dialog('option', 'position', 'center');
+                },
                 buttons: [
                     {
                         text: "HELP",
@@ -103,7 +84,6 @@ function MenuController(config) {
             });              
             
         $("#dialog-message Button" ).button();
-//        $(".timeout-popup-box Button" ).button();
     }
     var checkStatus = function(me){
         var state = me.config.gameState.gs.States;
