@@ -84,9 +84,12 @@ function StageController(config) {
             var manifest = Manifest.level1;
          else
             manifest = [];
-           
-        var splash = LoaderData[me.config.gameState.gs.currentLevel+1];
-        manifest.push({"src": splash.image, "id" : splash.id});
+         
+        if(me.config.gameState.gs.currentLevel !== 7)
+        {
+            var splash = LoaderData[me.config.gameState.gs.currentLevel+1];
+            manifest.push({"src": splash.image, "id" : splash.id});
+        }
         me.config.loader.loadQueue(manifest, _onImagesLoad, me, me.config.gameState.gs.currentLevel);
 
     }
