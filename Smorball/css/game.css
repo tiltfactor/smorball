@@ -63,6 +63,7 @@ body {
     padding: 7%;
     right: -3%;
     top: 21%;
+    z-index: 1;
 }
 
 .timeout-popup-box #timout-text {
@@ -125,6 +126,11 @@ body {
     font-family: 'Boogaloo';
     font-size: 1.5em;
     margin-top: 0;
+}
+
+.ui-dialog-buttonset button.ui-state-focus,
+.ui-dialog-titlebar-close.ui-state-focus{
+    outline: none;
 }
 
 .timeout-popup-box .ui-button-text-only {
