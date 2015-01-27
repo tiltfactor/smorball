@@ -36,8 +36,8 @@
                 this.labels[i].played = true;
                 this.labels[i].alpha=1;
                 var id = this.labels[i].id ;
-                var event = function(){EventBus.dispatch("setLevel",id)};
-                this.labels[i].addEventListener("click",event);
+                var evt = function(e){EventBus.dispatch("setLevel", e.target)};
+                this.labels[i].addEventListener("click",evt);
             }
 
         }

@@ -152,7 +152,7 @@
     };
     var initOpponentsPosition=function(me,score){
         me.opponents =new createjs.Text();
-        me.opponents.font = "bold 20px Arial";
+        me.opponents.font = "bold 20px Scoreboard";
         me.opponents.color = "white";
         me.opponents.alpha = 1;
         me.opponents.text = "5";

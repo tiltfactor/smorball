@@ -50,8 +50,8 @@ function GameLevelController(config){
         $("#dialog-utility").hide();
         //$( "#dialog-utility" ).dialog("close");
     }
-    GameLevelController.prototype.setLevel = function(level){
-        this.config.gameState.gs.currentLevel=level;
+    GameLevelController.prototype.setLevel = function(label){
+        this.config.gameState.gs.currentLevel=label.id;
         EventBus.dispatch("hideLevel");
         EventBus.dispatch("newGame");
         $("#myCanvas").show();
