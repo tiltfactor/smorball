@@ -16,7 +16,7 @@
     <script src="js/data/CaptchaJson.js"></script>
     <script src="js/model/Level.js"></script>
     <script src="js/data/PowerupsData.js"></script>
-    <script src="js/data/loaderData.js"></script>
+    <script src="js/data/LoaderData.js"></script>
     <script src="js/model/SpriteSheet.js"></script>
     <script src="js/model/Lane.js"></script>
     <script src="js/model/Wave.js"></script>
@@ -70,24 +70,16 @@
     <canvas id="utilityCanvas"></canvas>
 </div>
 
-
-
-<div id="dialog-message" style="display:none; text-align:center">
-    <p>
+<div id="menu-container">
+    <div class="menu-button-container">
+        <div class="menu-buttons">
         <button onClick="EventBus.dispatch(&quot;exitMenu&quot;);EventBus.dispatch(&quot;showMap&quot;)">New Game</button>
-    </p>
-    <p>
         <button id="resumeButton" onClick="EventBus.dispatch(&quot;resumeGame&quot;)">Resume Game</button>
-    </p>
-    <p>
         <button onClick="EventBus.dispatch(&quot;exitMenu&quot;);EventBus.dispatch(&quot;showMap&quot;)">Map</button>
-    </p>
-    <p>
         <button onClick="EventBus.dispatch(&quot;exitMenu&quot;)">Exit</button>
-    </p>
-    <p>
         <button>Help</button>
-    </p>
+        </div>
+    </div>
 </div>
 
 <!--<div id="dialog-level" style="display:none; text-align:center">-->

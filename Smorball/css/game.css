@@ -15,6 +15,10 @@ body {
     overflow: hidden;
 }
 
+canvas {
+    position: relative;
+}
+
 @font-face { font-family: 'Boogaloo'; src: url('fonts/Boogaloo-Regular.otf'); }
 @font-face { font-family: 'Scoreboard'; src: url('fonts/scoreboard.ttf'); }
 
@@ -24,7 +28,53 @@ body {
     padding: 0px;
 }
 
-/*timeout screen style*/
+/*menu screen style starts here*/
+#menu-container {
+    display: none;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background-image: url("../shapes/sample.jpg");
+}
+
+.menu-button-container {
+    position: relative;
+    padding: 1%;
+    border-radius: 5px;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.menu-buttons {
+    margin: 0px auto;
+    width: 50%;
+    max-width: 400px;
+    border-radius: 5px;
+    padding: 1% 0%;
+}
+
+.menu-button-container button {
+    margin: 1% 5%;
+    width: 90%;
+    border: 1px solid #cccccc;
+    background: #f6f6f6;
+    font-weight: bold;
+    color: #1c94c4;
+    font-size: 1.3em;
+    padding: 2% 1%;
+}
+
+.menu-button-container button:hover {
+    border: 1px solid #fbcb09;
+    background: #fdf5ce;
+    font-weight: bold;
+    color: #c77405;
+}
+/*menu screen style ends here*/
+
+/*timeout screen style starts here*/
 
 #timeout-popup {
     display:none;
@@ -122,7 +172,7 @@ body {
 .timeout-popup-box .ui-dialog-buttonset button {
     color:#fff;
     cursor:pointer;
-    padding: 3% 0% 11% 0%;
+    padding: 0% 0% 8% 0%;
     font-family: 'Boogaloo';
     font-size: 1.5em;
     margin-top: 0;
@@ -151,4 +201,8 @@ body {
     .slider-text {
         font-size: .5em;
     }
+    .menu-button-container {
+        font-size: .8em;
+    }
 }
+/*timeout screen style ends here*/

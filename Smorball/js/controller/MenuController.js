@@ -19,10 +19,10 @@ function MenuController(config) {
     MenuController.prototype.showMenu = function (me) {
         checkStatus(me);
         me.config.gameState.gs.currentState = me.config.gameState.gs.States.MAIN_MENU;
-      $( "#dialog-message" ).dialog("open");
+        $("#menu-container" ).css("display","table");
     } 
     MenuController.prototype.hideMenu = function () {
-        $( "#dialog-message" ).dialog("close")
+        $( "#menu-container" ).css("display","none");
     }
 
     MenuController.prototype.showTimeout = function (me) {
@@ -36,12 +36,7 @@ function MenuController(config) {
     };
 
     var createDialog = function(me){
-        $( "#dialog-message" ).dialog(
-            {
-                dialogClass: "no-close",
-                modal: true,
-                closeOnEscape: false
-            });
+          $("#menu-container" ).css("display","table");
             $( "#timeout-popup" ).dialog({
                 dialogClass: "timeout-popup-box",
                 modal: true,
@@ -82,8 +77,6 @@ function MenuController(config) {
                     me.config.gameState.gs.soundEffects = ui.value;
                 }
             });              
-            
-        $("#dialog-message Button" ).button();
     }
     var checkStatus = function(me){
         var state = me.config.gameState.gs.States;
