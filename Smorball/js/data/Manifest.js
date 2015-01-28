@@ -44,8 +44,9 @@ Manifest.game = [
 
     {src: "shapes/ruby_float.png",  id: "ruby_float"},
     {src: "shapes/amber_float.png", id: "amber_float"},
-    {src: "shapes/ice_float.png",   id: "ice_float"}
-
+    {src: "shapes/ice_float.png",   id: "ice_float"},
+    
+    {src: "shapes/loader_default_bg.jpg",   id: "loader_default_bg"}
 
 
 ];

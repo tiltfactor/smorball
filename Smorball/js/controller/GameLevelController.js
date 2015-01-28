@@ -23,21 +23,37 @@ function GameLevelController(config){
         EventBus.addEventListener("setLevel", tl);
     }
 
+    var loadImages = function (me) {
+        var _showMapScreen = function (me) {
+            showMapScreen(me);
+        }
+        var manifest = [];
+        for (var i = 1; i <= me.config.gameState.gs.maxLevel; i++) {
+            var splash = LoaderData[i];
+            manifest.push({"src": splash.image, "id" : splash.id});
+        }
+        me.config.loader.loadQueue(manifest, showMapScreen, me);
+    }
+
     GameLevelController.prototype.showMap = function(){
-        this.config.stage.removeAllChildren();
+        EventBus.dispatch("hideAll");
+        $("#loaderCanvas").show();
+        loadImages(this);
+    }
+    
+   var showMapScreen = function(me) {
+        me.config.stage.removeAllChildren();
         $("#dialog-utility").show();
-        this.map = new createjs.Container();
-        this.map.scaleX = this.scaleFactorX;
-        this.map.scaleY = this.scaleFactorY;
+        me.map = new createjs.Container();
+        me.map.scaleX = me.scaleFactorX;
+        me.map.scaleY = me.scaleFactorY;
 
-        this.config.stage.addChild(this.map);
-        var levelmap = new createjs.Bitmap(this.config.loader.getResult("levelmap"));
+        me.config.stage.addChild(me.map);
+        var levelmap = new createjs.Bitmap(me.config.loader.getResult("levelmap"));
         levelmap.setTransform(0,0,0.5,0.5);
-        this.map.addChild(levelmap);
+        me.map.addChild(levelmap);
 
-        drawLevels(this);
-
-
+        drawLevels(me);
     }
 
     var drawLevels = function(me){

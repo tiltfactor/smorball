@@ -75,6 +75,7 @@ function StageController(config) {
         me.levelConfig = LevelData[me.config.gameState.gs.currentLevel];
         me.time = 0;
         me.captchaProcessor = new CaptchaProcessor({"loader": me.config.loader, "canvasWidth": me.width, "canvasHeight": me.height, "gameState" : me.config.gameState});
+        $("#loaderCanvas").show();
         loadImages(me);
     }
     var loadImages = function(me){

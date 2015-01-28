@@ -7,80 +7,76 @@
 
     var Preloader = function (config) {
         this.config = config;
-       // this.stage = stage;
         this.fillColor = "#AFA";
         this.strokeColor = "#000";
+        this.width = 400;
+        this.height = 40;
+        this.fillColor;
         this.initialize();
     };
-    var p = Preloader.prototype = new createjs.Container();
+    Preloader.prototype = new createjs.Container();
 
-    p.width = 400;
-    p.height = 40;
-    p.fillColor;
-    p.strokeColor;
-    p.bar;
-
-    p.Container_initialize = p.initialize;
-    p.initialize = function () {
+    Preloader.prototype.Container_initialize = Preloader.prototype.initialize;
+    Preloader.prototype.initialize = function () {
         this.Container_initialize();
-        this.drawPreloader();
-        this.setBackground(this);
-        this.setMessage("Loading...");
-        this.setPosition(this);
-        //this.setPosition(this.stage);
+        drawPreloader(this);
+        setBackground(this);
+        setMessage(this,"Loading...");
+        setPosition(this);
     };
     
-    p.drawPreloader = function () {
+    var drawPreloader = function (me) {
         var outline = new createjs.Shape();
-        outline.graphics.beginStroke(this.strokeColor);
-        outline.graphics.drawRect(0, 0, this.width, this.height);
-        this.bar = new createjs.Shape();
-        this.bar.graphics.beginFill(this.fillColor);
-        this.bar.graphics.drawRect(0, 0, this.width, this.height);
-        this.bar.scaleX = 0;
-        this.addChild(this.bar, outline);
-
-
+        outline.graphics.beginStroke(me.strokeColor);
+        outline.graphics.drawRect(0, 0, me.width, me.height);
+        me.bar = new createjs.Shape();
+        me.bar.graphics.beginFill(me.fillColor);
+        me.bar.graphics.drawRect(0, 0, me.width, me.height);
+        me.bar.scaleX = 0;
+        me.addChild(me.bar, outline);
     };
 
-    p.update = function (perc) {
+    Preloader.prototype.update = function (perc) {
         perc = perc > 1 ? 1 : perc;
         this.bar.scaleX = perc;
     }
-    p.setPosition=function(me){
-        this.x = (me.config.stage.canvas.width / 2) - (me.width / 2);
-        this.y =(me.config.stage.canvas.height / 2) - (me.height / 2);
-    };
-    p.setMessage=function(text){
-        var msgField = new createjs.Text(text,"20px Arial","#ff770");
-        msgField.y = this.y-30;
-        msgField.x = this.x+150;
-        msgField.scaleX = this.config.stage.canvas.width/800;
-        msgField.scaleY = this.config.stage.canvas.height/600;
-        this.addChild(msgField);
+    
+    var setPosition=function(me){
+        me.x = (me.config.stage.canvas.width / 2) - (me.width / 2);
+        me.y =(me.config.stage.canvas.height / 2) - (me.height / 2);
     };
     
-    p.setBackground=function(me){
-        if(me.config.currentLevel != "start"){
-            var image = me.config.loader.getResult(LoaderData[me.config.currentLevel].id);
-            if(image != null) {
-                var bmp = new createjs.Bitmap(image);
-                var theBounds = bmp.getBounds();
-                var loaderTest = LoaderData[me.config.currentLevel].messge;
-                var loaderMsg = new createjs.Text(loaderTest,"20px Arial","#ff770");
-                loaderMsg.lineWidth = this.width;
-                loaderMsg.y = this.y-70;
-                loaderMsg.x = this.width/2 - loaderMsg.getTransformedBounds().width/2;
-                loaderMsg.scaleX = this.config.stage.canvas.width/800;
-                loaderMsg.scaleY = this.config.stage.canvas.height/600;
-                this.addChild(loaderMsg);
-
-                bmp.x = bmp.y = 0;
-                bmp.scaleX = this.config.stage.canvas.width/theBounds.width;
-                bmp.scaleY = this.config.stage.canvas.height/theBounds.height;
-                this.config.stage.addChildAt(bmp,0);  
+    var setMessage=function(me, text){
+        var msgField = new createjs.Text(text,"20px Arial","#ff770");
+        msgField.y = me.y-30;
+        msgField.x = me.x+150;
+        msgField.scaleX = me.config.stage.canvas.width/800;
+        msgField.scaleY = me.config.stage.canvas.height/600;
+        me.addChild(msgField);
+    };
+    
+    var setBackground=function(me){
+        var loaderData = LoaderData[me.config.currentLevel];
+        var loaderMessage = new createjs.Text("Loading..", "20px Arial","#ff770");
+        var logo = new createjs.Bitmap();
+        var img = me.config.loader.getResult("loader_default_bg");
+           
+        if(loaderData !=  undefined){
+            var img = me.config.loader.getResult(loaderData.id);
+            if(loaderData.message != undefined){
+                loaderMessage.text = loaderData.message;
+                loaderMessage.x = me.width/2 - loaderMessage.getBounds().width/2
+                loaderMessage.y = me.height/2 - loaderMessage.getBounds().height/2;
+                me.addChild(loaderMessage);
             }
         }
+        
+        if(img != null){
+            logo.image = img;
+            logo.x = me.width/2 - logo.getBounds().width/2
+            logo.y = me.height/2 - logo.getBounds().height/2;
+            me.addChildAt(logo,0);
+        }           
     };
 
     window.ui.Preloader = Preloader;
