@@ -14,13 +14,34 @@
         drawLayout(this);
         //setBackgroundText(this);
         setLeftArea(this);
+       // addPlayer(this);
     };
-    var initCaptchaImage = function(me){
-        me.captcha = new createjs.Bitmap();
-        me.captcha.x = 10;
-        me.captcha.y = me.config.height/2;
-        me.addChild(me.captcha);
+//    var initCaptchaImage = function(me){
+//        me.captcha = new createjs.Bitmap();
+//        me.captcha.x = me.leftArea/2;
+//        me.captcha.y = me.config.height/2;
+//        me.addChild(me.captcha);
+//    }
+
+    Lane.prototype.getPlayerPosition = function(){
+        var point = {};
+        point.x = 10;
+        point.y = this.config.y + this.config.height/2;
+        return point;
     }
+    Lane.prototype.setPlayer = function(player){
+        this.player = player;
+
+    }
+
+    var addPlayer = function(me){
+        var config = {"id": "player_normal", "loader" : me.config.loader, "laneId" : me.laneId }
+        var player = new sprites.SpriteMan(config);
+        player.x = 10;
+        player.y = me.config.height/2;
+        me.addChild(player);
+    }
+
     Lane.prototype.getPowerupPosition = function(me){
 
         var point = {};
@@ -29,11 +50,8 @@
         return point;
 
     }
-    Lane.prototype.getCaptchaPosition = function(){
-        var point = {};
-        point.x = 10;
-        point.y = this.config.height/2;
-        return point;
+    Lane.prototype.getCaptchaX = function(){
+        return this.leftArea/2;
     }
     Lane.prototype.getMaxCaptchaWidth = function(){
         return this.leftArea;
@@ -78,6 +96,7 @@
         var tileHeight = 192;
         var padding = 10;
         var reqTileWidth = Math.floor(me.config.width/totalTiles);
+        me.leftArea = reqTileWidth *2 ;
         var sX = reqTileWidth/tileWidth;
         var sY = (me.config.height+padding)/tileHeight;
         var tileImage = "grassTile";
@@ -107,8 +126,10 @@
 
     var setLeftArea = function(me){
         var shape = new createjs.Shape();
-        shape.graphics.beginBitmapFill(me.config.loader.getResult("left"))
-            .drawRect(me.leftArea,0,3, me.config.height);
+        shape.graphics
+            .beginFill("#ffffff")
+            .drawRect(0,0,me.leftArea, me.config.height);
+       shape.alpha = 0.5;
         me.addChild(shape);
     }
     var setBackgroundText=function(me){

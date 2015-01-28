@@ -71,7 +71,7 @@
             captcha.texts  =captchaData.texts;
         }
 
-       captcha.x = 10;
+       //captcha.x = 10;
        captcha.y = captcha.maxHeight/2 - (captcha.getTransformedBounds().height/2) ;
 
               // captcha.datas = captchaData;

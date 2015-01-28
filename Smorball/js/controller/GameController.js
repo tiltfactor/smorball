@@ -66,6 +66,7 @@ function GameController(config) {
         
     }
 
+
     var clearStage = function (stage) {
         stage.removeAllChildren();
     }

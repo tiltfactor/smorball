@@ -285,6 +285,7 @@ function StageController(config) {
 
             if(!(me.levelConfig.lanes == 1 && (laneId == 1 || laneId == 3))){
                 var captchaHolder = me.captchaProcessor.getCaptchaPlaceHolder(lane.getMaxCaptchaWidth(),lane.getHeight(), laneId);
+                captchaHolder.x = lane.getCaptchaX();
                 lane.addChild(captchaHolder);
             }
 
@@ -371,6 +372,14 @@ function StageController(config) {
         this.config.stage.addChild(player);
         player.run();
         return player;
+    }
+
+    StageController.prototype.getPlayer = function(lane){
+        var config = {"id": "player_normal", "loader" : this.config.loader, "laneId" : lane.getLaneId() };
+        var player = new sprites.SpriteMan(config);
+        var sf = getScaleFactor(lane,player);
+        player.setScale(sf,sf);
+
     }
 
     StageController.prototype.addEnemy = function(x,y, life){
