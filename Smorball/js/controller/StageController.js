@@ -72,7 +72,7 @@ function StageController(config) {
         resetGame(me);
 
         me.config.gameState.gs.currentState = me.config.gameState.gs.States.RUN;
-        me.levelConfig = Levels[me.config.gameState.gs.currentLevel];
+        me.levelConfig = LevelData[me.config.gameState.gs.currentLevel];
         me.time = 0;
         me.captchaProcessor = new CaptchaProcessor({"loader": me.config.loader, "canvasWidth": me.width, "canvasHeight": me.height, "gameState" : me.config.gameState});
         loadImages(me);
@@ -110,8 +110,8 @@ function StageController(config) {
 
     var initShowMessage = function(me){
         me.message = new createjs.Text();
-        me.message.x = me.config.stage.canvas.width/2- me.message.getMeasuredWidth()/2;
-        me.message.y = me.config.stage.canvas.height/2 - 50;
+        me.message.x = me.config.stage.canvas.width/2- me.message.getMeasuredWidth();
+        me.message.y = me.config.stage.canvas.height/2+ me.config.lanes[0].getTransformedBounds().height ;
         me.message.alpha = 0;
         me.config.stage.addChild(me.message);
     }
@@ -546,7 +546,7 @@ function StageController(config) {
         showMessage(me,"Level Completed !!");
         me.config.gameState.gs.points += me.config.gameState.gs.life;
         me.config.gameState.gs.gameLevelPoints.push(me.config.gameState.gs.life);
-        setTimeout(function(){EventBus.dispatch("setTickerStatus");EventBus.dispatch("showLevel");},3000); //TODO : change
+        setTimeout(function(){EventBus.dispatch("setTickerStatus");EventBus.dispatch("showMap");},3000); //TODO : change
     }
 
     var pushEnemy = function(me,enemy){

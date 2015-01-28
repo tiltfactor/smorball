@@ -12,9 +12,9 @@
     <script src="js/data/PlayerData.js"></script>
     <script src="js/data/EnemyData.js"></script>
     <script src="js/data/MapData.js"></script>
-    <script src="js/data/Levels.js"></script>
+    <script src="js/data/LevelData.js"></script>
     <script src="js/data/CaptchaJson.js"></script>
-    <script src="js/model/LevelMap.js"></script>
+    <script src="js/model/Level.js"></script>
     <script src="js/data/PowerupsData.js"></script>
     <script src="js/data/loaderData.js"></script>
     <script src="js/model/SpriteSheet.js"></script>
@@ -74,13 +74,13 @@
 
 <div id="dialog-message" style="display:none; text-align:center">
     <p>
-        <button onClick="EventBus.dispatch(&quot;exitMenu&quot;);EventBus.dispatch(&quot;newGame&quot;)">New Game</button>
+        <button onClick="EventBus.dispatch(&quot;exitMenu&quot;);EventBus.dispatch(&quot;showMap&quot;)">New Game</button>
     </p>
     <p>
         <button id="resumeButton" onClick="EventBus.dispatch(&quot;resumeGame&quot;)">Resume Game</button>
     </p>
     <p>
-        <button onClick="EventBus.dispatch(&quot;exitMenu&quot;);EventBus.dispatch(&quot;showLevel&quot;)">Map</button>
+        <button onClick="EventBus.dispatch(&quot;exitMenu&quot;);EventBus.dispatch(&quot;showMap&quot;)">Map</button>
     </p>
     <p>
         <button onClick="EventBus.dispatch(&quot;exitMenu&quot;)">Exit</button>
@@ -92,7 +92,7 @@
 
 <!--<div id="dialog-level" style="display:none; text-align:center">-->
     <!--<p>-->
-        <!--<input id="levelButton" type="button" onclick="EventBus.dispatch(&quot;exitMenu&quot;);EventBus.dispatch(&quot;hideLevel&quot;);EventBus.dispatch(&quot;newGame&quot;)"></input>-->
+        <!--<input id="levelButton" type="button" onclick="EventBus.dispatch(&quot;exitMenu&quot;);EventBus.dispatch(&quot;hideMap&quot;);EventBus.dispatch(&quot;newGame&quot;)"></input>-->
     <!--</p>-->
 <!--</div>-->
 

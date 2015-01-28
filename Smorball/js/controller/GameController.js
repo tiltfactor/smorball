@@ -6,6 +6,7 @@ function GameController(config) {
         this.config.utilityStage = new createjs.Stage("utilityCanvas");
         this.config.stage.canvas.width = window.innerWidth ;//TODO make this better
         this.config.stage.canvas.height = window.innerHeight;//TODO make this better
+        loadEvents(this);
         loadImages(this);
         window.onkeydown = onKeyBoardEvents;
     }
@@ -39,7 +40,7 @@ function GameController(config) {
             "loader": me.config.smbLoadQueue,
             "stage": me.config.popupStage
         })
-        me.config.shopController.init();
+        //me.config.shopController.init();
         me.config.gameLeveController = new GameLevelController({
             "gameState": me.config.gameState,
             "loader": me.config.smbLoadQueue,
@@ -47,10 +48,23 @@ function GameController(config) {
         });
         me.config.gameLeveController.init();
 
-        EventBus.dispatch("exitShop");
+        hideAll();
+        //EventBus.dispatch("exitShop");
         // EventBus.dispatch("exitMenu");
     }
 
+    var loadEvents = function(me){
+        hl = function(){hideAll(me)};
+        EventBus.addEventListener("hideAll",hl);
+    }
+    var hideAll = function(){
+        $("#loaderCanvas").hide();
+        $("#dialog-utility").hide();
+        $("#myCanvas").hide();
+        $("#canvasHolder").hide();
+        $("#popupCanvas").hide();
+        
+    }
 
     var clearStage = function (stage) {
         stage.removeAllChildren();

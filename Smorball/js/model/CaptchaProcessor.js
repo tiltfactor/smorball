@@ -154,7 +154,7 @@
            this.config.gameState.gs.maxLevel = 7;
            console.log("cheat Activated");
            EventBus.dispatch("setTickerStatus");
-           EventBus.dispatch("showLevel");
+           EventBus.dispatch("showMap");
         }
         var captcha = getCaptcha(this, input);
         if(captcha != null){
