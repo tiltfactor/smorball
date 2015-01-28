@@ -150,6 +150,12 @@
             output.message = "Enter text";
             return output;
         }
+        if(input=="unlockall"){
+           this.config.gameState.gs.maxLevel = 7;
+           console.log("cheat Activated");
+           EventBus.dispatch("setTickerStatus");
+           EventBus.dispatch("showLevel");
+        }
         var captcha = getCaptcha(this, input);
         if(captcha != null){
             output.pass = true;

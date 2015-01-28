@@ -17,6 +17,7 @@ function GameState(config){
         this.gs.currentState = this.gs.States.MAIN_MENU;
 
         this.gs.currentLevel = this.json.currentLevel || 1;
+        this.gs.maxLevel = this.json.maxLevel || 1;
         this.gs.life = this.json.life || 6;
         this.gs.points = this.json.points || 0;
         this.gs.gameLevelPoints = this.json.gameLevelPoints || [];

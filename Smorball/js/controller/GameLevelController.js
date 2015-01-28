@@ -14,7 +14,7 @@ function GameLevelController(config){
         loadEvents(this);
         EventBus.dispatch("hideLevel");
         createBackground(this);
-        var levelLabel = this.config.gameState.gs.currentLevel;
+        var levelLabel = this.config.gameState.gs.maxLevel;
         this.levelScreen = new LevelMap({"loader":this.config.loader,"Level":levelLabel});
         this.levelScreen.scaleX = window.innerWidth/800;
         this.levelScreen.scaleY = window.innerHeight/600;
@@ -32,13 +32,11 @@ function GameLevelController(config){
     }
     GameLevelController.prototype.showLevel = function () {
         if(this.config.gameState.gs.currentLevel<=7){
-            this.levelScreen.activate(this.config.gameState.gs.currentLevel);
+            this.levelScreen.activate(this.config.gameState.gs.maxLevel);
             $("#myCanvas").hide();
             $("#canvasHolder").hide();
             $("#dialog-utility").show();
             this.config.stage.update();
-
-
         }
         else{
             this.config.gameState.gs.currentLevel = 1;

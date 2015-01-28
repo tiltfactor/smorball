@@ -63,7 +63,7 @@
     p.setBackground=function(me){
         if(me.config.currentLevel != "start"){
             var image = me.config.loader.getResult(LoaderData[me.config.currentLevel].id);
-            if(typeof image!= undefined) {
+            if(image != null) {
                 var bmp = new createjs.Bitmap(image);
                 var theBounds = bmp.getBounds();
                 var loaderTest = LoaderData[me.config.currentLevel].messge;

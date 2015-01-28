@@ -539,6 +539,9 @@ function StageController(config) {
 
     var updateLevel = function(me){
         me.config.gameState.gs.currentLevel++;
+        if(me.config.gameState.gs.currentLevel>me.config.gameState.gs.maxLevel){
+            me.config.gameState.gs.maxLevel = me.config.gameState.gs.currentLevel;
+        }
         me.config.gameState.gs.currentState = me.config.gameState.gs.States.GAME_OVER;
         showMessage(me,"Level Completed !!");
         me.config.gameState.gs.points += me.config.gameState.gs.life;

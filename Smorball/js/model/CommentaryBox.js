@@ -146,8 +146,8 @@
         me.score.color = "white";
         me.score.alpha = 1;
         me.score.text = "999999";
-        me.score.x  = score.x+score.getTransformedBounds().width/2-me.score.getMeasuredWidth()-10;
-        me.score.y = score.y + score.getTransformedBounds().height/2;
+        me.score.x  = score.x+score.getTransformedBounds().width/4-me.score.getMeasuredWidth()/3;
+        me.score.y = score.y + score.getTransformedBounds().height/2.2;
         me.addChild(me.score);
     };
     var initOpponentsPosition=function(me,score){
@@ -156,8 +156,8 @@
         me.opponents.color = "white";
         me.opponents.alpha = 1;
         me.opponents.text = "5";
-        me.opponents.x  = score.x-me.opponents.getMeasuredWidth()-score.getTransformedBounds().width/5;
-        me.opponents.y = score.y + score.getTransformedBounds().height/2;
+        me.opponents.x  = score.x-score.getTransformedBounds().width/3-me.opponents.getMeasuredWidth()/2;
+        me.opponents.y = score.y + score.getTransformedBounds().height/2.2;
         me.addChild(me.opponents);
     };
     var getTime = function(text){

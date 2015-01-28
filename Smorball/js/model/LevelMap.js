@@ -5,7 +5,7 @@
     var LevelMap = function(config){
         this.config = config;
         this.labels=[];
-        this.initialize()
+        this.initialize();
     };
     LevelMap.prototype = new createjs.Container();
     LevelMap.prototype.Container_initialize = LevelMap.prototype.initialize;
