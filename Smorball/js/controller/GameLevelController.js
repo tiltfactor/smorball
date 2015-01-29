@@ -27,7 +27,7 @@ function GameLevelController(config){
         var _showMapScreen = function (me) {
             showMapScreen(me);
         }
-        var manifest = [];
+        var manifest = Manifest.levelMap;
         for (var i = 1; i <= me.config.gameState.gs.maxLevel; i++) {
             var splash = LoaderData[i];
             manifest.push({"src": splash.image, "id" : splash.id});

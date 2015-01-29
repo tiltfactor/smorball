@@ -63,3 +63,20 @@ Manifest.level1 = [
 
 Manifest.products = [{src: "shapes/blue-ball.png", id: "blue-ball"}, {src: "shapes/green-ball.png", id: "green-ball"},
     {src: "shapes/red-ball.png", id: "red-ball"}];
+
+Manifest.levelMap = [
+    {src: "shapes/background.png", id: "map_background"},
+    {src: "shapes/cash_bar.png", id: "cash_bar"},
+    {src: "shapes/fb_btn_down.png", id: "fb_btn_down"},
+    {src: "shapes/fb_btn_over.png", id: "fb_btn_over"},
+    {src: "shapes/fb_btn_up.png", id: "fb_btn_up"},
+    {src: "shapes/level_info_bar.png", id: "level_info_bar"},
+    {src: "shapes/lock.png", id: "lock"},
+    {src: "shapes/path_dot.png", id: "path_dot"},
+    {src: "shapes/shop_icon.png", id: "shop_icon"},
+    {src: "shapes/stadium.png", id: "stadium"},
+    {src: "shapes/stadium_base.png", id: "stadium_base"},
+    {src: "shapes/stopwatch_icon.png", id: "stopwatch_icon"},
+    {src: "shapes/t_btn_down.png", id: "t_btn_down"},
+    {src: "shapes/t_btn_over.png", id: "t_btn_over"},
+    {src: "shapes/t_btn_up.png", id: "t_btn_up"}];
