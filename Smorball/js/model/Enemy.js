@@ -22,6 +22,7 @@
         this.spriteData = new SpriteSheet({"id" : this.config.id, "data": EnemyData[this.config.id].data, "loader" : this.config.loader});
         this.sprite = new createjs.Sprite(this.spriteData, "stand");
         this.setScale(1,1);
+        this.setEffects();
         this.Sprite_initialize();
         this.addChild(this.sprite);
         this.life = this.config.life ||  EnemyData[this.config.id].extras.life;
@@ -37,11 +38,20 @@
         me.addChild(shape);
 
     }
-    window.sprites.Enemy = Enemy;
 
+    window.sprites.Enemy = Enemy;
+    var playSoundEffects = function(me,id){
+        var audio = me.config.loader.getResult(id);
+        if(audio != null){
+             audio.volume = me.config.gameState.gs.soundEffects/100;
+             audio.play();
+        } 
+    }
     Enemy.prototype.run  = function(){
         var me = this;
         this.sprite.gotoAndPlay("run");
+        var id = this.config.enemySound.run;
+        playSoundEffects(this,id);
         this.myTick = function(){tick(me)};
         this.addEventListener("tick",  this.myTick);
     }
@@ -54,9 +64,12 @@
     Enemy.prototype.die = function(){
         this.sprite.gotoAndPlay("die");
     }
-    Enemy.prototype.kill = function(){
+    Enemy.prototype.kill = function(sc){
         var me = this;
         this.removeLife();
+        var id = this.config.enemySound.die;
+        playSoundEffects(this,id);
+
         if(this.lifes.length == 0){
             this.hit = true;
             this.sprite.gotoAndPlay("die");
@@ -75,7 +88,7 @@
         this.x = x;
         this.y = y;
         this.regX = 0;
-        this.regY = this.getHeight() ///2;
+        this.regY = this.getHeight(); ///2;
     }
     Enemy.prototype.addLife = function(start){
         var life = new createjs.Shape();
@@ -102,6 +115,10 @@
         this.sprite.setTransform(0,6,sx,sy);
         drawBorder(this);
         updateLifePos(this);
+    }
+    Enemy.prototype.setEffects = function(){
+        console.log("EFFECTS");
+        this.config.enemySound = EnemyData[this.config.id].extras.sound;
     }
     var generateLife = function(me){
         for(var i = 0 ; i< me.life; i++){

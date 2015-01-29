@@ -11,7 +11,9 @@ EnemyData.boss = {
     },
     "extras":{
         "speed": 2,
-        "life": 6
+        "life": 6,
+        "sound": {"hit": "hit", "die" : "die", "run": "run"}
+    
     }
 };
 EnemyData.fast = {
@@ -22,7 +24,9 @@ EnemyData.fast = {
     },
     "extras":{
         "speed": 5,
-        "life": 1
+        "life": 1,
+        "sound": {"hit": "hit", "kill" : "kill", "run": "run"}
+    
     }
 };
 EnemyData.badGuy = {
@@ -33,7 +37,8 @@ EnemyData.badGuy = {
     },
     "extras":{
         "speed": 1,
-        "life":3
+        "life":3,
+        "sound": {"hit": "hit", "kill" : "kill", "run": "run"}
     }
 };
 EnemyData.weak = {
@@ -44,7 +49,9 @@ EnemyData.weak = {
     },
     "extras":{
         "speed": 2,
-        "life": 1
+        "life": 1,
+        "sound": {"hit": "hit", "kill" : "kill", "run": "run"}
+    
     }
 };
 EnemyData.regular = {
@@ -55,7 +62,9 @@ EnemyData.regular = {
     },
     "extras":{
         "speed": 3,
-        "life": 1
+        "life": 1,
+        "sound": {"hit": "hit", "kill" : "kill", "run": "run"}
+    
     }
 };
 EnemyData.enemy_regular = {
@@ -66,6 +75,8 @@ EnemyData.enemy_regular = {
     },
     "extras":{
         "speed": 2,
-        "life": 1
+        "life": 1,
+        "sound": {"hit": "hit", "kill" : "kill", "run": "run"}
+    
     }
 };

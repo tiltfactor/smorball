@@ -30,7 +30,7 @@ function MenuController(config) {
         me.config.gameState.gs.currentState = me.config.gameState.gs.States.MAIN_MENU;
         $( "#timeout-popup" ).dialog("open");
     }   
-
+    
     var closeTimeoutDialog =  function() {
          EventBus.dispatch("resumeGame");
     };
@@ -67,6 +67,7 @@ function MenuController(config) {
                 range: "min",
                 change: function( event, ui ) {
                     me.config.gameState.gs.music = ui.value;
+                    EventBus.dispatch("musicVolume");
                 }
             });
             
@@ -74,7 +75,7 @@ function MenuController(config) {
                 value: me.config.gameState.gs.soundEffects,
                 range: "min",
                 change: function( event, ui ) {
-                    me.config.gameState.gs.soundEffects = ui.value;
+                    me.config.gameState.gs.soundEffects = ui.value;   
                 }
             });              
     }

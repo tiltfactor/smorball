@@ -229,7 +229,7 @@ function StageController(config) {
     }
 
     var generateWaves = function(me){
-        me.waves = new Waves({"waves": me.levelConfig.waves,"lanes": me.levelConfig.lanes, "loader" : me.config.loader});
+        me.waves = new Waves({"waves": me.levelConfig.waves,"lanes": me.levelConfig.lanes, "loader" : me.config.loader, "gameState" :me.config.gameState});
         me.waves.init();
     }
 
@@ -354,7 +354,7 @@ function StageController(config) {
     }
 
     StageController.prototype.addPlayer = function(lane){
-        var config = {"id": "player_normal", "loader" : this.config.loader, "laneId" : lane.getLaneId() }
+        var config = {"id": "player_normal", "loader" : this.config.loader, "laneId" : lane.getLaneId() ,"gameState" : this.config.gameState}
         var player = new sprites.SpriteMan(config);
         //player.singleHit = true;
         var powerup = this.config.activePowerup;

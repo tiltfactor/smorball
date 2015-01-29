@@ -25,7 +25,7 @@
     }
 
     Waves.prototype.start = function(){
-        var config = {"id": this.currentIndex, data : this.config.waves.data[this.currentIndex],"lanes": this.config.lanes, "loader" : this.config.loader };
+        var config = {"id": this.currentIndex, data : this.config.waves.data[this.currentIndex],"lanes": this.config.lanes, "loader" : this.config.loader, "gameState" : this.config.gameState };
         var wave = new Wave(config);
         this.currentIndex++;
         this.activeWaves.push(wave);

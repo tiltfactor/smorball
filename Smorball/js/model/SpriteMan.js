@@ -14,9 +14,10 @@
     p.Sprite_initialize = p.initialize;
 
     p.initialize = function () {
-        this.spriteData = new SpriteSheet({"id" : this.config.id, "data": PlayerData[this.config.id], "loader" : this.config.loader});
+        this.spriteData = new SpriteSheet({"id" : this.config.id, "data": PlayerData[this.config.id].data, "loader" : this.config.loader, "gameState": this.config.gameState});
         this.sprite = new createjs.Sprite(this.spriteData, "stand");
         this.setScale(1,1);
+        this.setEffects();
         this.Sprite_initialize();
         this.addChild(this.sprite);
         this.hit = false;
@@ -36,12 +37,23 @@
         me.addChild(shape);
 
     }
-
+    var playSoundEffects = function(me,id){
+        var audio = me.config.loader.getResult(id);
+        if(audio != null){
+             audio.volume = me.config.gameState.gs.soundEffects/100;
+             audio.play();
+        } 
+    }
     window.sprites.SpriteMan = SpriteMan;
-
+    SpriteMan.prototype.setEffects = function(){
+        console.log("EFFECTS");
+        this.config.playerSound = PlayerData[this.config.id].extras.sound;
+    }
     SpriteMan.prototype.run  = function(){
         var me = this;
         this.sprite.gotoAndPlay("run");
+        var id = this.config.playerSound.run;
+        playSoundEffects(this,id);
         this.myTick = function(){tick(me)};
         this.addEventListener("tick", this.myTick);
     }
@@ -70,6 +82,8 @@
     SpriteMan.prototype.kill = function(){
         var me = this;
         this.life -= 1;  
+        var id = this.config.playerSound.fall;
+        playSoundEffects(this,id);
         if(this.life == 0){
             this.hit = true;
             this.sprite.gotoAndPlay("fall");

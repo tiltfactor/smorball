@@ -47,6 +47,12 @@ function GameController(config) {
             "stage":me.config.utilityStage
         });
         me.config.gameLeveController.init();
+        me.config.soundController = new SoundController({
+            "gameState": me.config.gameState,
+            "loader": me.config.smbLoadQueue,
+            "soundData": me.config.soundData
+        });
+        me.config.soundController.init();
 
         hideAll();
         //EventBus.dispatch("exitShop");

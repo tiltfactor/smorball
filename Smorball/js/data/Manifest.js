@@ -45,11 +45,15 @@ Manifest.game = [
     {src: "shapes/ruby_float.png",  id: "ruby_float"},
     {src: "shapes/amber_float.png", id: "amber_float"},
     {src: "shapes/ice_float.png",   id: "ice_float"},
-    
-    {src: "shapes/loader_default_bg.jpg",   id: "loader_default_bg"}
 
+    {src: "shapes/loader_default_bg.jpg",   id: "loader_default_bg"},
 
+    {src: "audio/mario.ogg", id: "mario"},
+    {src: "audio/hit.mp3", id: "hit"},
+    {src: "audio/die.mp3", id: "die"},
+    {src: "audio/run.wav", id: "run"} 
 ];
+
 Manifest.level1 = [
     {src: "shapes/captcha/000.png", id: "000"},
     {src: "shapes/captcha/001.png", id: "001"},
@@ -65,7 +69,7 @@ Manifest.products = [{src: "shapes/blue-ball.png", id: "blue-ball"}, {src: "shap
     {src: "shapes/red-ball.png", id: "red-ball"}];
 
 Manifest.levelMap = [
-    {src: "shapes/background.png", id: "map_background"},
+    {src: "shapes/map_background.png", id: "map_background"},
     {src: "shapes/cash_bar.png", id: "cash_bar"},
     {src: "shapes/fb_btn_down.png", id: "fb_btn_down"},
     {src: "shapes/fb_btn_over.png", id: "fb_btn_over"},
@@ -79,4 +83,5 @@ Manifest.levelMap = [
     {src: "shapes/stopwatch_icon.png", id: "stopwatch_icon"},
     {src: "shapes/t_btn_down.png", id: "t_btn_down"},
     {src: "shapes/t_btn_over.png", id: "t_btn_over"},
-    {src: "shapes/t_btn_up.png", id: "t_btn_up"}];
+    {src: "shapes/t_btn_up.png", id: "t_btn_up"}
+    ];
