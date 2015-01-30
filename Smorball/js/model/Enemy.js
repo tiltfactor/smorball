@@ -27,10 +27,19 @@
         this.addChild(this.sprite);
         this.life = this.config.life ||  EnemyData[this.config.id].extras.life;
         generateLife(this);
+        setExtras(this);
 
         this.bounds = this.getBounds();
 
 
+    }
+    var setExtras = function(me){
+        me.extras = EnemyData[me.config.id].extras;
+        me.life = me.extras.life || 1;
+        me.speed = me.extras.speed || 1;
+        if(me.extras.changeLane){
+            setTimeout(function(){EventBus.dispatch("changeLane", me)},2000);
+        }
     }
     var drawBorder = function(me){
         var shape = new createjs.Shape();
@@ -166,6 +175,9 @@
 
     Enemy.prototype.getLaneId = function(){
         return this.config.laneId;
+    }
+    Enemy.prototype.setLaneId = function(laneId){
+        this.config.laneId = laneId;
     }
 
     Enemy.prototype.onKillPush = function(){

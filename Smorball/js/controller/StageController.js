@@ -60,6 +60,9 @@ function StageController(config) {
         var rb = function(ob){activatePowerup(me, ob.target)}
         EventBus.addEventListener("activatePowerup", rb);
 
+        var cl = function(ob){changeLane(me, ob.target)}
+        EventBus.addEventListener("changeLane", cl);
+
     }
 
     var newGame = function (me) {
@@ -351,7 +354,7 @@ function StageController(config) {
         for(var i = 0; i< me.config.lanes.length; i++){
             var lane = me.config.lanes[i];
             if(lane.player == undefined){
-               setTimeout(addPlayer,2000,lane,me);
+               setTimeout(addPlayer,1000,lane,me);
             }else{
                 lane.player.setSpriteSheet(me.default_player);
                 var sf = getScaleFactor(lane,lane.player);
@@ -658,6 +661,23 @@ function StageController(config) {
 
             }
         }
+    }
+
+    var changeLane = function(me,enemy){
+        var laneId = newLaneId(enemy.getLaneId(), me);
+        var lane = getLaneById(laneId,me);
+        var endPoint = lane.getEnemyEndPoint();
+        enemy.setLaneId(laneId);
+        createjs.Tween.get(enemy).to({y:endPoint.y},2000);
+
+    }
+
+    var newLaneId = function(currentLaneId, me){
+        var laneId;
+        do{
+            laneId = Math.floor(Math.random()*3)+1
+        }while(laneId == currentLaneId);
+        return laneId;
     }
 
 
