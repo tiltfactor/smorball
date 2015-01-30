@@ -7,7 +7,7 @@
         this.config = config;
         this.initialize();
     };
-    SmbLoadQueue.prototype  = new createjs.LoadQueue(false, "", false);
+    SmbLoadQueue.prototype  = new createjs.LoadQueue(true, "", false);
     SmbLoadQueue.prototype._initialize = SmbLoadQueue.prototype.initialize;
     SmbLoadQueue.prototype.initialize = function(){
         this._initialize();

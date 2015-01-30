@@ -9,7 +9,8 @@ PowerupsData.ice = {
 	"extras":{
 		"life": 3,
         "singleHit" : false,
-        "message" : "ice is activated"
+        "message" : "ice is activated",
+        "player" : "man1"
 	}
 };
 PowerupsData.ruby = {
@@ -21,7 +22,8 @@ PowerupsData.ruby = {
 	"extras":{
 		"life": 1,
         "singleHit" : true,
-        "message" : "Ruby is activated"
+        "message" : "Ruby is activated",
+        "player" : "man1"
 	}
 };
 PowerupsData.amber = {
@@ -33,6 +35,7 @@ PowerupsData.amber = {
 	"extras":{
 		"life": 1,
         "singleHit" : false,
-        "message" : "Amber is activated"
+        "message" : "Amber is activated",
+        "player" : "man1"
 	}
 };

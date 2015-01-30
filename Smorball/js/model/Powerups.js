@@ -32,6 +32,9 @@
     Powerup.prototype.getId = function(){
         return this.config.id;
     }
+    Powerup.prototype.getPowerupPlayer = function(){
+        return this.powerupData.extras.player;
+    }
     var loadEvents = function(me){
        // var handle = function(){me.handleClick(me)};
        // me.addEventListener("click", handle);

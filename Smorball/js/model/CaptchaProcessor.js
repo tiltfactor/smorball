@@ -90,7 +90,7 @@
         var myText = null;
         if(me.captchaDatas.local){
             imageId = captchaData.image.split(".")[0];
-            myText = captchaData.message;
+            myText = captchaData.ocr1;
         }else{
             imageId = me.captchaDatas._id;
             myText = captchaData.texts[0];

@@ -8,6 +8,7 @@
     var SpriteMan = function (config) {
         this.config = config;
         this.initialize();
+        pl = this;
     }
 
     var p = SpriteMan.prototype = new createjs.Container;
@@ -32,17 +33,28 @@
     }
 
     var drawBorder = function(me){
-        var shape = new createjs.Shape();
-        shape.graphics.beginStroke("#000").setStrokeStyle(0.2).drawRect(0,0,me.getWidth(), me.getHeight());
-        me.addChild(shape);
+        if(me.shape != undefined){
+            me.removeChild(me.shape);
+        }
+
+        me.shape = new createjs.Shape();
+        me.shape.graphics.beginStroke("#000").setStrokeStyle(0.2).drawRect(0,0,me.getWidth(), me.getHeight());
+        me.addChild(me.shape);
 
     }
+
     var playSoundEffects = function(me,id){
         var audio = me.config.loader.getResult(id);
         if(audio != null){
              audio.volume = me.config.gameState.gs.soundEffects/100;
              audio.play();
         } 
+    }
+    SpriteMan.prototype.setSpriteSheet = function(id){
+        this.spriteData = new SpriteSheet({"id" : id, "data": PlayerData[id].data, "loader" : this.config.loader});
+        this.sprite.spriteSheet = this.spriteData;
+        this.setScale(1,1);
+        //return nm;
     }
     window.sprites.SpriteMan = SpriteMan;
     SpriteMan.prototype.setEffects = function(){

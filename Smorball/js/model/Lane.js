@@ -31,16 +31,11 @@
     }
     Lane.prototype.setPlayer = function(player){
         this.player = player;
-
+        this.player.x = 0;
+        this.player.y = this.config.y - this.config.height*0.75;
+        this.player.setEndPoint(this.config.x + this.config.width);
     }
 
-    var addPlayer = function(me){
-        var config = {"id": "player_normal", "loader" : me.config.loader, "laneId" : me.laneId }
-        var player = new sprites.SpriteMan(config);
-        player.x = 10;
-        player.y = me.config.height/2;
-        me.addChild(player);
-    }
 
     Lane.prototype.getPowerupPosition = function(me){
 

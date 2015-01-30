@@ -6,12 +6,14 @@ function StageController(config) {
         this.config.stage = new createjs.Stage("myCanvas");
         createjs.Ticker.setFPS(20);
         var me = this;
+        sc = this;
         this.events.tick = function(){tick(me);}
         createjs.Ticker.addEventListener("tick", this.events.tick);
         createjs.Ticker.setPaused(true);
 
         loadEvents(this);
         this.currentIndex=0;
+        this.default_player = "player_normal";
 
     }
 
@@ -42,14 +44,8 @@ function StageController(config) {
         var pg = function(){showTimeoutScreen(me)};
         EventBus.addEventListener("showTimeoutScreen", pg);
 
-//      var rt = function() {resetTimer(me)};
-//      EventBus.addEventListener("resetTimer", rt);
-//
-//      var ct = function() {clearTimer(me)};
-//      EventBus.addEventListener("clearTimer", ct);
         var sm = function(text){showGameMessage(me,text)};
         EventBus.addEventListener("showMessage",sm);
-
 
 
         var cc = function(){compareCaptcha(me)};
@@ -288,12 +284,10 @@ function StageController(config) {
                 var captchaHolder = me.captchaProcessor.getCaptchaPlaceHolder(lane.getMaxCaptchaWidth(),lane.getHeight(), laneId);
                 captchaHolder.x = lane.getCaptchaX();
                 lane.addChild(captchaHolder);
+
             }
-
-
-
-            //loadCaptcha(me,lane);
         }
+        resetPlayers(me);
 
         var config = {"x":me.freeLeftAreaX, "y" : me.height-me.freeBottomAreaY, "width": width, "height": me.freeBottomAreaY, "id" : 4,
             "loader" : me.config.loader};
@@ -353,33 +347,48 @@ function StageController(config) {
         }
     }
 
-    StageController.prototype.addPlayer = function(lane){
-        var config = {"id": "player_normal", "loader" : this.config.loader, "laneId" : lane.getLaneId() ,"gameState" : this.config.gameState}
-        var player = new sprites.SpriteMan(config);
-        //player.singleHit = true;
-        var powerup = this.config.activePowerup;
-        if(powerup){
-            player.addPowerups(this.config.activePowerup.getPower());
-            this.config.activePowerup = undefined;
-        }
+    var resetPlayers = function(me){
+        for(var i = 0; i< me.config.lanes.length; i++){
+            var lane = me.config.lanes[i];
+            if(lane.player == undefined){
+               setTimeout(addPlayer,2000,lane,me);
+            }else{
+                lane.player.setSpriteSheet(me.default_player);
+                var sf = getScaleFactor(lane,lane.player);
+                lane.player.setScale(sf,sf);
+            }
 
-        this.config.players.push(player);
-        var sf = getScaleFactor(lane,player);
-        player.setScale(sf,sf);
-        var start = lane.getStartPoint();
-        var end = lane.getEndPoint();
-        player.setPosition(start.x, start.y);
-        player.setEndPoint(end.x);
-        this.config.stage.addChild(player);
-        player.run();
-        return player;
+        }
     }
 
-    StageController.prototype.getPlayer = function(lane){
-        var config = {"id": "player_normal", "loader" : this.config.loader, "laneId" : lane.getLaneId() };
-        var player = new sprites.SpriteMan(config);
-        var sf = getScaleFactor(lane,player);
-        player.setScale(sf,sf);
+    var addPlayer = function(lane,me){
+        if(!(me.config.gameState.gs.currentLevel == 1 && (lane.getLaneId() == 1 || lane.getLaneId() == 3))){
+            var config = {"id": me.default_player, "loader" : me.config.loader, "laneId" : lane.getLaneId(),"gameState" : me.config.gameState };
+            var player = new sprites.SpriteMan(config);
+            var sf = getScaleFactor(lane,player);
+            player.setScale(sf,sf);
+            if(lane.player == undefined){
+                lane.setPlayer(player);
+                me.config.stage.addChild(player);
+            }
+
+        }
+
+
+
+    }
+
+    var activatePlayer = function(player, me){
+        var powerup = me.config.activePowerup;
+        if(powerup && player != undefined){
+            player.addPowerups(me.config.activePowerup.getPower());
+            me.config.activePowerup = undefined;
+        }
+        if(player != undefined){
+            me.config.players.push(player);
+            player.run();
+        }
+
 
     }
 
@@ -508,18 +517,21 @@ function StageController(config) {
         showMessage(me, output.message);
         if(output.pass){
             if(me.config.activePowerup != null && me.config.activePowerup.getId() == "amber"){
-                startPlayersFromAllLanes(me);
+                  startPlayersFromAllLanes(me);
             }else{
                 var lane = getLaneById(output.laneId, me);
-                me.addPlayer(lane, me);
+                activatePlayer(lane.player, me);
+                lane.player = undefined;
             }
+            resetPlayers(me);
         }
 
     }
     var startPlayersFromAllLanes = function(me){
         for(var i=0; i<me.config.lanes.length; i++){
             var lane = me.config.lanes[i];
-            me.addPlayer(getLaneById(lane.laneId,me));
+            activatePlayer(lane.player, me);
+            lane.player = undefined;
         }
     }
     var setTickerStatus = function(){
@@ -611,11 +623,16 @@ function StageController(config) {
         updateMyPowerups(me);
     }
     var activatePowerup = function(me,powerup){
+        if(me.config.activePowerup != undefined){
+            me.config.myPowerups.push(me.config.activePowerup);
+            me.config.stage.addChild(me.config.activePowerup);
+        }
         me.config.activePowerup = powerup;
         var index = me.config.myPowerups.indexOf(powerup);
         me.config.myPowerups.splice(index,1);
         me.config.stage.removeChild(powerup);
         updateMyPowerups(me);
+        updatePlayerOnPowerup(me, powerup.getPowerupPlayer());
     }
     var updateMyPowerups = function(me){
         var x = 0;
@@ -628,6 +645,22 @@ function StageController(config) {
             console.log(powerup);
         }
     }
+
+    var updatePlayerOnPowerup = function(me, playerId){
+
+        for(var i = 0 ; i<me.config.lanes.length; i++){
+            var lane = me.config.lanes[i];
+            var player = lane.player;
+            if(player != undefined){
+                player.setSpriteSheet(playerId);
+                var sf = getScaleFactor(lane, player);
+                player.setScale(sf,sf);
+
+            }
+        }
+    }
+
+
 
 
 
