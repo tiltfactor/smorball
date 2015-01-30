@@ -46,6 +46,8 @@
             this.loadManifest(manifest);
             this.events.click = function(){ loadComplete(callback,ob,me); }
             this.addEventListener("complete", this.events.click);
+            this.events.error = function(e){console.log(e)};
+            this.addEventListener("error",this.events.error);
         }else{
             callback(ob);
         }

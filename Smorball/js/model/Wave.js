@@ -73,12 +73,15 @@
         var type = properties[0];
         var lane = properties[1];
         var time = properties[2];
-
+        var msg = properties[3];
         lane = this.config.lanes == 1? 2 : lane;
         var onKill = (time == undefined || time == -1) ? true: false;
         var config = {"id": type, "laneId": lane, "waveId": this.config.id, "onKill": onKill, "loader" : this.config.loader};
         var powerup = new sprites.Powerup(config);
         EventBus.dispatch("pushPowerup",powerup);
+        if(!(msg==""||msg==undefined)){
+            EventBus.dispatch("showCommentary",msg);
+        }
         if(!onKill){
             setNext(time, this);
         }

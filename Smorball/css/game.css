@@ -206,3 +206,74 @@ canvas {
     }
 }
 /*timeout screen style ends here*/
+.mainWndw{
+    width: 560px;
+    height: 430px;
+    border: 1px solid #000000 !important;
+    margin: 90px 0px 0px 190px;
+}
+.titleBar{
+
+}
+.clubhouse{
+    font-size: 50px;
+    margin: 20px 0px 0px 30px;
+    font-weight: bold;
+}
+.wallet{
+    font-size: 35px;
+    margin-left: 160px;
+    font-weight: bold;
+}
+.itemDiv{
+    width: 360px;
+    height: 270px;
+    margin: 50px 0px 0px 130px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+.backButton{
+    width: 100px;
+    height: 40px;
+    margin: 0px 0px 10px 20px;
+}
+.innerItem{
+    height:120px;
+    width:300px;
+    border-radius:10px;
+    border:1px solid #000000;
+    margin: 0px;
+    font-family: Verdana;
+    background: #e2e2e2;
+}
+.rate{
+    float:right;
+    margin: 0px 10px 0px 0px;
+    font-size: 10px;
+}
+.upgrade{
+    float:right;
+    margin-right: 10px;
+    height: 30px;
+    width: 90px;
+    border-radius: 8px;
+}
+.caption{
+    width:180px;
+    font-size: 10px;
+    margin-bottom: 10px;
+}
+.title{
+    margin: 10px 0px 0px 0px;
+    font-size: 16px;
+}
+.image{
+    width:80px;
+    height:70px;
+    margin: 10;
+    float:left;
+}
+.innerDiv{
+    width: 180px;
+    float:right;
+}

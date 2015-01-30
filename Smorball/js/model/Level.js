@@ -11,29 +11,48 @@
     Level.prototype.Container_initialize = Level.prototype.initialize;
     Level.prototype.initialize = function(){
         this.Container_initialize();
-        drawStadium(this)
+        drawStadium(this);
+        //drawShop(this);
+        this.setPosition()
 
     };
     var drawStadium = function(me){
-        var label = new createjs.Text();
-        label.text = me.config.id;
-        label.id =me.config.id;
-        label.font = "bold 30px Arial";
-        label.color = "black";
-        label.locked = me.config.locked;
-        label.x = me.config.stadiumInfo.x;
-        label.y = me.config.stadiumInfo.y;
-        if(label.locked){
-            label.alpha = 0.5;
+        var stadiumBase = new createjs.Bitmap(me.config.loader.getResult("stadium_base"));
+        stadiumBase.setTransform(0,0,0.5,0.5);
+        me.addChild(stadiumBase);
+        var stadium = new createjs.Bitmap();
+
+        if(me.config.locked){
+            stadium.image = me.config.loader.getResult("lock");
+            stadium.setTransform(0,0,0.5,0.5);
+            stadium.id = me.config.id;
+            stadium.x = stadiumBase.getTransformedBounds().width/4;
+            stadium.y = -stadium.getTransformedBounds().height/2;
+
         }else{
-            label.addEventListener("click",startLevel);
+            stadium.image = me.config.loader.getResult("stadium");
+            stadium.setTransform(0,0,0.5,0.5);
+            stadium.id = me.config.id;
+            stadium.addEventListener("click",startLevel);
+            stadium.x = stadiumBase.getTransformedBounds().width/8;
+            stadium.y = -stadium.getTransformedBounds().height/4;
+
         }
-        me.addChild(label);
+
+
+        me.addChild(stadium);
 
     }
+    Level.prototype.setPosition=function(){
+        this.x = this.config.stadiumInfo.x;
+        this.y = this.config.stadiumInfo.y;
+    }
+
+
     var startLevel = function(e){
         EventBus.dispatch("setLevel", e.target);
     }
+
 
     window.Level = Level
 

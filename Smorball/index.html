@@ -1,16 +1,18 @@
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <script src="js/lib/createjs-2013.12.12.min.js"></script>
+    <script src="js/lib/underscore.js"></script>
     <script src="js/lib/jquery-1.11.1.min.js"></script>
     <script src="js/lib/jquery-ui.js"></script>
     <script src="js/lib/jquery.ui.touch-punch.min.js"></script>
     <script src="js/lib/soundjs-0.5.2.min.js"></script>
     <script src="js/data/Manifest.js"></script>
+    <script src="js/model/GameState.js"></script>
     <script src="js/model/Preloader.js"></script>
     <script src="js/model/SmbLoadQueue.js"></script>
-    <script src="js/model/GameState.js"></script>
     <script src="js/data/PlayerData.js"></script>
+    <script src="js/data/shopData.js"></script>
     <script src="js/data/EnemyData.js"></script>
     <script src="js/data/MapData.js"></script>
     <script src="js/data/LevelData.js"></script>
@@ -47,7 +49,7 @@
 
             var popupCanvas = document.getElementById("loaderCanvas");
             popupCanvas.width = window.innerWidth - 150;
-            popupCanvas.height = window.innerHeight- 150;
+            popupCanvas.height = window.innerHeight - 150;
 
             gc = new GameController();
             gc.init();
@@ -55,10 +57,10 @@
 
     </script>
 </head>
-<body onload="init()" style="background:#ccc" >
+<body onload="init()" style="background:#ccc">
 
 
-<canvas id="myCanvas" ></canvas>
+<canvas id="myCanvas"></canvas>
 
 <div id="loaderDiv" style="position: absolute; top: 0%; left: 0%; width: 100%; height: 100%; display: none ">
     <canvas id="loaderCanvas"></canvas>
@@ -75,35 +77,72 @@
 <div id="menu-container">
     <div class="menu-button-container">
         <div class="menu-buttons">
-        <button onClick="EventBus.dispatch(&quot;exitMenu&quot;);EventBus.dispatch(&quot;showMap&quot;)">New Game</button>
-        <button id="resumeButton" onClick="EventBus.dispatch(&quot;resumeGame&quot;)">Resume Game</button>
-        <button onClick="EventBus.dispatch(&quot;exitMenu&quot;);EventBus.dispatch(&quot;showMap&quot;)">Map</button>
-        <button onClick="EventBus.dispatch(&quot;exitMenu&quot;)">Exit</button>
-        <button>Help</button>
+            <button onClick="EventBus.dispatch(&quot;exitMenu&quot;);EventBus.dispatch(&quot;showMap&quot;)">New Game
+            </button>
+            <button id="resumeButton" onClick="EventBus.dispatch(&quot;resumeGame&quot;)">Resume Game</button>
+            <button onClick="EventBus.dispatch(&quot;exitMenu&quot;);EventBus.dispatch(&quot;showMap&quot;)">Map
+            </button>
+            <button onClick="EventBus.dispatch(&quot;exitMenu&quot;)">Exit</button>
+            <button>Help</button>
         </div>
     </div>
 </div>
 
 <!--<div id="dialog-level" style="display:none; text-align:center">-->
-    <!--<p>-->
-        <!--<input id="levelButton" type="button" onclick="EventBus.dispatch(&quot;exitMenu&quot;);EventBus.dispatch(&quot;hideMap&quot;);EventBus.dispatch(&quot;newGame&quot;)"></input>-->
-    <!--</p>-->
+<!--<p>-->
+<!--<input id="levelButton" type="button" onclick="EventBus.dispatch(&quot;exitMenu&quot;);EventBus.dispatch(&quot;hideMap&quot;);EventBus.dispatch(&quot;newGame&quot;)"></input>-->
+<!--</p>-->
 <!--</div>-->
 
 <div id="canvasHolder">
-    <input id="passButton" type="button" value="Pass" onclick="EventBus.dispatch(&quot;passText&quot;)" ></input>
-    <input id="inputText" type="text" placeholder="Enter captcha" onkeydown="if(event.keyCode == 13){EventBus.dispatch(&quot;compareCaptcha&quot;)}"></input>
-    <input id="submitButton" type="button" value="Submit" onclick="EventBus.dispatch(&quot;compareCaptcha&quot;)"></input>
+    <input id="passButton" type="button" value="Pass" onclick="EventBus.dispatch(&quot;passText&quot;)"></input>
+    <input id="inputText" type="text" placeholder="Enter captcha"
+           onkeydown="if(event.keyCode == 13){EventBus.dispatch(&quot;compareCaptcha&quot;)}"></input>
+    <input id="submitButton" type="button" value="Submit"
+           onclick="EventBus.dispatch(&quot;compareCaptcha&quot;)"></input>
 </div>
 
 <div id="timeout-popup">
     <p id="timout-text"><b>TIMEOUT</b></p>
+
     <p class="slider-text"><b>MUSIC</b></p>
+
     <div id="music-slider" class="slider"></div>
     <p class="slider-text"><b>SOUND EFFECTS</b></p>
+
     <div id="effects-slider" class="slider"></div>
 </div>
 
+<div id="shop" class="mainWndw" style="display: none;">
+    <div class="titleBar">
+        <span class="clubhouse">Clubhouse</span>
+        <span class="wallet">$2600</span>
+    </div>
+    <div class="itemDiv">
+        <script type="text/template" id="shopComponents">
 
+
+            <% _.each(items, function(item) { %>
+
+            <div class="innerItem">
+                <img src=<%=item.src%> class="image"/>
+
+                <div class="innerDiv">
+                    <div class="title"><%=item.name%></div>
+                    <div class="caption"><%=item.description%></div>
+                    <div class="rate">&dollar;<%=item.price%></div>
+                    <br>
+                    <button class="upgrade" type="button" style="background-color:#a7cb00;" onclick="EventBus.dispatch(&quot;addToBag&quot;,this.parentElement)"> Upgrade</button>
+                </div>
+            </div>
+            <br>
+            <% }); %>
+
+        </script>
+    </div>
+    <div>
+        <input class="backButton" type="button" value="Back" onclick="EventBus.dispatch(&quot;showMap&quot;)"/>
+    </div>
+</div>
 </body>
 </html>

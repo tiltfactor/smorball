@@ -40,7 +40,7 @@ function GameController(config) {
             "loader": me.config.smbLoadQueue,
             "stage": me.config.popupStage
         })
-        //me.config.shopController.init();
+        me.config.shopController.init();
         me.config.gameLeveController = new GameLevelController({
             "gameState": me.config.gameState,
             "loader": me.config.smbLoadQueue,
@@ -64,11 +64,13 @@ function GameController(config) {
         EventBus.addEventListener("hideAll",hl);
     }
     var hideAll = function(){
+        $("#shop").hide();
         $("#loaderCanvas").hide();
         $("#dialog-utility").hide();
+        $("#dialog-shop").hide();
         $("#myCanvas").hide();
         $("#canvasHolder").hide();
-        $("#popupCanvas").hide();
+
         
     }
 
