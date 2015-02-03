@@ -23,6 +23,7 @@ function GameController(config) {
        var _doInit = function (me) {
             doInit(me)
         }
+
         var manifest = Manifest.game;
         var splash = LoaderData[1];
         manifest.push({"src": splash.image, "id" : splash.id});
@@ -31,6 +32,9 @@ function GameController(config) {
     }
 
     var doInit = function (me) {
+        var config = {"loader" : me.config.smbLoadQueue, "gameState" : me.config.gameState};
+        var myBag = new MyBag(config)
+
         me.config.menuController = new MenuController({
             "gameState": me.config.gameState,
             "loader": me.config.smbLoadQueue
@@ -39,7 +43,8 @@ function GameController(config) {
 
         me.config.stageController = new StageController({
             "gameState": me.config.gameState,
-            "loader": me.config.smbLoadQueue
+            "loader": me.config.smbLoadQueue,
+            "myBag" : myBag
         })
         me.config.stageController.init();
 
@@ -47,6 +52,7 @@ function GameController(config) {
             "gameState": me.config.gameState,
             "loader": me.config.smbLoadQueue,
             "stage": me.config.popupStage
+            ,"myBag" : myBag
         })
         me.config.shopController.init();
 

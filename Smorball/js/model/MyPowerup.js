@@ -56,12 +56,19 @@
     MyPowerup.prototype.getType = function(){
         return this.config.type;
     }
-    MyPowerup.prototype.addToMyPowerup = function(type){
-
+    MyPowerup.prototype.addShopPowerup = function(){
+        this.fromShop++;
     }
-    MyPowerup.prototype.removeFromMyPowerup = function(type){
-
+    MyPowerup.prototype.removeShopPowerup = function(){
+        this.fromShop--;
     }
+    MyPowerup.prototype.addFieldPowerup = function(){
+        this.fromField++;
+    }
+    MyPowerup.prototype.removeFieldPowerup = function(){
+        this.fromField--;
+    }
+
     window.MyPowerup = MyPowerup;
 
 }())
