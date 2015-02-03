@@ -44,9 +44,9 @@ Manifest.game = [
     {src:"shapes/SB Level Assets/speech_bubble.png",id:"speech"},
     {src:"shapes/SB_level_select.jpg",id:"levelmap"},
 
-    {src: "shapes/ruby_float.png",  id: "ruby_float"},
-    {src: "shapes/amber_float.png", id: "amber_float"},
-    {src: "shapes/ice_float.png",   id: "ice_float"},
+    {src: "shapes/helmet_icon.png",  id: "helmet"},
+    {src: "shapes/bullhorn_icon.png", id: "bullhorn"},
+    {src: "shapes/cleats_icon.png",   id: "cleats"},
 
     {src: "shapes/loader_default_bg.jpg",   id: "loader_default_bg"},
 

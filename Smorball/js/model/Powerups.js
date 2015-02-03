@@ -44,11 +44,14 @@
         this.events.click = function(){activate(me)}
         me.addEventListener("click", this.events.click);
     }
+    Powerup.prototype.getType=function(){
+        return this.config.id;
+    }
 
     var activate = function(me){
-        EventBus.dispatch("showCommentary", me.powerupData.extras.message);
+        //EventBus.dispatch("showCommentary", me.powerupData.extras.message);
         //me.removeEventListener("click", me.events.click);
-        EventBus.dispatch("activatePowerup", me);
+        //EventBus.dispatch("activatePowerup", me);
     }
     Powerup.prototype.getPower = function(){
         return PowerupsData[this.config.id].extras;

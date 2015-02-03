@@ -1,10 +1,10 @@
 PowerupsData = {};
 
-PowerupsData.ice = {
+PowerupsData.cleats = {
 	"data":{
-		"images":["ice_float"],
-	    "frames": {"regX": 0, "height": 75, "count": 70, "regY": 0, "width": 40},
-	    "animations": {"run": [0, 31, "run", 0.5], "stand":[0,0]}
+		"images":["cleats"],
+	    "frames": {"regX": 0, "height": 75, "count": 1, "regY": 0, "width": 40},
+	    "animations": {"run": [0, 0, "run", 0.5], "stand":[0,0]}
 	},
 	"extras":{
 		"life": 3,
@@ -15,9 +15,9 @@ PowerupsData.ice = {
 };
 PowerupsData.helmet = {
 	"data":{
-		"images":["ruby_float"],
-	    "frames": {"regX": 0, "height": 75, "count": 70, "regY": 0, "width": 40},
-	    "animations": {"run": [0, 31, "run", 0.5], "stand":[0,0]}
+		"images":["helmet"],
+	    "frames": {"regX": 0, "height": 75, "count": 1, "regY": 0, "width": 40},
+	    "animations": {"run": [0, 0, "run", 0.5], "stand":[0,0]}
 	},
 	"extras":{
 		"life": 1,
@@ -26,9 +26,9 @@ PowerupsData.helmet = {
         "player" : "man1"
 	}
 };
-PowerupsData.amber = {
+PowerupsData.bullhorn = {
 	"data":{
-		"images":["amber_float"],
+		"images":["bullhorn"],
 	    "frames": {"regX": 0, "height": 75, "count": 70, "regY": 0, "width": 40},
 	    "animations": {"run": [0, 31, "run", 0.5], "stand":[0,0]}
 	},
