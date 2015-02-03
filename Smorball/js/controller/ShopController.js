@@ -61,7 +61,7 @@ function ShopController(config) {
 
         var compile = _.template(template);
         $(".itemDiv").append(compile({items:shopData}));
-        setUpgradeStatus();
+        setUpgradeStatus(me);
         $("#shop").show();
         //$("#dialog-shop").show();
         if(me.initial){
@@ -74,12 +74,27 @@ function ShopController(config) {
     var setUpgradeStatus = function(me){
         var innerItems = $(".itemDiv").children().filter(".innerItem").find(".innerDiv");
         _.each(innerItems,function(item){
-            var rate = parseInt($(item).find(".rate").text().slice(1));
-            if(rate>2600){
+            var price = getPrice(item.id);
+            if(price>2600){
                 $(item).find(".upgrade").css("background-color","#FF3030");
                 $(item).find(".upgrade").removeAttr("onclick");
             }
-        })
+            _.each(me.config.gameState.gs.upgrades,function(upgrade){
+                if ("shop_product_"+upgrade==item.id) {
+                    $(item).find(".upgrade").prop('disabled', true);
+                    $(item).find(".upgrade").text("Upgraded");
+                }
+            });
+            
+        });
+
+    }
+    var getPrice = function(id){
+        for(var i=0;i<shopData.length;i++){
+            if(id==shopData[i].id){
+                return shopData[i].price
+            }
+        }
     }
     var drawExit = function(me){
         var label = new createjs.Text();
@@ -121,6 +136,7 @@ function ShopController(config) {
         var btn = $(ob).find(".upgrade");
         btn.text("Upgraded");
         btn.prop('disabled', true);
+        me.config.gameState.gs.upgrades.push($(ob).find(".title").text());
         //var product = ob.target;
         //me.config.bag.push(product);
         ////product.updatePriceTag()
@@ -146,8 +162,6 @@ function ShopController(config) {
     }
 
     ShopController.prototype.hideShop = function () {
-
-
         EventBus.dispatch("hideAll");
         EventBus.dispatch("showMap");
         //$( "#dialog-shop" ).dialog("close");

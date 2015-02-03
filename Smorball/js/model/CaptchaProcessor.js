@@ -159,14 +159,14 @@
         var captcha = getCaptcha(this, input);
         if(captcha != null){
             output.pass = true;
-            output.message = "Correct";
+            output.message = "correct";
             var index = this.captchasOnScreen.indexOf(captcha);
             this.captchasOnScreen.splice(index,1);
             output.laneId = captcha.id;
             this.load(captcha);
         }else{
             output.pass = false;
-            output.message = "Incorrect";
+            output.message = "incorrect";
             this.reset();
         }
         clearText(this);

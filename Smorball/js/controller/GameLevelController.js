@@ -13,6 +13,7 @@ function GameLevelController(config) {
         this.config.stage.canvas.height = window.innerHeight;
         this.scaleFactorX = window.innerWidth / 800;
         this.scaleFactorY = window.innerHeight / 600;
+        this.config.stage.enableMouseOver(10);
         loadEvents(this);
     }
     var loadEvents = function (me) {
@@ -85,6 +86,9 @@ function GameLevelController(config) {
         shop.x = 500;
         shop.y = 390;
         shop.addEventListener("click", showShop);
+        shop.addEventListener("mouseover",function(evt){
+            evt.target.cursor = 'pointer';
+        });
         me.map.addChild(shop);
 
     }

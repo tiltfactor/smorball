@@ -28,6 +28,8 @@ Manifest.game = [
     {src:"shapes/weak_walk.png",id:"weak_walk"},
     {src:"shapes/moving_die.png",id:"moving_die"},
     {src:"shapes/moving_walk.png",id:"moving_walk"},
+    {src:"shapes/correct_text.png",id:"correct"},
+    {src:"shapes/incorrect_text.png",id:"incorrect"},
     //{src:"shapes/ruby_float.png",id:"ruby_float"},
     {src:"shapes/SB Level Assets/background.png",id:"background"},
     {src:"shapes/SB Level Assets/grass_tile1.png",id:"tile1"},

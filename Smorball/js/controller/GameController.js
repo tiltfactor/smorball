@@ -100,6 +100,7 @@ function GameController(config) {
     const ONE = 49;
     const TWO = 50;
     const THREE = 51;
+    const TAB_KEY = 9;
 
     var onKeyBoardEvents = function (e) {
         switch (e.keyCode) {
@@ -141,6 +142,26 @@ function GameController(config) {
                 }
                 break;
 
+            case TAB_KEY:
+                console.log("TAB");
+                EventBus.dispatch("selectPowerup");
+                //var myPowerupsArr = gc.config.stageController.config.myPowerups ;
+                //if(gc.currentIndex>=myPowerupsArr.length){
+                //    myPowerupsArr[gc.currentIndex-1].deSelect();
+                //    gc.currentIndex=0;
+                //}
+                //var me = myPowerupsArr[gc.currentIndex];
+                ////var me = myPowerupsArr[0];
+                //
+                //if(me){
+                //    EventBus.dispatch("showCommentary", me.powerupData.extras.message);
+                //    EventBus.dispatch("activatePowerup", me);
+                //}
+                //if(myPowerupsArr[gc.currentIndex-1]){
+                //    myPowerupsArr[gc.currentIndex-1].deSelect();
+                //}
+                //gc.currentIndex++;
+                break;
 
         }
     }

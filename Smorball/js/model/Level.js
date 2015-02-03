@@ -13,7 +13,10 @@
         this.Container_initialize();
         drawStadium(this);
         //drawShop(this);
-        this.setPosition()
+        this.setPosition();
+        this.addEventListener("mouseover",function ( evt ) {
+            evt.target.cursor = 'pointer'
+        });
 
     };
     var drawStadium = function(me){

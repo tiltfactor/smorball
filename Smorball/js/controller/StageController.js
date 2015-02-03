@@ -7,7 +7,7 @@ function StageController(config) {
         createjs.Ticker.setFPS(20);
         var me = this;
         sc = this;
-        this.events.tick = function(){tick(me);}
+        this.events.tick = function(){tick(me);};
         createjs.Ticker.addEventListener("tick", this.events.tick);
         createjs.Ticker.setPaused(true);
 
@@ -109,9 +109,11 @@ function StageController(config) {
     }
 
     var initShowMessage = function(me){
-        me.message = new createjs.Text();
-        me.message.x = me.config.stage.canvas.width/2- me.message.getMeasuredWidth();
-        me.message.y = me.config.stage.canvas.height/2+ me.config.lanes[0].getTransformedBounds().height ;
+        me.message = new createjs.Bitmap();
+        me.message.x = me.config.stage.canvas.width/2;
+        me.message.y = me.config.stage.canvas.height/2+ (2*me.config.lanes[0].getTransformedBounds().height) ;
+        me.message.scaleX = 0.5;
+        me.message.scaleY = 0.5;
         me.message.alpha = 0;
         me.config.stage.addChild(me.message);
     }
@@ -122,9 +124,8 @@ function StageController(config) {
     }
 
     var showMessage = function(me,text){
-        me.message.text = text;
-        me.message.font = "bold 50px Arial";
-        me.message.color = "#000";
+        me.message.image = me.config.loader.getResult(text);
+        me.message.x = me.config.stage.canvas.width/2-me.message.getTransformedBounds().width/2;
         createjs.Tween.get(me.message).to({alpha:0.4},1000).wait(1000).to({alpha:0},1000);
         console.log("show");
     }
@@ -568,7 +569,7 @@ function StageController(config) {
             me.config.gameState.gs.maxLevel = me.config.gameState.gs.currentLevel;
         }
         me.config.gameState.gs.currentState = me.config.gameState.gs.States.GAME_OVER;
-        showMessage(me,"Level Completed !!");
+        //showMessage(me,"Level Completed !!");
         me.config.gameState.gs.points += me.config.gameState.gs.life;
         me.config.gameState.gs.gameLevelPoints.push(me.config.gameState.gs.life);
         setTimeout(function(){EventBus.dispatch("setTickerStatus");EventBus.dispatch("showMap");},3000); //TODO : change

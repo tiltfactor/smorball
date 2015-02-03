@@ -1,0 +1,37 @@
+/**
+ * Created by user on 30/1/15.
+ */
+(function () {
+   var Sound = function(config){
+       this.config = config;
+       initialize(this)
+   }
+
+   var initialize = function(me){
+       me.mySound = me.config.loader.getResult(me.config.file);
+       me.mySound.loop = me.config.loop;
+       if(!me.config.loop){
+           me.mySound.onended=function(){EventBus.dispatch("removeAudioFromList",me.mySound)};
+       }
+
+   }
+
+   Sound.prototype.play = function(){
+       this.mySound.play();
+   }
+   Sound.prototype.pause = function(){
+       this.mySound.pause();
+   }
+    Sound.prototype.getType = function(){
+        this.config.type;
+    }
+    Sound.prototype.isMain = function(){
+        this.config.isMain;
+    }
+    Sound.prototype.setVolume = function(volume){
+
+    }
+
+   window.Sound = Sound;
+
+}());

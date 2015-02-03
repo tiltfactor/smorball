@@ -7,11 +7,10 @@
         this.config = config;
         this.initialize();
     };
-    SmbLoadQueue.prototype  = new createjs.LoadQueue(true, "", false);
-    SmbLoadQueue.prototype._initialize = SmbLoadQueue.prototype.initialize;
     SmbLoadQueue.prototype.initialize = function(){
-        this._initialize();
         this.events = {};
+        this.fg_loader = new createjs.LoadQueue(true,"",false);
+        this.bg_loader = new createjs.LoadQueue(false,"",false);
         this.active = false;
         this.captchaLoad = false;
         this.localCapthcaSize = Manifest.level1.length;
@@ -35,7 +34,7 @@
         $("#loaderDiv").show();
         me.config.stage.addChild(me.preLoader);
         me.events.loaderEvent =  function(e){ updateLoader(e,me)}
-        me.addEventListener("progress",me.events.loaderEvent);
+        me.fg_loader.addEventListener("progress",me.events.loaderEvent);
     }
 
     SmbLoadQueue.prototype.loadQueue = function(manifest, callback, ob , gameLevel){
@@ -43,28 +42,43 @@
             var me = this;
             this.active = true;
             showLoading(me, gameLevel);
-            this.loadManifest(manifest);
+            this.fg_loader.loadManifest(manifest);
             this.events.click = function(){ loadComplete(callback,ob,me); }
-            this.addEventListener("complete", this.events.click);
+            this.fg_loader.addEventListener("complete", this.events.click);
             this.events.error = function(e){console.log(e)};
-            this.addEventListener("error",this.events.error);
+            this.fg_loader.addEventListener("error",this.events.error);
         }else{
             callback(ob);
         }
 
     }
+    SmbLoadQueue.prototype.getbgloader = function(){
+        return this.bg_loader;
+    }
+    SmbLoadQueue.prototype.getfgloader = function(){
+        return this.fg_loader;
+    }
+    SmbLoadQueue.prototype.getResult = function(imgID){
+        var url  =  this.fg_loader.getResult(imgID);
+        if(!url){
+            url = this.bg_loader.getResult(imgID);
+        }
+        return url;
+    }
+
     SmbLoadQueue.prototype.load = function(manifest, callback, ob){
         if(manifest.length!= 0){
             console.log("image load");
-            this.loadManifest(manifest);
+            this.bg_loader.loadManifest(manifest);
+            //this.loadManifest(manifest);
             var me = this;
             this.events.loadComplete = function(){
                 console.log("on complete of sever image call");
                 me.active = false;
-                me.removeEventListener("complete", me.events.loadComplete);
+                me.bg_loader.removeEventListener("complete", me.events.loadComplete);
                 callback(ob);
             }
-            this.addEventListener("complete", this.events.loadComplete);
+            this.bg_loader.addEventListener("complete", this.events.loadComplete);
         }else{
             callback(ob);
         }
@@ -73,8 +87,8 @@
     var loadComplete = function(callback, ob, me){
         console.log("hii");
         me.active = false;
-        me.removeEventListener("complete",me.events.click);
-        me.removeEventListener("progress",  me.events.loaderEvent);
+        me.fg_loader.removeEventListener("complete",me.events.click);
+        me.fg_loader.removeEventListener("progress",  me.events.loaderEvent);
         callback(ob);
     }
 
@@ -92,8 +106,8 @@
                     manifest.push(img);
                 }
                 me.localCapthcaSize += 10;
-                me.loadManifest(manifest);
-                me.addEventListener("complete", function(){
+                me.fg_loader.loadManifest(manifest);
+                me.fg_loader.addEventListener("complete", function(){
                     me.captchaLoad = false;
                     console.log("-------------> loaded "+me.localCapthcaSize )
                 });

@@ -12,7 +12,9 @@
     <script src="js/model/LocalStorage.js"></script>
     <script src="js/model/Preloader.js"></script>
     <script src="js/model/SmbLoadQueue.js"></script>
+    <script src="js/model/Sound.js"></script>
     <script src="js/data/PlayerData.js"></script>
+    <script src="js/model/MyPowerup.js"></script>
     <script src="js/data/shopData.js"></script>
     <script src="js/data/EnemyData.js"></script>
     <script src="js/data/MapData.js"></script>
@@ -129,12 +131,14 @@
             <div class="innerItem">
                 <img src=<%=item.src%> class="image"/>
 
-                <div class="innerDiv">
+                <div class="innerDiv" id=<%=item.id%>>
                     <div class="title"><%=item.name%></div>
                     <div class="caption"><%=item.description%></div>
                     <div class="rate">&dollar;<%=item.price%></div>
                     <br>
-                    <button class="upgrade" type="button" style="background-color:#a7cb00;" onclick="EventBus.dispatch(&quot;addToBag&quot;,this.parentElement)"> Upgrade</button>
+                    <button class="upgrade" type="button" style="background-color:#a7cb00;"
+                            onclick="EventBus.dispatch(&quot;addToBag&quot;,this.parentElement)"> Upgrade
+                    </button>
                 </div>
             </div>
             <br>

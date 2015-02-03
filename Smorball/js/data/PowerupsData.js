@@ -13,7 +13,7 @@ PowerupsData.ice = {
         "player" : "man1"
 	}
 };
-PowerupsData.ruby = {
+PowerupsData.helmet = {
 	"data":{
 		"images":["ruby_float"],
 	    "frames": {"regX": 0, "height": 75, "count": 70, "regY": 0, "width": 40},
