@@ -5,10 +5,12 @@ function GameState(config){
     this.config = config || {};
 
     GameState.prototype.init = function(json){
+        gst = this;
         this.json = json || {}
         this.gs = {};
 
-        this.totalLevels = 20;
+        this.totalLevels = 18;
+        this.maxLife = 6;
         this.captchaDatasArray = [localData];
 
         this.gs.States = {
@@ -32,6 +34,10 @@ function GameState(config){
         this.gs.enemies = this.json.enemies || []; //not sure
         this.gs.music = this.json.music || 50; 
         this.gs.soundEffects = this.json.soundEffects || 50;
+
+        this.gs.inBag = this.json.inBag || [];
+
+
     }
 
 

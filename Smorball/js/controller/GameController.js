@@ -6,15 +6,21 @@ function GameController(config) {
         this.config.utilityStage = new createjs.Stage("utilityCanvas");
         this.config.stage.canvas.width = window.innerWidth ;//TODO make this better
         this.config.stage.canvas.height = window.innerHeight;//TODO make this better
+
+        this.config.gameState = new GameState();
+        this.config.gameState.init();
+
         loadEvents(this);
+        loadFromStore(this);
         loadImages(this);
         window.onkeydown = onKeyBoardEvents;
     }
+    var loadFromStore = function(me){
+        var ls = new LocalStorage({"gameState":me.config.gameState});
+    }
 
     var loadImages = function (me) {
-        me.config.gameState = new GameState();
-        me.config.gameState.init();
-        var _doInit = function (me) {
+       var _doInit = function (me) {
             doInit(me)
         }
         var manifest = Manifest.game;
@@ -30,23 +36,27 @@ function GameController(config) {
             "loader": me.config.smbLoadQueue
         });
         me.config.menuController.init();
+
         me.config.stageController = new StageController({
             "gameState": me.config.gameState,
             "loader": me.config.smbLoadQueue
         })
         me.config.stageController.init();
+
         me.config.shopController = new ShopController({
             "gameState": me.config.gameState,
             "loader": me.config.smbLoadQueue,
             "stage": me.config.popupStage
         })
         me.config.shopController.init();
+
         me.config.gameLeveController = new GameLevelController({
             "gameState": me.config.gameState,
             "loader": me.config.smbLoadQueue,
             "stage":me.config.utilityStage
         });
         me.config.gameLeveController.init();
+
         me.config.soundController = new SoundController({
             "gameState": me.config.gameState,
             "loader": me.config.smbLoadQueue,
