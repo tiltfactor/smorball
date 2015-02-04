@@ -102,15 +102,16 @@ function StageController(config) {
 
     }
     var onImagesLoad = function(me){
-        if(me.config.gameState.gs.currentLevel == 1){
-            me.config.gameState.gs.points = 0;
-        }
+        /*if(me.config.gameState.gs.currentLevel == 1){
+            me.config.gameState.gs.points = 6;
+        }*/
         drawBackGround(me);
         drawStadium(me);
         EventBus.dispatch("showCommentary", me.levelConfig.waves.message);
+        EventBus.dispatch("setScore", me.config.gameState.gs.life);
         drawLane(me);
         initShowMessage(me);
-        showScore(me);
+        //showScore(me);
         generateWaves(me);
         showPowerup(me);
         EventBus.dispatch("setTickerStatus");
@@ -429,7 +430,7 @@ function StageController(config) {
         me.config.myPowerups = me.config.gameState.gs.inBag;
         me.config.activePowerup = undefined;
         me.passCount = 0;
-        me.config.gameState.gs.life = 6;
+        me.config.gameState.gs.life = me.config.gameState.gs.maxLife;
     
         if(me.config.gameState.gs.currentLevel == 1){
             me.config.lifes = [];

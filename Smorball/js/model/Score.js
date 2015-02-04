@@ -58,7 +58,5 @@
     }
     return total;
   }
-
-
   window.Score = Score;
 }());

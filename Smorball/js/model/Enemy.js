@@ -38,14 +38,7 @@
             setTimeout(function(){EventBus.dispatch("changeLane", me)},2000);
         }
     }
-    var setExtras = function(me){
-        me.extras = EnemyData[me.config.id].extras;
-        me.life = me.extras.life || 1;
-        me.speed = me.extras.speed || 1;
-        if(me.extras.changeLane){
-            setTimeout(function(){EventBus.dispatch("changeLane", me)},2000);
-        }
-    }
+    
     var drawBorder = function(me){
         var shape = new createjs.Shape();
         shape.graphics.beginStroke("#000").setStrokeStyle(0.1).drawRect(0,0,me.getWidth(),me.getHeight());
@@ -160,6 +153,7 @@
             me.lifes.length =0;
             me.kill();
             EventBus.dispatch("killLife");
+            EventBus.dispatch("setScore",me.config.gameState.gs.life);
 
         }
     }

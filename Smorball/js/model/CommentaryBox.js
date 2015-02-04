@@ -36,6 +36,9 @@
 
         var sp = function(object){setOpponenets(me,object.target)};
         EventBus.addEventListener("showPendingEnemies",sp);
+
+        var ss = function(score){setScore(me,score.target)};
+        EventBus.addEventListener("setScore",ss);
     };
     var drawScoreBoard = function(me){
 
