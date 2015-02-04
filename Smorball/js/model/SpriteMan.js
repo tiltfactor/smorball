@@ -43,19 +43,13 @@
 
     }
 
-    var playSoundEffects = function(me,id){
-        var audio = me.config.loader.getResult(id);
-        if(audio != null){
-             audio.volume = me.config.gameState.gs.soundEffects/100;
-             audio.play();
-        } 
-    }
     SpriteMan.prototype.setSpriteSheet = function(id){
         this.spriteData = new SpriteSheet({"id" : id, "data": PlayerData[id].data, "loader" : this.config.loader});
         this.sprite.spriteSheet = this.spriteData;
         this.setScale(1,1);
         //return nm;
     }
+    
     window.sprites.SpriteMan = SpriteMan;
     SpriteMan.prototype.setEffects = function(){
         console.log("EFFECTS");
@@ -64,8 +58,10 @@
     SpriteMan.prototype.run  = function(){
         var me = this;
         this.sprite.gotoAndPlay("run");
-        var id = this.config.playerSound.run;
-        playSoundEffects(this,id);
+        //var fileId = this.config.playerSound.run;
+        //var config = {"file": fileId , "loop": false, "type": this.config.gameState.gs.soundType.EFFECTS, "isMain": false,"loader":this.config.loader, "gameState":me.config.gameState};
+        //var runSound = new Sound(config);
+        //EventBus.dispatch("addAudioToList",runSound);
         this.myTick = function(){tick(me)};
         this.addEventListener("tick", this.myTick);
     }
@@ -94,8 +90,10 @@
     SpriteMan.prototype.kill = function(){
         var me = this;
         this.life -= 1;  
-        var id = this.config.playerSound.fall;
-        playSoundEffects(this,id);
+        var fileId = this.config.playerSound.fall;
+        var config = {"file": fileId , "loop": false, "type": this.config.gameState.gs.soundType.EFFECTS, "isMain": false,"loader":this.config.loader, "gameState":me.config.gameState};
+        var killSound = new Sound(config);
+        EventBus.dispatch("addAudioToList",killSound);
         if(this.life == 0){
             this.hit = true;
             this.sprite.gotoAndPlay("fall");

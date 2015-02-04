@@ -52,8 +52,15 @@ Manifest.game = [
 
     {src: "audio/mario.ogg", id: "mario"},
     {src: "audio/hit.mp3", id: "hit"},
-    {src: "audio/die.mp3", id: "die"},
-    {src: "audio/run.wav", id: "run"} 
+    {src: "audio/die.mp3", id: "kill"},
+    {src: "audio/run.wav", id: "run"},
+    {src: "audio/bat1.wav", id: "bat1"},
+    {src: "audio/bat2.wav", id: "bat2"},
+    {src: "audio/bat3.wav", id: "bat3"},
+    {src: "audio/bat4.wav", id: "bat4"},
+    {src: "audio/bat5.wav", id: "bat5"},
+    {src: "audio/bat6.wav", id: "bat6"}
+
 ];
 
 Manifest.level1 = [

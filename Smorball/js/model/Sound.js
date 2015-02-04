@@ -4,7 +4,7 @@
 (function () {
    var Sound = function(config){
        this.config = config;
-       initialize(this)
+       initialize(this);
    }
 
    var initialize = function(me){
@@ -17,11 +17,11 @@
    }
 
    Sound.prototype.play = function(){
-       this.mySound.play();
+    this.mySound.play();
    }
    Sound.prototype.pause = function(){
        this.mySound.pause();
-   }
+   } 
     Sound.prototype.getType = function(){
         this.config.type;
     }
@@ -29,7 +29,7 @@
         this.config.isMain;
     }
     Sound.prototype.setVolume = function(volume){
-
+      this.mySound.volume = volume;
     }
 
    window.Sound = Sound;

@@ -155,11 +155,13 @@
            console.log("cheat Activated");
            EventBus.dispatch("setTickerStatus");
            EventBus.dispatch("showMap");
+           return;
         }
-        var captcha = getCaptcha(this, input);
-        if(captcha != null){
+        var cw = new closestWord(input,this.captchasOnScreen);
+        if(cw.match){
             output.pass = true;
             output.message = "correct";
+            var captcha = cw.closestOcr;
             var index = this.captchasOnScreen.indexOf(captcha);
             this.captchasOnScreen.splice(index,1);
             output.laneId = captcha.id;

@@ -21,6 +21,7 @@ function GameState(config){
         this.gs.currentLevel = this.json.currentLevel || 1;
         this.gs.maxLevel = this.json.maxLevel || 1;
         this.gs.life = this.json.life || 6;
+        this.gs.maxLife = 6;
         this.gs.points = this.json.points || 0;
         this.gs.gameLevelPoints = this.json.gameLevelPoints || [];
         this.gs.level = this.json.level || 1;
@@ -34,10 +35,10 @@ function GameState(config){
         this.gs.enemies = this.json.enemies || []; //not sure
         this.gs.music = this.json.music || 50; 
         this.gs.soundEffects = this.json.soundEffects || 50;
-
         this.gs.inBag = this.json.inBag || [];
-
-
+        this.gs.soundType = {
+            MAIN : 0, EFFECTS : 1
+        };
     }
 
 

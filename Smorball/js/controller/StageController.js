@@ -81,6 +81,9 @@ function StageController(config) {
         me.captchaProcessor = new CaptchaProcessor({"loader": me.config.loader, "canvasWidth": me.width, "canvasHeight": me.height, "gameState" : me.config.gameState});
         $("#loaderCanvas").show();
         loadImages(me);
+
+        var config = {"gameState" : me.config.gameState};
+        me.score = new Score(config);
     }
     var loadImages = function(me){
         var _onImagesLoad= function(me){ onImagesLoad(me)};
@@ -107,6 +110,7 @@ function StageController(config) {
         EventBus.dispatch("showCommentary", me.levelConfig.waves.message);
         drawLane(me);
         initShowMessage(me);
+        showScore(me);
         generateWaves(me);
         showPowerup(me);
         EventBus.dispatch("setTickerStatus");
@@ -218,12 +222,12 @@ function StageController(config) {
     }
 
     var showScore = function(me){
-        me.scoreText = new createjs.Text("Total Score :"+me.config.gameState.gs.points, "20px Arial", "#000000");
-        me.scoreText.setTransform(me.width-500,10,1,1);
+        me.scoreText = new createjs.Text("Total Score :"+me.score.getTotalScore(), "20px Arial", "#000000");
+        me.scoreText.setTransform(me.width-300,10,1,1);
         me.config.stage.addChild(me.scoreText);
     }
     var updateScore = function(me){
-        me.scoreText.text = "Total Score :"+me.config.gameState.gs.points;
+        me.scoreText.text = "Total Score :"+ score.getTotalScore();
     }
 
 
@@ -401,7 +405,7 @@ function StageController(config) {
 
     }
 
-    StageController.prototype.addEnemy = function(x,y, life){
+    /*StageController.prototype.addEnemy = function(x,y, life){
         var config = {"id": "boss", "life": life, "loader" : this.config.loader}
         var enemy = new sprites.Enemy(config);
         this.config.enemies.push(enemy);
@@ -409,7 +413,7 @@ function StageController(config) {
         this.config.stage.addChild(enemy);
         enemy.run();
         return enemy;
-    }
+    }*/
 
     var resetGame = function (me) {
 
@@ -425,14 +429,14 @@ function StageController(config) {
         me.config.myPowerups = me.config.gameState.gs.inBag;
         me.config.activePowerup = undefined;
         me.passCount = 0;
-
+        me.config.gameState.gs.life = 6;
+    
         if(me.config.gameState.gs.currentLevel == 1){
             me.config.lifes = [];
-            me.config.gameState.gs.life = 6;
         }
 
     }
-
+    
     var removeAllChildren = function(me){
         me.config.stage.removeAllChildren();
         me.config.stage.update();
@@ -572,8 +576,10 @@ function StageController(config) {
             }
         },2000);
     }
-
     var updateLevel = function(me){
+
+        me.score.addGameLevelPoints();
+
         me.config.gameState.gs.currentLevel++;
         if(me.config.gameState.gs.currentLevel>me.config.gameState.gs.maxLevel){
             me.config.gameState.gs.maxLevel = me.config.gameState.gs.currentLevel;
@@ -582,9 +588,10 @@ function StageController(config) {
         //showMessage(me,"Level Completed !!");
         me.config.gameState.gs.points += me.config.gameState.gs.life;
         me.config.gameState.gs.gameLevelPoints.push(me.config.gameState.gs.life);
+
         setTimeout(function(){EventBus.dispatch("setTickerStatus");EventBus.dispatch("showMap");},3000); //TODO : change
     }
-
+    
     var pushEnemy = function(me,enemy){
         EventBus.dispatch("showPendingEnemies", me.waves.getPendingEnemies());
         setEnemyProperties(me,enemy);

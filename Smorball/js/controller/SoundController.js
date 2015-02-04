@@ -3,30 +3,27 @@ function SoundController(config){
 
     SoundController.prototype.init = function(){
         this.audioList = [];
-
         this.config.stage = new createjs.Stage("loaderCanvas");
         createjs.Sound.registerPlugins([createjs.HTMLAudioPlugin, createjs.WebAudioPlugin, createjs.FlashAudioPlugin]);
         createjs.Sound.alternateExtensions = ["mp3"];
         loadEvents(this);
-        setMusic(this);
         playMusic(this);
+
     }
 
     var loadEvents = function(me){
-
-
-
-        var pm = function(){playMusic(me)};
-        EventBus.addEventListener("playMusic", pm);
-
-        var mv = function(){musicVolume(me)};
-        EventBus.addEventListener("musicVolume",mv);
 
         var ra = function(sound){removeAudioFromList(me,sound.target)};
         EventBus.addEventListener("removeAudioFromList",ra);
 
         var pa = function(){pauseAllSound(me)};
-        EventBus.addEventListener("pauseAllSound");
+        EventBus.addEventListener("pauseAllSound", pa);
+
+        var al = function(sound){addAudioToList(me,sound.target)};
+        EventBus.addEventListener("addAudioToList", al);
+
+        var cs = function(type){changeSoundVolume(me,type.target)};
+        EventBus.addEventListener("changeSoundVolume", cs);
 
     }
 
@@ -48,29 +45,35 @@ function SoundController(config){
         }
     }
 
-    var changeSound = function(me, type){
+    var pauseAllSound = function(me){
         for(var i= 0; i< me.audioList.length; i++){
             var sound = me.audioList[i];
-            sound.setVolume(vol);
+            if(!sound.config.isMain){
+                sound.pause();
+            }
         }
     }
 
-
-
-
-    var setMusic = function(me){
-      me.config.musicInstance = new Sound({"loop":false,"loader":me.config.loader,"file":"hit","loop":false});
-      me.config.musicInstance.volume = 0.5;
-        addAudioToList(me,me.config.musicInstance);
+    var changeSoundVolume = function(me,type){
+        for(var i= 0; i< me.audioList.length; i++){
+            var sound = me.audioList[i];
+            if(sound.config.type == type){
+                var vol = me.config.gameState.gs.music/100;
+                if(type == me.config.gameState.gs.soundType.EFFECTS){
+                    vol = me.config.gameState.gs.soundEffects/100;
+                }
+                sound.setVolume(vol);
+            }
+            
+        }
     }
 
     var playMusic = function(me){
-      me.config.musicInstance.play();
+        var fileId = "mario";
+        var config = {"file": fileId , "loop": true, "type": me.config.gameState.gs.soundType.MAIN, "isMain": true,"loader":me.config.loader, "gameState":me.config.gameState};
+        var mainSound = new Sound(config);
+        EventBus.dispatch("addAudioToList",mainSound);
     }
 
-    var musicVolume = function(me){
-        me.config.musicInstance.volume = me.config.gameState.gs.music/100;
-    }
-    
 }
    

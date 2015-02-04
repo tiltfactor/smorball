@@ -28,10 +28,15 @@
         this.life = this.config.life ||  EnemyData[this.config.id].extras.life;
         generateLife(this);
         setExtras(this);
-
         this.bounds = this.getBounds();
-
-
+    }
+    var setExtras = function(me){
+        me.extras = EnemyData[me.config.id].extras;
+        me.life = me.extras.life || 1;
+        me.speed = me.extras.speed || 1;
+        if(me.extras.changeLane){
+            setTimeout(function(){EventBus.dispatch("changeLane", me)},2000);
+        }
     }
     var setExtras = function(me){
         me.extras = EnemyData[me.config.id].extras;
@@ -49,18 +54,13 @@
     }
 
     window.sprites.Enemy = Enemy;
-    var playSoundEffects = function(me,id){
-        var audio = me.config.loader.getResult(id);
-        if(audio != null){
-             audio.volume = me.config.gameState.gs.soundEffects/100;
-             audio.play();
-        } 
-    }
     Enemy.prototype.run  = function(){
         var me = this;
         this.sprite.gotoAndPlay("run");
-        var id = this.config.enemySound.run;
-        playSoundEffects(this,id);
+        //var fileId = this.config.enemySound.run;
+        //var config = {"file": fileId , "loop": false, "type": this.config.gameState.gs.soundType.EFFECTS, "isMain": false,"loader":this.config.loader, "gameState":me.config.gameState};
+        //var runSound = new Sound(config);
+        //EventBus.dispatch("addAudioToList",runSound);
         this.myTick = function(){tick(me)};
         this.addEventListener("tick",  this.myTick);
     }
@@ -76,9 +76,10 @@
     Enemy.prototype.kill = function(sc){
         var me = this;
         this.removeLife();
-        var id = this.config.enemySound.die;
-        playSoundEffects(this,id);
-
+        var fileId = this.config.enemySound.hit;
+        var config = {"file": fileId , "loop": false, "type": this.config.gameState.gs.soundType.EFFECTS, "isMain": false,"loader":this.config.loader, "gameState":me.config.gameState};
+        var hitSound = new Sound(config);
+        EventBus.dispatch("addAudioToList",hitSound);
         if(this.lifes.length == 0){
             this.hit = true;
             this.sprite.gotoAndPlay("die");
