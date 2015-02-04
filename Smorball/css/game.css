@@ -6,8 +6,45 @@
 }
 #canvasHolder{
     display: none;
-    height: 30px;
+    height: 55px;
+    width: 100%;
+    text-align: center;
+    overflow: hidden;
 }
+
+#canvasHolder *{
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+#canvasHolder input {
+    background: none;
+    border: none;
+    outline: none;
+    background-size: 100% 100%;
+    height: 50px;
+    font-family: 'Boogaloo';
+    font-size: 1em;
+    padding: 0px 10px 10px 10px;
+}
+
+#canvasHolder input[type=button] {
+    background-image: url("../shapes/btn_bg.png");
+    color: white;
+    width: 10%;
+    text-transform: uppercase;
+
+}
+
+#canvasHolder input[type=text] {
+    background-image: url("../shapes/input_bg.png");
+    color: black;
+    width: 20%;
+    height: 45px;
+}
+
 body {
     margin: 0px;
     padding: 0px;
@@ -22,11 +59,6 @@ canvas {
 @font-face { font-family: 'Boogaloo'; src: url('fonts/Boogaloo-Regular.otf'); }
 @font-face { font-family: 'Scoreboard'; src: url('fonts/scoreboard.ttf'); }
 
-#canvasHolder input {
-    height: 80%;
-    margin: 0px;
-    padding: 0px;
-}
 
 /*menu screen style starts here*/
 #menu-container {
@@ -186,7 +218,7 @@ canvas {
 .timeout-popup-box .ui-button-text-only {
     background: none;
     border: none;
-    background-image: url("../shapes/timeout_btn_bg.png");
+    background-image: url("../shapes/btn_bg.png");
     background-size: 100% 100%;
 }
 
@@ -203,6 +235,9 @@ canvas {
     }
     .menu-button-container {
         font-size: .8em;
+    }
+    #canvasHolder input {
+        width: auto !important;
     }
 }
 /*timeout screen style ends here*/
