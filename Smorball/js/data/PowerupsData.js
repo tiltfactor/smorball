@@ -3,7 +3,7 @@ PowerupsData = {};
 PowerupsData.cleats = {
 	"data":{
 		"images":["cleats"],
-	    "frames": {"regX": 0, "height": 75, "count": 1, "regY": 0, "width": 40},
+	    "frames": {"regX": 0, "height": 130, "count": 1, "regY": 0, "width": 130},
 	    "animations": {"run": [0, 0, "run", 0.5], "stand":[0,0]}
 	},
 	"extras":{
@@ -16,7 +16,7 @@ PowerupsData.cleats = {
 PowerupsData.helmet = {
 	"data":{
 		"images":["helmet"],
-	    "frames": {"regX": 0, "height": 75, "count": 1, "regY": 0, "width": 40},
+	    "frames": {"regX": 0, "height": 130, "count": 1, "regY": 0, "width": 130},
 	    "animations": {"run": [0, 0, "run", 0.5], "stand":[0,0]}
 	},
 	"extras":{
@@ -29,7 +29,7 @@ PowerupsData.helmet = {
 PowerupsData.bullhorn = {
 	"data":{
 		"images":["bullhorn"],
-	    "frames": {"regX": 0, "height": 75, "count": 70, "regY": 0, "width": 40},
+	    "frames": {"regX": 0, "height": 130, "count": 70, "regY": 0, "width": 130},
 	    "animations": {"run": [0, 31, "run", 0.5], "stand":[0,0]}
 	},
 	"extras":{

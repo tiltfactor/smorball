@@ -104,7 +104,7 @@ function GameController(config) {
     const ONE = 49;
     const TWO = 50;
     const THREE = 51;
-    const TAB_KEY = 113;
+    const TAB_KEY = 9;
 
     var onKeyBoardEvents = function (e) {
         switch (e.keyCode) {
@@ -148,6 +148,7 @@ function GameController(config) {
 
             case TAB_KEY:
                 EventBus.dispatch("selectOnTab");
+                $("#inputText").focus();
                 break;
 
         }

@@ -18,6 +18,7 @@ function MenuController(config) {
 
     MenuController.prototype.showMenu = function (me) {
         checkStatus(me);
+        $("#canvasHolder").hide();
         me.config.gameState.gs.currentState = me.config.gameState.gs.States.MAIN_MENU;
         $("#menu-container" ).css("display","table");
     } 

@@ -25,7 +25,7 @@
     }
     var activateUI = function(me){
         // $("#canvasHolder").parent().css({position: 'relative'});
-        $("#canvasHolder").css({top: me.config.canvasHeight - $("#canvasHolder").height(), left: me.config.canvasWidth/2- $("#canvasHolder").width()/2, position:'absolute'});
+        $("#canvasHolder").css({top: me.config.canvasHeight - $("#canvasHolder").height(), position:'absolute'});
         document.getElementById('canvasHolder').style.display = "block";
         document.getElementById(me.captchaPassButton).value = 'Pass('+ me.maxPass + ')';
         $('#inputText').focus();

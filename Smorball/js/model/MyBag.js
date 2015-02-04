@@ -31,7 +31,7 @@
 
     };
     var selectOnTab = function(me){
-        me.unselectAll();
+        EventBus.dispatch("unselectAllInBag");
         var mp;
         selectedPowerupOnTab(me);
         if(me.myBag[me.selectedId] != undefined){
@@ -49,7 +49,7 @@
                 me.selectedId = -1;
                 return;
             }
-        }while(me.myBag[me.selectedId].getSum() < 0)
+        }while(me.myBag[me.selectedId].getSum() <= 0)
     }
     var showMyPowerup = function(){
         //show

@@ -87,7 +87,7 @@
         me.number = new createjs.Text();
         me.number.text = me.fromShop;
         me.number.font = "bold 20px Arial";
-        me.number.color = "white";
+        me.number.color = "blue";
         me.number.x = me.powerup.getTransformedBounds().width-me.number.getMeasuredWidth();
         me.number.y = me.powerup.getTransformedBounds().height-me.number.getMeasuredHeight();
         me.addChild(me.number);

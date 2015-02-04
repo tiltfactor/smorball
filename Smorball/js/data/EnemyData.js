@@ -74,7 +74,7 @@ EnemyData.enemy_regular = {
         "animations": {"run": [0, 0, "run", 0.2],  "die" : [0,0,0.2],"stand":[0,0]}
     },
     "extras":{
-        "speed": 8,
+        "speed": 2,
         "life": 1,
         "sound": {"hit": "bat6", "kill" : "bat6", "run": "run"}
     

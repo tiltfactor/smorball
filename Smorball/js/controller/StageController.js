@@ -186,7 +186,12 @@ function StageController(config) {
         me.freeLeftAreaX = 0;
         var canvas = document.getElementById("myCanvas");
         me.width  = canvas.width =  window.innerWidth;
-        me.height = canvas.height =  window.innerHeight;
+        var h = me.width * 3/4;
+        if (window.innerHeight < h){
+            h = window.innerHeight;
+            me.width  = canvas.width = (h * 4/3);
+        }
+        me.height = canvas.height =  h;
         me.freeTopAreaY = me.height/2;
         //setDivPosition(me);
 
@@ -637,15 +642,18 @@ function StageController(config) {
     }
 
     var showPowerup = function(me){
-        var x = 0;
+        var powerupContainer = new createjs.Container();
+        var x = 10 ;
         var y = 10;
         var padding = 5;
         for(var i=0;i<me.config.myBag.myBag.length;i++){
             var powerup = me.config.myBag.myBag[i];
-            me.config.stage.addChild(powerup);
+            powerupContainer.addChild(powerup);
             x = x + powerup.getWidth() + padding;
             powerup.setPosition(x,y);
         }
+        powerupContainer.x = me.cbBox.x + powerupContainer.getTransformedBounds().width/2;
+        me.stadium.addChild(powerupContainer);
 
     }
     var addToMyBag = function(me, powerup){

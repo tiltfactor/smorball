@@ -40,7 +40,8 @@
     Lane.prototype.getPowerupPosition = function(me){
 
         var point = {};
-        point.x = this.leftArea+this.config.x;
+        var limit = (this.config.width-this.leftArea) *3/4;
+        point.x = (Math.random()*limit)+this.leftArea+ this.config.x;
         point.y = this.config.y + this.config.height/2;//this.config.y + (this.config.height/7);
         return point;
 
@@ -90,7 +91,7 @@
         var tileWidth = 178;
         var tileHeight = 192;
         var padding = 10;
-        var reqTileWidth = Math.floor(me.config.width/totalTiles);
+        var reqTileWidth = Math.ceil(me.config.width/totalTiles);
         me.leftArea = reqTileWidth *2 ;
         var sX = reqTileWidth/tileWidth;
         var sY = (me.config.height+padding)/tileHeight;
