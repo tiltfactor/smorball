@@ -538,7 +538,7 @@ function StageController(config) {
             if (me.config.activePowerup != undefined) {
                 me.config.myBag.removeFromBag(me.config.activePowerup);
             }
-            if (me.config.activePowerup != null && me.config.activePowerup.getId() == "bullHorn") {
+            if (me.config.activePowerup != null && me.config.activePowerup.getId() == "bullhorn") {
                 startPlayersFromAllLanes(me);
             } else {
                 var lane = getLaneById(output.laneId, me);

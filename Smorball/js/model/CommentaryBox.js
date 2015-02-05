@@ -148,8 +148,8 @@
         me.score.font = "bold 20px Scoreboard";
         me.score.color = "white";
         me.score.alpha = 1;
-        me.score.text = "999999";
-        me.score.x  = score.x+score.getTransformedBounds().width/4-me.score.getMeasuredWidth()/3;
+        me.score.text = "6";
+        me.score.x  = score.x+score.getTransformedBounds().width/4;
         me.score.y = score.y + score.getTransformedBounds().height/2.2;
         me.addChild(me.score);
     };

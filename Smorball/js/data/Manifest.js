@@ -42,7 +42,7 @@ Manifest.game = [
     {src:"shapes/SB Level Assets/speaker.png",id:"speaker"},
     {src:"shapes/SB Level Assets/speaker_pole.png",id:"pole"},
     {src:"shapes/SB Level Assets/speech_bubble.png",id:"speech"},
-    {src:"shapes/SB_level_select.jpg",id:"levelmap"},
+    {src:"shapes/SB_level_select.jpg",id:"levelmap"},//todo:remove
 
     {src: "shapes/helmet_icon.png",  id: "helmet"},
     {src: "shapes/bullhorn_icon.png", id: "bullhorn"},
@@ -50,16 +50,8 @@ Manifest.game = [
 
     {src: "shapes/loader_default_bg.jpg",   id: "loader_default_bg"},
 
-    {src: "audio/mario.ogg", id: "mario"},
-    {src: "audio/hit.mp3", id: "hit"},
-    {src: "audio/die.mp3", id: "kill"},
-    {src: "audio/run.wav", id: "run"},
-    {src: "audio/bat1.wav", id: "bat1"},
-    {src: "audio/bat2.wav", id: "bat2"},
-    {src: "audio/bat3.wav", id: "bat3"},
-    {src: "audio/bat4.wav", id: "bat4"},
-    {src: "audio/bat5.wav", id: "bat5"},
-    {src: "audio/bat6.wav", id: "bat6"}
+    {src: "audio/mario.ogg", id: "mario"}
+
 
 ];
 
@@ -92,5 +84,15 @@ Manifest.levelMap = [
     {src: "shapes/stopwatch_icon.png", id: "stopwatch_icon"},
     {src: "shapes/t_btn_down.png", id: "t_btn_down"},
     {src: "shapes/t_btn_over.png", id: "t_btn_over"},
-    {src: "shapes/t_btn_up.png", id: "t_btn_up"}
+    {src: "shapes/t_btn_up.png", id: "t_btn_up"},
+
+    {src: "audio/hit.mp3", id: "hit"},
+    {src: "audio/die.mp3", id: "kill"},
+    {src: "audio/run.wav", id: "run"},
+    {src: "audio/bat1.wav", id: "bat1"},
+    {src: "audio/bat2.wav", id: "bat2"},
+    {src: "audio/bat3.wav", id: "bat3"},
+    {src: "audio/bat4.wav", id: "bat4"},
+    {src: "audio/bat5.wav", id: "bat5"},
+    {src: "audio/bat6.wav", id: "bat6"}
     ];

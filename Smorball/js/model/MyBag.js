@@ -62,8 +62,8 @@
         myPowerup.addFieldPowerup();
     }
 
-    MyBag.prototype.addToBagFromShop = function(powerup){
-        var myPowerup = getMyPowerupByType(powerup.getType());
+    MyBag.prototype.addToBagFromShop = function(powerupId){
+        var myPowerup = getMyPowerupByType(powerupId,this);
         myPowerup.addShopPowerup();
     }
     MyBag.prototype.removeFromBag = function(powerup){

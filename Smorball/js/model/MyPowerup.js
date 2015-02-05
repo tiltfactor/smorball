@@ -7,7 +7,7 @@
         this.initialize();
     }
 
-    MyPowerup.prototype = new createjs.Container()
+    MyPowerup.prototype = new createjs.Container();
     MyPowerup.prototype.Container_initialize = MyPowerup.prototype.initialize;
 
     MyPowerup.prototype.initialize = function(){
@@ -16,6 +16,12 @@
         this.fromShop = this.config.fromShop || 0;
         this.fromField = 0;
         this.selected = false;
+        var sum = this.getSum();
+        if(sum>0){
+            this.alpha =1;
+        }else{
+            this.alpha=0;
+        }
         drawPowerup(this);
         initText(this);
         loadEvents(this);
@@ -113,6 +119,9 @@
         var sum = this.fromField+this.fromShop;
         checkCount(this,sum);
         setText(this,sum);
+        if(sum==0){
+            this.alpha = 0;
+        }
     }
     MyPowerup.prototype.getType = function(){
         return this.config.type;
@@ -122,6 +131,9 @@
         var sum = this.fromField+this.fromShop;
         checkCount(this,sum);
         setText(this,sum);
+        if(sum>0){
+            this.alpha=1;
+        }
     }
     MyPowerup.prototype.removeShopPowerup = function(){
         this.fromShop--;
@@ -131,6 +143,9 @@
         var sum = this.fromField+this.fromShop;
         checkCount(this,sum);
         setText(this,sum);
+        if(sum>0){
+            this.alpha=1;
+        }
     }
     MyPowerup.prototype.removeFieldPowerup = function(){
         this.fromField--;

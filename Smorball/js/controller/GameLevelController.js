@@ -6,15 +6,21 @@ function GameLevelController(config) {
     gl = this;
 
     GameLevelController.prototype.init = function () {
-
         this.gameLevels = [];
-
-        this.config.stage.canvas.width = window.innerWidth;
-        this.config.stage.canvas.height = window.innerHeight;
-        this.scaleFactorX = window.innerWidth / 800;
-        this.scaleFactorY = window.innerHeight / 600;
         this.config.stage.enableMouseOver(10);
         loadEvents(this);
+        setCanvasAttributes(this);
+    }
+    var setCanvasAttributes = function(me){
+        var canvas = document.getElementById("utilityCanvas");
+        me.config.stage.canvas.width = window.innerWidth;
+
+        var h = me.config.stage.canvas.width * 3/4;
+        if (window.innerHeight < h){
+            h = window.innerHeight;
+            me.config.stage.canvas.width = (h * 4/3);
+        }
+        me.config.stage.canvas.height =  h;
     }
     var loadEvents = function (me) {
         var sl = function () {
@@ -51,8 +57,8 @@ function GameLevelController(config) {
         me.config.stage.removeAllChildren();
         $("#dialog-utility").show();
         me.map = new createjs.Container();
-        me.map.scaleX = me.scaleFactorX;
-        me.map.scaleY = me.scaleFactorY;
+        me.map.scaleX = me.config.stage.canvas.width/800;
+        me.map.scaleY = me.config.stage.canvas.height/600;
 
         me.config.stage.addChild(me.map);
         var levelmap = new createjs.Bitmap(me.config.loader.getResult("map_background"));
@@ -96,12 +102,20 @@ function GameLevelController(config) {
         EventBus.dispatch("showShop");
     }
     var drawCashBar = function (me) {
+        var score = new Score({"gameState":me.config.gameState});
         var cashContainer = new createjs.Container();
+        var cashText = new createjs.Text();
         var cashbar = new createjs.Bitmap(me.config.loader.getResult("cash_bar"));
         cashbar.setTransform(0, 0, 0.5, 0.5);
-        cashContainer.addChild(cashbar);
+
         cashContainer.x = me.map.getBounds().width - cashbar.getTransformedBounds().width - 20;
         cashContainer.y = 10;
+
+        cashText.text = score.getMyMoney();
+        cashText.font = "bold 20px Arial";
+        cashText.color = "white";
+        cashText.setTransform(cashbar.getTransformedBounds().width/2-cashText.getMeasuredWidth(),cashText.getMeasuredHeight());
+        cashContainer.addChild(cashbar,cashText);
         me.map.addChild(cashContainer);
 
     };

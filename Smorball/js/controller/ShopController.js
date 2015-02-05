@@ -7,9 +7,17 @@ function ShopController(config) {
         //createDialog(this);
        // this.config.loader.loadShopAssets();
         //this.config.stage = new createjs.Stage("myShopCanvas");
-        this.config.stage.canvas.width = window.innerWidth - 150;//TODO make this better
-        this.config.stage.canvas.height = window.innerHeight - 150;//TODO make this better
+        //setCanvasAttributes(this)
+        //this.config.stage.canvas.width = window.innerWidth - 150;//TODO make this better
+        //this.config.stage.canvas.height = window.innerHeight - 150;//TODO make this better
         this.config.products = [];
+        generateDiv(this)
+    }
+    var generateDiv = function(me){
+        var template = $("#shopComponents").html();
+        var compile = _.template(template);
+        $(".itemDiv").append(compile({items:shopData}));
+
     }
     var resetAll = function(me){
         me.config.bag = [];
@@ -54,13 +62,12 @@ function ShopController(config) {
     }
 
     var showShop = function (me){
+        me.score = new Score({"gameState":me.config.gameState});
+        var money = me.score.getMyMoney();
+        $(".wallet").text("$"+money);
         me.config.stage.removeAllChildren();
         resetAll(me);
         EventBus.dispatch("hideAll");
-        var template = $("#shopComponents").html();
-
-        var compile = _.template(template);
-        $(".itemDiv").append(compile({items:shopData}));
         setUpgradeStatus(me);
         $("#shop").show();
         //$("#dialog-shop").show();
@@ -72,12 +79,17 @@ function ShopController(config) {
         }
     }
     var setUpgradeStatus = function(me){
+        $(".wallet").text("$"+me.score.getMyMoney());
         var innerItems = $(".itemDiv").children().filter(".innerItem").find(".innerDiv");
         _.each(innerItems,function(item){
+            $(item).find(".upgrade").unbind( "click" );
             var price = getPrice(item.id);
-            if(price>2600){
+            if(price>me.score.getMyMoney()){
                 $(item).find(".upgrade").css("background-color","#FF3030");
-                $(item).find(".upgrade").removeAttr("onclick");
+                $(item).find(".upgrade").unbind( "click" );
+            }else if(price<me.score.getMyMoney()){
+                $(item).find(".upgrade").css("background-color","#a7cb00");
+                $(item).find(".upgrade").click(function(){EventBus.dispatch("addToBag", this.parentElement)});
             }
             _.each(me.config.gameState.gs.upgrades,function(upgrade){
                 if ("shop_product_"+upgrade==item.id) {
@@ -134,13 +146,15 @@ function ShopController(config) {
     var addToBag = function(me,ob){
         console.log(ob);
         var btn = $(ob).find(".upgrade");
+        var id = ob.id
         btn.text("Upgraded");
         btn.prop('disabled', true);
-        me.config.gameState.gs.upgrades.push($(ob).find(".title").text());
-        //var product = ob.target;
-        //me.config.bag.push(product);
-        ////product.updatePriceTag()
-        //updateCart(me);
+        me.config.myBag.addToBagFromShop($(ob).find(".title").text());
+
+        me.config.gameState.gs.dollorSpend +=getPrice(id);
+
+        setUpgradeStatus(me)
+
     }
 
     var removeFromBag = function(me,ob){

@@ -155,7 +155,9 @@
            console.log("cheat Activated");
            EventBus.dispatch("setTickerStatus");
            EventBus.dispatch("showMap");
-           return;
+           output.pass = false;
+           output.message = "incorrect";
+           return output;
         }
         var cw = new closestWord(input,this.captchasOnScreen);
         if(cw.match){

@@ -32,6 +32,7 @@
         me.gs.gameLevelPoints = me.config.store.gameLevelPoints || [];
         me.gs.music = me.config.store.music || 50;
         me.gs.soundEffects = me.config.store.soundEffects || 50;
+        me.gs.dollorSpend = me.config.store.dollorSpend || 0;
     }
 
     GameState.prototype.persist = function(){

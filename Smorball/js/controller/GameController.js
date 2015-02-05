@@ -108,6 +108,7 @@ function GameController(config) {
     const THREE = 51;
     const TAB_KEY = 9;
 
+
     var onKeyBoardEvents = function (e) {
         switch (e.keyCode) {
 
