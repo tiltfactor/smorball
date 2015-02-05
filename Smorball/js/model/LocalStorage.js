@@ -11,7 +11,9 @@
         localStorage.setItem(this.key, data);
     }
     LocalStorage.prototype.getFromStore = function(){
-        return localStorage.getItem(this.key);
+        var data = localStorage.getItem(this.key);
+        var json = JSON.parse(data) || {};
+        return json;
     }
 
 

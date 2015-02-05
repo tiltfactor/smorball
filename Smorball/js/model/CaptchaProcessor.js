@@ -135,6 +135,7 @@
             me.callCaptchaFromServer();
         }
         if(me.captchaDatas.local && me.config.loader.localCapthcaSize <= me.currentIndex){
+            console.log(me.config.loader.localCapthcaSize +" entering into loop..")
             activateCaptchaSet(me);
         }
         if(me.currentIndex >= me.captchaDatas.differences.length){

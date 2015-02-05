@@ -6,9 +6,10 @@
     var SmbLoadQueue =  function(config) {
         this.config = config;
         this.initialize();
+        ldr = this;
     };
 
-    SmbLoadQueue.prototype  = new createjs.LoadQueue(true, "", false);
+
     SmbLoadQueue.prototype._initialize = SmbLoadQueue.prototype.initialize;
     SmbLoadQueue.prototype.initialize = function(){
         this.events = {};
@@ -16,7 +17,7 @@
         this.bg_loader = new createjs.LoadQueue(false,"",false);
         this.active = false;
         this.captchaLoad = false;
-        this.localCapthcaSize = Manifest.level1.length;
+        this.localCapthcaSize = 9;
         var me = this;
         ld = this;
         setTimeout(function(){loadLocalImages(me)}, 10000);

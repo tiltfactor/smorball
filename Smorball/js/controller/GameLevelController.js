@@ -50,6 +50,7 @@ function GameLevelController(config) {
     GameLevelController.prototype.showMap = function () {
         EventBus.dispatch("hideAll");
         $("#loaderCanvas").show();
+        EventBus.dispatch("saveToStore");
         loadImages(this);
     }
 

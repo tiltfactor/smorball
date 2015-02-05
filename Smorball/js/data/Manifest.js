@@ -56,15 +56,7 @@ Manifest.game = [
 ];
 
 Manifest.level1 = [
-    {src: "shapes/captcha/000.png", id: "000"},
-    {src: "shapes/captcha/001.png", id: "001"},
-    {src: "shapes/captcha/002.png", id: "002"},
-    {src: "shapes/captcha/003.png", id: "003"},
-    {src: "shapes/captcha/004.png", id: "004"},
-    {src: "shapes/captcha/005.png", id: "005"},
-    {src: "shapes/captcha/006.png", id: "006"},
-    {src: "shapes/captcha/007.png", id: "007"},
-    {src: "shapes/captcha/008.png", id: "008"}];
+   ];
 
 Manifest.products = [{src: "shapes/blue-ball.png", id: "blue-ball"}, {src: "shapes/green-ball.png", id: "green-ball"},
     {src: "shapes/red-ball.png", id: "red-ball"}];
@@ -94,5 +86,15 @@ Manifest.levelMap = [
     {src: "audio/bat3.wav", id: "bat3"},
     {src: "audio/bat4.wav", id: "bat4"},
     {src: "audio/bat5.wav", id: "bat5"},
-    {src: "audio/bat6.wav", id: "bat6"}
+    {src: "audio/bat6.wav", id: "bat6"},
+
+    {src: "shapes/captcha/000.png", id: "000"},
+    {src: "shapes/captcha/001.png", id: "001"},
+    {src: "shapes/captcha/002.png", id: "002"},
+    {src: "shapes/captcha/003.png", id: "003"},
+    {src: "shapes/captcha/004.png", id: "004"},
+    {src: "shapes/captcha/005.png", id: "005"},
+    {src: "shapes/captcha/006.png", id: "006"},
+    {src: "shapes/captcha/007.png", id: "007"},
+    {src: "shapes/captcha/008.png", id: "008"}
     ];

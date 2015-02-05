@@ -8,9 +8,9 @@ function GameController(config) {
         this.config.stage.canvas.height = window.innerHeight;//TODO make this better
 
 
-        var store = new LocalStorage();
+        this.store = new LocalStorage();
 
-        this.config.gameState = new GameState({"store": store.getFromStore()});
+        this.config.gameState = new GameState({"store": this.store.getFromStore().gameState});
         this.config.gameState.init();
 
         loadEvents(this);
@@ -76,8 +76,10 @@ function GameController(config) {
     }
 
     var loadEvents = function(me){
-        hl = function(){hideAll(me)};
+        var hl = function(){hideAll(me)};
         EventBus.addEventListener("hideAll",hl);
+        var ss = function(){me.save()}
+        EventBus.addEventListener("saveToStore", ss);
     }
     var hideAll = function(){
         $("#shop").hide();
@@ -163,6 +165,10 @@ function GameController(config) {
         data.gameState = this.config.gameState.persist();
         var json = JSON.stringify(data);
         return json;
+    }
+    GameController.prototype.save = function(){
+        var object = this.persist();
+        this.store.saveToStore(object);
     }
 
 

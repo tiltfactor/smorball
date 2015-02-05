@@ -10,16 +10,31 @@
     }
     var initialize = function(me){
         loadEvents(me);
-        var store =  new LocalStorage();
+        loadBag(me);
+    }
+    var loadBag = function(me){
+        var store = new LocalStorage();
         var data = store.getFromStore();
-        //parse the data and check
+        var inbag = data.inBag||loadInitBag(me);
+        createMyPowerup(me, inbag);
+    }
+    var createMyPowerup = function(me, inbag){
+        for(var i = 0 ; i< inbag.length; i++){
+            var p = inbag[i];
+            var config = {"type" : p.type, "fromShop" : p.fromShop, "loader" : me.config.loader};
+            var myPowerup = new MyPowerup(config);
+            me.myBag.push(myPowerup);
+        }
+    }
+    var loadInitBag = function(me){
+        var arr = [];
         for (var key in PowerupsData) {
             if (PowerupsData.hasOwnProperty(key)){
-                var config = {"type" : key,"loader":me.config.loader};
-                var myPowerup = new MyPowerup(config);
-                me.myBag.push(myPowerup);
+                var data = {"type" : key};
+                arr.push(data);
             }
         }
+        return arr;
     }
     var loadEvents = function(me){
         var st = function(){selectOnTab(me)};
@@ -83,14 +98,12 @@
     }
 
    MyBag.prototype.persist = function(){
-        var data = {};
         var myBag= [];
         for(var i= 0; i< this.myBag.length; i++){
             var mp = this.myBag[i];
              myBag.push(mp.persist());
         }
-       data.myBag = myBag;
-       return data;
+       return myBag;
     }
 
 
