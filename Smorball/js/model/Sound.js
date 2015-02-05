@@ -9,7 +9,7 @@
 
    var initialize = function(me){
         me.mySound = me.config.loader.getResult(me.config.file);
-        me.mySound.loop = me.config.loop; 
+        me.mySound.loop = me.config.loop;
         var vol = setVolumeValue(me);
         me.setVolume(vol);
         if(!me.config.loop){
@@ -18,10 +18,10 @@
 
    }
    var setVolumeValue = function(me){
-        if(me.config.type == me.config.gameState.gs.soundType.EFFECTS){
+        if(me.config.type == me.config.gameState.soundType.EFFECTS){
           var vol = me.config.gameState.gs.soundEffects/100;
         }
-        else if(me.config.type == me.config.gameState.gs.soundType.MAIN){
+        else if(me.config.type == me.config.gameState.soundType.MAIN){
           var vol = me.config.gameState.gs.music/100;
         }
         return vol;

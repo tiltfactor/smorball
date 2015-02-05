@@ -19,7 +19,7 @@ function MenuController(config) {
     MenuController.prototype.showMenu = function (me) {
         checkStatus(me);
         $("#canvasHolder").hide();
-        me.config.gameState.gs.currentState = me.config.gameState.gs.States.MAIN_MENU;
+        me.config.gameState.currentState = me.config.gameState.states.MAIN_MENU;
         $("#menu-container" ).css("display","table");
     } 
     MenuController.prototype.hideMenu = function () {
@@ -28,7 +28,7 @@ function MenuController(config) {
 
     MenuController.prototype.showTimeout = function (me) {
         checkStatus(me);
-        me.config.gameState.gs.currentState = me.config.gameState.gs.States.MAIN_MENU;
+        me.config.gameState.currentState = me.config.gameState.states.MAIN_MENU;
         $( "#timeout-popup" ).dialog("open");
         EventBus.dispatch("pauseAllSound");
     }   
@@ -69,7 +69,7 @@ function MenuController(config) {
                 range: "min",
                 slide: function( event, ui ) {
                     me.config.gameState.gs.music = ui.value;
-                    EventBus.dispatch("changeSoundVolume",me.config.gameState.gs.soundType.MAIN);
+                    EventBus.dispatch("changeSoundVolume",me.config.gameState.soundType.MAIN);
                 }
             });
             
@@ -78,13 +78,13 @@ function MenuController(config) {
                 range: "min",
                 slide: function( event, ui ) {
                     me.config.gameState.gs.soundEffects = ui.value;
-                    EventBus.dispatch("changeSoundVolume",me.config.gameState.gs.soundType.EFFECTS);   
+                    EventBus.dispatch("changeSoundVolume",me.config.gameState.soundType.EFFECTS);
                 }
             });              
     }
     var checkStatus = function(me){
-        var state = me.config.gameState.gs.States;
-        switch(me.config.gameState.gs.currentState){
+        var state = me.config.gameState.states;
+        switch(me.config.gameState.currentState){
             case state.MAIN_MENU:{break;}
             case state.RUN:{$("#resumeButton").show();break;}
             case state.GAME_OVER: {$("#resumeButton").hide();break;}

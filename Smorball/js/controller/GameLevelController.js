@@ -120,7 +120,7 @@ function GameLevelController(config) {
         infoContainer.y = me.map.getBounds().height-infoContainer.getTransformedBounds().height-10;
     }
     GameLevelController.prototype.setLevel = function (label) {
-        this.config.gameState.gs.currentLevel = label.id;
+        this.config.gameState.currentLevel = label.id;
         EventBus.dispatch("hideAll");
         EventBus.dispatch("newGame");
         $("#myCanvas").show();

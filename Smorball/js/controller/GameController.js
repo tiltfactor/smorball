@@ -7,11 +7,13 @@ function GameController(config) {
         this.config.stage.canvas.width = window.innerWidth ;//TODO make this better
         this.config.stage.canvas.height = window.innerHeight;//TODO make this better
 
-        this.config.gameState = new GameState();
+
+        var store = new LocalStorage();
+
+        this.config.gameState = new GameState({"store": store.getFromStore()});
         this.config.gameState.init();
 
         loadEvents(this);
-        loadFromStore(this);
         loadImages(this);
         window.onkeydown = onKeyBoardEvents;
     }
@@ -33,7 +35,7 @@ function GameController(config) {
 
     var doInit = function (me) {
         var config = {"loader" : me.config.smbLoadQueue, "gameState" : me.config.gameState};
-        var myBag = new MyBag(config)
+        me.myBag = new MyBag(config)
 
         me.config.menuController = new MenuController({
             "gameState": me.config.gameState,
@@ -50,7 +52,7 @@ function GameController(config) {
         me.config.stageController = new StageController({
             "gameState": me.config.gameState,
             "loader": me.config.smbLoadQueue,
-            "myBag" : myBag
+            "myBag" : me.myBag
         })
         me.config.stageController.init();
 
@@ -58,7 +60,7 @@ function GameController(config) {
             "gameState": me.config.gameState,
             "loader": me.config.smbLoadQueue,
             "stage": me.config.popupStage
-            ,"myBag" : myBag
+            ,"myBag" : me.myBag
         })
         me.config.shopController.init();
 
@@ -152,6 +154,14 @@ function GameController(config) {
                 break;
 
         }
+    }
+
+    GameController.prototype.persist = function(){
+        var data = {};
+        data.myBag = this.myBag.persist();
+        data.gameState = this.config.gameState.persist();
+        var json = JSON.stringify(data);
+        return json;
     }
 
 

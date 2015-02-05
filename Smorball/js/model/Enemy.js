@@ -51,7 +51,7 @@
         var me = this;
         this.sprite.gotoAndPlay("run");
         //var fileId = this.config.enemySound.run;
-        //var config = {"file": fileId , "loop": false, "type": this.config.gameState.gs.soundType.EFFECTS, "isMain": false,"loader":this.config.loader, "gameState":me.config.gameState};
+        //var config = {"file": fileId , "loop": false, "type": this.config.gameState.soundType.EFFECTS, "isMain": false,"loader":this.config.loader, "gameState":me.config.gameState};
         //var runSound = new Sound(config);
         //EventBus.dispatch("addAudioToList",runSound);
         this.myTick = function(){tick(me)};
@@ -70,9 +70,10 @@
         var me = this;
         this.removeLife();
         var fileId = this.config.enemySound.hit;
-        var config = {"file": fileId , "loop": false, "type": this.config.gameState.gs.soundType.EFFECTS, "isMain": false,"loader":this.config.loader, "gameState":me.config.gameState};
+        var config = {"file": fileId , "loop": false, "type": this.config.gameState.soundType.EFFECTS, "isMain": false,"loader":this.config.loader, "gameState":me.config.gameState};
         var hitSound = new Sound(config);
-        EventBus.dispatch("addAudioToList",hitSound);
+
+       EventBus.dispatch("addAudioToList",hitSound);
         if(this.lifes.length == 0){
             this.hit = true;
             this.sprite.gotoAndPlay("die");
@@ -153,7 +154,7 @@
             me.lifes.length =0;
             me.kill();
             EventBus.dispatch("killLife");
-            EventBus.dispatch("setScore",me.config.gameState.gs.life);
+            EventBus.dispatch("setScore",me.config.gameState.life);
 
         }
     }

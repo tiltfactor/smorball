@@ -136,6 +136,13 @@
         this.fromField--;
     }
 
+    MyPowerup.prototype.persist = function(){
+        var data = {};
+        data.type = this.config.type;
+        data.fromShop = this.fromShop;
+        return data;
+    }
+
     window.MyPowerup = MyPowerup;
 
 }())

@@ -10,6 +10,9 @@
     }
     var initialize = function(me){
         loadEvents(me);
+        var store =  new LocalStorage();
+        var data = store.getFromStore();
+        //parse the data and check
         for (var key in PowerupsData) {
             if (PowerupsData.hasOwnProperty(key)){
                 var config = {"type" : key,"loader":me.config.loader};
@@ -77,6 +80,17 @@
             }
         }
         return null;
+    }
+
+   MyBag.prototype.persist = function(){
+        var data = {};
+        var myBag= [];
+        for(var i= 0; i< this.myBag.length; i++){
+            var mp = this.myBag[i];
+             myBag.push(mp.persist());
+        }
+       data.myBag = myBag;
+       return data;
     }
 
 

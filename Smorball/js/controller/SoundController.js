@@ -59,7 +59,7 @@ function SoundController(config){
             var sound = me.audioList[i];
             if(sound.config.type == type){
                 var vol = me.config.gameState.gs.music/100;
-                if(type == me.config.gameState.gs.soundType.EFFECTS){
+                if(type == me.config.gameState.soundType.EFFECTS){
                     vol = me.config.gameState.gs.soundEffects/100;
                 }
                 sound.setVolume(vol);
@@ -70,9 +70,13 @@ function SoundController(config){
 
     var playMusic = function(me){
         var fileId = "mario";
-        var config = {"file": fileId , "loop": true, "type": me.config.gameState.gs.soundType.MAIN, "isMain": true,"loader":me.config.loader, "gameState":me.config.gameState};
+        var config = {"file": fileId , "loop": true, "type": me.config.gameState.soundType.MAIN, "isMain": true,"loader":me.config.loader, "gameState":me.config.gameState};
         var mainSound = new Sound(config);
         EventBus.dispatch("addAudioToList",mainSound);
+    }
+
+    var persist = function(me){
+
     }
 
 }

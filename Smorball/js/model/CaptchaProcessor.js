@@ -130,7 +130,7 @@
 
     var checkCaptchaSetting = function(me){
         console.log("index : " + me.currentIndex);
-        if(me.currentIndex == Math.floor(me.captchaDatas.differences.length/2) && me.config.gameState.gs.currentLevel != 1){
+        if(me.currentIndex == Math.floor(me.captchaDatas.differences.length/2) && me.config.gameState.currentLevel != 1){
             console.log("next load");
             me.callCaptchaFromServer();
         }
@@ -248,7 +248,7 @@
         var _onImageLoad = function(me){
             console.log("after image load");
             me.config.gameState.captchaDatasArray.push(myData);
-            if((me.captchaDatas == undefined ||  me.captchaDatas.local) && me.config.gameState.gs.currentLevel != 1 ){
+            if((me.captchaDatas == undefined ||  me.captchaDatas.local) && me.config.gameState.currentLevel != 1 ){
                 activateCaptchaSet(me);
             }
         }
@@ -256,8 +256,8 @@
 
     }
     var activateCaptchaSet = function(me){
-        console.log(me.config.gameState.gs.currentLevel+ " activate captcha set");
-        if(me.config.gameState.gs.currentLevel == 1){
+        console.log(me.config.gameState.currentLevel+ " activate captcha set");
+        if(me.config.gameState.currentLevel == 1){
             me.captchaDatas = me.config.gameState.captchaDatasArray[0];
         }else{
             me.captchaDatas = me.config.gameState.captchaDatasArray[me.config.gameState.captchaDatasArray.length-1];

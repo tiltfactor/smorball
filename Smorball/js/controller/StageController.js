@@ -75,8 +75,8 @@ function StageController(config) {
         //$('#myDiv').remove();
         resetGame(me);
 
-        me.config.gameState.gs.currentState = me.config.gameState.gs.States.RUN;
-        me.levelConfig = LevelData[me.config.gameState.gs.currentLevel];
+        me.config.gameState.currentState = me.config.gameState.states.RUN;
+        me.levelConfig = LevelData[me.config.gameState.currentLevel];
         me.time = 0;
         me.captchaProcessor = new CaptchaProcessor({"loader": me.config.loader, "canvasWidth": me.width, "canvasHeight": me.height, "gameState" : me.config.gameState});
         $("#loaderCanvas").show();
@@ -88,27 +88,27 @@ function StageController(config) {
     var loadImages = function(me){
         var _onImagesLoad= function(me){ onImagesLoad(me)};
         var manifest;
-        if(me.config.gameState.gs.currentLevel == 1)
+        if(me.config.gameState.currentLevel == 1)
             var manifest = Manifest.level1;
          else
             manifest = [];
          
-        if(me.config.gameState.gs.currentLevel !== 7)
+        if(me.config.gameState.currentLevel !== 7)
         {
-            var splash = LoaderData[me.config.gameState.gs.currentLevel+1];
+            var splash = LoaderData[me.config.gameState.currentLevel+1];
             manifest.push({"src": splash.image, "id" : splash.id});
         }
-        me.config.loader.loadQueue(manifest, _onImagesLoad, me, me.config.gameState.gs.currentLevel);
+        me.config.loader.loadQueue(manifest, _onImagesLoad, me, me.config.gameState.currentLevel);
 
     }
     var onImagesLoad = function(me){
-        /*if(me.config.gameState.gs.currentLevel == 1){
+        /*if(me.config.gameState.currentLevel == 1){
             me.config.gameState.gs.points = 6;
         }*/
         drawBackGround(me);
         drawStadium(me);
         EventBus.dispatch("showCommentary", me.levelConfig.waves.message);
-        EventBus.dispatch("setScore", me.config.gameState.gs.life);
+        EventBus.dispatch("setScore", me.config.gameState.life);
         drawLane(me);
         initShowMessage(me);
         //showScore(me);
@@ -265,7 +265,7 @@ function StageController(config) {
         var x = me.width-10;
         var y = 10;
         var padding = 5;
-        for(var i= 0; i< me.config.gameState.gs.life; i++){
+        for(var i= 0; i< me.config.gameState.life; i++){
             var life = new Life(me.config.loader);
             x = x- life.getWidth()- padding;
             life.setPosition(x, y);
@@ -277,9 +277,9 @@ function StageController(config) {
     var killLife = function(me){
         var life = me.config.lifes.pop();
         me.config.stage.removeChild(life);
-        if(--me.config.gameState.gs.life == 0){
-            me.config.gameState.gs.currentState = me.config.gameState.gs.States.GAME_OVER;
-            me.config.gameState.gs.currentLevel = 1;
+        if(--me.config.gameState.life == 0){
+            me.config.gameState.currentState = me.config.gameState.states.GAME_OVER;
+            me.config.gameState.currentLevel = 1;
             showGameOverMessage(me,"Game Over")
         }
     }
@@ -381,7 +381,7 @@ function StageController(config) {
     }
 
     var addPlayer = function(lane,me){
-        if(!(me.config.gameState.gs.currentLevel == 1 && (lane.getLaneId() == 1 || lane.getLaneId() == 3))){
+        if(!(me.config.gameState.currentLevel == 1 && (lane.getLaneId() == 1 || lane.getLaneId() == 3))){
             var config = {"id": me.default_player, "loader" : me.config.loader, "laneId" : lane.getLaneId(),"gameState" : me.config.gameState };
             var player = new sprites.SpriteMan(config);
             var sf = getScaleFactor(lane,player);
@@ -432,12 +432,12 @@ function StageController(config) {
         me.config.powerups = [];
         me.config.lanes = [];
         me.config.waves = [];
-        me.config.myPowerups = me.config.gameState.gs.inBag;
+//        me.config.myPowerups = me.config.gameState.gs.inBag;
         me.config.activePowerup = undefined;
         me.passCount = 0;
-        me.config.gameState.gs.life = me.config.gameState.gs.maxLife;
+        me.config.gameState.life = me.config.gameState.maxLife;
     
-        if(me.config.gameState.gs.currentLevel == 1){
+        if(me.config.gameState.currentLevel == 1){
             me.config.lifes = [];
         }
 
@@ -586,14 +586,14 @@ function StageController(config) {
 
         me.score.addGameLevelPoints();
 
-        me.config.gameState.gs.currentLevel++;
-        if(me.config.gameState.gs.currentLevel>me.config.gameState.gs.maxLevel){
-            me.config.gameState.gs.maxLevel = me.config.gameState.gs.currentLevel;
+        me.config.gameState.currentLevel++;
+        if(me.config.gameState.currentLevel>me.config.gameState.gs.maxLevel){
+            me.config.gameState.gs.maxLevel = me.config.gameState.currentLevel;
         }
-        me.config.gameState.gs.currentState = me.config.gameState.gs.States.GAME_OVER;
+        me.config.gameState.currentState = me.config.gameState.states.GAME_OVER;
         //showMessage(me,"Level Completed !!");
-        me.config.gameState.gs.points += me.config.gameState.gs.life;
-        me.config.gameState.gs.gameLevelPoints.push(me.config.gameState.gs.life);
+        //me.config.gameState.gs.points += me.config.gameState.gs.life;
+        me.config.gameState.gs.gameLevelPoints.push(me.config.gameState.life);
 
         setTimeout(function(){EventBus.dispatch("setTickerStatus");EventBus.dispatch("showMap");},3000); //TODO : change
     }
@@ -732,6 +732,9 @@ function StageController(config) {
             laneId = Math.floor(Math.random()*3)+1
         }while(laneId == currentLaneId);
         return laneId;
+    }
+    var persist = function(me){
+
     }
 
 

@@ -166,5 +166,8 @@ function ShopController(config) {
         EventBus.dispatch("showMap");
         //$( "#dialog-shop" ).dialog("close");
     }
+    var persist = function(me){
+
+    }
     
 }

@@ -16,7 +16,7 @@
  
   Score.prototype.getTotalScore = function(){
     var gameLevelPoints = this.config.gameState.gs.gameLevelPoints;
-    var currentLevelScore = this.config.gameState.gs.gameLevelPoints[this.config.gameState.gs.currentLevel-1];
+    var currentLevelScore = this.config.gameState.gs.gameLevelPoints[this.config.gameState.currentLevel-1];
     if(!currentLevelScore){
       currentLevelScore = 0;
     }
@@ -26,12 +26,12 @@
   }
   Score.prototype.getLevelScore = function(){
     var total = this.getTotalScore();
-    var currentLevelScore = this.config.gameState.gs.gameLevelPoints[this.config.gameState.gs.currentLevel-1];
+    var currentLevelScore = this.config.gameState.gs.gameLevelPoints[this.config.gameState.currentLevel-1];
     var levelTotal = total - currentLevelScore;
     return levelTotal;
   }
   Score.prototype.addGameLevelPoints = function(){
-    this.config.gameState.gs.gameLevelPoints[this.config.gameState.gs.currentLevel-1] = this.config.gameState.gs.life;
+    this.config.gameState.gs.gameLevelPoints[this.config.gameState.currentLevel-1] = this.config.gameState.life;
   }
 
   Score.prototype.getMyMoney = function(){
@@ -41,7 +41,7 @@
 
     for(var i= 0; i< gameLevelPoints.length; i++){
       var point = gameLevelPoints[i];
-      if(point == this.config.gameState.gs.maxLife){
+      if(point == this.config.gameState.maxLife){
         bonus++;
       }
         dollars+= point;
