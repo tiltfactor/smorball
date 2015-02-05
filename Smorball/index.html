@@ -124,36 +124,44 @@
     <div id="effects-slider" class="slider"></div>
 </div>
 
-<div id="shop" class="mainWndw" style="display: none;">
-    <div class="titleBar">
-        <span class="clubhouse">Clubhouse</span>
-        <span class="wallet">$2600</span>
-    </div>
-    <div class="itemDiv">
-        <script type="text/template" id="shopComponents">
+<div id="shopOuterWrapper">
+    <div class="centerContainer">
+        <div id="shop" class="mainWndw">
+            <div class="titleBar">
+                <span class="clubhouse">Clubhouse</span>
+                <span class="wallet">$2600</span>
+            </div>
+            <div class="shopInnerBg">
+                <div class="scrollContainer">
+                    <div class="itemDiv">
+                        <script type="text/template" id="shopComponents">
 
 
-            <% _.each(items, function(item) { %>
+                            <% _.each(items, function(item) { %>
 
-            <div class="innerItem">
-                <img src=<%=item.src%> class="image"/>
+                            <div class="innerItem">
+                                <img src=<%=item.src%> class="image"/>
 
-                <div class="innerDiv" id=<%=item.id%>>
-                    <div class="title"><%=item.name%></div>
-                    <div class="caption"><%=item.description%></div>
-                    <div class="rate">&dollar;<%=item.price%></div>
-                    <br>
-                    <button class="upgrade" type="button" style="background-color:#a7cb00;" > Upgrade
-                    </button>
+                                <div class="innerDiv" id=<%=item.id%>>
+                                    <div class="title"><%=item.name%></div>
+                                    <div class="caption"><%=item.description%></div>
+                                    <div class="rate">&dollar;<%=item.price%></div>
+                                    <br>
+                            <button class="upgrade" type="button" style="background-color:#a7cb00;" > Upgrade
+                                    </button>
+                                </div>
+                            </div>
+                            <br>
+                            <% }); %>
+
+                        </script>
+                    </div>
                 </div>
             </div>
-            <br>
-            <% }); %>
-
-        </script>
-    </div>
-    <div>
-        <input class="backButton" type="button" value="Back" onclick="EventBus.dispatch(&quot;showMap&quot;)"/>
+            <div>
+                <input class="backButton" type="button" value="Back" onclick="EventBus.dispatch(&quot;showMap&quot;)"/>
+            </div>
+        </div>
     </div>
 </div>
 </body>

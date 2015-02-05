@@ -82,7 +82,7 @@ function GameController(config) {
         EventBus.addEventListener("saveToStore", ss);
     }
     var hideAll = function(){
-        $("#shop").hide();
+        $("#shopOuterWrapper").css("display","none");
         $("#loaderCanvas").hide();
         $("#dialog-utility").hide();
         $("#dialog-shop").hide();

@@ -69,7 +69,7 @@ function ShopController(config) {
         resetAll(me);
         EventBus.dispatch("hideAll");
         setUpgradeStatus(me);
-        $("#shop").show();
+        $("#shopOuterWrapper").css("display","table");
         //$("#dialog-shop").show();
         if(me.initial){
             me.initial = false;
@@ -181,7 +181,7 @@ function ShopController(config) {
         //$( "#dialog-shop" ).dialog("close");
     }
     var persist = function(me){
-
-    }
+    
+}
     
 }
