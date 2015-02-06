@@ -1,18 +1,44 @@
 Manifest = {};
 Manifest.game = [
-    {src: "shapes/player_normal.png",id: "player_normal"},
-   // {src: "shapes/runningBoy.png",id: "man"},
-   {src: "shapes/man1.png",id: "man1"},
-    {src: "shapes/enemy.png", id: "enemy"},
-    {src: "shapes/gem.png", id: "gem"},
-    {src: "shapes/left.jpg", id: "left"},
-    {src: "shapes/heart.png", id: "heart"},
 
+    {src: "shapes/helmet_icon.png",  id: "helmet"},
+    {src: "shapes/bullhorn_icon.png", id: "bullhorn"},
+    {src: "shapes/cleats_icon.png",   id: "cleats"},
+    {src: "shapes/loader_default_bg.jpg",   id: "loader_default_bg"},
+    {src: "audio/mario.ogg", id: "mario"}
+
+   // {src: "shapes/runningBoy.png",id: "man"},
+   // {src: "shapes/enemy.png", id: "enemy"},
+   // {src: "shapes/gem.png", id: "gem"},
+    //{src: "shapes/left.jpg", id: "left"},
+   // {src: "shapes/heart.png", id: "heart"},
+   //{src:"shapes/ruby_float.png",id:"ruby_float"},
+//    {src:"shapes/SB Level Assets/grass_tile1.png",id:"tile1"},
+//    {src:"shapes/SB Level Assets/grass_tile2.png",id:"tile2"},
+//    {src:"shapes/SB Level Assets/grass_tile3.png",id:"tile3"},
+   // {src:"shapes/SB_level_select.jpg",id:"levelmap"},//todo:remove
+
+  ];
+
+Manifest.level = [
+
+
+    {src:"shapes/SB Level Assets/ad.png",id:"ad"},
+    {src:"shapes/SB Level Assets/seat.png",id:"seat"},
+    {src:"shapes/SB Level Assets/commentators.png",id:"cmt"},
+    {src:"shapes/SB Level Assets/scoreboard.png",id:"score"},
+    {src:"shapes/SB Level Assets/speaker.png",id:"speaker"},
+    {src:"shapes/SB Level Assets/speaker_pole.png",id:"pole"},
+    {src:"shapes/SB Level Assets/speech_bubble.png",id:"speech"},
+    {src:"shapes/SB Level Assets/background.png",id:"background"},
     {src: "shapes/grass_tile1.png", id: "grassTile1"},
     {src: "shapes/grass_tile2.png", id: "grassTile2"},
     {src: "shapes/grass_tile3.png", id: "grassTile3"},
     {src: "shapes/grass_tile4.png", id: "grassTile4"},
 
+
+    {src: "shapes/player_normal.png",id: "player_normal"},
+    {src: "shapes/man1.png",id: "man1"},
 
     {src: "shapes/enemy_regular.png", id: "enemy_regular"},
     {src: "shapes/boss_walk.png", id: "boss_walk"},
@@ -25,34 +51,12 @@ Manifest.game = [
     {src:"shapes/weak_walk.png",id:"weak_walk"},
     {src:"shapes/moving_die.png",id:"moving_die"},
     {src:"shapes/moving_walk.png",id:"moving_walk"},
+
+
     {src:"shapes/correct_text.png",id:"correct"},
-    {src:"shapes/incorrect_text.png",id:"incorrect"},
-    //{src:"shapes/ruby_float.png",id:"ruby_float"},
-    {src:"shapes/SB Level Assets/background.png",id:"background"},
-    {src:"shapes/SB Level Assets/grass_tile1.png",id:"tile1"},
-    {src:"shapes/SB Level Assets/grass_tile2.png",id:"tile2"},
-    {src:"shapes/SB Level Assets/grass_tile3.png",id:"tile3"},
-    {src:"shapes/SB Level Assets/ad.png",id:"ad"},
-    {src:"shapes/SB Level Assets/seat.png",id:"seat"},
-    {src:"shapes/SB Level Assets/commentators.png",id:"cmt"},
-    {src:"shapes/SB Level Assets/scoreboard.png",id:"score"},
-    {src:"shapes/SB Level Assets/speaker.png",id:"speaker"},
-    {src:"shapes/SB Level Assets/speaker_pole.png",id:"pole"},
-    {src:"shapes/SB Level Assets/speech_bubble.png",id:"speech"},
-    {src:"shapes/SB_level_select.jpg",id:"levelmap"},//todo:remove
-
-    {src: "shapes/helmet_icon.png",  id: "helmet"},
-    {src: "shapes/bullhorn_icon.png", id: "bullhorn"},
-    {src: "shapes/cleats_icon.png",   id: "cleats"},
-
-    {src: "shapes/loader_default_bg.jpg",   id: "loader_default_bg"},
-
-    {src: "audio/mario.ogg", id: "mario"}
+    {src:"shapes/incorrect_text.png",id:"incorrect"}
 
 
-];
-
-Manifest.level1 = [
    ];
 
 Manifest.products = [{src: "shapes/blue-ball.png", id: "blue-ball"}, {src: "shapes/green-ball.png", id: "green-ball"},

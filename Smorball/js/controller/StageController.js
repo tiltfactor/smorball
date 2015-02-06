@@ -88,10 +88,7 @@ function StageController(config) {
     var loadImages = function(me){
         var _onImagesLoad= function(me){ onImagesLoad(me)};
         var manifest;
-        if(me.config.gameState.currentLevel == 1)
-            var manifest = Manifest.level1;
-         else
-            manifest = [];
+        var manifest = Manifest.level;
          
         if(me.config.gameState.currentLevel !== 7)
         {
