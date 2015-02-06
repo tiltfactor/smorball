@@ -16,17 +16,13 @@
         this.fromShop = this.config.fromShop || 0;
         this.fromField = 0;
         this.selected = false;
-        var sum = this.getSum();
-        if(sum>0){
-            this.alpha =1;
-        }else{
-            this.alpha=0;
-        }
+        this.reset();
         drawPowerup(this);
         initText(this);
         loadEvents(this);
 
     }
+
     var loadEvents = function(me){
         me.events = {};
         me.events.click = function(){activatePowerup(me)};
@@ -37,6 +33,15 @@
             me.addEventListener("click", me.events.click);
         }else{
             me.removeEventListener("click", me.events.click);
+        }
+    }
+    MyPowerup.prototype.reset = function(){
+        this.fromField = 0;
+        var sum = this.getSum();
+        if(sum>0){
+            this.alpha =1;
+        }else{
+            this.alpha=0;
         }
     }
     MyPowerup.prototype.getSum = function(){

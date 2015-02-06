@@ -665,6 +665,7 @@ function StageController(config) {
         for(var i=0;i<me.config.myBag.myBag.length;i++){
             var powerup = me.config.myBag.myBag[i];
             powerupContainer.addChild(powerup);
+            powerup.reset();
             x = x + powerup.getWidth() + padding;
             powerup.setPosition(x,y);
         }
