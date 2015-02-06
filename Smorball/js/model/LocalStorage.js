@@ -15,6 +15,9 @@
         var json = JSON.parse(data) || {};
         return json;
     }
+    LocalStorage.prototype.reset = function(){
+        this.saveToStore(null);
+    }
 
 
     window.LocalStorage = LocalStorage;

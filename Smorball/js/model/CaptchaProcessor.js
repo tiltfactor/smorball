@@ -77,7 +77,7 @@
               // captcha.datas = captchaData;
 
         this.captchasOnScreen.push(captcha);
-        console.log(this.captchasOnScreen);
+       // console.log(this.captchasOnScreen);
         ++this.currentIndex;
 
     };
@@ -129,17 +129,17 @@
 
 
     var checkCaptchaSetting = function(me){
-        console.log("index : " + me.currentIndex);
+        //console.log("index : " + me.currentIndex);
         if(me.currentIndex == Math.floor(me.captchaDatas.differences.length/2) && me.config.gameState.currentLevel != 1){
             console.log("next load");
             me.callCaptchaFromServer();
         }
         if(me.captchaDatas.local && me.config.loader.localCapthcaSize <= me.currentIndex){
-            console.log(me.config.loader.localCapthcaSize +" entering into loop..")
+           // console.log(me.config.loader.localCapthcaSize +" entering into loop..")
             activateCaptchaSet(me);
         }
         if(me.currentIndex >= me.captchaDatas.differences.length){
-            console.log("change");
+            //console.log("change");
             activateCaptchaSet(me);
         }
     }
@@ -153,12 +153,14 @@
         }
         if(input=="unlockall"){
            this.config.gameState.gs.maxLevel = 7;
-           console.log("cheat Activated");
-           EventBus.dispatch("setTickerStatus");
-           EventBus.dispatch("showMap");
-           output.pass = false;
-           output.message = "incorrect";
-           return output;
+           //console.log("cheat Activated");
+           //EventBus.dispatch("setTickerStatus");
+           //EventBus.dispatch("showMap");
+            output.pass = false;
+            output.cheated = true;
+            output.message = "cheat code is accessed";
+            clearText(this);
+            return output;
         }
         var cw = new closestWord(input,this.captchasOnScreen);
         if(cw.match){
@@ -227,7 +229,7 @@
         var me = this;
         var url = "http://tiltfactor1.dartmouth.edu:8080/api/page";
         // setTimeout(function(){
-        console.log("call from server");
+       // console.log("call from server");
         $.ajax({
             dataType: 'json',
             url: url,
@@ -238,7 +240,7 @@
                 console.log("error: "+ textStatus);
             },
             success: function(data){
-                console.log(data);
+                //console.log(data);
                 if(data != null)
                     processCaptchaData(data, me);
             }
@@ -249,7 +251,7 @@
     var processCaptchaData = function(data, me){
         var myData = {"url" : data.url, "differences" : data.differences, "_id": data._id, "local": false };
         var _onImageLoad = function(me){
-            console.log("after image load");
+            //console.log("after image load");
             me.config.gameState.captchaDatasArray.push(myData);
             if((me.captchaDatas == undefined ||  me.captchaDatas.local) && me.config.gameState.currentLevel != 1 ){
                 activateCaptchaSet(me);
@@ -259,7 +261,7 @@
 
     }
     var activateCaptchaSet = function(me){
-        console.log(me.config.gameState.currentLevel+ " activate captcha set");
+        //console.log(me.config.gameState.currentLevel+ " activate captcha set");
         if(me.config.gameState.currentLevel == 1){
             me.captchaDatas = me.config.gameState.captchaDatasArray[0];
         }else{

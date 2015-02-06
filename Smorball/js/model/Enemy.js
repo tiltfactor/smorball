@@ -157,7 +157,7 @@
             me.lifes.length =0;
             me.kill();
             EventBus.dispatch("killLife");
-            EventBus.dispatch("setScore",me.config.gameState.life);
+
 
         }
     }

@@ -79,6 +79,13 @@
         }
 
     }
+    Waves.prototype.clearAll = function(){
+        for(var i = 0 ; i< this.activeWaves.length; i++){
+            var wave = this.activeWaves.pop();
+            wave.clearAll();
+        }
+        this.currentIndex = 0;
+    }
     var forcePush = function(me, waveId){
         var wave = getWaveFromId(waveId, me);
         if(wave != null && !wave.isComplete()){

@@ -7,24 +7,29 @@
         this.gs = {};
         this.totalLevels = 18;
         this.maxLife = 6;
-        this.life;
+        //this.life;
         this.captchaDatasArray = [localData];
         this.currentState;
         this.states = {
             MAIN_MENU:0,RUN:1,SHOP:2,GAME_OVER :3
         }
         this.currentState = this.states.MAIN_MENU; // todo: have to remove
-        this.currentLevel = 1;
         this.soundType = {
             MAIN : 0, EFFECTS : 1
         };
 
-        setFromStore(this);
+        this.reset();
 
 
         //this.gs.inBag = this.config.inBag || [];
 
 
+    }
+
+    GameState.prototype.reset = function(){
+        this.currentLevel = 1;
+        getFromStore(this);
+        setFromStore(this);
     }
 
     var setFromStore = function(me){
@@ -33,6 +38,12 @@
         me.gs.music = me.config.store.music || 50;
         me.gs.soundEffects = me.config.store.soundEffects || 50;
         me.gs.dollorSpend = me.config.store.dollorSpend || 0;
+    }
+
+    var getFromStore = function(me){
+        var myStorage = new LocalStorage();
+        var data = myStorage.getFromStore();
+        me.config.store = data.gameState || {};
     }
 
     GameState.prototype.persist = function(){

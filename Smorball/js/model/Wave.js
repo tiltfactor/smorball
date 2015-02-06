@@ -122,6 +122,10 @@
     Wave.prototype.getId = function(){
         return this.config.id;
     }
+    Wave.prototype.clearAll = function(){
+        clearTimeout(this.timer);
+        this.timer = 0;
+    }
 
     window.Wave = Wave;
 

@@ -30,8 +30,8 @@
     var levelTotal = total - currentLevelScore;
     return levelTotal;
   }
-  Score.prototype.addGameLevelPoints = function(){
-    this.config.gameState.gs.gameLevelPoints[this.config.gameState.currentLevel-1] = this.config.gameState.life;
+  Score.prototype.addGameLevelPoints = function(points){
+    this.config.gameState.gs.gameLevelPoints[this.config.gameState.currentLevel-1] = points;
   }
 
   Score.prototype.getMyMoney = function(){
