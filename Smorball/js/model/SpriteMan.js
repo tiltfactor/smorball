@@ -90,10 +90,10 @@
     SpriteMan.prototype.kill = function(){
         var me = this;
         this.life -= 1;  
-        var fileId = this.config.playerSound.fall;
+        /*var fileId = this.config.playerSound.fall;
         var config = {"file": fileId , "loop": false, "type": this.config.gameState.soundType.EFFECTS, "isMain": false,"loader":this.config.loader, "gameState":me.config.gameState};
         var killSound = new Sound(config);
-        EventBus.dispatch("addAudioToList",killSound);
+        EventBus.dispatch("addAudioToList",killSound);*/
         if(this.life == 0){
             this.hit = true;
             this.sprite.gotoAndPlay("fall");

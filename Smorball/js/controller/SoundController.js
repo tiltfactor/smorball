@@ -5,7 +5,7 @@ function SoundController(config){
         this.audioList = [];
         this.config.stage = new createjs.Stage("loaderCanvas");
         createjs.Sound.registerPlugins([createjs.HTMLAudioPlugin, createjs.WebAudioPlugin, createjs.FlashAudioPlugin]);
-        createjs.Sound.alternateExtensions = ["mp3"];
+        createjs.Sound.alternateExtensions = ["wav"];
         loadEvents(this);
         playMusic(this);
 
@@ -28,23 +28,24 @@ function SoundController(config){
     }
 
     var addAudioToList = function(me,sound){
-        sound.play();
-        me.audioList.push(sound);
+        if(sound.mySound != null){
+            sound.play();
+            me.audioList.push(sound);
+        }
     }
     var removeAudioFromList = function(me,sound){
-        sound.pause();
-        var index = me.audioList.indexOf(sound);
-        me.audioList.splice(index,1)
+        if(sound.mySound != null){
+            sound.pause();
+            var index = me.audioList.indexOf(sound);
+            me.audioList.splice(index,1);
+        }
     }
-
-
     var pauseAllSound = function(me){
         for(var i= 0; i< me.audioList.length; i++){
             var sound = me.audioList[i];
             sound.pause();
         }
     }
-
     var pauseAllSound = function(me){
         for(var i= 0; i< me.audioList.length; i++){
             var sound = me.audioList[i];

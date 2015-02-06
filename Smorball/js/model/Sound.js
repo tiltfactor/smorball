@@ -9,13 +9,14 @@
 
    var initialize = function(me){
         me.mySound = me.config.loader.getResult(me.config.file);
-        me.mySound.loop = me.config.loop;
-        var vol = setVolumeValue(me);
-        me.setVolume(vol);
-        if(!me.config.loop){
-          me.mySound.onended=function(){EventBus.dispatch("removeAudioFromList",me.mySound)};
+        if(me.mySound != null){
+          me.mySound.loop = me.config.loop; 
+          var vol = setVolumeValue(me);
+          me.setVolume(vol);
+          if(!me.config.loop){
+            me.mySound.onended=function(){EventBus.dispatch("removeAudioFromList",me.mySound)};
+          }
         }
-
    }
    var setVolumeValue = function(me){
         if(me.config.type == me.config.gameState.soundType.EFFECTS){

@@ -72,10 +72,13 @@
         var fileId = this.config.enemySound.hit;
         var config = {"file": fileId , "loop": false, "type": this.config.gameState.soundType.EFFECTS, "isMain": false,"loader":this.config.loader, "gameState":me.config.gameState};
         var hitSound = new Sound(config);
-
-       EventBus.dispatch("addAudioToList",hitSound);
+        EventBus.dispatch("addAudioToList",hitSound);
         if(this.lifes.length == 0){
             this.hit = true;
+            var fileId = this.config.enemySound.die;
+            var config = {"file": fileId , "loop": false, "type": this.config.gameState.soundType.EFFECTS, "isMain": false,"loader":this.config.loader, "gameState":me.config.gameState};
+            var dieSound = new Sound(config);
+            EventBus.dispatch("addAudioToList",dieSound);
             this.sprite.gotoAndPlay("die");
             this.removeEventListener("tick", this.myTick);
             this.myAnimationEnd = function(){removeFallingAnimation(me)};

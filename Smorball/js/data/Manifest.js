@@ -1,6 +1,3 @@
-/**
- * Created by user on 9/12/14.
- */
 Manifest = {};
 Manifest.game = [
     {src: "shapes/player_normal.png",id: "player_normal"},
@@ -78,16 +75,6 @@ Manifest.levelMap = [
     {src: "shapes/t_btn_over.png", id: "t_btn_over"},
     {src: "shapes/t_btn_up.png", id: "t_btn_up"},
 
-    {src: "audio/hit.mp3", id: "hit"},
-    {src: "audio/die.mp3", id: "kill"},
-    {src: "audio/run.wav", id: "run"},
-    {src: "audio/bat1.wav", id: "bat1"},
-    {src: "audio/bat2.wav", id: "bat2"},
-    {src: "audio/bat3.wav", id: "bat3"},
-    {src: "audio/bat4.wav", id: "bat4"},
-    {src: "audio/bat5.wav", id: "bat5"},
-    {src: "audio/bat6.wav", id: "bat6"},
-
     {src: "shapes/captcha/000.png", id: "000"},
     {src: "shapes/captcha/001.png", id: "001"},
     {src: "shapes/captcha/002.png", id: "002"},
@@ -96,5 +83,20 @@ Manifest.levelMap = [
     {src: "shapes/captcha/005.png", id: "005"},
     {src: "shapes/captcha/006.png", id: "006"},
     {src: "shapes/captcha/007.png", id: "007"},
-    {src: "shapes/captcha/008.png", id: "008"}
+    {src: "shapes/captcha/008.png", id: "008"},
+
+    {src: "audio/Enemies/enemy1damage_02.mp3", id: "enemy1hit"},
+    {src: "audio/Enemies/enemy1die_01.mp3",    id: "enemy1die"},
+    {src: "audio/Enemies/enemy2damage_01.mp3", id: "enemy2hit"},
+    {src: "audio/Enemies/enemy2die_01.mp3",    id: "enemy2die"},
+    {src: "audio/Enemies/enemy3damage_01.mp3", id: "enemy3hit"},
+    {src: "audio/Enemies/enemy3diewithmeat_01.mp3", id: "enemy3die"},
+    {src: "audio/Enemies/enemy4damage_01.mp3", id: "enemy4hit"},
+    {src: "audio/Enemies/enemy4die_02.mp3",    id: "enemy4die"},
+    {src: "audio/Enemies/enemy5damage_01.mp3", id: "enemy5hit"},
+    {src: "audio/Enemies/enemy5die_01.mp3",    id: "enemy5die"},
+    {src: "audio/Enemies/enemy6damage_01.mp3", id: "enemy6hit"},
+    {src: "audio/Enemies/enemy6die_01.mp3",    id: "enemy6die"}
+
     ];
+
