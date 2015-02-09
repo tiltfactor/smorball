@@ -13,7 +13,8 @@
     MyPowerup.prototype.initialize = function(){
         var me = this;
         this.Container_initialize();
-        this.fromShop = this.config.fromShop || 0;
+        this.shopped = this.config.shopped || 0;
+        this.fromShop = this.shopped || 0;
         this.fromField = 0;
         this.selected = false;
         this.reset();
@@ -37,15 +38,18 @@
     }
     MyPowerup.prototype.reset = function(){
         this.fromField = 0;
-        var sum = this.getSum();
+        var sum = this.getSum()+this.shopped;
         if(sum>0){
             this.alpha =1;
         }else{
             this.alpha=0;
         }
+        if(this.number){
+            this.number.text = this.shopped;
+        }
     }
     MyPowerup.prototype.getSum = function(){
-        var sum = this.fromField+this.fromShop;
+        var sum = this.fromField + this.fromShop;
         return sum;
     }
     MyPowerup.prototype.setPosition = function(x,y){
@@ -96,7 +100,7 @@
     }
     var initText = function(me){
         me.number = new createjs.Text();
-        me.number.text = me.fromShop;
+        me.number.text = me.shopped;
         me.number.font = "bold 20px Arial";
         me.number.color = "blue";
         me.number.x = me.powerup.getTransformedBounds().width-me.number.getMeasuredWidth();
@@ -121,7 +125,7 @@
         }
 
 
-        var sum = this.fromField+this.fromShop;
+        var sum = this.fromField + this.fromShop;
         checkCount(this,sum);
         setText(this,sum);
         if(sum==0){
@@ -133,7 +137,8 @@
     }
     MyPowerup.prototype.addShopPowerup = function(){
         this.fromShop++;
-        var sum = this.fromField+this.fromShop;
+        this.shopped++;
+        var sum = this.fromField + this.fromShop;
         checkCount(this,sum);
         setText(this,sum);
         if(sum>0){
@@ -141,11 +146,12 @@
         }
     }
     MyPowerup.prototype.removeShopPowerup = function(){
-        this.fromShop--;
+        this.fromShop=0;
+        this.shopped = 0;
     }
     MyPowerup.prototype.addFieldPowerup = function(){
         this.fromField++;
-        var sum = this.fromField+this.fromShop;
+        var sum = this.fromField + this.fromShop;
         checkCount(this,sum);
         setText(this,sum);
         if(sum>0){
@@ -159,7 +165,8 @@
     MyPowerup.prototype.persist = function(){
         var data = {};
         data.type = this.config.type;
-        data.fromShop = this.fromShop;
+        //data.fromShop = this.fromShop;
+        data.shopped = this.shopped;
         return data;
     }
 

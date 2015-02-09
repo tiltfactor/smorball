@@ -39,14 +39,17 @@
     var bonus = 0;
     var gameLevelPoints = this.config.gameState.gs.gameLevelPoints;
     var currentLevel = this.config.gameState.currentLevel -1;
+    var maxLevel = this.config.gameState.gs.maxLevel;
 
-    for(var i= 0; i< gameLevelPoints.length; i++){
-      if(i==currentLevel)continue;
+    for(var i= 0; i< maxLevel; i++){
       var point = gameLevelPoints[i];
-      if(point == this.config.gameState.maxLife){
-        bonus++;
+      if(point != undefined){
+        if(point == this.config.gameState.maxLife){
+          bonus++;
+        }
+        dollars+= point;
       }
-      dollars+= point;
+      if(i==currentLevel)continue;
     }
     dollars = dollars*1000 + bonus*2000-this.config.gameState.gs.dollorSpend;
     return dollars;

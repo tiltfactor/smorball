@@ -87,15 +87,21 @@ function StageController(config) {
     }
     var loadImages = function(me){
         var _onImagesLoad= function(me){ onImagesLoad(me)};
-        var manifest;
-        var manifest = Manifest.level;
-         
+        var manifest = [];
+
         if(me.config.gameState.currentLevel !== 7)
         {
             var splash = LoaderData[me.config.gameState.currentLevel+1];
             manifest.push({"src": splash.image, "id" : splash.id});
         }
-        me.config.loader.loadQueue(manifest, _onImagesLoad, me, me.config.gameState.currentLevel);
+        if(!me.config.gameState.level){
+            me.config.gameState.level = true;
+            var manifest = Manifest.level;
+            me.config.loader.loadQueue(manifest, _onImagesLoad, me, me.config.gameState.currentLevel);
+        }else{
+            me.config.loader.loadQueue(manifest, _onImagesLoad, me, me.config.gameState.currentLevel);
+        }
+
 
     }
     var onImagesLoad = function(me){

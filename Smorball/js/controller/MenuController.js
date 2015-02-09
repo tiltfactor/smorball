@@ -59,6 +59,7 @@ function MenuController(config) {
                         text: "QUIT",
                         click: function() {
                             $(this).dialog( "close" );
+                            EventBus.dispatch("setTickerStatus");
                             EventBus.dispatch("showMap");
                         }
                     }

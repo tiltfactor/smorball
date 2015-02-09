@@ -30,7 +30,7 @@ function ShopController(config) {
         EventBus.addEventListener("exitShop", me.hideShop);
         var ab = function(ob){addToBag(me, ob.target)};
         EventBus.addEventListener("addToBag", ab);
-        var rb = function(ob){removeFromBag(me, ob)}
+        var rb = function(ob){removeFromBag(me, ob.target)};
         EventBus.addEventListener("removeFromBag", rb);
         var ss = function(){showShop(me)}
         EventBus.addEventListener("showShop", ss);
@@ -71,12 +71,12 @@ function ShopController(config) {
         setUpgradeStatus(me);
         $("#shopOuterWrapper").css("display","table");
         //$("#dialog-shop").show();
-        if(me.initial){
-            me.initial = false;
-            me.config.loader.loadQueue(Manifest.products, displayShopProducts, me,1);
-        }else{
-           displayShopProducts(me);
-        }
+        //if(me.initial){
+        //    me.initial = false;
+        //    me.config.loader.loadQueue(Manifest.products, displayShopProducts, me,1);
+        //}else{
+        //   displayShopProducts(me);
+        //}
     }
     var setUpgradeStatus = function(me){
         $(".wallet").text("$"+me.score.getMyMoney());
@@ -87,14 +87,18 @@ function ShopController(config) {
             if(price>me.score.getMyMoney()){
                 $(item).find(".upgrade").css("background-color","#FF3030");
                 $(item).find(".upgrade").unbind( "click" );
+                $(item).find(".upgrade").css("background-image","url(shapes/btn1_down.png)");
             }else if(price<me.score.getMyMoney()){
                 $(item).find(".upgrade").css("background-color","#a7cb00");
                 $(item).find(".upgrade").click(function(){EventBus.dispatch("addToBag", this.parentElement)});
+                $(item).find(".upgrade").css("background-image","url(shapes/btn_bg.png)");
             }
-            _.each(me.config.gameState.gs.upgrades,function(upgrade){
-                if ("shop_product_"+upgrade==item.id) {
-                    $(item).find(".upgrade").prop('disabled', true);
-                    $(item).find(".upgrade").text("Upgraded");
+            _.each(me.config.myBag.myBag,function(upgrade){
+                if (upgrade.fromShop>0&& "shop_product_"+upgrade.getType()== item.id) {
+                    var btn = $(item).find(".upgrade");
+                    btn.unbind("click");
+                    btn.css("background-image","url(shapes/btn1_over.png)");
+                    btn.click(function(){EventBus.dispatch("removeFromBag", this.parentElement)});
                 }
             });
             
@@ -146,9 +150,11 @@ function ShopController(config) {
     var addToBag = function(me,ob){
         console.log(ob);
         var btn = $(ob).find(".upgrade");
-        var id = ob.id
-        btn.text("Upgraded");
-        btn.prop('disabled', true);
+        var id = ob.id;
+        btn.unbind("click");
+        //btn.click(function(){EventBus.dispatch("removeFromBag",this.parentElement)});
+        //btn.text("Upgraded");
+        //btn.prop('disabled', true);
         me.config.myBag.addToBagFromShop($(ob).find(".title").text());
 
         me.config.gameState.gs.dollorSpend +=getPrice(id);
@@ -158,12 +164,25 @@ function ShopController(config) {
     }
 
     var removeFromBag = function(me,ob){
-        var product = ob.target;
-        product.setPosition(product.homeX,product.homeY);
-        var index = me.config.bag.indexOf(product);
-        me.config.bag.splice(index, 1);
-        updateCart(me);
-    }
+        //var product = ob.target;
+        //product.setPosition(product.homeX,product.homeY);
+        //var index = me.config.bag.indexOf(product);
+        //me.config.bag.splice(index, 1);
+        //updateCart(me);
+        console.log(ob);
+        var btn = $(ob).find(".upgrade");
+        btn.unbind("click");
+        var id = ob.id;
+        me.config.myBag.removeFromBagToShop($(ob).find(".title").text());
+        me.config.gameState.gs.dollorSpend -=getPrice(id);
+        setUpgradeStatus(me);
+
+        //btn.text("Upgrade");
+        //btn.click(function(){EventBus.dispatch("addToBag", this.parentElement)});
+
+
+
+    };
 
     var updateCart = function(me){
         var x = 0;  var y = 300;

@@ -43,8 +43,14 @@ function GameLevelController(config) {
             var splash = LoaderData[i];
             manifest.push({"src": splash.image, "id": splash.id});
         }
+        if(!me.config.gameState.map){
+            me.config.gameState.map = true;
+            me.config.loader.loadQueue(manifest, showMapScreen, me);
+        }else{
+            var manifest = [];
+            me.config.loader.loadQueue(manifest, showMapScreen, me);
+        }
 
-        me.config.loader.loadQueue(manifest, showMapScreen, me);
     }
 
     GameLevelController.prototype.showMap = function () {

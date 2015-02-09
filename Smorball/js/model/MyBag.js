@@ -86,6 +86,10 @@
         myPowerup.unselect();
         myPowerup.removeFromField();
     }
+    MyBag.prototype.removeFromBagToShop = function(powerupId){
+        var myPowerup = getMyPowerupByType(powerupId,this);
+        myPowerup.removeShopPowerup();
+    }
 
     var getMyPowerupByType = function(type,me){
         for(var i= 0 ; i< me.myBag.length; i++){

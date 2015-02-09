@@ -17,6 +17,8 @@
         this.soundType = {
             MAIN : 0, EFFECTS : 1
         };
+        this.map = false;
+        this.level = false;
 
         this.reset();
 
