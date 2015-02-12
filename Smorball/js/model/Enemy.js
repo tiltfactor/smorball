@@ -38,7 +38,7 @@
             setTimeout(function(){EventBus.dispatch("changeLane", me)},2000);
         }
     }
-    
+
     var drawBorder = function(me){
         var shape = new createjs.Shape();
         shape.graphics.beginStroke("#000").setStrokeStyle(0.1).drawRect(0,0,me.getWidth(),me.getHeight());
@@ -66,13 +66,19 @@
     Enemy.prototype.die = function(){
         this.sprite.gotoAndPlay("die");
     }
-    Enemy.prototype.kill = function(sc){
+    Enemy.prototype.kill = function(){
         var me = this;
         this.removeLife();
         var fileId = this.config.enemySound.hit;
         var config = {"file": fileId , "loop": false, "type": this.config.gameState.soundType.EFFECTS, "isMain": false,"loader":this.config.loader, "gameState":me.config.gameState};
         var hitSound = new Sound(config);
         EventBus.dispatch("addAudioToList",hitSound);
+        var lanesObj = this.config.lanesObj;
+        for(var i=0; i<lanesObj.length; i++){
+            if(this.config.laneId == lanesObj[i].laneId){
+                var currentLaneObj = lanesObj[i];
+            }
+        }
         if(this.lifes.length == 0){
             this.hit = true;
             var fileId = this.config.enemySound.die;
@@ -83,6 +89,10 @@
             this.removeEventListener("tick", this.myTick);
             this.myAnimationEnd = function(){removeFallingAnimation(me)};
             this.sprite.addEventListener("animationend",this.myAnimationEnd);
+        }
+        else{
+            this.x = this.x + 0.1 * currentLaneObj.config.width;
+            console.log(0.1 * currentLaneObj.config.width);
         }
         return this.lifes.length;
     }
@@ -185,4 +195,3 @@
 
 
 }());
-

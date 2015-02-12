@@ -101,6 +101,14 @@ function ShopController(config) {
                     btn.click(function(){EventBus.dispatch("removeFromBag", this.parentElement)});
                 }
             });
+            _.each(me.config.gameState.gs.sponserShips,function(sponser){
+                if("shop_product_"+sponser == item.id){
+                    var btn = $(item).find(".upgrade");
+                    btn.unbind("click");
+                    btn.css("background-image","url(shapes/btn1_over.png)");
+                    btn.click(function(){EventBus.dispatch("removeFromBag", this.parentElement)});
+                }
+            });
             
         });
 
@@ -152,10 +160,15 @@ function ShopController(config) {
         var btn = $(ob).find(".upgrade");
         var id = ob.id;
         btn.unbind("click");
-        //btn.click(function(){EventBus.dispatch("removeFromBag",this.parentElement)});
-        //btn.text("Upgraded");
-        //btn.prop('disabled', true);
-        me.config.myBag.addToBagFromShop($(ob).find(".title").text());
+        var type = $(ob).find(".title").attr("pType");
+        if(type=="powerup"){
+            me.config.myBag.addToBagFromShop($(ob).find(".title").text());
+        }
+        if(type=="sponserShip"){
+            var sponser =  $(ob).find(".title").text();
+            me.config.gameState.gs.sponserShips.push(sponser);
+        }
+
 
         me.config.gameState.gs.dollorSpend +=getPrice(id);
 
@@ -164,23 +177,21 @@ function ShopController(config) {
     }
 
     var removeFromBag = function(me,ob){
-        //var product = ob.target;
-        //product.setPosition(product.homeX,product.homeY);
-        //var index = me.config.bag.indexOf(product);
-        //me.config.bag.splice(index, 1);
-        //updateCart(me);
-        console.log(ob);
+
         var btn = $(ob).find(".upgrade");
         btn.unbind("click");
         var id = ob.id;
-        me.config.myBag.removeFromBagToShop($(ob).find(".title").text());
+        var type =  $(ob).find(".title").attr("pType");
+        if(type =="powerup"){
+            me.config.myBag.removeFromBagToShop($(ob).find(".title").text());
+        }
+        if(type=="sponserShip"){
+            var sponser =  $(ob).find(".title").text();
+            me.config.gameState.gs.sponserShips.splice(sponser,1);
+        }
+
         me.config.gameState.gs.dollorSpend -=getPrice(id);
         setUpgradeStatus(me);
-
-        //btn.text("Upgrade");
-        //btn.click(function(){EventBus.dispatch("addToBag", this.parentElement)});
-
-
 
     };
 

@@ -12,7 +12,7 @@
         generateEnemyProperties(this);
         this.push();
         console.log("start of wave");
-       // setTimer(this);
+        // setTimer(this);
     }
 
     var generateEnemyProperties = function(me){
@@ -49,13 +49,13 @@
         if(!this.complete){
             var properties = this.config.data.stageDatas[this.currentIndex];
             if(properties[4] == undefined){
-                this.pushEnemy(properties);
+                this.pushEnemy(properties,this.config.lanesObj);
                 this.activeIndex++;
             }else{
                 this.pushPowerUp(properties);
             }
             this.currentIndex++;
-            
+
 
             if(this.currentIndex >= this.config.data.size) {
                 console.log("complete");
@@ -86,24 +86,24 @@
             setNext(time, this);
         }
     }
-    
-  Wave.prototype.pushEnemy = function(enemyProperties){
-      console.log(this.currentIndex +"  //"+ this.complete)
-            var type = enemyProperties[0];
-            var lane = enemyProperties[1];
-            var time = enemyProperties[2];
-            var msg =  enemyProperties[3];
-            lane = this.config.lanes == 1? 2 : lane;
-            var onKill = (time == undefined || time == -1) ? true: false;
-            var config = {"id": type, "laneId": lane, "waveId": this.config.id, "onKill": onKill, "loader" : this.config.loader, "gameState" : this.config.gameState};
-            var enemy = new sprites.Enemy(config);
-            if(!(msg==""||msg==undefined)){
-                EventBus.dispatch("showCommentary",msg);
-            }
-            EventBus.dispatch("pushEnemy",enemy);
-            if(!onKill){
-                setNext(time, this);
-            }
+
+    Wave.prototype.pushEnemy = function(enemyProperties,lanesObj){
+        console.log(this.currentIndex +"  //"+ this.complete)
+        var type = enemyProperties[0];
+        var lane = enemyProperties[1];
+        var time = enemyProperties[2];
+        var msg =  enemyProperties[3];
+        lane = this.config.lanes == 1? 2 : lane;
+        var onKill = (time == undefined || time == -1) ? true: false;
+        var config = {"id": type, "lanesObj" : lanesObj, "laneId": lane, "waveId": this.config.id, "onKill": onKill, "loader" : this.config.loader, "gameState" : this.config.gameState};
+        var enemy = new sprites.Enemy(config);
+        if(!(msg==""||msg==undefined)){
+            EventBus.dispatch("showCommentary",msg);
+        }
+        EventBus.dispatch("pushEnemy",enemy);
+        if(!onKill){
+            setNext(time, this);
+        }
 
     }
 

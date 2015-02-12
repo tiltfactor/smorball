@@ -15,13 +15,13 @@
     var loadBag = function(me){
         var store = new LocalStorage();
         var data = store.getFromStore();
-        var inbag = data.inBag||loadInitBag(me);
+        var inbag = data.myBag||loadInitBag(me);
         createMyPowerup(me, inbag);
     }
     var createMyPowerup = function(me, inbag){
         for(var i = 0 ; i< inbag.length; i++){
             var p = inbag[i];
-            var config = {"type" : p.type, "fromShop" : p.fromShop, "loader" : me.config.loader};
+            var config = {"type" : p.type, "shopped" : p.shopped, "loader" : me.config.loader};
             var myPowerup = new MyPowerup(config);
             me.myBag.push(myPowerup);
         }

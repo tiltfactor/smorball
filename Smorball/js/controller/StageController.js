@@ -140,7 +140,7 @@ function StageController(config) {
         me.message.image = me.config.loader.getResult(text);
         me.message.x = me.config.stage.canvas.width/2-me.message.getTransformedBounds().width/2;
         createjs.Tween.get(me.message).to({alpha:0.4},1000).wait(1000).to({alpha:0},1000);
-        console.log("show");
+        //console.log("show");
     }
     
     var showInformation = function(me, text){
@@ -166,7 +166,7 @@ function StageController(config) {
     var startInformationTimer = function(me) {
         setInterval(function() {
            var txt = me.infoAry.pop();
-           console.log(txt);
+           //console.log(txt);
            if (txt){
               me.info.text = txt; 
               createjs.Tween.get(me.info).wait(5000);
@@ -247,8 +247,9 @@ function StageController(config) {
     }
 
     var generateWaves = function(me){
-        me.waves = new Waves({"waves": me.levelConfig.waves,"lanes": me.levelConfig.lanes, "loader" : me.config.loader, "gameState" :me.config.gameState});
+        me.waves = new Waves({"waves": me.levelConfig.waves,"lanesObj" : me.config.lanes, "lanes": me.levelConfig.lanes, "loader" : me.config.loader, "gameState" :me.config.gameState});
         me.waves.init();
+        EventBus.dispatch("showPendingEnemies", me.waves.getPendingEnemies());
     }
 
 

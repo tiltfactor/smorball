@@ -62,7 +62,10 @@
         if(this.captchaDatas.local){
             setScale(captcha,captcha.image.width, captcha.image.height);
             captcha.texts = [captchaData.ocr1, captchaData.ocr2];
-            EventBus.dispatch("showCommentary", captchaData.message);
+            if(this.config.gameState.currentLevel==1){
+                EventBus.dispatch("showCommentary", captchaData.message);
+            }
+
 
         }else{
             var myCords = getCaptchaCoordinates(captchaData.coords);
@@ -164,6 +167,7 @@
         }
         var cw = new closestWord(input,this.captchasOnScreen);
         if(cw.match){
+            console.log(cw);
             output.pass = true;
             output.message = "correct";
             var captcha = cw.closestOcr;

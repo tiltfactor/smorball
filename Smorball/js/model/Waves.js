@@ -1,11 +1,13 @@
 /**
  * Created by user on 2/1/15.
  */
-(function(){
+    (function(){
     var Waves = function(config){
         this.config = config;
         this.activeWaves = [];
+        this.extraPowerups = [];
         this.currentIndex = 0;
+        this.pushPositions=0;
         this.complete = false;
         loadEvents(this);
     }
@@ -13,6 +15,7 @@
     Waves.prototype.init = function(){
         this.totalOpponents = this.config.waves.enemySize;
         this.start();
+        checkSponserShips(this);
         //activateMultipleWaves(this);
     }
     var loadEvents = function(me){
@@ -21,11 +24,18 @@
     }
 
     Waves.prototype.getPendingEnemies = function(){
+        var index = this.totalOpponents % this.pushPositions;
+        if(this.totalOpponents % this.pushPositions == 0 && this.extraPowerups.length!=0){
+            var random = Math.floor((Math.random() * this.extraPowerups.length));
+            var property = this.extraPowerups[random];
+            this.activeWaves[0].pushPowerUp(property);
+            this.extraPowerups.splice(property,1);
+        }
         return --this.totalOpponents;
     }
 
     Waves.prototype.start = function(){
-        var config = {"id": this.currentIndex, data : this.config.waves.data[this.currentIndex],"lanes": this.config.lanes, "loader" : this.config.loader, "gameState" : this.config.gameState };
+        var config = {"id": this.currentIndex,"lanesObj" : this.config.lanesObj, data : this.config.waves.data[this.currentIndex],"lanes": this.config.lanes, "loader" : this.config.loader, "gameState" : this.config.gameState };
         var wave = new Wave(config);
         this.currentIndex++;
         this.activeWaves.push(wave);
@@ -92,6 +102,31 @@
             wave.forcePush();
         }
     }
+    var checkSponserShips = function(me){
+        var sponserShips = me.config.gameState.gs.sponserShips;
+        for(var i = 0;i<sponserShips.length;i++){
+            switch (sponserShips[i]){
+                case "snike" : createExtraPowerup(me,"cleats",me.config.waves.cleatsSize);break;
+                case "bawling" : createExtraPowerup(me,"helmet",me.config.waves.helmetSize);break;
+                case "loudmouth":createExtraPowerup(me,"bullhorn",me.config.waves.bullhornSize);break;
+            }
+        }
+        var index = me.extraPowerups.length;
+        me.pushPositions = me.totalOpponents/index;
+    }
+    var createExtraPowerup = function(me,type,size){
+
+        var number = Math.ceil(size * .20);
+        for(var i=0;i<number;i++){
+            var properties = {};
+            properties[0] = type;
+            properties[1] = Math.floor(Math.random()*me.config.lanes)+1;
+            properties[2] = 0;
+            me.extraPowerups.push(properties);
+
+        }
+    }
+
 
 
     window.Waves = Waves;

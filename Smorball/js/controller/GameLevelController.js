@@ -72,16 +72,21 @@ function GameLevelController(config) {
         levelmap.setTransform(0, 0, 0.5, 0.5);
 
         me.map.addChild(levelmap);
+        drawPathDots(me);
+        drawMenuButton(me);
         drawLevels(me);
         drawShop(me);
         drawCashBar(me);
         drawSurvival(me);
         drawLevelInfoBar(me);
+        drawFaceBookButton(me);
+        drawTwitterButton(me);
+
         me.config.stage.update();
     }
 
     var drawLevels = function (me) {
-        var totLevels = 7;
+        var totLevels = me.config.gameState.totalLevels;
         for (var i = 0; i < totLevels; i++) {
             var isLocked = me.config.gameState.gs.maxLevel <= i ? true : false;
             var config = {"stadiumInfo": MapData[i], "locked": isLocked, "loader": me.config.loader, "id": i + 1};
@@ -131,14 +136,108 @@ function GameLevelController(config) {
         survival.setTransform(100,350,0.5,0.5);
         me.map.addChild(survival);
     }
-    drawLevelInfoBar = function(me){
-        var infoContainer = new createjs.Container();
-        me.map.addChild(infoContainer);
+    var drawLevelInfoBar = function(me){
+        me.infoContainer = new createjs.Container();
+        me.map.addChild(me.infoContainer);
         var inforbar = new createjs.Bitmap(me.config.loader.getResult("level_info_bar"));
         inforbar.setTransform(0,0,0.5,0.5);
-        infoContainer.addChild(inforbar);
-        infoContainer.x = 10;
-        infoContainer.y = me.map.getBounds().height-infoContainer.getTransformedBounds().height-10;
+        me.infoContainer.addChild(inforbar);
+        me.infoContainer.x = 10;
+        me.infoContainer.y = me.map.getBounds().height-me.infoContainer.getTransformedBounds().height-10;
+    }
+    var drawPathDots = function(me){
+        var pointdata = PointData;
+        for(var  i = 0;i<pointdata.length;i++){
+            var dot  = new createjs.Bitmap(me.config.loader.getResult("path_dot"));
+            dot.setTransform(pointdata[i].x,pointdata[i].y,0.5,0.5);
+            me.map.addChild(dot)
+        }
+    }
+    var drawFaceBookButton=function(me){
+        var fbbtn = new createjs.Bitmap(me.config.loader.getResult("fb_btn_up"));
+        fbbtn.setTransform(0,0,0.5,0.5);
+        fbbtn.y =  me.map.getBounds().height -  fbbtn.getTransformedBounds().height;
+        fbbtn.x = me.infoContainer.x + me.infoContainer.getTransformedBounds().width + 10;
+        fbbtn.addEventListener("mouseover",function(evt){
+            evt.target.image = me.config.loader.getResult("fb_btn_over");
+            evt.target.cursor = "pointer";
+            me.config.stage.update();
+        });
+        fbbtn.addEventListener("mousedown",function(evt){
+            evt.target.image = me.config.loader.getResult("fb_btn_down");
+            evt.target.cursor = "pointer";
+            me.config.stage.update();
+        });
+        fbbtn.addEventListener("pressup",function(evt){
+            evt.target.image = me.config.loader.getResult("fb_btn_up");
+            evt.target.cursor = "default";
+            me.config.stage.update();
+        });
+        fbbtn.addEventListener("mouseout",function(evt){
+            evt.target.image = me.config.loader.getResult("fb_btn_up");
+            evt.target.cursor = "default";
+            me.config.stage.update();
+        });
+        me.map.addChild(fbbtn);
+
+    };
+    var drawTwitterButton = function(me){
+        var tbtn = new createjs.Bitmap(me.config.loader.getResult("t_btn_up"));
+        tbtn.setTransform(0,0,0.5,0.5);
+        tbtn.y =  me.map.getBounds().height -  tbtn.getTransformedBounds().height;
+        tbtn.x = me.infoContainer.x + me.infoContainer.getTransformedBounds().width + tbtn.getTransformedBounds().width + 10;
+        tbtn.addEventListener("mouseover",function(evt){
+            evt.target.image = me.config.loader.getResult("t_btn_over");
+            evt.target.cursor = "pointer";
+            me.config.stage.update();
+        });
+        tbtn.addEventListener("mousedown",function(evt){
+            evt.target.image = me.config.loader.getResult("t_btn_down");
+            evt.target.cursor = "pointer";
+            me.config.stage.update();
+        });
+        tbtn.addEventListener("pressup",function(evt){
+            evt.target.image = me.config.loader.getResult("t_btn_up");
+            evt.target.cursor = "default";
+            me.config.stage.update();
+        });
+        tbtn.addEventListener("mouseout",function(evt){
+            evt.target.image = me.config.loader.getResult("t_btn_up");
+            evt.target.cursor = "default";
+            me.config.stage.update();
+        });
+        me.map.addChild(tbtn);
+    };
+
+    var drawMenuButton = function(me){
+        var mbtn = new createjs.Bitmap(me.config.loader.getResult("menu_btn_idle"));
+        mbtn.setTransform(0,0,0.5,0.5);
+        mbtn.x = mbtn.getTransformedBounds().width/4;
+        mbtn.y = mbtn.getTransformedBounds().height/4;
+        mbtn.addEventListener("mousedown",function(evt){
+            evt.target.image = me.config.loader.getResult("menu_btn_click");
+            evt.target.cursor = "pointer";
+            me.config.stage.update();
+            me.config.stage.removeAllChildren();
+            EventBus.dispatch("hideAll");
+            EventBus.dispatch("showMenu");
+        });
+        mbtn.addEventListener("mouseover",function(evt){
+            evt.target.image = me.config.loader.getResult("menu_btn_over");
+            evt.target.cursor = "pointer";
+            me.config.stage.update();
+        });
+        mbtn.addEventListener("pressup",function(evt){
+            evt.target.image = me.config.loader.getResult("menu_btn_idle");
+            evt.target.cursor = "pointer";
+            me.config.stage.update();
+        });
+        mbtn.addEventListener("mouseout",function(evt){
+            evt.target.image = me.config.loader.getResult("menu_btn_idle");
+            evt.target.cursor = "pointer";
+            me.config.stage.update();
+        });
+        me.map.addChild(mbtn);
     }
     GameLevelController.prototype.setLevel = function (label) {
         this.config.gameState.currentLevel = label.id;

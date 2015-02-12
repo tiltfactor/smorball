@@ -5,7 +5,7 @@
     }
     GameState.prototype.init = function(){
         this.gs = {};
-        this.totalLevels = 18;
+        this.totalLevels = 16;
         this.maxLife = 6;
         //this.life;
         this.captchaDatasArray = [localData];
@@ -19,6 +19,10 @@
         };
         this.map = false;
         this.level = false;
+
+        this.snike = false;
+        this.brawlin = false;
+        this.loudMouth = false;
 
         this.reset();
 
@@ -40,6 +44,7 @@
         me.gs.music = me.config.store.music || 50;
         me.gs.soundEffects = me.config.store.soundEffects || 50;
         me.gs.dollorSpend = me.config.store.dollorSpend || 0;
+        me.gs.sponserShips = me.config.store.sponserShips || [];
     }
 
     var getFromStore = function(me){

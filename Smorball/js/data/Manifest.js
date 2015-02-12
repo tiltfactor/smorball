@@ -65,6 +65,9 @@ Manifest.products = [{src: "shapes/blue-ball.png", id: "blue-ball"}, {src: "shap
 Manifest.levelMap = [
     {src: "shapes/map_background.png", id: "map_background"},
     {src: "shapes/cash_bar.png", id: "cash_bar"},
+    {src: "shapes/menu_btn_idle.png", id: "menu_btn_idle"},
+    {src: "shapes/menu_btn_hover.png", id: "menu_btn_over"},
+    {src: "shapes/menu_btn_click.png", id: "menu_btn_click"},
     {src: "shapes/fb_btn_down.png", id: "fb_btn_down"},
     {src: "shapes/fb_btn_over.png", id: "fb_btn_over"},
     {src: "shapes/fb_btn_up.png", id: "fb_btn_up"},
