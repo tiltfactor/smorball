@@ -118,6 +118,7 @@ function wordCompare(originalInput, originalOcr1, originalOcr2) {
   //Comment out to remove this functionality
   lowerInput = lowerInput.replace(/c/g, 'e'); // the '/g' construction makes it replace ALL instances of 'c', not just the first
   lowerInput = lowerInput.replace(/f/g, 's');
+  //var caps = checkCaps(input,pattern,ocr1,ocr2);
 
   //Check for each element of the pattern in the input
   var i = 0;
@@ -145,7 +146,9 @@ function wordCompare(originalInput, originalOcr1, originalOcr2) {
     j++;
   }
 
-
+  /*if(!caps){
+    return false;
+  }*/
   return true; //because the caps check cares about the first characters of each word, we have to send the initial input
   //without the start and end characters
 }
@@ -221,6 +224,7 @@ function getPattern(ocr1, ocr2) {
       if (lcsArray[arrayIndex] && lcsArray[arrayIndex].type === "match") {
         lcsArray[0].text = lcsString[i] + lcsArray[0].text;
       } else {
+
         lcsArray.unshift(new Pattern("match", lcsString[i]));
       }
     }

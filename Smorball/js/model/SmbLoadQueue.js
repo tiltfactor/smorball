@@ -17,7 +17,7 @@
         this.bg_loader = new createjs.LoadQueue(false,"",false);
         this.active = false;
         this.captchaLoad = false;
-        this.localCapthcaSize = 9;
+        this.localCapthcaSize = 8;
         var me = this;
         ld = this;
         setTimeout(function(){loadLocalImages(me)}, 10000);

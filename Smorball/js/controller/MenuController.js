@@ -35,6 +35,7 @@ function MenuController(config) {
     
     var closeTimeoutDialog =  function() {
          EventBus.dispatch("resumeGame");
+         EventBus.dispatch("setMute");
     };
 
     var createDialog = function(me){
@@ -68,19 +69,21 @@ function MenuController(config) {
             });
   
             $("#music-slider").slider({
-                value: me.config.gameState.gs.music,
+                value: me.config.gameState.config.store.music,
                 range: "min",
                 slide: function( event, ui ) {
                     me.config.gameState.gs.music = ui.value;
+                    EventBus.dispatch("saveToStore");
                     EventBus.dispatch("changeSoundVolume",me.config.gameState.soundType.MAIN);
                 }
             });
             
             $("#effects-slider").slider({
-                value: me.config.gameState.gs.soundEffects,
+                value: me.config.gameState.config.store.soundEffects,
                 range: "min",
                 slide: function( event, ui ) {
                     me.config.gameState.gs.soundEffects = ui.value;
+                    EventBus.dispatch("saveToStore");
                     EventBus.dispatch("changeSoundVolume",me.config.gameState.soundType.EFFECTS);
                 }
             });              

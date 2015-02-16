@@ -80,6 +80,8 @@ function StageController(config) {
         $("#loaderCanvas").show();
         loadImages(me);
 
+        EventBus.dispatch("setMute");
+
         var config = {"gameState" : me.config.gameState};
         me.score = new Score(config);
     };
@@ -307,6 +309,8 @@ function StageController(config) {
             me.config.stage.update();
             EventBus.dispatch("setTickerStatus");
             EventBus.dispatch("showTimeout");
+            EventBus.dispatch("setMute");
+
 //            $(".ui-dialog").css({
 //            '-webkit-transform': 'scale('+1+',' + me.height/600 + ')',
 //            '-moz-transform'    : 'scale('+1+',' + me.height/600 + ')',
@@ -571,7 +575,7 @@ function StageController(config) {
     var showMap = function(me){
         me.waves.clearAll();
         me.waves = null;
-        setTimeout(function(){EventBus.dispatch("setTickerStatus");EventBus.dispatch("showMap");},2000);
+        setTimeout(function(){EventBus.dispatch("setTickerStatus");EventBus.dispatch("showMap");EventBus.dispatch("setMute");},2000);
     };
     var gameOver = function(me){
         me.config.gameState.currentState = me.config.gameState.states.GAME_OVER;

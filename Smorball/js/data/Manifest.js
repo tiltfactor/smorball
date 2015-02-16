@@ -5,7 +5,7 @@ Manifest.game = [
     {src: "shapes/bullhorn_icon.png", id: "bullhorn"},
     {src: "shapes/cleats_icon.png",   id: "cleats"},
     {src: "shapes/loader_default_bg.jpg",   id: "loader_default_bg"},
-    {src: "audio/mario.ogg", id: "mario"}
+    {src: "audio/main_theme.mp3", id: "mainTheme"}
 
    // {src: "shapes/runningBoy.png",id: "man"},
    // {src: "shapes/enemy.png", id: "enemy"},

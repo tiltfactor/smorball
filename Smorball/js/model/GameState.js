@@ -8,6 +8,7 @@
         this.totalLevels = 16;
         this.maxLife = 6;
         //this.life;
+        this.audioList = [];
         this.captchaDatasArray = [localData];
         this.currentState;
         this.states = {
