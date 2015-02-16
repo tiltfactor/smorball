@@ -63,7 +63,7 @@
 
         me.speech = new createjs.Bitmap(me.config.loader.getResult("speech"));
         me.speech.regX = me.speech.getTransformedBounds().width/2;
-        me.speech.y = cmtBox.getTransformedBounds().height/2+me.speech.getTransformedBounds().height/5;
+        me.speech.y = cmtBox.getTransformedBounds().height/2 + me.speech.getTransformedBounds().height/3;
         me.speech.alpha=0;
        // me.speech.scaleX = 0.5;
        // me.speech.scaleY = 0.5;
@@ -145,7 +145,7 @@
 
     var initScorePosition = function(me,score){
         me.score = new createjs.Text();
-        me.score.font = "bold 20px Scoreboard";
+        me.score.font = "bold 40px Scoreboard";
         me.score.color = "white";
         me.score.alpha = 1;
         me.score.text = "6";
@@ -155,7 +155,7 @@
     };
     var initOpponentsPosition=function(me,score){
         me.opponents =new createjs.Text();
-        me.opponents.font = "bold 20px Scoreboard";
+        me.opponents.font = "bold 40px Scoreboard";
         me.opponents.color = "white";
         me.opponents.alpha = 1;
         me.opponents.text = "5";

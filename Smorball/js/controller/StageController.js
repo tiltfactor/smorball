@@ -4,6 +4,7 @@ function StageController(config) {
     StageController.prototype.init = function () {
         var me = this;
         this.config.stage = new createjs.Stage("myCanvas");
+        this.config.stage.enableMouseOver(10);
         setCanvasAttributes(this);
         window.onresize = function() {onResize(me)};
         createjs.Ticker.setFPS(20);
@@ -17,7 +18,7 @@ function StageController(config) {
         this.currentIndex=0;
         this.default_player = "player_normal";
 
-    }
+    };
 
 
     var loadEvents = function (me) {
@@ -37,14 +38,14 @@ function StageController(config) {
         var kl = function(){killLife(me)};
         EventBus.addEventListener("killLife", kl);
 
-        var pe = function(object){pushEnemy(me, object.target)}
+        var pe = function(object){pushEnemy(me, object.target)};
         EventBus.addEventListener("pushEnemy", pe);
 
-        var pp = function(object){pushPowerup(me, object.target)}
+        var pp = function(object){pushPowerup(me, object.target)};
         EventBus.addEventListener("pushPowerup", pp);
 
-        var pg = function(){showTimeoutScreen(me)};
-        EventBus.addEventListener("showTimeoutScreen", pg);
+        var so = function(){showTimeoutScreen(me)};
+        EventBus.addEventListener("showTimeoutScreen", so);
 
         var sm = function(text){showGameMessage(me,text)};
         EventBus.addEventListener("showMessage",sm);
@@ -56,16 +57,11 @@ function StageController(config) {
         var st = function(){setTickerStatus()};
         EventBus.addEventListener("setTickerStatus",st);
 
-        //var ab = function(ob){addToMyPowerups(me, ob)}
-        //EventBus.addEventListener("addToMyPowerups", ab);
         var us = function(){unselectAllInBag(me)};
         EventBus.addEventListener("unselectAllInBag",us);
 
         var su = function(powerup){selectPowerUp(me,powerup.target)};
         EventBus.addEventListener("selectPowerUp",su);
-
-        //var rb = function(ob){activatePowerup(me, ob.target)}
-        //EventBus.addEventListener("activatePowerup", rb);
 
         var cl = function(ob){changeLane(me, ob.target)}
         EventBus.addEventListener("changeLane", cl);
@@ -86,7 +82,7 @@ function StageController(config) {
 
         var config = {"gameState" : me.config.gameState};
         me.score = new Score(config);
-    }
+    };
     var loadImages = function(me){
         var _onImagesLoad= function(me){ onImagesLoad(me)};
         var manifest = [];
@@ -105,110 +101,55 @@ function StageController(config) {
         }
 
 
-    }
+    };
     var onImagesLoad = function(me){
         /*if(me.config.gameState.currentLevel == 1){
             me.config.gameState.gs.points = 6;
         }*/
         drawBackGround(me);
+        drawLane(me);
         drawStadium(me);
         EventBus.dispatch("showCommentary", me.levelConfig.waves.message);
         EventBus.dispatch("setScore", me.config.life);
-        drawLane(me);
+
         initShowMessage(me);
         generateWaves(me);
         showPowerup(me);
         EventBus.dispatch("setTickerStatus");
 
-    }
+    };
 
     var initShowMessage = function(me){
         me.message = new createjs.Bitmap();
-        me.message.x = me.config.stage.canvas.width/2;
-        me.message.y = me.config.stage.canvas.height/2+ (2*me.config.lanes[0].getTransformedBounds().height) ;
-       // me.message.scaleX = 0.5;
-        //me.message.scaleY = 0.5;
+        me.message.x = 800;
+        me.message.y = 1000;
         me.message.alpha = 0;
         me.config.stage.addChild(me.message);
-    }
+    };
     var showGameMessage = function(me,msg){
         var text =msg.target
         console.log(text);
         showMessage(me,text);
-    }
+    };
 
     var showMessage = function(me,text){
         me.message.image = me.config.loader.getResult(text);
-        me.message.x = me.config.stage.canvas.width/2-me.message.getTransformedBounds().width/2;
-        createjs.Tween.get(me.message).to({alpha:0.4},1000).wait(1000).to({alpha:0},1000);
+        me.message.x = 800 - me.message.getBounds().width/2;
+        createjs.Tween.get(me.message).to({alpha:1},100).wait(500).to({alpha:0},1000);
         //console.log("show");
-    }
-    
-    var showInformation = function(me, text){
-        if(text.target) {
-          // me.infoAry.push(text.target);
-        }            
     };
-        
-    var initShowInformation = function(me, speech) {
-        me.info = new createjs.Text();
-        me.info.text = "Jujubees, is coming!";
-        me.info.font = "bold 10px Arial";
-        me.info.color = "black";
-        me.info.alpha = 1;
-        me.info.x = speech.getTransformedBounds().x + 10;
-        me.info.y = speech.getTransformedBounds().y + 10;
-        me.info.lineWidth = speech.getTransformedBounds().width - 15;
-        me.scoreContainer.addChild(me.info);
-        createjs.Tween.get(me.info).wait(5000);
-        me.infoAry = [];
-    };
-    
-    var startInformationTimer = function(me) {
-        setInterval(function() {
-           var txt = me.infoAry.pop();
-           //console.log(txt);
-           if (txt){
-              me.info.text = txt; 
-              createjs.Tween.get(me.info).wait(5000);
-           }
-        }, 5000); 
-    };
-    
-//    var showGameOverMessage = function(me,text){
-//        me.message.text = text;
-//        createjs.Tween.get(me.message).to({alpha:0.4},1000).wait(1000).to({alpha:0},1000).wait(100)
-//            .call(function(){
-//                EventBus.dispatch("setTickerStatus");
-//                EventBus.dispatch("showMenu");
-//            });
-//    }
 
     var setCanvasAttributes = function(me){
 
         me.freeBottomAreaY = 70;
         me.freeLeftAreaX = 0;
-
-//        me.width  = canvas.width =  window.innerWidth;
-//        var h = me.width * 3/4;
-//        if (window.innerHeight < h){
-//            h = window.innerHeight;
-//            me.width  = canvas.width = (h * 4/3);
-//        }
-//        me.height = canvas.height =  h;
-
-        //me.canvasWidth = canvas.width = window.innerWidth;
-        //me.canvasHeight = canvas.height = window.innerHeight;
         onResize(me);
-
-
-
         me.width =  1600;
         me.height = 1200;
         me.freeTopAreaY = me.height/2;
         //setDivPosition(me);
 
-    }
+    };
 
     var onResize = function(me){
         var canvas = me.config.stage.canvas;
@@ -219,7 +160,7 @@ function StageController(config) {
         me.config.stage.scaleY = me.canvasHeight/1200;
         me.config.stage.update();
         $("#canvasHolder").css({top: me.canvasHeight - $("#canvasHolder").height(), position:'absolute'});
-    }
+    };
 
 
     var drawStadium=function(me){
@@ -233,11 +174,10 @@ function StageController(config) {
         me.adBoard.y = me.cbBox.getTransformedBounds().height-me.adBoard.getTransformedBounds().height/2-me.adBoard.getTransformedBounds().height/6;
 
         me.stadium.addChild(lc,rc,me.cbBox,me.adBoard);
-        //me.stadium.scaleX = me.width/800;
-        //me.stadium.scaleY = me.height/600;
         me.config.stage.addChild(me.stadium);
+        drawTimeOut(me)
 
-    }
+    };
     var drawBackGround = function(me){
         me.bgContainer = new createjs.Container();
         me.config.stage.addChild(me.bgContainer);
@@ -249,55 +189,57 @@ function StageController(config) {
        // me.bgContainer.scaleY = me.height/600;
         me.bgContainer.addChild(shape);
         //container.scaleY =0.555;
-    }
+    };
+    var drawTimeOut = function(me){
+        var mbtn = new createjs.Bitmap(me.config.loader.getResult("menu_btn_idle"));
+        mbtn.x = mbtn.getTransformedBounds().width/4;
+        mbtn.y = mbtn.getTransformedBounds().height/4;
+        mbtn.addEventListener("mousedown",function(evt){
+            evt.target.image = me.config.loader.getResult("menu_btn_click");
+            evt.target.cursor = "pointer";
+            EventBus.dispatch("showTimeoutScreen");
+        });
+        mbtn.addEventListener("mouseover",function(evt){
+            evt.target.image = me.config.loader.getResult("menu_btn_over");
+            evt.target.cursor = "pointer";
+            me.config.stage.update();
+
+        });
+        mbtn.addEventListener("pressup",function(evt){
+            evt.target.image = me.config.loader.getResult("menu_btn_idle");
+            evt.target.cursor = "pointer";
+
+        });
+        mbtn.addEventListener("mouseout",function(evt){
+            evt.target.image = me.config.loader.getResult("menu_btn_idle");
+            evt.target.cursor = "pointer";
+
+        });
+        me.stadium.addChild(mbtn);
+
+    };
 
     var showScore = function(me){
         me.scoreText = new createjs.Text("Total Score :"+me.score.getTotalScore(), "20px Arial", "#000000");
         me.scoreText.setTransform(me.width-300,10,1,1);
         me.config.stage.addChild(me.scoreText);
-    }
+    };
     var updateScore = function(me){
         me.scoreText.text = "Total Score :"+ score.getTotalScore();
-    }
+    };
 
 
     var getTime = function(me){
         var width = me.width - me.freeLeftAreaX- 300; //left lane area
         me.timeDelay = ((width/createjs.Ticker.getFPS()*1)- me.levelConfig.time) *1000;
         return me.timeDelay;
-    }
+    };
 
     var generateWaves = function(me){
         me.waves = new Waves({"waves": me.levelConfig.waves,"lanesObj" : me.config.lanes, "lanes": me.levelConfig.lanes, "loader" : me.config.loader, "gameState" :me.config.gameState});
         me.waves.init();
         EventBus.dispatch("showPendingEnemies", me.waves.getPendingEnemies());
-    }
-
-
-//    var getScaleFactor = function(lane,ob){
-//        var laneHeight = lane.getHeight()+ lane.getHeight()/2;
-//        var obHeight = ob.getHeight();
-//        var scaleFactor = 1;
-//        if(laneHeight/obHeight < 1){
-//            scaleFactor = laneHeight/obHeight;
-//        }
-//        return scaleFactor;
-//    }
-
-
-
-//    var showLife = function(me){
-//        var x = me.width-10;
-//        var y = 10;
-//        var padding = 5;
-//        for(var i= 0; i< me.config.gameState.life; i++){
-//            var life = new Life(me.config.loader);
-//            x = x- life.getWidth()- padding;
-//            life.setPosition(x, y);
-//            me.config.stage.addChild(life);
-//            me.config.lifes.push(life);
-//        }
-//    }
+    };
 
     var killLife = function(me){
         me.config.life--;
@@ -307,7 +249,7 @@ function StageController(config) {
         if(me.config.life == 0){
            gameOver(me);
         }
-    }
+    };
 
 
     var drawLane = function(me){
@@ -340,7 +282,7 @@ function StageController(config) {
 
 
 
-    }
+    };
 
 
     var resumeGame = function (me) {
@@ -348,7 +290,7 @@ function StageController(config) {
         EventBus.dispatch("exitMenu");
         EventBus.dispatch("setTickerStatus");
         createjs.Ticker.addEventListener("tick", me.events.tick);
-    }
+    };
 
     var pauseGame = function (me) {
         if(!createjs.Ticker.getPaused()){
@@ -356,7 +298,7 @@ function StageController(config) {
             EventBus.dispatch("setTickerStatus");
             EventBus.dispatch("showMenu");
         }
-    }
+    };
 
 
     var showTimeoutScreen = function (me) {
@@ -373,7 +315,7 @@ function StageController(config) {
 //            'transform'         : 'scale('+1+',' + me.height/600 + ')'
 //        });
         }
-    }  
+    } ;
 
     var killMe = function (me,actor) {
         var object = actor.target;
@@ -389,7 +331,7 @@ function StageController(config) {
             var index = me.config.gems.indexOf(object);
             me.config.gems.splice(index,1);
         }
-    }
+    };
 
     var resetPlayers = function(me){
         for(var i = 0; i< me.config.lanes.length; i++){
@@ -403,7 +345,7 @@ function StageController(config) {
             }
 
         }
-    }
+    };
 
     var addPlayer = function(lane,me){
         if(!(me.config.gameState.currentLevel == 1 && (lane.getLaneId() == 1 || lane.getLaneId() == 3))){
@@ -420,7 +362,7 @@ function StageController(config) {
 
 
 
-    }
+    };
 
     var activatePlayer = function(player, me){
         var powerup = me.config.activePowerup;
@@ -434,17 +376,7 @@ function StageController(config) {
         }
 
 
-    }
-
-    /*StageController.prototype.addEnemy = function(x,y, life){
-        var config = {"id": "boss", "life": life, "loader" : this.config.loader}
-        var enemy = new sprites.Enemy(config);
-        this.config.enemies.push(enemy);
-        enemy.setPosition(x,y);
-        this.config.stage.addChild(enemy);
-        enemy.run();
-        return enemy;
-    }*/
+    };
 
     var resetGame = function (me) {
 
@@ -466,23 +398,23 @@ function StageController(config) {
 //            me.config.lifes = [];
 //        }
 
-    }
+    };
     
     var removeAllChildren = function(me){
         me.config.stage.removeAllChildren();
         me.config.stage.update();
-    }
+    };
 
     var removeAllEvents = function(me){
 
-    }
+    };
 
     var tick = function (me) {
         if(!createjs.Ticker.getPaused()){
             me.config.stage.update();
             hitTest(me);
         }
-    }
+    };
 
     var hitTest = function(me){
         if(me.config.players != undefined && me.config.players.length != 0){
@@ -515,7 +447,7 @@ function StageController(config) {
             }
         }
 
-    }
+    };
 
     var hitTestEnemies = function(player,me){
         if(me.config.enemies.length != 0){
@@ -529,7 +461,7 @@ function StageController(config) {
                 }
             }
         }
-    }
+    };
     var hitTestPowerups = function(player,me){
         if(me.config.powerups.length != 0){
             for(var i = 0; i< me.config.powerups.length ; i++){
@@ -541,11 +473,11 @@ function StageController(config) {
                 }
             }
         }
-    }
+    };
     var isCollisionPowerup = function(player, object){
         return (object.x <= player.x + player.getWidth() &&
             player.x <= object.x + object.getWidth());
-    }
+    };
 
 
     var isCollision = function(player, object){
@@ -553,7 +485,7 @@ function StageController(config) {
             player.x <= object.x + object.getWidth() &&
             object.y <= player.y + player.getHeight()  &&
             player.y <= object.y +object.getHeight())
-    }
+    };
 
     var compareCaptcha = function(me) {
 
@@ -573,24 +505,36 @@ function StageController(config) {
                 } else {
                     var lane = getLaneById(output.laneId, me);
                     activatePlayer(lane.player, me);
+                    if(output.extraDamage){
+                        lane.player.life = me.config.gameState.gs.extraDamage;
+                    }
                     lane.player = undefined;
                 }
                 resetPlayers(me);
+            } else{
+                for(var i=0; i<me.config.lanes.length; i++){
+                    var lane = me.config.lanes[i];
+                    if(lane.player){
+                        lane.player.jump();
+                    }
+
+
+                }
             }
         }
 
 
-    }
+    };
     var startPlayersFromAllLanes = function(me){
         for(var i=0; i<me.config.lanes.length; i++){
             var lane = me.config.lanes[i];
             activatePlayer(lane.player, me);
             lane.player = undefined;
         }
-    }
+    };
     var setTickerStatus = function(){
         createjs.Ticker.setPaused(!createjs.Ticker.getPaused());
-    }
+    };
 
     var updateLevelStatus = function(me, object){
         var type = "";
@@ -604,14 +548,14 @@ function StageController(config) {
         if(me.waves.getStatus() && enemyCount == 0){
             updateLevel(me);
         }
-    }
+    };
     var waitForForcePush = function(me,waveId){
         setTimeout(function(){
             if(me.config.enemies.length == 0){
                 EventBus.dispatch("forcePush",waveId);
             }
         },2000);
-    }
+    };
     var updateLevel = function(me){
 
         me.score.addGameLevelPoints(me.config.life);
@@ -621,18 +565,14 @@ function StageController(config) {
             me.config.gameState.gs.maxLevel = me.config.gameState.currentLevel;
         }
         me.config.gameState.currentState = me.config.gameState.states.GAME_OVER;
-        //showMessage(me,"Level Completed !!");
-        //me.config.gameState.gs.points += me.config.gameState.gs.life;
-       // me.config.gameState.gs.gameLevelPoints.push(me.config.life);
-
         showMap(me);
-    }
+    };
 
     var showMap = function(me){
         me.waves.clearAll();
         me.waves = null;
         setTimeout(function(){EventBus.dispatch("setTickerStatus");EventBus.dispatch("showMap");},2000);
-    }
+    };
     var gameOver = function(me){
         me.config.gameState.currentState = me.config.gameState.states.GAME_OVER;
         var store = new LocalStorage();
@@ -640,14 +580,14 @@ function StageController(config) {
         me.config.gameState.reset();
         EventBus.dispatch("showCommentary", "Game Over");
         showMap(me);
-    }
+    };
     
     var pushEnemy = function(me,enemy){
         EventBus.dispatch("showPendingEnemies", me.waves.getPendingEnemies());
         setEnemyProperties(me,enemy);
         me.config.stage.addChild(enemy);
         me.config.enemies.push(enemy);
-    }
+    };
 
     var setEnemyProperties  = function(me,enemy){
         var lane = getLaneById(enemy.getLaneId(), me); //enemy.getLaneId();
@@ -659,7 +599,7 @@ function StageController(config) {
         enemy.setEndPoint(end.x);
         enemy.run();
 
-    }
+    };
     var getLaneById = function(id, me){
         for(var i = 0 ; i< me.config.lanes.length; i++){
             var lane = me.config.lanes[i];
@@ -668,22 +608,22 @@ function StageController(config) {
             }
         }
         return null;
-    }
+    };
     var pushPowerup = function(me,powerup){
         setPowerupProperties(me,powerup);
         me.config.stage.addChild(powerup);
         me.config.powerups.push(powerup);
-    }
+    };
 
     var setPowerupProperties  = function(me,powerup){
-        var lane = getLaneById(powerup.getLaneId(), me);; //enemy.getLaneId();
+        var lane = getLaneById(powerup.getLaneId(), me); //enemy.getLaneId();
 //        var sf = getScaleFactor(lane,powerup);
 //        powerup.setScale(sf,sf);
         var powerupPos = lane.getPowerupPosition();
         powerup.setPosition(powerupPos.x,powerupPos.y);
         powerup.run();
 
-    }
+    };
 
     var showPowerup = function(me){
         var powerupContainer = new createjs.Container();
@@ -700,44 +640,14 @@ function StageController(config) {
         powerupContainer.x = me.cbBox.x + powerupContainer.getTransformedBounds().width/2;
         me.stadium.addChild(powerupContainer);
 
-    }
+    };
     var addToMyBag = function(me, powerup){
         var index = me.config.powerups.indexOf(powerup);
         me.config.powerups.splice(index,1);
         me.config.myBag.addToBagFromField(powerup);
         me.config.stage.removeChild(powerup);
-    }
-    //var addToMyPowerups = function(me,powerup){
-    //    var index = me.config.powerups.indexOf(powerup);
-    //    me.config.powerups.splice(index,1);
-    //    me.config.myPowerups.push(powerup);
-    //    powerup.addActivation();
-    //    powerup.stand();
-    //    updateMyPowerups(me);
-    //}
-    //var activatePowerup = function(me,powerup){
-    //    if(me.config.activePowerup != undefined){
-    //        me.config.myPowerups.push(me.config.activePowerup);
-    //        me.config.stage.addChild(me.config.activePowerup);
-    //    }
-    //    me.config.activePowerup = powerup;
-    //    var index = me.config.myPowerups.indexOf(powerup);
-    //    me.config.myPowerups.splice(index,1);
-    //    me.config.stage.removeChild(powerup);
-    //    updateMyPowerups(me);
-    //    updatePlayerOnPowerup(me, powerup.getPowerupPlayer());
-    //}
-    //var updateMyPowerups = function(me){
-    //    var x = 0;
-    //    var y = 20;
-    //    var padding = 5;
-    //    for(var i=0; i<me.config.myPowerups.length; i++){
-    //        var powerup = me.config.myPowerups[i];
-    //        x = x + powerup.getWidth() + padding;
-    //        powerup.setPosition(x,y);
-    //        console.log(powerup);
-    //    }
-    //}
+    };
+
     var unselectAllInBag = function(me){
        me.config.myBag.unselectAll();
         me.config.activePowerup=undefined;
@@ -746,7 +656,7 @@ function StageController(config) {
     var selectPowerUp = function(me,mypowerup){
         me.config.activePowerup = mypowerup;
         updatePlayerOnPowerup(me,"man1")
-    }
+    };
 
     var updatePlayerOnPowerup = function(me, playerId){
 
@@ -760,7 +670,7 @@ function StageController(config) {
 
             }
         }
-    }
+    };
 
     var changeLane = function(me,enemy){
         var laneId = newLaneId(enemy.getLaneId(), me);
@@ -769,7 +679,7 @@ function StageController(config) {
         enemy.setLaneId(laneId);
         createjs.Tween.get(enemy).to({y:endPoint.y},2000);
 
-    }
+    };
 
     var newLaneId = function(currentLaneId, me){
         var laneId;
@@ -777,13 +687,10 @@ function StageController(config) {
             laneId = Math.floor(Math.random()*3)+1
         }while(laneId == currentLaneId);
         return laneId;
-    }
+    };
     var persist = function(me){
 
     }
-
-
-
 
 
 }

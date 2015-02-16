@@ -70,13 +70,7 @@ function ShopController(config) {
         EventBus.dispatch("hideAll");
         setUpgradeStatus(me);
         $("#shopOuterWrapper").css("display","table");
-        //$("#dialog-shop").show();
-        //if(me.initial){
-        //    me.initial = false;
-        //    me.config.loader.loadQueue(Manifest.products, displayShopProducts, me,1);
-        //}else{
-        //   displayShopProducts(me);
-        //}
+
     }
     var setUpgradeStatus = function(me){
         $(".wallet").text("$"+me.score.getMyMoney());
@@ -94,7 +88,7 @@ function ShopController(config) {
                 $(item).find(".upgrade").css("background-image","url(shapes/btn_bg.png)");
             }
             _.each(me.config.myBag.myBag,function(upgrade){
-                if (upgrade.fromShop>0&& "shop_product_"+upgrade.getType()== item.id) {
+                if (upgrade.fromShop>0&& upgrade.getType()== item.id) {
                     var btn = $(item).find(".upgrade");
                     btn.unbind("click");
                     btn.css("background-image","url(shapes/btn1_over.png)");
@@ -102,13 +96,34 @@ function ShopController(config) {
                 }
             });
             _.each(me.config.gameState.gs.sponserShips,function(sponser){
-                if("shop_product_"+sponser == item.id){
+                if(sponser == item.id){
                     var btn = $(item).find(".upgrade");
                     btn.unbind("click");
                     btn.css("background-image","url(shapes/btn1_over.png)");
                     btn.click(function(){EventBus.dispatch("removeFromBag", this.parentElement)});
                 }
             });
+            if(item.id == "strength"||item.id == "breakfast"||item.id == "nightclass" ){
+                var btn = $(item).find(".upgrade");
+                if( me.config.gameState.gs.knockBack==0.15){
+                    btn.unbind("click");
+                    btn.css("background-image","url(shapes/btn1_over.png)");
+                    btn.click(function(){EventBus.dispatch("removeFromBag", this.parentElement)});
+                }
+                if(me.config.gameState.gs.extraDamage==3){
+                    btn.unbind("click");
+                    btn.css("background-image","url(shapes/btn1_over.png)");
+                    btn.click(function(){EventBus.dispatch("removeFromBag", this.parentElement)});
+                }
+                if(me.config.gameState.gs.penalty==1000){
+                    btn.unbind("click");
+                    btn.css("background-image","url(shapes/btn1_over.png)");
+                    btn.click(function(){EventBus.dispatch("removeFromBag", this.parentElement)});
+                }
+
+
+            }
+
             
         });
 
@@ -162,11 +177,20 @@ function ShopController(config) {
         btn.unbind("click");
         var type = $(ob).find(".title").attr("pType");
         if(type=="powerup"){
-            me.config.myBag.addToBagFromShop($(ob).find(".title").text());
+            me.config.myBag.addToBagFromShop(id);
         }
         if(type=="sponserShip"){
-            var sponser =  $(ob).find(".title").text();
+            var sponser =  id;
             me.config.gameState.gs.sponserShips.push(sponser);
+        }
+        if(type=="strength"){
+            me.config.gameState.gs.knockBack = 0.15;
+        }
+        if(type=="breakfast"){
+            me.config.gameState.gs.extraDamage = 3;
+        }
+        if(type=="nightclass"){
+            me.config.gameState.gs.penalty = 1000;
         }
 
 
@@ -183,11 +207,20 @@ function ShopController(config) {
         var id = ob.id;
         var type =  $(ob).find(".title").attr("pType");
         if(type =="powerup"){
-            me.config.myBag.removeFromBagToShop($(ob).find(".title").text());
+            me.config.myBag.removeFromBagToShop(id);
         }
         if(type=="sponserShip"){
-            var sponser =  $(ob).find(".title").text();
+            var sponser =  id;
             me.config.gameState.gs.sponserShips.splice(sponser,1);
+        }
+        if(type=="strength"){
+            me.config.gameState.gs.knockBack = 0.1;
+        }
+        if(type=="breakfast"){
+            me.config.gameState.gs.extraDamage = 2;
+        }
+        if(type=="nightclass"){
+            me.config.gameState.gs.penalty = 2000;
         }
 
         me.config.gameState.gs.dollorSpend -=getPrice(id);

@@ -147,7 +147,8 @@
         }
     }
     CaptchaProcessor.prototype.compare = function(){
-        var output = {}
+        var me = this;
+        var output = {};
         var input = document.getElementById(this.captchaTextBoxId).value;
         if(input == ''){
             output.pass = false;
@@ -156,6 +157,7 @@
         }
         if(input=="unlockall"){
            this.config.gameState.gs.maxLevel = 7;
+           this.config.gameState.currentState = this.config.gameState.states.GAME_OVER;
            //console.log("cheat Activated");
            //EventBus.dispatch("setTickerStatus");
            //EventBus.dispatch("showMap");
@@ -168,6 +170,9 @@
         var cw = new closestWord(input,this.captchasOnScreen);
         if(cw.match){
             console.log(cw);
+            if(input.length>8){
+                output.extraDamage = true;
+            }
             output.pass = true;
             output.message = "correct";
             var captcha = cw.closestOcr;
@@ -178,7 +183,13 @@
         }else{
             output.pass = false;
             output.message = "incorrect";
-            this.reset();
+            $("#inputText").prop("disabled",true);
+            setTimeout(function(){
+                $("#inputText").prop("disabled",false);
+                me.reset();
+                $("#inputText").focus();
+            },me.config.gameState.gs.penalty);
+
         }
         clearText(this);
         return output;

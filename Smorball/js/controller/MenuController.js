@@ -59,6 +59,7 @@ function MenuController(config) {
                         text: "QUIT",
                         click: function() {
                             $(this).dialog( "close" );
+                            me.config.gameState.currentState = me.config.gameState.states.GAME_OVER;
                             EventBus.dispatch("setTickerStatus");
                             EventBus.dispatch("showMap");
                         }

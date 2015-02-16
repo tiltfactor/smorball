@@ -23,9 +23,9 @@
         this.powerupData = PowerupsData[this.config.id];
         this.spriteData = new SpriteSheet({"id" : this.config.id, "data": this.powerupData.data, "loader" : this.config.loader});
         this.sprite = new createjs.Sprite(this.spriteData, "stand");
-        this.scaleX = 0.5;
-        this.scaleY = 0.5;
-        this.setScale(0.5,0.5);
+        //this.scaleX = 0.5;
+        //this.scaleY = 0.5;
+        //this.setScale(0.5,0.5);
         this.Sprite_initialize();
         this.addChild(this.sprite);
         loadEvents(this);

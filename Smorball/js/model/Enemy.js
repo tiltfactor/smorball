@@ -91,7 +91,7 @@
             this.sprite.addEventListener("animationend",this.myAnimationEnd);
         }
         else{
-            this.x = this.x + 0.1 * currentLaneObj.config.width;
+            this.x = this.x + this.config.gameState.gs.knockBack * currentLaneObj.config.width;
             console.log(0.1 * currentLaneObj.config.width);
         }
         return this.lifes.length;
@@ -130,7 +130,7 @@
 
     Enemy.prototype.setScale = function(sx,sy){
         this.sprite.setTransform(0,6,sx,sy);
-        drawBorder(this);
+        //drawBorder(this);
         updateLifePos(this);
     }
     Enemy.prototype.setEffects = function(){

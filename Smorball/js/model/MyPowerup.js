@@ -58,13 +58,13 @@
     }
     MyPowerup.prototype.unselect = function(){
         this.selected = false;
-        this.powerup.scaleY = 0.5;
+        this.powerup.scaleY = 1;
     }
     MyPowerup.prototype.select = function(){
        if(this.getSum()>0){
            EventBus.dispatch("selectPowerUp",this);
            this.selected = true;
-           this.powerup.scaleY = 0.6;
+           this.powerup.scaleY = 1.1;
        }
 
 
@@ -94,14 +94,12 @@
     var drawPowerup = function(me){
         var image = PowerupsData[me.config.type].data.images[0];
         me.powerup = new createjs.Bitmap(me.config.loader.getResult(image));
-        me.powerup.setTransform(0,0,0.5,0.5);
-
         me.addChild(me.powerup);
     }
     var initText = function(me){
         me.number = new createjs.Text();
         me.number.text = me.shopped;
-        me.number.font = "bold 20px Arial";
+        me.number.font = "bold 40px Arial";
         me.number.color = "blue";
         me.number.x = me.powerup.getTransformedBounds().width-me.number.getMeasuredWidth();
         me.number.y = me.powerup.getTransformedBounds().height-me.number.getMeasuredHeight();

@@ -117,7 +117,7 @@
 
     SpriteMan.prototype.setScale = function(sx,sy){
         this.sprite.setTransform(0,6,sx,sy);
-        drawBorder(this);
+        //drawBorder(this);
     }
     SpriteMan.prototype.getLaneId = function(){
         return this.config.laneId;
