@@ -20,7 +20,7 @@
         var x = 0, y = 0;
         for(var i = 0 ; i< 3 ; i++){
             var ad = new createjs.Bitmap(me.config.loader.getResult("ad"));
-            ad.setTransform(x,y, 0.5,0.5);
+            ad.setTransform(x,y, 1,1);
             x = x + ad.getTransformedBounds().width;
             me.boards.push(ad);
             me.addChild(ad);

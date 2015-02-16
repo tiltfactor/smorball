@@ -17,7 +17,7 @@
     Chair.prototype.initialize = function(){
         this.Container_initialize();
         var bitmap = new createjs.Bitmap(this.config.loader.getResult("seat"));
-        bitmap.setTransform(this.ox,this.oy,0.5,0.5);
+        bitmap.setTransform(this.ox,this.oy,1,1);
         this.addChild(bitmap);
 
     };

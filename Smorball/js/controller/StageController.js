@@ -2,10 +2,12 @@ function StageController(config) {
     this.config = config || {};
     this.events = {};
     StageController.prototype.init = function () {
-        setCanvasAttributes(this);
-        this.config.stage = new createjs.Stage("myCanvas");
-        createjs.Ticker.setFPS(20);
         var me = this;
+        this.config.stage = new createjs.Stage("myCanvas");
+        setCanvasAttributes(this);
+        window.onresize = function() {onResize(me)};
+        createjs.Ticker.setFPS(20);
+
         sc = this;
         this.events.tick = function(){tick(me);};
         createjs.Ticker.addEventListener("tick", this.events.tick);
@@ -78,7 +80,7 @@ function StageController(config) {
         me.config.gameState.currentState = me.config.gameState.states.RUN;
         me.levelConfig = LevelData[me.config.gameState.currentLevel];
         me.time = 0;
-        me.captchaProcessor = new CaptchaProcessor({"loader": me.config.loader, "canvasWidth": me.width, "canvasHeight": me.height, "gameState" : me.config.gameState});
+        me.captchaProcessor = new CaptchaProcessor({"loader": me.config.loader, "canvasWidth": me.canvasWidth, "canvasHeight": me.canvasHeight, "gameState" : me.config.gameState});
         $("#loaderCanvas").show();
         loadImages(me);
 
@@ -114,7 +116,6 @@ function StageController(config) {
         EventBus.dispatch("setScore", me.config.life);
         drawLane(me);
         initShowMessage(me);
-        //showScore(me);
         generateWaves(me);
         showPowerup(me);
         EventBus.dispatch("setTickerStatus");
@@ -125,8 +126,8 @@ function StageController(config) {
         me.message = new createjs.Bitmap();
         me.message.x = me.config.stage.canvas.width/2;
         me.message.y = me.config.stage.canvas.height/2+ (2*me.config.lanes[0].getTransformedBounds().height) ;
-        me.message.scaleX = 0.5;
-        me.message.scaleY = 0.5;
+       // me.message.scaleX = 0.5;
+        //me.message.scaleY = 0.5;
         me.message.alpha = 0;
         me.config.stage.addChild(me.message);
     }
@@ -185,24 +186,44 @@ function StageController(config) {
 
     var setCanvasAttributes = function(me){
 
-        me.freeBottomAreaY = 35;
+        me.freeBottomAreaY = 70;
         me.freeLeftAreaX = 0;
-        var canvas = document.getElementById("myCanvas");
-        me.width  = canvas.width =  window.innerWidth;
-        var h = me.width * 3/4;
-        if (window.innerHeight < h){
-            h = window.innerHeight;
-            me.width  = canvas.width = (h * 4/3);
-        }
-        me.height = canvas.height =  h;
+
+//        me.width  = canvas.width =  window.innerWidth;
+//        var h = me.width * 3/4;
+//        if (window.innerHeight < h){
+//            h = window.innerHeight;
+//            me.width  = canvas.width = (h * 4/3);
+//        }
+//        me.height = canvas.height =  h;
+
+        //me.canvasWidth = canvas.width = window.innerWidth;
+        //me.canvasHeight = canvas.height = window.innerHeight;
+        onResize(me);
+
+
+
+        me.width =  1600;
+        me.height = 1200;
         me.freeTopAreaY = me.height/2;
         //setDivPosition(me);
 
     }
 
+    var onResize = function(me){
+        var canvas = me.config.stage.canvas;
+        me.canvasWidth = canvas.width = window.innerHeight *4/3>window.innerWidth ? window.innerWidth : window.innerHeight*4/3;
+        me.canvasHeight = canvas.height = me.canvasWidth *3/4>window.innerHeight?window.innerHeight:me.canvasWidth *3/4;
+
+        me.config.stage.scaleX = me.canvasWidth/1600;
+        me.config.stage.scaleY = me.canvasHeight/1200;
+        me.config.stage.update();
+        $("#canvasHolder").css({top: me.canvasHeight - $("#canvasHolder").height(), position:'absolute'});
+    }
+
 
     var drawStadium=function(me){
-        var width = 800;
+        var width = 1600;
         me.stadium = new createjs.Container();
         me.seatContainer = new Blocks({"loader":me.config.loader,"width":width});
         var lc = me.seatContainer.drawLeftChairBlock();
@@ -212,8 +233,8 @@ function StageController(config) {
         me.adBoard.y = me.cbBox.getTransformedBounds().height-me.adBoard.getTransformedBounds().height/2-me.adBoard.getTransformedBounds().height/6;
 
         me.stadium.addChild(lc,rc,me.cbBox,me.adBoard);
-        me.stadium.scaleX = me.width/800;
-        me.stadium.scaleY = me.height/600;
+        //me.stadium.scaleX = me.width/800;
+        //me.stadium.scaleY = me.height/600;
         me.config.stage.addChild(me.stadium);
 
     }
@@ -224,8 +245,8 @@ function StageController(config) {
         shape.graphics.beginBitmapFill(me.config.loader.getResult("background"))
             .drawRect(0,0,me.width,me.height);
         //me.bgContainer.scaleX = me.width/800;
-        shape.scaleY = 0.5;
-        me.bgContainer.scaleY = me.height/600;
+        //shape.scaleY = 0.5;
+       // me.bgContainer.scaleY = me.height/600;
         me.bgContainer.addChild(shape);
         //container.scaleY =0.555;
     }
@@ -253,15 +274,15 @@ function StageController(config) {
     }
 
 
-    var getScaleFactor = function(lane,ob){
-        var laneHeight = lane.getHeight()+ lane.getHeight()/2;
-        var obHeight = ob.getHeight();
-        var scaleFactor = 1;
-        if(laneHeight/obHeight < 1){
-            scaleFactor = laneHeight/obHeight;
-        }
-        return scaleFactor;
-    }
+//    var getScaleFactor = function(lane,ob){
+//        var laneHeight = lane.getHeight()+ lane.getHeight()/2;
+//        var obHeight = ob.getHeight();
+//        var scaleFactor = 1;
+//        if(laneHeight/obHeight < 1){
+//            scaleFactor = laneHeight/obHeight;
+//        }
+//        return scaleFactor;
+//    }
 
 
 
@@ -377,8 +398,8 @@ function StageController(config) {
                setTimeout(addPlayer,1000,lane,me);
             }else{
                 lane.player.setSpriteSheet(me.default_player);
-                var sf = getScaleFactor(lane,lane.player);
-                lane.player.setScale(sf,sf);
+//                var sf = getScaleFactor(lane,lane.player);
+//                lane.player.setScale(sf,sf);
             }
 
         }
@@ -388,8 +409,8 @@ function StageController(config) {
         if(!(me.config.gameState.currentLevel == 1 && (lane.getLaneId() == 1 || lane.getLaneId() == 3))){
             var config = {"id": me.default_player, "loader" : me.config.loader, "laneId" : lane.getLaneId(),"gameState" : me.config.gameState };
             var player = new sprites.SpriteMan(config);
-            var sf = getScaleFactor(lane,player);
-            player.setScale(sf,sf);
+//            var sf = getScaleFactor(lane,player);
+//            player.setScale(sf,sf);
             if(lane.player == undefined){
                 lane.setPlayer(player);
                 me.config.stage.addChild(player);
@@ -630,8 +651,8 @@ function StageController(config) {
 
     var setEnemyProperties  = function(me,enemy){
         var lane = getLaneById(enemy.getLaneId(), me); //enemy.getLaneId();
-        var sf = getScaleFactor(lane,enemy);
-        enemy.setScale(sf,sf);
+//        var sf = getScaleFactor(lane,enemy);
+//        enemy.setScale(sf,sf);
         var start = lane.getEndPoint();
         var end = lane.getEnemyEndPoint();
         enemy.setPosition(start.x, start.y);
@@ -656,8 +677,8 @@ function StageController(config) {
 
     var setPowerupProperties  = function(me,powerup){
         var lane = getLaneById(powerup.getLaneId(), me);; //enemy.getLaneId();
-        var sf = getScaleFactor(lane,powerup);
-        powerup.setScale(sf,sf);
+//        var sf = getScaleFactor(lane,powerup);
+//        powerup.setScale(sf,sf);
         var powerupPos = lane.getPowerupPosition();
         powerup.setPosition(powerupPos.x,powerupPos.y);
         powerup.run();
@@ -734,8 +755,8 @@ function StageController(config) {
             var player = lane.player;
             if(player != undefined){
                 player.setSpriteSheet(playerId);
-                var sf = getScaleFactor(lane, player);
-                player.setScale(sf,sf);
+//                var sf = getScaleFactor(lane, player);
+//                player.setScale(sf,sf);
 
             }
         }

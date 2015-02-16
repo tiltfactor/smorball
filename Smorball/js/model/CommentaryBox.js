@@ -45,18 +45,18 @@
         //me.config.stage.addChild(me.scoreContainer);
         var score = new createjs.Bitmap(me.config.loader.getResult("score"));
         score.regX = score.getTransformedBounds().width/2;
-        score.y = 5;
-        score.scaleX = 0.5;
-        score.scaleY = 0.5;
+        score.y = 10;
+      //  score.scaleX = 0.5;
+       // score.scaleY = 0.5;
         me.addChild(score);
         initScorePosition(me,score);
         initOpponentsPosition(me,score);
 
         var cmtBox = new createjs.Bitmap(me.config.loader.getResult("cmt"));
         cmtBox.regX = cmtBox.getTransformedBounds().width/2;
-        cmtBox.scaleX = 0.5;
-        cmtBox.scaleY = 0.5;
-        cmtBox.y = score.getTransformedBounds().height-5;
+       // cmtBox.scaleX = 0.5;
+       // cmtBox.scaleY = 0.5;
+        cmtBox.y = score.getTransformedBounds().height-10;
 
 
         drawSpeakers(me,cmtBox,score);
@@ -65,8 +65,8 @@
         me.speech.regX = me.speech.getTransformedBounds().width/2;
         me.speech.y = cmtBox.getTransformedBounds().height/2+me.speech.getTransformedBounds().height/5;
         me.speech.alpha=0;
-        me.speech.scaleX = 0.5;
-        me.speech.scaleY = 0.5;
+       // me.speech.scaleX = 0.5;
+       // me.speech.scaleY = 0.5;
         me.addChild(cmtBox,me.speech);
     };
     var drawSpeakers = function(me,cmtBox,score){
@@ -75,17 +75,17 @@
             var speakerContainer = new createjs.Container();
             var speaker = new createjs.Bitmap(me.config.loader.getResult("speaker"));
             var pole = new createjs.Bitmap(me.config.loader.getResult("pole"));
-            pole.scaleX = 0.5;
-            pole.scaleY = 0.5;
+           // pole.scaleX = 0.5;
+           // pole.scaleY = 0.5;
             speaker.regX = speaker.getTransformedBounds().width/2;
-            speaker.scaleX = -0.5*(Math.pow(-1,i));
-            speaker.scaleY = 0.5;
+            speaker.scaleX = -1*(Math.pow(-1,i));
+            //speaker.scaleY = 0.5;
             speaker.x = me.x+(Math.pow(-1,i))*((cmtBox.getTransformedBounds().width/2)+(speaker.getTransformedBounds().width/2));
             speaker.y = score.getTransformedBounds().height+(score.getTransformedBounds().height/2);
-            pole.x = speaker.x-speaker.getTransformedBounds().width/2+20;
+            pole.x = speaker.x-speaker.getTransformedBounds().width/2+40;
             pole.y = speaker.y+speaker.getTransformedBounds().height/2;
             speakerContainer.addChild(pole,speaker);
-            speakerContainer.y=-10;
+            speakerContainer.y=-20;
             me.addChild(speakerContainer);
         }
 
@@ -132,12 +132,12 @@
 
     var initShowCommentary = function(me) {
         me.info = new createjs.Text();
-        me.info.font = "bold 10px Arial";
+        me.info.font = "bold 20px Arial";
         me.info.color = "black";
         me.info.alpha = 1;
-        me.info.x = me.speech.x-me.speech.getTransformedBounds().width/2+10 ;
-        me.info.y = me.speech.y+10 ;
-        me.info.lineWidth = me.speech.getTransformedBounds().width - 15;
+        me.info.x = me.speech.x-me.speech.getTransformedBounds().width/2 + 20 ;
+        me.info.y = me.speech.y + 20 ;
+        me.info.lineWidth = me.speech.getTransformedBounds().width - 30;
         me.addChild(me.info);
         me.infoAry = [];
         me.free = true;

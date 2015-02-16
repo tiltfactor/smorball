@@ -91,10 +91,10 @@
         var tileWidth = 178;
         var tileHeight = 192;
         var padding = 10;
-        var reqTileWidth = Math.ceil(me.config.width/totalTiles);
-        me.leftArea = reqTileWidth *2 ;
-        var sX = reqTileWidth/tileWidth;
-        var sY = (me.config.height+padding)/tileHeight;
+        //var reqTileWidth = Math.ceil(me.config.width/totalTiles);
+        me.leftArea = tileWidth *2 ;
+      //  var sX = reqTileWidth/tileWidth;
+       // var sY = (me.config.height+padding)/tileHeight;
         var tileImage = "grassTile";
         var w = 0;
 
@@ -110,10 +110,10 @@
             }
 
             var bitmap = new createjs.Bitmap(me.config.loader.getResult(tileImage+ide));
-            bitmap.scaleX =sX; bitmap.scaleY = sY;
+           // bitmap.scaleX =sX; bitmap.scaleY = sY;
             bitmap.x = w;
             bitmap.y = 0;
-            w = w+ reqTileWidth;
+            w = w+ tileWidth;
             me.addChild(bitmap);
         }
 

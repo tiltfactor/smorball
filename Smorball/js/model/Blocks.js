@@ -33,11 +33,11 @@
     var drawChairs = function(me,blockId){
         var container = new createjs.Container();
         var blockId = blockId;
-        var leftPadding = 25;
+        var leftPadding = 50;
         if(blockId == "A"){
             leftPadding = leftPadding* -1;
         }
-        var topPadding = 90;
+        var topPadding = 180;
         var rows = 5;
         var columns = 5;
 
@@ -48,7 +48,7 @@
             }else{
                 x = 0;
             }
-            y = topPadding + i*30;
+            y = topPadding + i*60;
             for(var j= 0 ; j< columns; j++){
                 var seat_id = blockId+i+j;
                 var config = {"id":seat_id,"x":x,"y":y,"loader":me.config.loader};
