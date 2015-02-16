@@ -6,7 +6,6 @@ function StageController(config) {
         this.config.stage = new createjs.Stage("myCanvas");
         this.config.stage.enableMouseOver(10);
         setCanvasAttributes(this);
-        window.onresize = function() {onResize(me)};
         createjs.Ticker.setFPS(20);
 
         sc = this;
@@ -69,8 +68,9 @@ function StageController(config) {
     }
 
     var newGame = function (me) {
+        window.onresize = function(){onResize(me)};
+
         $("#inputText").val("");
-        //$('#myDiv').remove();
         resetGame(me);
 
         me.config.gameState.currentState = me.config.gameState.states.RUN;
@@ -78,6 +78,7 @@ function StageController(config) {
         me.time = 0;
         me.captchaProcessor = new CaptchaProcessor({"loader": me.config.loader, "canvasWidth": me.canvasWidth, "canvasHeight": me.canvasHeight, "gameState" : me.config.gameState});
         $("#loaderCanvas").show();
+        onResize(me);
         loadImages(me);
 
         EventBus.dispatch("setMute");
@@ -161,7 +162,9 @@ function StageController(config) {
         me.config.stage.scaleX = me.canvasWidth/1600;
         me.config.stage.scaleY = me.canvasHeight/1200;
         me.config.stage.update();
-        $("#canvasHolder").css({top: me.canvasHeight - $("#canvasHolder").height(), position:'absolute'});
+        var paddingTop = (window.innerHeight - me.canvasHeight)/2 > 0 ? (window.innerHeight - me.canvasHeight)/2 : 0 ;
+        $("#myCanvas").css({top: paddingTop });
+        $("#canvasHolder").css({top:me.canvasHeight+ paddingTop - $("#canvasHolder").height(), position:'absolute'});
     };
 
 
@@ -177,7 +180,7 @@ function StageController(config) {
 
         me.stadium.addChild(lc,rc,me.cbBox,me.adBoard);
         me.config.stage.addChild(me.stadium);
-        drawTimeOut(me)
+        drawTimeOut(me);
 
     };
     var drawBackGround = function(me){

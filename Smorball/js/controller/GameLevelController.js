@@ -6,22 +6,31 @@ function GameLevelController(config) {
     gl = this;
 
     GameLevelController.prototype.init = function () {
+        var me = this;
         this.gameLevels = [];
         this.config.stage.enableMouseOver(10);
         loadEvents(this);
         setCanvasAttributes(this);
     }
     var setCanvasAttributes = function(me){
-        var canvas = document.getElementById("utilityCanvas");
-        me.config.stage.canvas.width = window.innerWidth;
+        me.width =  1600;
+        me.height = 1200;
+        onResize(me);
 
-        var h = me.config.stage.canvas.width * 3/4;
-        if (window.innerHeight < h){
-            h = window.innerHeight;
-            me.config.stage.canvas.width = (h * 4/3);
-        }
-        me.config.stage.canvas.height =  h;
     }
+    var onResize = function(me){
+        var canvas = me.config.stage.canvas;
+        me.canvasWidth = canvas.width = window.innerHeight *4/3>window.innerWidth ? window.innerWidth : window.innerHeight*4/3;
+        me.canvasHeight = canvas.height = me.canvasWidth *3/4>window.innerHeight?window.innerHeight:me.canvasWidth *3/4;
+
+        me.config.stage.scaleX = me.canvasWidth/1600;
+        me.config.stage.scaleY = me.canvasHeight/1200;
+        me.config.stage.update();
+        var paddingTop = (window.innerHeight - me.canvasHeight)/2 > 0 ? (window.innerHeight - me.canvasHeight)/2 : 0 ;
+        $("#utilityCanvas").css({top: paddingTop });
+        $("#canvasHolder").css({top:me.canvasHeight+ paddingTop - $("#canvasHolder").height(), position:'absolute'});
+
+    };
     var loadEvents = function (me) {
         var sl = function () {
             me.showMap()
@@ -54,9 +63,12 @@ function GameLevelController(config) {
     }
 
     GameLevelController.prototype.showMap = function () {
+        var me = this;
         EventBus.dispatch("hideAll");
         $("#loaderCanvas").show();
         EventBus.dispatch("saveToStore");
+        window.onresize = function(){onResize(me)};
+        onResize(me);
         loadImages(this);
     }
 
@@ -64,13 +76,8 @@ function GameLevelController(config) {
         me.config.stage.removeAllChildren();
         $("#dialog-utility").show();
         me.map = new createjs.Container();
-        me.map.scaleX = me.config.stage.canvas.width/800;
-        me.map.scaleY = me.config.stage.canvas.height/600;
-
         me.config.stage.addChild(me.map);
         var levelmap = new createjs.Bitmap(me.config.loader.getResult("map_background"));
-        levelmap.setTransform(0, 0, 0.5, 0.5);
-
         me.map.addChild(levelmap);
         drawPathDots(me);
         drawMenuButton(me);
@@ -99,10 +106,9 @@ function GameLevelController(config) {
     }
     var drawShop = function (me) {
         var shop = new createjs.Bitmap(me.config.loader.getResult("shop_icon"));
-        shop.setTransform(0, 0, 0.5, 0.5);
         shop.id = me.config.gameState.gs.maxLevel;
-        shop.x = 500;
-        shop.y = 390;
+        shop.x = 1000;
+        shop.y = 780;
         shop.addEventListener("click", showShop);
         shop.addEventListener("mouseover",function(evt){
             evt.target.cursor = 'pointer';
@@ -118,13 +124,11 @@ function GameLevelController(config) {
         var cashContainer = new createjs.Container();
         var cashText = new createjs.Text();
         var cashbar = new createjs.Bitmap(me.config.loader.getResult("cash_bar"));
-        cashbar.setTransform(0, 0, 0.5, 0.5);
-
-        cashContainer.x = me.map.getBounds().width - cashbar.getTransformedBounds().width - 20;
-        cashContainer.y = 10;
+        cashContainer.x = me.map.getBounds().width - cashbar.getTransformedBounds().width - 40;
+        cashContainer.y = 20;
 
         cashText.text = score.getMyMoney();
-        cashText.font = "bold 20px Arial";
+        cashText.font = "bold 40px Arial";
         cashText.color = "white";
         cashText.setTransform(cashbar.getTransformedBounds().width/2-cashText.getMeasuredWidth(),cashText.getMeasuredHeight());
         cashContainer.addChild(cashbar,cashText);
@@ -133,31 +137,29 @@ function GameLevelController(config) {
     };
     var drawSurvival = function (me) {
         var survival = new createjs.Bitmap(me.config.loader.getResult("stopwatch_icon"));
-        survival.setTransform(100,350,0.5,0.5);
+        survival.setTransform(200,700,1,1);
         me.map.addChild(survival);
     }
     var drawLevelInfoBar = function(me){
         me.infoContainer = new createjs.Container();
         me.map.addChild(me.infoContainer);
         var inforbar = new createjs.Bitmap(me.config.loader.getResult("level_info_bar"));
-        inforbar.setTransform(0,0,0.5,0.5);
         me.infoContainer.addChild(inforbar);
-        me.infoContainer.x = 10;
-        me.infoContainer.y = me.map.getBounds().height-me.infoContainer.getTransformedBounds().height-10;
+        me.infoContainer.x = 20;
+        me.infoContainer.y = me.map.getBounds().height-me.infoContainer.getTransformedBounds().height-40;
     }
     var drawPathDots = function(me){
         var pointdata = PointData;
         for(var  i = 0;i<pointdata.length;i++){
             var dot  = new createjs.Bitmap(me.config.loader.getResult("path_dot"));
-            dot.setTransform(pointdata[i].x,pointdata[i].y,0.5,0.5);
+            dot.setTransform(pointdata[i].x,pointdata[i].y,1,1);
             me.map.addChild(dot)
         }
     }
     var drawFaceBookButton=function(me){
         var fbbtn = new createjs.Bitmap(me.config.loader.getResult("fb_btn_up"));
-        fbbtn.setTransform(0,0,0.5,0.5);
         fbbtn.y =  me.map.getBounds().height -  fbbtn.getTransformedBounds().height;
-        fbbtn.x = me.infoContainer.x + me.infoContainer.getTransformedBounds().width + 10;
+        fbbtn.x = me.infoContainer.x + me.infoContainer.getTransformedBounds().width + 20;
         fbbtn.addEventListener("mouseover",function(evt){
             evt.target.image = me.config.loader.getResult("fb_btn_over");
             evt.target.cursor = "pointer";
@@ -183,9 +185,8 @@ function GameLevelController(config) {
     };
     var drawTwitterButton = function(me){
         var tbtn = new createjs.Bitmap(me.config.loader.getResult("t_btn_up"));
-        tbtn.setTransform(0,0,0.5,0.5);
         tbtn.y =  me.map.getBounds().height -  tbtn.getTransformedBounds().height;
-        tbtn.x = me.infoContainer.x + me.infoContainer.getTransformedBounds().width + tbtn.getTransformedBounds().width + 10;
+        tbtn.x = me.infoContainer.x + me.infoContainer.getTransformedBounds().width + tbtn.getTransformedBounds().width + 40;
         tbtn.addEventListener("mouseover",function(evt){
             evt.target.image = me.config.loader.getResult("t_btn_over");
             evt.target.cursor = "pointer";
@@ -211,7 +212,6 @@ function GameLevelController(config) {
 
     var drawMenuButton = function(me){
         var mbtn = new createjs.Bitmap(me.config.loader.getResult("menu_btn_idle"));
-        mbtn.setTransform(0,0,0.5,0.5);
         mbtn.x = mbtn.getTransformedBounds().width/4;
         mbtn.y = mbtn.getTransformedBounds().height/4;
         mbtn.addEventListener("mousedown",function(evt){

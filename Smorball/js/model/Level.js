@@ -21,20 +21,17 @@
     };
     var drawStadium = function(me){
         var stadiumBase = new createjs.Bitmap(me.config.loader.getResult("stadium_base"));
-        stadiumBase.setTransform(0,0,0.5,0.5);
         me.addChild(stadiumBase);
         var stadium = new createjs.Bitmap();
 
         if(me.config.locked){
             stadium.image = me.config.loader.getResult("lock");
-            stadium.setTransform(0,0,0.5,0.5);
             stadium.id = me.config.id;
             stadium.x = stadiumBase.getTransformedBounds().width/4;
             stadium.y = -stadium.getTransformedBounds().height/2;
 
         }else{
             stadium.image = me.config.loader.getResult("stadium");
-            stadium.setTransform(0,0,0.5,0.5);
             stadium.id = me.config.id;
             stadium.addEventListener("click",startLevel);
             stadium.x = stadiumBase.getTransformedBounds().width/8;

@@ -82,6 +82,7 @@ function GameController(config) {
         EventBus.addEventListener("saveToStore", ss);
     }
     var hideAll = function(){
+        window.onresize = "";
         $("#shopOuterWrapper").css("display","none");
         $("#loaderCanvas").hide();
         $("#dialog-utility").hide();

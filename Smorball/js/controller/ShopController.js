@@ -46,20 +46,20 @@ function ShopController(config) {
     //            height: window.innerHeight - 100
     //    });
     //}
-
-    var loadProducts = function(me){
-        var pdtJson = [{name: 'Blue-Ball', id: 'blue-ball', price: 200}, {name: 'Red-Ball', id: 'red-ball', price: 300}, {name: 'Green-Ball', id: 'green-ball', price: 400}];
-        var data = JSON.parse(JSON.stringify(pdtJson));
-        //var loader = lc.target;
-
-        for(var i=0; i<data.length; i++){
-            var config = {"image":me.config.loader.getResult(data[i].id), "name" : data[i].name, "price" : data[i].price };
-            var product = new sprites.Product(config);
-            me.config.products.push(product);
-            me.config.stage.addChild(product);
-        }
-        drawExit(me);
-    }
+    //
+    //var loadProducts = function(me){
+    //    var pdtJson = [{name: 'Blue-Ball', id: 'blue-ball', price: 200}, {name: 'Red-Ball', id: 'red-ball', price: 300}, {name: 'Green-Ball', id: 'green-ball', price: 400}];
+    //    var data = JSON.parse(JSON.stringify(pdtJson));
+    //    //var loader = lc.target;
+    //
+    //    for(var i=0; i<data.length; i++){
+    //        var config = {"image":me.config.loader.getResult(data[i].id), "name" : data[i].name, "price" : data[i].price };
+    //        var product = new sprites.Product(config);
+    //        me.config.products.push(product);
+    //        me.config.stage.addChild(product);
+    //    }
+    //    drawExit(me);
+    //}
 
     var showShop = function (me){
         me.score = new Score({"gameState":me.config.gameState});
@@ -81,53 +81,44 @@ function ShopController(config) {
             if(price>me.score.getMyMoney()){
                 $(item).find(".upgrade").css("background-color","#FF3030");
                 $(item).find(".upgrade").unbind( "click" );
-                $(item).find(".upgrade").css("background-image","url(shapes/btn1_down.png)");
+                $(item).find(".upgrade").css("background-image","url(shapes/btn1_grey.png)");
             }else if(price<me.score.getMyMoney()){
                 $(item).find(".upgrade").css("background-color","#a7cb00");
                 $(item).find(".upgrade").click(function(){EventBus.dispatch("addToBag", this.parentElement)});
                 $(item).find(".upgrade").css("background-image","url(shapes/btn_bg.png)");
             }
             _.each(me.config.myBag.myBag,function(upgrade){
-                if (upgrade.fromShop>0&& upgrade.getType()== item.id) {
+                if (upgrade.shopped>0&& upgrade.getType()== item.id) {
                     var btn = $(item).find(".upgrade");
-                    btn.unbind("click");
-                    btn.css("background-image","url(shapes/btn1_over.png)");
-                    btn.click(function(){EventBus.dispatch("removeFromBag", this.parentElement)});
+                    setButtonDown(btn);
                 }
             });
             _.each(me.config.gameState.gs.sponserShips,function(sponser){
                 if(sponser == item.id){
                     var btn = $(item).find(".upgrade");
-                    btn.unbind("click");
-                    btn.css("background-image","url(shapes/btn1_over.png)");
-                    btn.click(function(){EventBus.dispatch("removeFromBag", this.parentElement)});
+                    setButtonDown(btn);
                 }
             });
-            if(item.id == "strength"||item.id == "breakfast"||item.id == "nightclass" ){
-                var btn = $(item).find(".upgrade");
-                if( me.config.gameState.gs.knockBack==0.15){
-                    btn.unbind("click");
-                    btn.css("background-image","url(shapes/btn1_over.png)");
-                    btn.click(function(){EventBus.dispatch("removeFromBag", this.parentElement)});
-                }
-                if(me.config.gameState.gs.extraDamage==3){
-                    btn.unbind("click");
-                    btn.css("background-image","url(shapes/btn1_over.png)");
-                    btn.click(function(){EventBus.dispatch("removeFromBag", this.parentElement)});
-                }
-                if(me.config.gameState.gs.penalty==1000){
-                    btn.unbind("click");
-                    btn.css("background-image","url(shapes/btn1_over.png)");
-                    btn.click(function(){EventBus.dispatch("removeFromBag", this.parentElement)});
-                }
-
-
+            var btn = $(item).find(".upgrade");
+            if(item.id == "strength" && me.config.gameState.gs.knockBack == 0.15){
+                setButtonDown(btn)
+            }
+            if(item.id=="breakfast" && me.config.gameState.gs.penalty == 1000){
+                setButtonDown(btn);
+            }
+            if(item.id=="nightclass" && me.config.gameState.gs.extraDamage == 3){
+                setButtonDown(btn)
             }
 
             
         });
 
-    }
+    };
+    var setButtonDown = function(btn){
+        btn.unbind("click");
+        btn.css("background-image","url(shapes/btn1_down.png)");
+        btn.click(function(){EventBus.dispatch("removeFromBag", this.parentElement)});
+    };
     var getPrice = function(id){
         for(var i=0;i<shopData.length;i++){
             if(id==shopData[i].id){
