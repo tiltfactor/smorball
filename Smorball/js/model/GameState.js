@@ -47,7 +47,7 @@
         me.gs.dollorSpend = me.config.store.dollorSpend || 0;
         me.gs.sponserShips = me.config.store.sponserShips || [];
         me.gs.knockBack = me.config.store.knockBack||0.1;
-        me.gs.extraDamage = me.config.store.extraDamage||2;
+        me.gs.extraDamage = me.config.store.extraDamage||1;
         me.gs.penalty = me.config.store.penalty||2000;
     }
 

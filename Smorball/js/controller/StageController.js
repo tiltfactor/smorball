@@ -189,11 +189,7 @@ function StageController(config) {
         var shape = new createjs.Shape();
         shape.graphics.beginBitmapFill(me.config.loader.getResult("background"))
             .drawRect(0,0,me.width,me.height);
-        //me.bgContainer.scaleX = me.width/800;
-        //shape.scaleY = 0.5;
-       // me.bgContainer.scaleY = me.height/600;
         me.bgContainer.addChild(shape);
-        //container.scaleY =0.555;
     };
     var drawTimeOut = function(me){
         var mbtn = new createjs.Bitmap(me.config.loader.getResult("menu_btn_idle"));
@@ -249,8 +245,6 @@ function StageController(config) {
     var killLife = function(me){
         me.config.life--;
         EventBus.dispatch("setScore",me.config.life);
-       // var life = me.config.lifes.pop();
-     //   me.config.stage.removeChild(life);
         if(me.config.life == 0){
            gameOver(me);
         }

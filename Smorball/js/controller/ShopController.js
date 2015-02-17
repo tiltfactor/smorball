@@ -37,29 +37,7 @@ function ShopController(config) {
         var lp = function(lc){loadProducts(me, lc)}
         EventBus.addEventListener("loadProducts", lp);
     }
-    //var createDialog = function(me) {
-    //    $( "#dialog-shop" ).dialog({
-    //            dialogClass: "no-close-cart",
-    //            modal: true,
-    //            closeOnEscape: true,
-    //            width: window.innerWidth - 100,
-    //            height: window.innerHeight - 100
-    //    });
-    //}
-    //
-    //var loadProducts = function(me){
-    //    var pdtJson = [{name: 'Blue-Ball', id: 'blue-ball', price: 200}, {name: 'Red-Ball', id: 'red-ball', price: 300}, {name: 'Green-Ball', id: 'green-ball', price: 400}];
-    //    var data = JSON.parse(JSON.stringify(pdtJson));
-    //    //var loader = lc.target;
-    //
-    //    for(var i=0; i<data.length; i++){
-    //        var config = {"image":me.config.loader.getResult(data[i].id), "name" : data[i].name, "price" : data[i].price };
-    //        var product = new sprites.Product(config);
-    //        me.config.products.push(product);
-    //        me.config.stage.addChild(product);
-    //    }
-    //    drawExit(me);
-    //}
+
 
     var showShop = function (me){
         me.score = new Score({"gameState":me.config.gameState});
@@ -103,10 +81,10 @@ function ShopController(config) {
             if(item.id == "strength" && me.config.gameState.gs.knockBack == 0.15){
                 setButtonDown(btn)
             }
-            if(item.id=="breakfast" && me.config.gameState.gs.penalty == 1000){
+            if(item.id=="breakfast" && me.config.gameState.gs.extraDamage == 2){
                 setButtonDown(btn);
             }
-            if(item.id=="nightclass" && me.config.gameState.gs.extraDamage == 3){
+            if(item.id=="nightclass" && me.config.gameState.gs.penalty == 1000){
                 setButtonDown(btn)
             }
 
@@ -178,7 +156,7 @@ function ShopController(config) {
             me.config.gameState.gs.knockBack = 0.15;
         }
         if(type=="breakfast"){
-            me.config.gameState.gs.extraDamage = 3;
+            me.config.gameState.gs.extraDamage = 2;
         }
         if(type=="nightclass"){
             me.config.gameState.gs.penalty = 1000;
@@ -208,7 +186,7 @@ function ShopController(config) {
             me.config.gameState.gs.knockBack = 0.1;
         }
         if(type=="breakfast"){
-            me.config.gameState.gs.extraDamage = 2;
+            me.config.gameState.gs.extraDamage = 1;
         }
         if(type=="nightclass"){
             me.config.gameState.gs.penalty = 2000;

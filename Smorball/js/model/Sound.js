@@ -18,15 +18,15 @@
           }
         }
    }
-   var setVolumeValue = function(me){
+    var setVolumeValue = function(me){
         if(me.config.type == me.config.gameState.soundType.EFFECTS){
-          var vol = me.config.gameState.config.store.soundEffects/100;
+            var vol = me.config.gameState.config.store.soundEffects/100 || me.config.gameState.gs.soundEffects/100;
         }
         else if(me.config.type == me.config.gameState.soundType.MAIN){
-          var vol = me.config.gameState.config.store.music/100;
+            var vol = me.config.gameState.config.store.music/100 || me.config.gameState.gs.music/100;
         }
         return vol;
-   }
+    }
 
    Sound.prototype.play = function(){
     this.mySound.play();
