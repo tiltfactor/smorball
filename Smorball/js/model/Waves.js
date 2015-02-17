@@ -21,16 +21,19 @@
     var loadEvents = function(me){
         var fp = function(object){forcePush(me,object.target)};
         EventBus.addEventListener("forcePush",fp);
+
+        var pn = function(type){createExtraPowerup(me,type.target)};
+        EventBus.addEventListener("pushExtraPowerup",pn);
     }
 
     Waves.prototype.getPendingEnemies = function(){
-        var index = this.totalOpponents % this.pushPositions;
-        if(this.totalOpponents % this.pushPositions == 0 && this.extraPowerups.length!=0){
-            var random = Math.floor((Math.random() * this.extraPowerups.length));
-            var property = this.extraPowerups[random];
-            this.activeWaves[0].pushPowerUp(property);
-            this.extraPowerups.splice(property,1);
-        }
+        //var index = this.totalOpponents % this.pushPositions;
+        //if(this.totalOpponents % this.pushPositions == 0 && this.extraPowerups.length!=0){
+        //    var random = Math.floor((Math.random() * this.extraPowerups.length));
+        //    var property = this.extraPowerups[random];
+        //    this.activeWaves[0].pushPowerUp(property);
+        //    this.extraPowerups.splice(property,1);
+        //}
         return --this.totalOpponents;
     }
 
@@ -114,17 +117,17 @@
         var index = me.extraPowerups.length;
         me.pushPositions = me.totalOpponents/index;
     }
-    var createExtraPowerup = function(me,type,size){
-
-        var number = Math.ceil(size * .20);
-        for(var i=0;i<number;i++){
-            var properties = {};
-            properties[0] = type;
-            properties[1] = Math.floor(Math.random()*me.config.lanes)+1;
-            properties[2] = 0;
-            me.extraPowerups.push(properties);
-
+    var createExtraPowerup = function(me,type){
+        var properties = {};
+        properties[0] = type;
+        properties[1] = Math.floor(Math.random()*me.config.lanes)+1;
+        properties[2] = 0;
+        properties[3] = "";
+        if(me.activeWaves[0]){
+            me.activeWaves[0].pushPowerUp(properties);
         }
+
+
     }
 
 

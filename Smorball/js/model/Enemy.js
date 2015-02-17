@@ -145,12 +145,17 @@
         console.log("EFFECTS");
         this.config.enemySound = EnemyData[this.config.id].extras.sound;
     }
+
+    Enemy.prototype.getMaxLife = function(){
+        return  EnemyData[this.config.id].extras.life
+    }
     var generateLife = function(me){
         for(var i = 0 ; i< me.life; i++){
             me.addLife(false);
         }
         updateLifePos(me);
     }
+
 
     var updateLifePos = function(me){
 

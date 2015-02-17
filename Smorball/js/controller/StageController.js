@@ -80,6 +80,7 @@ function StageController(config) {
         me.config.gameState.currentState = me.config.gameState.states.RUN;
         me.levelConfig = LevelData[me.config.gameState.currentLevel];
         me.time = 0;
+        me.spawning = new Spawning({"gameState":me.config.gameState});
         me.captchaProcessor = new CaptchaProcessor({"loader": me.config.loader, "canvasWidth": me.canvasWidth, "canvasHeight": me.canvasHeight, "gameState" : me.config.gameState});
         $("#loaderCanvas").show();
         onResize(me);
@@ -328,6 +329,7 @@ function StageController(config) {
         if(object instanceof  sprites.Enemy){
             var index = me.config.enemies.indexOf(object);
             me.config.enemies.splice(index,1);
+            me.spawning.onEnemyKilled(object.getMaxLife());
             updateLevelStatus(me,object);
         }else if(object instanceof sprites.SpriteMan){
             var index = me.config.players.indexOf(object);
@@ -616,6 +618,7 @@ function StageController(config) {
     };
     var pushPowerup = function(me,powerup){
         setPowerupProperties(me,powerup);
+        me.spawning.onPowerupSpawned();
         me.config.stage.addChild(powerup);
         me.config.powerups.push(powerup);
     };

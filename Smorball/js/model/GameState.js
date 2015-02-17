@@ -21,9 +21,13 @@
         this.map = false;
         this.level = false;
 
-        this.snike = false;
-        this.brawlin = false;
-        this.loudMouth = false;
+        this.cleatsUnlockLevel = 4;
+        this.helmetUnlockLevel = 5;
+        this.bullhornUnlockLevel = 7;
+
+        //this.snike = false;
+        //this.brawlin = false;
+        //this.loudMouth = false;
 
         this.reset();
 
