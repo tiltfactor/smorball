@@ -63,8 +63,11 @@ function StageController(config) {
         var su = function(powerup){selectPowerUp(me,powerup.target)};
         EventBus.addEventListener("selectPowerUp",su);
 
-        var cl = function(ob){changeLane(me, ob.target)}
+        var cl = function(ob){changeLane(me, ob.target)};
         EventBus.addEventListener("changeLane", cl);
+
+        var sh = function(){me.captchaProcessor.showCaptchas()};
+        EventBus.addEventListener("showCaptchas",sh);
 
     }
 
@@ -507,8 +510,8 @@ function StageController(config) {
                 } else {
                     var lane = getLaneById(output.laneId, me);
                     activatePlayer(lane.player, me);
-                    if(output.extraDamage){
-                        lane.player.life = me.config.gameState.gs.extraDamage;
+                    if(output.extraDamage && lane.player.getLife()==1){
+                        lane.player.setLife(me.config.gameState.gs.extraDamage);
                     }
                     lane.player = undefined;
                 }
@@ -597,7 +600,7 @@ function StageController(config) {
 //        enemy.setScale(sf,sf);
         var start = lane.getEndPoint();
         var end = lane.getEnemyEndPoint();
-        enemy.setPosition(start.x, start.y);
+        enemy.setStartPoint(start.x, start.y);
         enemy.setEndPoint(end.x);
         enemy.run();
 

@@ -127,6 +127,12 @@
     SpriteMan.prototype.getLaneId = function(){
         return this.config.laneId;
     }
+    SpriteMan.prototype.getLife = function(){
+        return this.life;
+    }
+    SpriteMan.prototype.setLife = function(life){
+        this.life = life;
+    }
 
     var tick = function(me){
         me.x = me.x + me.speed;

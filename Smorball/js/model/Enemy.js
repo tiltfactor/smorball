@@ -92,7 +92,8 @@
             this.sprite.addEventListener("animationend",this.myAnimationEnd);
         }
         else{
-            this.x = this.x + this.config.gameState.gs.knockBack * currentLaneObj.config.width;
+            var knockBack = this.x + this.config.gameState.gs.knockBack * currentLaneObj.config.width
+            this.x = this.startX<knockBack?this.startX:knockBack;
             console.log(0.1 * currentLaneObj.config.width);
         }
         return this.lifes.length;
@@ -100,6 +101,11 @@
     Enemy.prototype.setSpeed = function(speed){
         this.speed = speed;
         this.sprite._animation.speed = speed;
+    }
+    Enemy.prototype.setStartPoint=function(x,y){
+        this.startX = x;
+        this.startY = y;
+        this.setPosition(x,y);
     }
 
     Enemy.prototype.setPosition = function(x, y){

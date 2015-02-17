@@ -67,7 +67,7 @@ PlayerData.player_normal = {
         ],
         "animations": {
 
-            "run":[0,9,"run", 0.2],
+            "run":[0,9,"run", 0.4],
             "jump":[1],
             "stand":[2],
             "fall":[3]
