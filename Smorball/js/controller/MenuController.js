@@ -14,6 +14,8 @@ function MenuController(config) {
         var sm = function(){me.showTimeout(me)};
         EventBus.addEventListener("showTimeout",sm);
         
+        var qt = function(){me.quitTimeout(me)};
+        EventBus.addEventListener("quitTimeout",qt);
     }
 
     MenuController.prototype.showMenu = function (me) {
@@ -29,9 +31,15 @@ function MenuController(config) {
     MenuController.prototype.showTimeout = function (me) {
         checkStatus(me);
         me.config.gameState.currentState = me.config.gameState.states.MAIN_MENU;
-        $( "#timeout-popup" ).dialog("open");
+        $("#timeout-container" ).css("display","table");
         EventBus.dispatch("pauseAllSound");
-    }   
+    } 
+    
+    MenuController.prototype.quitTimeout = function (me) {
+        $("#timeout-container" ).css("display","none");
+        me.config.gameState.currentState = me.config.gameState.states.GAME_OVER;
+        EventBus.dispatch("showMap");
+    }
     
     var closeTimeoutDialog =  function() {
          EventBus.dispatch("resumeGame");
@@ -40,34 +48,6 @@ function MenuController(config) {
 
     var createDialog = function(me){
           $("#menu-container" ).css("display","table");
-            $( "#timeout-popup" ).dialog({
-                dialogClass: "timeout-popup-box",
-                modal: true,
-                closeOnEscape: false,
-                autoOpen: false,
-                close: closeTimeoutDialog,
-                open: function () {
-                    $(this).dialog('option', 'position', 'center');
-                },
-                buttons: [
-                    {
-                        text: "HELP",
-                        click: function() {
-                            //show help screen
-                        }
-                    },
-                    {
-                        text: "QUIT",
-                        click: function() {
-                            $(this).dialog( "close" );
-                            me.config.gameState.currentState = me.config.gameState.states.GAME_OVER;
-                            EventBus.dispatch("setTickerStatus");
-                            EventBus.dispatch("showMap");
-                        }
-                    }
-                ]
-            });
-  
             $("#music-slider").slider({
                 value: me.config.gameState.config.store.music,
                 range: "min",

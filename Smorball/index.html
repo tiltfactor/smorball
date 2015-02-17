@@ -113,15 +113,25 @@
            onclick="EventBus.dispatch(&quot;compareCaptcha&quot;)"></input>
 </div>
 
-<div id="timeout-popup">
-    <p id="timout-text"><b>TIMEOUT</b></p>
+<div id="timeout-container">
+    <div class="timeout-button-container">
+        <div class="timeout-buttons">
+            <div id="timeout-close">
+                <button id="timeout-btn-close" onClick="$('#timeout-container').css('display','none');  EventBus.dispatch('setTickerStatus');">X</button>
+            </div>
+             <p id="timout-text"><b>TIMEOUT</b></p>
+            <div class="timeout-content">
+                <p class="slider-text"><b>MUSIC</b></p>
 
-    <p class="slider-text"><b>MUSIC</b></p>
+                <div id="music-slider" class="slider"></div>
+                <p class="slider-text"><b>SOUND EFFECTS</b></p>
 
-    <div id="music-slider" class="slider"></div>
-    <p class="slider-text"><b>SOUND EFFECTS</b></p>
-
-    <div id="effects-slider" class="slider"></div>
+                <div id="effects-slider" class="slider"></div>
+                <button>HELP</button><br/>
+                <button onClick="EventBus.dispatch('quitTimeout');">QUIT</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div id="shopOuterWrapper">

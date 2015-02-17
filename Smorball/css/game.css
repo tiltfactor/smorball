@@ -1,10 +1,10 @@
-.no-close .ui-dialog-titlebar-close, .ui-widget-header{
+.no-close .ui-dialog-titlebar-close, .ui-widget-header {
     display: none;
 }
-.ui-button{
+.ui-button {
     width: 100%;
 }
-#canvasHolder{
+#canvasHolder {
     display: none;
     height: 55px;
     width: 100%;
@@ -32,11 +32,23 @@
 }
 
 #canvasHolder input[type=button] {
-    background-image: url("../shapes/btn_bg.png");
+    background-image: url("../shapes/btn-sprite.png");
+    background-size: 100% 300%;
+    background-color: transparent;
     color: white;
     width: 10%;
     text-transform: uppercase;
+    background-position: 0 100%;
+    outline: none;
+    padding: 0px 10px 19px 10px;
+}
 
+#canvasHolder input[type=button]:hover {
+    background-position: 0 50%;
+}
+
+#canvasHolder input[type=button]:active {
+    background-position: 0 0%;
 }
 
 #canvasHolder input[type=text] {
@@ -73,7 +85,12 @@ canvas {
     background-image: url("../shapes/sample.jpg");
 }
 
-.menu-button-container {
+.timeout-button-container {
+    background-color: rgba(0, 0, 0, 0.48);
+}
+
+.menu-button-container,
+.timeout-button-container {
     position: relative;
     padding: 1%;
     border-radius: 5px;
@@ -110,67 +127,88 @@ canvas {
 
 /*timeout screen style starts here*/
 
-#timeout-popup {
-    display:none;
-    text-align:center
+#timeout-container {
+    display: none;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    display: none;
 }
 
-.timeout-popup-box.ui-widget-content {
-    background-image: url("../shapes/timeout_bg.png");
+.timeout-buttons {
+    background-image: url("../shapes/box_outer_bg.png");
     background-color: transparent;
     background-size: 100% 100%;
     border: none;
     padding: 0 1%;
+    width: 50%;
+    margin: 0px auto;
+    max-width: 300px;
+    min-width: 200px;
+    padding-bottom: 2%;
+
 }
 
-.timeout-popup-box #timeout-popup {
+#timeout-container {
     color: white;
     font-family: 'Boogaloo';
 }
 
-.timeout-popup-box .ui-dialog-titlebar {
-    background: none;
-    border: none;
-    padding: 0;
+#timeout-close {
+    width: 100%;
+    height: 25px;
 }
 
-.timeout-popup-box .ui-dialog-titlebar-close,
-.timeout-popup-box .ui-widget-header {
-    display: block;
-}
-
-.timeout-popup-box .ui-dialog-titlebar-close {
+#timeout-btn-close {
     background: none;
-    background-image: url("../shapes/slider_btn.png");
+    background-image: url("../shapes/scroller_btn.png");
     background-size: 100% 100%;
     border: none;
-    padding: 7%;
-    right: -3%;
-    top: 21%;
-    z-index: 1;
+    padding: 2% 6% 4% 6%;
+    margin-top: -4%;
+    float: right;
+    margin-right: -8%;
+    color: #ffffff;
+    font-weight: bold;
+    font-family: 'Boogaloo';
+    font-size: 1.5em;
+    outline: none;
+    cursor: pointer;
 }
 
-.timeout-popup-box #timout-text {
+.timeout-content {
+    width: 85%;
+    margin: 0px auto;
+    background-color: #14577C;
+    margin-bottom: 2%;
+    border-radius: 0px 0px 5px 5px;
+}
+
+#timout-text {
     background-image: url("../shapes/timeout_text_bg.png");
     background-size: 100% 100%;
     color: white;
     padding: 5%;
-    margin: 0 2%;
-    font-size: 1.8em;
+    margin: 0 8%;
+    font-size: 1.9em;
 }
 
 .slider-text {
     text-align: left;
     margin-left: 10%;
-    font-size: .7em;
+    font-size: 1.3em;
+    margin-top: 2%;
 }
 
-.timeout-popup-box .slider {
+#timeout-container .slider {
     background: #ef2929;
     height: 7px;
     border: none;
-    margin: 6% 13%;
+    margin: 0% 20%;
     cursor: pointer;
+    margin-bottom: 8%;
 }
 
 .slider .ui-slider-range { 
@@ -178,13 +216,13 @@ canvas {
 }
 
 .slider .ui-slider-handle{
-    background-image: url("../shapes/slider_btn.png");
+    background-image: url("../shapes/scroller_btn.png");
     background-size: 100% 100%;
     background-color: transparent;
     border: none;
     height: 2em;
     width: 2em;
-    top: -.9em;
+    top: -0.8em;
     cursor: pointer;
 }
 
@@ -193,54 +231,29 @@ canvas {
     outline: none;
 }
 
-.timeout-popup-box .ui-dialog-buttonpane {
-    background: none;
-    border: none;
-    margin-top: 0;
-}
-
-.timeout-popup-box .ui-dialog-buttonset {
-    margin: 0 25%;
-}
-
-.timeout-popup-box .ui-dialog-buttonset button {
-    color:#fff;
-    cursor:pointer;
-    padding: 0% 0% 8% 0%;
+.timeout-content button {
+    color: #fff;
+    cursor: pointer;
     font-family: 'Boogaloo';
-    font-size: 1.5em;
-    margin-top: 0;
-}
-
-.ui-dialog-buttonset button.ui-state-focus,
-.ui-dialog-titlebar-close.ui-state-focus{
-    outline: none;
-}
-
-.timeout-popup-box .ui-button-text-only {
-    background: none;
+    font-size: 1.9em;
     border: none;
-    background-image: url("../shapes/btn_bg.png");
-    background-size: 100% 100%;
+    background-image: url("../shapes/btn-sprite.png");
+    background-size: 100% 300%;
+    background-color: transparent;
+    padding: 3% 4% 9% 5%;
+    width: 60%;
+    margin-top: 9px;
+    outline: none;
+    background-position: 0 100%;
 }
 
-@media screen and (max-width: 700px) { 
-    .timeout-popup-box .ui-dialog-buttonset button {
-        font-size: .8em;
-    }
-    .timeout-popup-box #timout-text {
-        font-size: 1.1em;
-        padding: 2%;
-    }
-    .slider-text {
-        font-size: .5em;
-    }
-    .menu-button-container {
-        font-size: .8em;
-    }
-    #canvasHolder input {
-        width: auto !important;
-    }
+
+.timeout-content button:hover {
+    background-position: 0 50%;
+}
+
+.timeout-content button:active {
+    background-position: 0 0%;
 }
 /*timeout screen style ends here*/
 
@@ -297,7 +310,7 @@ canvas {
 }
 
 .shopInnerBg {
-    background-image: url("../shapes/timeout_bg.png");
+    background-image: url("../shapes/box_outer_bg.png");
     background-color: transparent;
     background-size: 100% 100%;
     background-repeat: no-repeat;
@@ -339,11 +352,11 @@ canvas {
 
 .innerItem .upgrade,
 .backButton {
-     background-color: transparent !important;
+    background-color: transparent !important;
     border: none;
     background-image: url("../shapes/btn_bg.png");
     background-size: 100% 100%;
-      color: white;
+    color: white;
     font-size: 1.5em;
     font-family: 'Boogaloo';
     cursor: pointer;
@@ -354,7 +367,7 @@ canvas {
     float: right;
     margin-right: 10%;
     padding: 1% 5% 4% 5%;
-  
+
 }
 
 .backButton {
@@ -364,8 +377,48 @@ canvas {
     height: 10%;
 }
 
+/*shop screen style ends here*/
 
 @media screen and (max-width: 700px) { 
+    #timeout-close {
+        height: 33px;
+    }
+    #timeout-btn-close {
+        padding: 2% 5% 3% 4%;
+    }
+
+    #timeout-btn-close {
+        font-size: .8em;
+        margin-right: -6%;
+    }
+
+    .timeout-content button {
+        font-size: .8em;
+    }
+    #timout-text {
+        font-size: 1.1em;
+        padding: 2%;
+    }
+    .slider-text {
+        font-size: .9em;
+    }
+    .menu-button-container {
+        font-size: .8em;
+    }
+    #canvasHolder input {
+        width: auto !important;
+        font-size: .8em;
+        height: 40px;
+    }
+    
+    #canvasHolder input[type=text] {
+        height: 37px;
+    }
+    
+    #canvasHolder input[type=button] {
+        padding: 0px 10px 13px 10px;
+    }
+    
     .shopInnerBg {
         padding: 13% 0%;
     }
@@ -383,4 +436,3 @@ canvas {
         height: 120px;
     }
 }
-/*shop screen style ends here*/
