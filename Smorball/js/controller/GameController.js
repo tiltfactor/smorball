@@ -89,7 +89,6 @@ function GameController(config) {
         $("#dialog-shop").hide();
         $("#myCanvas").hide();
         $("#canvasHolder").hide();
-
         
     }
 

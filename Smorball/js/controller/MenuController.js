@@ -38,12 +38,13 @@ function MenuController(config) {
     MenuController.prototype.quitTimeout = function (me) {
         $("#timeout-container" ).css("display","none");
         me.config.gameState.currentState = me.config.gameState.states.GAME_OVER;
+        EventBus.dispatch("setMute");
         EventBus.dispatch("showMap");
     }
     
     var closeTimeoutDialog =  function() {
-         EventBus.dispatch("resumeGame");
-         EventBus.dispatch("setMute");
+        EventBus.dispatch("setMute");
+        EventBus.dispatch("resumeGame");
     };
 
     var createDialog = function(me){

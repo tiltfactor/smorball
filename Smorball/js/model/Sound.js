@@ -29,7 +29,10 @@
     }
 
    Sound.prototype.play = function(){
-    this.mySound.play();
+       if(this.loop){
+           this.mySound.loop = true;
+       }
+       this.mySound.play();
    }
    Sound.prototype.pause = function(){
        this.mySound.pause();
