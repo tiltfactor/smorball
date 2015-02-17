@@ -76,7 +76,9 @@ EnemyData.enemy_regular = {
     "extras":{
         "speed": 4,
         "life": 1,
-        "sound": {"hit": "enemy6hit", "die" : "enemy6die"}
+        "sound": {"hit": "enemy6hit", "die" : "enemy6die"},
+        "sX" : 0.5,
+        "sY" : 0.5
     
     }
 };

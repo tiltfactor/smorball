@@ -16,6 +16,7 @@ function StageController(config) {
         loadEvents(this);
         this.currentIndex=0;
         this.default_player = "player_normal";
+        this.powerup_player = "man1";
 
     };
 
@@ -652,11 +653,11 @@ function StageController(config) {
     var unselectAllInBag = function(me){
        me.config.myBag.unselectAll();
         me.config.activePowerup=undefined;
-        updatePlayerOnPowerup(me,"player_normal")
+        updatePlayerOnPowerup(me,me.default_player)
     };
     var selectPowerUp = function(me,mypowerup){
         me.config.activePowerup = mypowerup;
-        updatePlayerOnPowerup(me,"man1")
+        updatePlayerOnPowerup(me,me.powerup_player)
     };
 
     var updatePlayerOnPowerup = function(me, playerId){
