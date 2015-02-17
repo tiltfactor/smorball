@@ -21,12 +21,12 @@
         }
     }
 
-    SpriteSheet.prototype.getFrameWidth = function(){
-        return this._frameWidth;
-    }
-    SpriteSheet.prototype.getFrameHeight = function(){
-        return this._frameHeight;
-    }
+//    SpriteSheet.prototype.getFrameWidth = function(){
+//        return this._frameWidth;
+//    }
+//    SpriteSheet.prototype.getFrameHeight = function(){
+//        return this._frameHeight;
+//    }
 
     window.SpriteSheet = SpriteSheet;
 

@@ -17,7 +17,8 @@
     p.initialize = function () {
         this.spriteData = new SpriteSheet({"id" : this.config.id, "data": PlayerData[this.config.id].data, "loader" : this.config.loader, "gameState": this.config.gameState});
         this.sprite = new createjs.Sprite(this.spriteData, "stand");
-        this.setScale(1,1);
+        this.extras = PlayerData[this.config.id].extras;
+        this.setScale(this.extras.sX,this.extras.sY);
         this.setEffects();
         this.Sprite_initialize();
         this.addChild(this.sprite);
@@ -46,7 +47,9 @@
     SpriteMan.prototype.setSpriteSheet = function(id){
         this.spriteData = new SpriteSheet({"id" : id, "data": PlayerData[id].data, "loader" : this.config.loader});
         this.sprite.spriteSheet = this.spriteData;
-        this.setScale(1,1);
+        this.extras = PlayerData[id].extras;
+        this.setScale(this.extras.sX,this.extras.sY);
+       // this.setScale(1,1);
         //return nm;
     }
     
@@ -109,10 +112,12 @@
         this.endPoint = endPointX;
     }
     SpriteMan.prototype.getHeight = function(){
-        return (this.sprite.spriteSheet._frameHeight * this.sprite.scaleY) ;
+        return this.sprite._rectangle.height;
+        //return (this.sprite.spriteSheet._frameHeight * this.sprite.scaleY) ;
     }
     SpriteMan.prototype.getWidth = function(){
-        return (this.sprite.spriteSheet._frameWidth * this.sprite.scaleX) ;
+        return this.sprite._rectangle.width;
+        //return (this.sprite.spriteSheet._frameWidth * this.sprite.scaleX) ;
     }
 
     SpriteMan.prototype.setScale = function(sx,sy){

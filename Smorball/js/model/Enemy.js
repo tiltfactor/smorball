@@ -21,7 +21,8 @@
 
         this.spriteData = new SpriteSheet({"id" : this.config.id, "data": EnemyData[this.config.id].data, "loader" : this.config.loader});
         this.sprite = new createjs.Sprite(this.spriteData, "stand");
-        this.setScale(1,1);
+        this.extras = EnemyData[this.config.id].extras;
+        this.setScale(this.extras.sX,this.extras.sY);
         this.setEffects();
         this.Sprite_initialize();
         this.addChild(this.sprite);
@@ -106,6 +107,7 @@
         this.y = y;
         this.regX = 0;
         this.regY = this.getHeight(); ///2;
+        updateLifePos(this);
     }
     Enemy.prototype.addLife = function(start){
         var life = new createjs.Shape();
@@ -122,10 +124,10 @@
         updateLifePos(this);
     }
     Enemy.prototype.getHeight = function(){
-        return (this.sprite.spriteSheet._frameHeight * this.sprite.scaleY) + this.lifeRectSize + 1;
+        return this.sprite._rectangle.height + this.lifeRectSize + 1;
     }
     Enemy.prototype.getWidth = function(){
-        return (this.sprite.spriteSheet._frameWidth * this.sprite.scaleX) ;
+        return this.sprite._rectangle.width ;
     }
 
     Enemy.prototype.setScale = function(sx,sy){
