@@ -97,6 +97,7 @@
             </button>
             <button onClick="EventBus.dispatch(&quot;exitMenu&quot;)">Exit</button>
             <button onClick="EventBus.dispatch(&quot;showHelp&quot;);">Help</button>
+            <button onClick="EventBus.dispatch(&quot;showOptions&quot;);">Options</button>
         </div>
     </div>
 </div>
@@ -125,10 +126,10 @@
             <div class="timeout-content">
                 <p class="slider-text"><b>MUSIC</b></p>
 
-                <div id="music-slider" class="slider"></div>
+                <div class="music-slider slider"></div>
                 <p class="slider-text"><b>SOUND EFFECTS</b></p>
 
-                <div id="effects-slider" class="slider"></div>
+                <div class="effects-slider slider"></div>
                 <button>HELP</button><br/>
                 <button onClick="EventBus.dispatch('quitTimeout');">QUIT</button>
             </div>
@@ -211,6 +212,24 @@
 <div id="splashScreen" class="mainWrapper">
     <div class="helpScreenContainer">
        <img class="BHLlogo" src="shapes/star_background.png"/>
+    </div>
+</div>
+
+<div id="optionsScreen" class="mainWrapper">
+    <div class="optionScreenContainer">
+        <div id="slideContainer">
+             <button class="optionsBackButton" onClick="EventBus.dispatch('hideOptions');">Back</button>
+                <p class="slider-text"><b>Music</b></p>
+                <div class="music-slider"></div>
+                <p class="slider-text"><b>Sounds</b></p>
+                <div class="effects-slider"></div>
+                 <p><b>Difficulty</b></p>
+                <select class="selectDifficulty">
+                    <option value="easy">easy</option>
+                    <option value="medium">medium</option>
+                    <option value="difficult">difficult</option>
+                </select>
+        </div>
     </div>
 </div>
 

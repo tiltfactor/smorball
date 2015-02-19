@@ -19,6 +19,12 @@ function MenuController(config) {
         
         var sh = function(){me.showHelp(me)};
         EventBus.addEventListener("showHelp",sh);
+        
+        var so = function(){me.showOptions(me)};
+        EventBus.addEventListener("showOptions",so);
+        
+        var ho = function(){me.hideOptions(me)};
+        EventBus.addEventListener("hideOptions",ho);        
 
     }
 
@@ -32,6 +38,16 @@ function MenuController(config) {
     MenuController.prototype.showHelp = function () {
         $(".mainWrapper").css("display", "none");
         $("#helpScreen" ).css("display","block");
+    }
+    
+    MenuController.prototype.showOptions = function () {
+        $(".mainWrapper").css("display", "none");
+        $("#optionsScreen" ).css("display","table");
+    }
+    
+    MenuController.prototype.hideOptions = function () {
+        $(".mainWrapper").css("display", "none");
+        $( "#menu-container" ).css("display","table");
     }
     
     MenuController.prototype.hideMenu = function () {
@@ -58,7 +74,7 @@ function MenuController(config) {
 
     var createDialog = function(me){
           $("#menu-container" ).css("display","table");
-            $("#music-slider").slider({
+            $(".music-slider").slider({
                 value: me.config.gameState.config.store.music,
                 range: "min",
                 slide: function( event, ui ) {
@@ -68,7 +84,7 @@ function MenuController(config) {
                 }
             });
             
-            $("#effects-slider").slider({
+            $(".effects-slider").slider({
                 value: me.config.gameState.config.store.soundEffects,
                 range: "min",
                 slide: function( event, ui ) {

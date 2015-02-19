@@ -515,7 +515,8 @@ canvas {
 
 #victoryWrapper,
 #defeatedWrapper,
-#splashScreen {
+#splashScreen,
+#optionsScreen {
     background-color: white;
     display: none;
     position: absolute;
@@ -527,7 +528,8 @@ canvas {
 
 .victoryContainer,
 .defeatedContainer,
-.helpScreenContainer {
+.helpScreenContainer,
+.optionScreenContainer {
     position: relative;
     padding: 1%;
     border-radius: 5px;
@@ -600,4 +602,20 @@ canvas {
     width: 100px;
     height: 100px;
     border: 2px #020202;
+}
+
+#slideContainer {
+    width: 50%;
+    max-width: 300px;
+    margin: 0px auto;
+}
+
+.optionsScreen .slider {
+    width: 200px;
+}
+
+.optionsBackButton {
+    position: absolute;
+    top: 10%;
+    left: 10%;
 }
