@@ -500,3 +500,104 @@ canvas {
 .clear {
     clear: both;
 }
+
+/*Placeholder style for victory, defeated, splash, help screens*/
+
+.optionScreen {
+    display: none;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background-size: 100% 100%;
+}
+
+#victoryWrapper,
+#defeatedWrapper,
+#splashScreen {
+    background-color: white;
+    display: none;
+    position: absolute;
+    height: 94%;
+    width: 94%;
+    top: 3%;
+    left: 3%;
+}
+
+.victoryContainer,
+.defeatedContainer,
+.helpScreenContainer {
+    position: relative;
+    padding: 1%;
+    border-radius: 5px;
+    display: table-cell;
+    vertical-align: middle;   
+}
+
+.title,
+.victoryText {
+    margin-bottom: 2%;
+    font-size: 3em;
+    font-family: arial;
+}
+
+.victoryContainer img,
+.defeatedContainer img {
+    width:200px;
+    padding-bottom: 1%;
+}
+
+#victoryBackButton,
+#defeatedBackButton,
+#defeatedTryButton,
+.helpBackButton {
+    padding: 1% 2%;
+    border-radius: 6px;
+}
+
+@media screen and (max-width: 700px) { 
+    .title,
+    .victoryText {
+        margin-bottom: 1%;
+        font-size: 2em;
+    }
+    .victoryContainer img,
+    .defeatedContainer img {
+        width:100px;
+    }
+}
+
+#helpScreen {
+    background-color: white;
+    display: none;
+    position: absolute;
+    height: 70%;
+    width: 94%;
+    top: 15%;
+    left: 3%;
+}
+
+#helpScreen .title {
+    display: inline;
+}
+
+#helpScreen button {
+    position: absolute;
+    left: 3%;
+    top: 1%;
+}
+
+.helpScreenContent {
+    height: calc(100% - 150px);
+    width: 94%;
+    margin: 0px auto;
+    overflow-y: scroll;
+    margin-top: 10px;
+}
+
+.BHLLogo {
+    width: 100px;
+    height: 100px;
+    border: 2px #020202;
+}

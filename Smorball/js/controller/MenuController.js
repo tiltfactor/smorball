@@ -10,12 +10,16 @@ function MenuController(config) {
         EventBus.addEventListener("exitMenu", me.hideMenu);
         var sm = function(){me.showMenu(me)};
         EventBus.addEventListener("showMenu",sm);
-
+        
         var sm = function(){me.showTimeout(me)};
         EventBus.addEventListener("showTimeout",sm);
         
         var qt = function(){me.quitTimeout(me)};
         EventBus.addEventListener("quitTimeout",qt);
+        
+        var sh = function(){me.showHelp(me)};
+        EventBus.addEventListener("showHelp",sh);
+
     }
 
     MenuController.prototype.showMenu = function (me) {
@@ -24,9 +28,15 @@ function MenuController(config) {
         me.config.gameState.currentState = me.config.gameState.states.MAIN_MENU;
         $("#menu-container" ).css("display","table");
     } 
+    
+    MenuController.prototype.showHelp = function () {
+        $(".mainWrapper").css("display", "none");
+        $("#helpScreen" ).css("display","block");
+    }
+    
     MenuController.prototype.hideMenu = function () {
         $( "#menu-container" ).css("display","none");
-    }
+    }    
 
     MenuController.prototype.showTimeout = function (me) {
         checkStatus(me);

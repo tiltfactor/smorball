@@ -87,7 +87,7 @@
     <canvas id="utilityCanvas"></canvas>
 </div>
 
-<div id="menu-container">
+<div id="menu-container" class="mainWrapper">
     <div class="menu-button-container">
         <div class="menu-buttons">
             <button onClick="EventBus.dispatch(&quot;exitMenu&quot;);EventBus.dispatch(&quot;showMap&quot;)">New Game
@@ -96,7 +96,7 @@
             <button onClick="EventBus.dispatch(&quot;exitMenu&quot;);EventBus.dispatch(&quot;showMap&quot;)">Map
             </button>
             <button onClick="EventBus.dispatch(&quot;exitMenu&quot;)">Exit</button>
-            <button>Help</button>
+            <button onClick="EventBus.dispatch(&quot;showHelp&quot;);">Help</button>
         </div>
     </div>
 </div>
@@ -115,7 +115,7 @@
            onclick="EventBus.dispatch(&quot;compareCaptcha&quot;)"></input>
 </div>
 
-<div id="timeout-container">
+<div id="timeout-container" class="mainWrapper">
     <div class="timeout-button-container">
         <div class="timeout-buttons">
             <div id="timeout-close">
@@ -136,7 +136,7 @@
     </div>
 </div>
 
-<div id="shopOuterWrapper">
+<div id="shopOuterWrapper" class="mainWrapper">
     <div class="centerContainer">
         <div id="shop" class="mainWndw">
             <div class="titleBar">
@@ -177,5 +177,42 @@
         </div>
     </div>
 </div>
+
+<div id="victoryWrapper" class="mainWrapper">
+    <div class="victoryContainer">
+            <div class="victoryTitle title">VICTORY!</div>
+            <img src="shapes/star_background.png"/>
+            <div class="victoryText">You earnt<br>$5000</div>
+            <button id="victoryBackButton">CONTINUE</button>
+    </div>
+</div>
+
+<div id="defeatedWrapper" class="mainWrapper">
+    <div class="defeatedContainer">
+            <div class="defeatedTitle title">DEFEATED!</div>
+            <img src="shapes/close_round_butto.png"/>
+            <div class="clear"></div>
+            <div class="defeatedText">0 minutes 0seconds</div>
+            <div class="defeatedText">(Your highscore is 4 minutes 13 seconds)</div>
+            <button id="defeatedBackButton">Back to map</button>
+            <button id="defeatedTryButton">Try again</button>
+    </div>
+</div>
+
+<div id="helpScreen" class="mainWrapper">
+    <button class="helpBackButton">Back</button>
+    <div class="title">INSTRUCTIONS</div>
+    <div class="helpScreenContent">
+            Lorem ipsum dolor sit amet, ut fringilla. Sed nostrud, per purus elit leo, sem ut lobortis aliquam lacinia et, leo quisque nunc enim enim porttitor. Ut fringilla tempor in tincidunt, phasellus tortor convallis magna,
+            qui integer adipiscing, amet neque consectetuer.
+    </div>
+</div>
+
+<div id="splashScreen" class="mainWrapper">
+    <div class="helpScreenContainer">
+       <img class="BHLlogo" src="shapes/star_background.png"/>
+    </div>
+</div>
+
 </body>
 </html>
