@@ -25,7 +25,7 @@ var closestWord = function(input, differences) {
     var l2 = new Levenshtein(input.toLowerCase(), ocr2);
     return Math.min(l1.distance, l2.distance);
   });
-  console.log(closestOcr);
+  //console.log(closestOcr);
   /**
    * In our result object we have two properties, the first being the result
    * of the word compare algorithm, which will tell us if the user should get
@@ -41,10 +41,10 @@ var closestWord = function(input, differences) {
   if (wordCompare(input, closestOcr.texts[0], closestOcr.texts[1])) {
     match = true;
   } else {
-    console.log('looking for tags', closestOcr.tags);
+    //console.log('looking for tags', closestOcr.tags);
     // We figure out if the users input matches any of the previous tags.
     tagWin = _.map(closestOcr.tags, function(tag) {
-      console.log('Comparing:', input, 'with', tag.text);
+      //console.log('Comparing:', input, 'with', tag.text);
       if (tag.text.toLowerCase() === input.toLowerCase()) {
         return true;
       } else {
@@ -60,10 +60,10 @@ var closestWord = function(input, differences) {
   }
   var result = {
     match: match,
-    closestOcr: closestOcr,
+    closestOcr: closestOcr
     //ocrMatch: closestOcr.texts//[closestOcr.ocr1, closestOcr.ocr2]
   };
-  console.log(result);
+  //console.log(result);
   return result;
 }
 
@@ -86,7 +86,7 @@ function findClosestIndex(input, ocrOptions) //of the options array in the form 
       if (ocrOptions[i] !== null) {
         var currentVal = closestValue;
         closestValue = Math.max(Math.max(calculateLCS(input, ocrOptions[i][0]).length / input.length, calculateLCS(input, ocrOptions[i][1]).length / input.length), closestValue);
-        console.log("Closest value index " + i + " is " + Math.max(calculateLCS(input, ocrOptions[i][0]).length / input.length, calculateLCS(input, ocrOptions[i][1]).length / input.length));
+        //console.log("Closest value index " + i + " is " + Math.max(calculateLCS(input, ocrOptions[i][0]).length / input.length, calculateLCS(input, ocrOptions[i][1]).length / input.length));
         if (closestValue != currentVal) {
           closestIndex = i;
         }
@@ -137,9 +137,9 @@ function wordCompare(originalInput, originalOcr1, originalOcr2) {
     patternElt.text = patternElt.text.replace(/f/g, 's');
 
     var next = lowerInput.substring(i).indexOf(patternElt.text);
-    console.log("lowerInput is " + lowerInput + " and patternElt is " + patternElt.text);
+    //console.log("lowerInput is " + lowerInput + " and patternElt is " + patternElt.text);
     if (next === -1) {
-      console.log("above sequence could not be found");
+      //console.log("above sequence could not be found");
       return false;
     }
     i = next + patternElt.text.length;
@@ -248,7 +248,7 @@ function checkCaps(input, pattern, ocr1, ocr2) {
     }
   }
 
-  console.log(sections);
+  //console.log(sections);
 
   for (var j = 0; j < sections.length; j++) {
     //Get the original version of each pattern element in each ocr and the input

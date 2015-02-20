@@ -50,7 +50,7 @@
 
 
     var startLevel = function(e){
-        EventBus.dispatch("setLevel", e.target);
+        EventBus.dispatch("setLevel", e.target.id);
     }
 
 

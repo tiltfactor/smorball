@@ -511,7 +511,7 @@ function StageController(config) {
                 } else {
                     var lane = getLaneById(output.laneId, me);
                     activatePlayer(lane.player, me);
-                    if(output.extraDamage && lane.player.getLife()==1){
+                    if(output.extraDamage && lane.player != undefined && lane.player.getLife()==1){
                         lane.player.setLife(me.config.gameState.gs.extraDamage);
                     }
                     lane.player = undefined;

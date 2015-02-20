@@ -106,7 +106,11 @@ Manifest.levelMap = [
     {src: "audio/Enemies/enemy5damage_01.mp3", id: "enemy5hit"},
     {src: "audio/Enemies/enemy5die_01.mp3",    id: "enemy5die"},
     {src: "audio/Enemies/enemy6damage_01.mp3", id: "enemy6hit"},
-    {src: "audio/Enemies/enemy6die_01.mp3",    id: "enemy6die"}
+    {src: "audio/Enemies/enemy6die_01.mp3",    id: "enemy6die"},
+
+    {src: "shapes/portents_logo.png",    id: "splash0"}
+
+
 
     ];
 

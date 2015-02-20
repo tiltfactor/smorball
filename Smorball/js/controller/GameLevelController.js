@@ -155,6 +155,7 @@ function GameLevelController(config) {
     var drawSurvival = function (me) {
         var survival = new createjs.Bitmap(me.config.loader.getResult("stopwatch_icon"));
         survival.setTransform(200,700,1,1);
+        survival.addEventListener("click",function(){me.setLevel(0)});
         me.map.addChild(survival);
     }
     var drawLevelInfoBar = function(me){
@@ -256,8 +257,8 @@ function GameLevelController(config) {
         });
         me.map.addChild(mbtn);
     }
-    GameLevelController.prototype.setLevel = function (label) {
-        this.config.gameState.currentLevel = label.id;
+    GameLevelController.prototype.setLevel = function (level) {
+        this.config.gameState.currentLevel = level;
         EventBus.dispatch("hideAll");
         EventBus.dispatch("newGame");
         $("#myCanvas").show();

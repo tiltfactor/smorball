@@ -7,6 +7,7 @@ PowerupsData.cleats = {
 	    "animations": {"run": [0, 0, "run", 0.5], "stand":[0,0]}
 	},
 	"extras":{
+        "id" : "cleats",
 		"life": 3,
         "singleHit" : false,
         "message" : "ice is activated",
@@ -20,6 +21,7 @@ PowerupsData.helmet = {
 	    "animations": {"run": [0, 0, "run", 0.5], "stand":[0,0]}
 	},
 	"extras":{
+        "id" : "helmet",
 		"life": 1,
         "singleHit" : true,
         "message" : "Ruby is activated",
@@ -33,6 +35,7 @@ PowerupsData.bullhorn = {
 	    "animations": {"run": [0, 0, "run", 0.5], "stand":[0,0]}
 	},
 	"extras":{
+        "id" : "bullhorn",
 		"life": 1,
         "singleHit" : false,
         "message" : "Amber is activated",

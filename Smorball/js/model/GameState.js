@@ -25,6 +25,7 @@
         this.helmetUnlockLevel = 5;
         this.bullhornUnlockLevel = 7;
 
+        this.survivalLevel = 0;
 
         //this.snike = false;
         //this.brawlin = false;

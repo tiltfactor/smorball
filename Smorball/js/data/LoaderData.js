@@ -2,6 +2,7 @@
 * Created by user on 23/1/15.
 */
 LoaderData =  [];
+LoaderData[0] = {"message" : "Survival", "image" : "shapes/portents_logo.png","id": "splash0"};
 LoaderData[1] = {"message" : "test", "image" : "shapes/portents_logo.png","id": "splash1"};
 LoaderData[2] = {"message" : "test", "image" : "shapes/city_logo.png","id": "splash2"};
 LoaderData[3] = {"message" : "test", "image" : "shapes/beige_logo.png","id": "splash3"};

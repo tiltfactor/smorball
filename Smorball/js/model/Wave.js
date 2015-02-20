@@ -9,10 +9,68 @@
         this.activeIndex = 0;
         this.complete = false;
         this.timer = 0;
-        generateEnemyProperties(this);
+        if(this.config.gameState.currentLevel == this.config.gameState.survivalLevel){
+            loadEnemiesOnSurvival(this);
+        }else{
+            generateEnemyProperties(this);
+        }
+
         this.push();
-        console.log("start of wave");
+        //console.log("start of wave");
         // setTimer(this);
+    }
+
+    var loadEnemiesOnSurvival = function(me){
+        //var enemyList = [EnemyData.boss,EnemyData.enemy_regular, EnemyData.weak];
+        me.counter = 1;
+        me.surivalTime = 6000;
+        var property = [EnemyData.enemy_regular.extras.id, 2, me.surivalTime];
+        me.config.data.stageDatas.push(property);
+        me.timer = setInterval(function(){if(me.config.data.stageDatas.length < 50){ createData(me)}},1000);
+    }
+
+    var createData = function(me){
+        ++me.counter;
+
+        var mainType = getTypeForSurvival(me);
+        var type = getTypeForSurvival(me,mainType);
+        var lane = Math.floor((Math.random()*3))+1;
+        var time = getTimeForSurvival(mainType,type, me);
+        var property = [type.extras.id, lane, time,"", mainType];
+        me.config.data.stageDatas.push(property);
+
+    }
+    var getTimeForSurvival = function(mainType, type,me){
+        if(mainType == "powerup"){
+            return 1000;
+        }else{
+            if(me.counter % 8 == 0){
+                me.surivalTime = (me.surivalTime - Math.ceil(me.surivalTime*.2)) < 500 ? 500 : (me.surivalTime - Math.ceil(me.surivalTime*.2));
+                console.log("updated survival time---->"+me.surivalTime);
+            }
+
+
+            return me.surivalTime + type.extras.life *.4*1000;
+        }
+
+    }
+    var getTypeForSurvival = function(me, type){
+        var enemyList = [EnemyData.boss,EnemyData.enemy_regular, EnemyData.weak];
+        var powerupList = [PowerupsData.cleats,PowerupsData.cleats,PowerupsData.bullhorn];
+        if(type == undefined){
+            if(me.counter % 5 == 0){
+                return "powerup";
+            }else{
+                return "enemy";
+            }
+        }else{
+            if(type == "enemy"){
+                return enemyList[Math.floor(Math.random() * enemyList.length)];
+            }else{
+                return powerupList[Math.floor(Math.random() * powerupList.length)];
+            }
+        }
+
     }
 
     var generateEnemyProperties = function(me){
@@ -34,7 +92,7 @@
     }
 
     var setNext = function(time, me){
-        console.log(time);
+       // console.log(time);
         me.timer = setTimeout(function(){
             me.push();
         }, time);
@@ -47,8 +105,8 @@
 
     Wave.prototype.push = function(){
         if(!this.complete){
-            var properties = this.config.data.stageDatas[this.currentIndex];
-            if(properties[4] == undefined){
+            var properties = this.config.data.stageDatas.shift();
+            if(properties[4] == undefined || properties[4] == "enemy"){
                 this.pushEnemy(properties,this.config.lanesObj);
                 this.activeIndex++;
             }else{
@@ -57,7 +115,7 @@
             this.currentIndex++;
 
 
-            if(this.currentIndex >= this.config.data.size) {
+            if(this.currentIndex >= this.config.data.size && this.config.gameState.currentLevel != this.config.gameState.survivalLevel) {
                 console.log("complete");
                 this.complete = true;
             }
@@ -74,6 +132,7 @@
         var lane = properties[1];
         var time = properties[2];
         var msg = properties[3];
+        //console.log("time===============  :::::::::::::::>>>>"+ time);
         lane = this.config.lanes == 1? 2 : lane;
         var onKill = (time == undefined || time == -1) ? true: false;
         var config = {"id": type, "laneId": lane, "waveId": this.config.id, "onKill": onKill, "loader" : this.config.loader};
@@ -94,6 +153,7 @@
         var time = enemyProperties[2];
         var msg =  enemyProperties[3];
         lane = this.config.lanes == 1? 2 : lane;
+        console.log("time===============  :::::::::::::::>>>>"+ time);
         var onKill = (time == undefined || time == -1) ? true: false;
         var config = {"id": type, "lanesObj" : lanesObj, "laneId": lane, "waveId": this.config.id, "onKill": onKill, "loader" : this.config.loader, "gameState" : this.config.gameState};
         var enemy = new sprites.Enemy(config);
@@ -124,6 +184,7 @@
     }
     Wave.prototype.clearAll = function(){
         clearTimeout(this.timer);
+        clearInterval(this.timer);;
         this.timer = 0;
     }
 

@@ -87,4 +87,13 @@ LevelData[7] = { "level" : 7, "lanes" : 3 , "pass" : 2,"levelName":"State Semifi
         ] }
 };
 
+LevelData[0] = { "level" : 0, "lanes" : 3 , "pass" : 2,
+    "waves" : { "activeWaves" : 1, "time" : 1000, "maxOnGround" : 4,"enemySize":31,"cleatsSize":5,"helmetSize":0,"bullhornSize":0,
+        "data": [
+            {"types" : ["fast","cleats","badGuy","regular"], "time": -1, "size" : 6,
+                "stageDatas": [] }
+
+        ] }
+};
+
 

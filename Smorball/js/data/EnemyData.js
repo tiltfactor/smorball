@@ -10,6 +10,7 @@ EnemyData.boss = {
         "animations": {"run": [0, 15, "run", 0.2],  "die" : [15,70,0.2],"stand":[12,12]}
     },
     "extras":{
+        "id" : "boss",
         "speed": 2,
         "life": 6,
         "sound": {"hit": "enemy1hit", "die" : "enemy1die"}
@@ -23,6 +24,7 @@ EnemyData.fast = {
         "animations": {"run": [0, 15, "run", 1.5], "die": [16, 40], "stand": [15]}
     },
     "extras":{
+        "id" : "fast",
         "speed": 5,
         "life": 1,
         "sound": {"hit": "enemy2hit", "die" : "enemy2die"}
@@ -36,6 +38,7 @@ EnemyData.badGuy = {
         "animations": {"run": [0, 15, "run", 0.2], "die": [16, 70], "stand": [15]}
     },
     "extras":{
+        "id" : "badGuy",
         "speed": 1,
         "life":3,
         "sound": {"hit": "enemy3hit", "die" : "enemy3die"}
@@ -48,6 +51,7 @@ EnemyData.weak = {
         "animations": {"run": [0, 15, "run", 0.2],  "die" : [15,70,0.2],"stand":[12,12]}
     },
     "extras":{
+        "id" : "weak",
         "speed": 2,
         "life": 1,
         "sound": {"hit": "enemy4hit", "die" : "enemy4die"}
@@ -61,6 +65,7 @@ EnemyData.regular = {
         "animations": {"run": [0, 15, "run", 0.2],  "die" : [15,70,0.2],"stand":[12,12]}
     },
     "extras":{
+        "id" : "regular",
         "speed": 3,
         "life": 1,
         "sound": {"hit": "enemy5hit", "die" : "enemy5die"}
@@ -74,6 +79,7 @@ EnemyData.enemy_regular = {
         "animations": {"run": [0, 0, "run", 0.2],  "die" : [0,0,0.2],"stand":[0,0]}
     },
     "extras":{
+        "id" : "enemy_regular",
         "speed": 4,
         "life": 1,
         "sound": {"hit": "enemy6hit", "die" : "enemy6die"},

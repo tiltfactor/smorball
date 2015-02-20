@@ -57,7 +57,7 @@
     CaptchaProcessor.prototype.load = function(captcha){
         var captchaData = getCaptchaData(this);
         var message = "";
-        console.log(captchaData);
+        //console.log(captchaData);
         captcha.image = captchaData.url;
         if(this.captchaDatas.local){
             setScale(captcha,captcha.image.width, captcha.image.height);
@@ -167,7 +167,7 @@
         }
         var cw = new closestWord(input,this.captchasOnScreen);
         if(cw.match){
-            console.log(cw);
+            //console.log(cw);
             if(input.length>8){
                 output.extraDamage = true;
             }
