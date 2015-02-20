@@ -48,8 +48,16 @@
     var setFromStore = function(me){
         me.gs.maxLevel = me.config.store.maxLevel || 1;
         me.gs.gameLevelPoints = me.config.store.gameLevelPoints || [];
-        me.gs.music = me.config.store.music || 50;
-        me.gs.soundEffects = me.config.store.soundEffects || 50;
+        if(me.config.store.music == 0 || me.config.store.soundEffects == 0){
+            me.gs.music = me.config.store.music;
+            me.gs.soundEffects = me.config.store.soundEffects;
+        }
+        else{
+            me.gs.music = 50;
+            me.gs.soundEffects = 50;
+        }
+       /* me.gs.music = me.config.store.music || 50;
+        me.gs.soundEffects = me.config.store.soundEffects || 50;*/
         me.gs.dollorSpend = me.config.store.dollorSpend || 0;
         me.gs.sponserShips = me.config.store.sponserShips || [];
         me.gs.knockBack = me.config.store.knockBack||0.1;
