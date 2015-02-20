@@ -76,7 +76,6 @@ function StageController(config) {
 
     var newGame = function (me) {
 
-
         $("#inputText").val("");
         resetGame(me);
 
@@ -97,17 +96,12 @@ function StageController(config) {
         var _onImagesLoad= function(me){ onImagesLoad(me)};
         var manifest = [];
 
-        if(me.config.gameState.currentLevel !== 7)
-        {
-            var splash = LoaderData[me.config.gameState.currentLevel+1];
-            manifest.push({"src": splash.image, "id" : splash.id});
-        }
         if(!me.config.gameState.level){
             me.config.gameState.level = true;
             var manifest = Manifest.level;
-            me.config.loader.loadQueue(manifest, ""/*_onImagesLoad*/, me, me.config.gameState.currentLevel,true);
+            me.config.loader.loadLevelQueue(manifest, me.config.gameState.currentLevel);
         }else{
-            me.config.loader.loadQueue(manifest, ""/*_onImagesLoad*/, me, me.config.gameState.currentLevel,true);
+            me.config.loader.loadLevelQueue(manifest, me.config.gameState.currentLevel);
         }
 
 
@@ -139,7 +133,7 @@ function StageController(config) {
         me.config.stage.addChild(me.message);
     };
     var showGameMessage = function(me,msg){
-        var text =msg.target
+        var text =msg.target;
         console.log(text);
         showMessage(me,text);
     };
@@ -504,8 +498,8 @@ function StageController(config) {
 
         if(output.cheated){
             EventBus.dispatch("showCommentary", output.message);
-            showMap(me);
-            $("#victoryWrapper").css("display","table");
+            showResultScreen(me,2);
+
         }else{
             showMessage(me, output.message);
             if (output.pass) {
@@ -577,14 +571,25 @@ function StageController(config) {
             me.config.gameState.gs.maxLevel = me.config.gameState.currentLevel;
         }
         me.config.gameState.currentState = me.config.gameState.states.GAME_OVER;
-        showMap(me);
-        $("#victoryWrapper").css("display","table");
+        showResultScreen(me,1);
+
     };
 
-    var showMap = function(me){
+    var showResultScreen = function(me, result){
         me.waves.clearAll();
         me.waves = null;
-        setTimeout(function(){EventBus.dispatch("setTickerStatus");/*EventBus.dispatch("showMap")*/EventBus.dispatch("setMute");},2000);
+        setTimeout(function(){
+            EventBus.dispatch("setTickerStatus");
+            EventBus.dispatch("setMute");
+            if(result == 0){
+                $("#defeatedWrapper").css("display","table");
+            }else if(result == 1){
+                $("#victoryWrapper").css("display","table");
+            }else if(result == 2){
+
+                EventBus.dispatch("showMap",true);
+            }
+        },2000);
     };
     var gameOver = function(me){
         me.config.gameState.currentState = me.config.gameState.states.GAME_OVER;
@@ -593,8 +598,8 @@ function StageController(config) {
         me.config.gameState.reset();
         me.config.myBag.reset();
         EventBus.dispatch("showCommentary", "Game Over");
-        showMap(me);
-        $("#defeatedWrapper").css("display","table");
+        showResultScreen(me,1);
+
     };
     
     var pushEnemy = function(me,enemy){

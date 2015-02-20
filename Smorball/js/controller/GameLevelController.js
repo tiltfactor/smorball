@@ -32,8 +32,8 @@ function GameLevelController(config) {
 
     };
     var loadEvents = function (me) {
-        var sl = function () {
-            me.showMap()
+        var sl = function (cheat) {
+            me.showMap(cheat.target)
         };
         EventBus.addEventListener("showMap", sl);
 
@@ -43,32 +43,49 @@ function GameLevelController(config) {
         EventBus.addEventListener("setLevel", tl);
     }
 
-    var loadImages = function (me) {
+    var loadImages = function (me,isCheatd) {
         var _showMapScreen = function (me) {
             showMapScreen(me);
         }
-        var manifest = Manifest.levelMap;
-        for (var i = 1; i <= me.config.gameState.gs.maxLevel; i++) {
-            var splash = LoaderData[i];
-            manifest.push({"src": splash.image, "id": splash.id});
-        }
+        var manifest = [];
+
         if(!me.config.gameState.map){
             me.config.gameState.map = true;
-            me.config.loader.loadQueue(manifest, _showMapScreen, me);
+            manifest = Manifest.levelMap;
+            for (var i = 1; i <= me.config.gameState.gs.maxLevel; i++) {
+                var splash = LoaderData[i];
+                manifest.push({"src": splash.image, "id": splash.id});
+            }
         }else{
-            var manifest = [];
-            me.config.loader.loadQueue(manifest, _showMapScreen, me);
+            if(isCheatd){
+                for (var i = 1; i <= me.config.gameState.gs.maxLevel; i++) {
+                    var splash = LoaderData[i];
+                    manifest.push({"src": splash.image, "id": splash.id});
+                }
+            }else{
+                if(me.config.gameState.currentLevel != 7)
+                {
+                    var splash = LoaderData[me.config.gameState.currentLevel+1];
+                    manifest.push({"src": splash.image, "id" : splash.id});
+                }
+
+            }
+
+
         }
+
+
+        me.config.loader.loadQueue(manifest, _showMapScreen, me);
 
     }
 
-    GameLevelController.prototype.showMap = function () {
+    GameLevelController.prototype.showMap = function (isCheated) {
         var me = this;
         EventBus.dispatch("hideAll");
         $("#loaderCanvas").show();
         EventBus.dispatch("saveToStore");
         onResize(me);
-        loadImages(this);
+        loadImages(this,isCheated);
     }
 
     var showMapScreen = function (me) {

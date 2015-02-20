@@ -8,7 +8,7 @@
         this.config = config;
         onResize(this);
         this.initialize();
-
+        this.y = 600 - this.getTransformedBounds().height;
         window.onresize = function(){onResize(me)}
     };
 
@@ -108,7 +108,8 @@
             EventBus.dispatch("onImagesLoad");
 
         });
-        this.addChild(btn)
+        this.addChild(btn);
+        this.removeLoader();
     };
     var onResize = function(me){
         var canvas = me.config.stage.canvas;
@@ -125,5 +126,9 @@
 
 
     };
+    LoaderClass.prototype.removeLoader = function(){
+        this.removeChild(this.preloader);
+
+    }
     window.ui.LoaderClass = LoaderClass
 }());
