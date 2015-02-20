@@ -42,13 +42,11 @@ function MenuController(config) {
     } 
     
     MenuController.prototype.showHelp = function () {
-        $(".mainWrapper").css("display", "none");
         $("#helpScreen" ).css("display","block");
     }
     
     MenuController.prototype.hideHelp = function () {
        $("#helpScreen" ).css("display", "none");
-       $("#menu-container" ).css("display","table");
     }
     
     MenuController.prototype.showOptions = function () {
