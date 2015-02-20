@@ -18,7 +18,7 @@
     var p = Enemy.prototype = new createjs.Container;
     p.Sprite_initialize = p.initialize;
     p.initialize = function () {
-
+       // console.log(this.config.id);
         this.spriteData = new SpriteSheet({"id" : this.config.id, "data": EnemyData[this.config.id].data, "loader" : this.config.loader});
         this.sprite = new createjs.Sprite(this.spriteData, "stand");
         this.extras = EnemyData[this.config.id].extras;
@@ -35,6 +35,7 @@
         me.extras = EnemyData[me.config.id].extras;
         me.life = me.extras.life || 1;
         me.speed = Math.ceil(me.extras.speed * me.config.gameState.gs.difficulty) || 1;
+        me.speed = me.extras.speed|| 1;
         if(me.extras.changeLane){
             setTimeout(function(){EventBus.dispatch("changeLane", me)},2000);
         }
@@ -142,7 +143,7 @@
         updateLifePos(this);
     }
     Enemy.prototype.setEffects = function(){
-        console.log("EFFECTS");
+        //console.log("EFFECTS");
         this.config.enemySound = EnemyData[this.config.id].extras.sound;
     }
 

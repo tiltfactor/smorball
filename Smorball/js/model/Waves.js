@@ -26,13 +26,10 @@
     }
 
     Waves.prototype.getPendingEnemies = function(){
-        //var index = this.totalOpponents % this.pushPositions;
-        //if(this.totalOpponents % this.pushPositions == 0 && this.extraPowerups.length!=0){
-        //    var random = Math.floor((Math.random() * this.extraPowerups.length));
-        //    var property = this.extraPowerups[random];
-        //    this.activeWaves[0].pushPowerUp(property);
-        //    this.extraPowerups.splice(property,1);
-        //}
+       if(this.config.gameState.currentLevel == this.config.gameState.survivalLevel){
+           return 0;
+       }
+
         return --this.totalOpponents;
     }
 

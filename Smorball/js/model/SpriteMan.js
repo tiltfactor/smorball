@@ -55,7 +55,7 @@
     
     window.sprites.SpriteMan = SpriteMan;
     SpriteMan.prototype.setEffects = function(){
-        console.log("EFFECTS");
+       // console.log("EFFECTS");
         this.config.playerSound = PlayerData[this.config.id].extras.sound;
     }
     SpriteMan.prototype.run  = function(){

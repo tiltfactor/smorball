@@ -57,7 +57,7 @@
     CaptchaProcessor.prototype.load = function(captcha){
         var captchaData = getCaptchaData(this);
         var message = "";
-        console.log(captchaData);
+        //console.log(captchaData);
         captcha.image = captchaData.url;
         if(this.captchaDatas.local){
             setScale(captcha,captcha.image.width, captcha.image.height);
@@ -158,25 +158,16 @@
         if(input=="unlockall"){
            this.config.gameState.gs.maxLevel = 7;
            this.config.gameState.currentState = this.config.gameState.states.GAME_OVER;
-           //console.log("cheat Activated");
-           //EventBus.dispatch("setTickerStatus");
-           //EventBus.dispatch("showMap");
-            var manifest = [];
-            for(var i=1;i<LoaderData.length;i++){
-                var splash = LoaderData[i];
-                manifest.push({"src": splash.image, "id" : splash.id});
-            }
-            me.config.loader.load(manifest);
-
             output.pass = false;
             output.cheated = true;
             output.message = "cheat code is accessed";
             clearText(this);
+
             return output;
         }
         var cw = new closestWord(input,this.captchasOnScreen);
         if(cw.match){
-            console.log(cw);
+            //console.log(cw);
             if(input.length>8){
                 output.extraDamage = true;
             }
