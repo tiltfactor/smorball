@@ -55,7 +55,7 @@
 
     }
     var getTypeForSurvival = function(me, type){
-        var enemyList = [EnemyData.boss,EnemyData.enemy_regular, EnemyData.weak];
+        var enemyList = [EnemyData.boss,EnemyData.enemy_regular, EnemyData.weak,EnemyData.badGuy,EnemyData.fast,EnemyData.regular];
         var powerupList = [PowerupsData.cleats,PowerupsData.cleats,PowerupsData.bullhorn];
         if(type == undefined){
             if(me.counter % 5 == 0){
