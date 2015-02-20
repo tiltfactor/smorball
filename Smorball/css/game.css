@@ -240,7 +240,7 @@ canvas {
     background-image: url("../shapes/btn-sprite.png");
     background-size: 100% 300%;
     background-color: transparent;
-    padding: 3% 4% 9% 5%;
+    padding: 1% 4% 10% 5%;
     width: 60%;
     margin-top: 9px;
     outline: none;
@@ -433,6 +433,7 @@ canvas {
 
     .timeout-content button {
         font-size: .8em;
+        padding: 2% 4% 8% 5%;
     }
     #timout-text {
         font-size: 1.1em;
