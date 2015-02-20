@@ -6,7 +6,6 @@
 }
 #canvasHolder {
     display: none;
-    height: 55px;
     width: 100%;
     text-align: center;
     overflow: hidden;
@@ -417,6 +416,22 @@ canvas {
 }
 
 /*shop screen style ends here*/
+@media screen and (max-width: 900px) {
+    #canvasHolder input {
+        width: auto !important;
+        font-size: .8em;
+        height: 40px;
+    }
+
+    #canvasHolder input[type=text] {
+        height: 36px;
+        padding: 0px 10px 6px 10px;
+    }
+
+    #canvasHolder input[type=button] {
+        padding: 0px 10px 13px 10px;
+    }
+}
 
 @media screen and (max-width: 700px) { 
     #timeout-close {
@@ -427,7 +442,7 @@ canvas {
     }
 
     #timeout-btn-close {
-        font-size: .8em;
+        font-size: .7em;
         margin-right: -6%;
     }
 
@@ -448,11 +463,12 @@ canvas {
     #canvasHolder input {
         width: auto !important;
         font-size: .8em;
-        height: 40px;
+        height: 35px;
     }
 
     #canvasHolder input[type=text] {
-        height: 37px;
+        height: 32px;
+        padding: 2px 10px 8px 10px;
     }
 
     #canvasHolder input[type=button] {
@@ -485,6 +501,22 @@ canvas {
 
     .backButton {
         padding: 5%;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    #canvasHolder input {
+        font-size: .6em;
+        height: 27px;
+    }
+
+    #canvasHolder input[type=text] {
+        height: 26px;
+        padding: 0px 10px 7px 10px;
+    }
+
+    #canvasHolder input[type=button] {
+        padding: 0px 10px 11px 10px;
     }
 }
 

@@ -20,6 +20,9 @@ function MenuController(config) {
         var sh = function(){me.showHelp(me)};
         EventBus.addEventListener("showHelp",sh);
         
+        var hh = function(){me.hideHelp(me)};
+        EventBus.addEventListener("hideHelp",hh);
+        
         var so = function(){me.showOptions(me)};
         EventBus.addEventListener("showOptions",so);
         
@@ -41,6 +44,11 @@ function MenuController(config) {
     MenuController.prototype.showHelp = function () {
         $(".mainWrapper").css("display", "none");
         $("#helpScreen" ).css("display","block");
+    }
+    
+    MenuController.prototype.hideHelp = function () {
+       $("#helpScreen" ).css("display", "none");
+       $("#menu-container" ).css("display","table");
     }
     
     MenuController.prototype.showOptions = function () {
