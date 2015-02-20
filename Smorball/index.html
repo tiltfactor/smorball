@@ -16,6 +16,7 @@
     <script src="js/data/Manifest.js"></script>
     <script src="js/model/Spawning.js"></script>
     <script src="js/model/GameState.js"></script>
+    <script src="js/model/LoaderClass.js"></script>
     <script src="js/data/PowerupsData.js"></script>
     <script src="js/model/LocalStorage.js"></script>
     <script src="js/model/MyBag.js"></script>
@@ -60,9 +61,9 @@
     <script>
         function init() {
 
-            var popupCanvas = document.getElementById("loaderCanvas");
-            popupCanvas.width = window.innerWidth - 150;
-            popupCanvas.height = window.innerHeight - 150;
+//            var popupCanvas = document.getElementById("loaderCanvas");
+//            popupCanvas.width = window.innerWidth;
+//            popupCanvas.height = window.innerHeight;
 
             gc = new GameController();
             gc.init();
@@ -182,9 +183,9 @@
 <div id="victoryWrapper" class="mainWrapper">
     <div class="victoryContainer">
             <div class="victoryTitle title">VICTORY!</div>
-            <img src="shapes/star_background.png"/>
+            <img id= "victoryImage" src="shapes/star_background.png"/>
             <div class="victoryText">You earnt<br>$5000</div>
-            <button id="victoryBackButton">CONTINUE</button>
+            <button id="victoryBackButton" onclick="EventBus.dispatch('showMap');$('#victoryWrapper').hide() ">CONTINUE</button>
     </div>
 </div>
 
@@ -195,8 +196,8 @@
             <div class="clear"></div>
             <div class="defeatedText">0 minutes 0seconds</div>
             <div class="defeatedText">(Your highscore is 4 minutes 13 seconds)</div>
-            <button id="defeatedBackButton">Back to map</button>
-            <button id="defeatedTryButton">Try again</button>
+            <button id="defeatedBackButton" onclick="$('#defeatedWrapper').hide();EventBus.dispatch('showMap')">Back to map</button>
+            <button id="defeatedTryButton" onclick="$('#defeatedWrapper').hide();EventBus.dispatch('newGame')">Try again</button>
     </div>
 </div>
 
@@ -218,16 +219,18 @@
 <div id="optionsScreen" class="mainWrapper">
     <div class="optionScreenContainer">
         <div id="slideContainer">
-             <button class="optionsBackButton" onClick="EventBus.dispatch('hideOptions');">Back</button>
+             <button class="optionsBackButton" onclick="EventBus.dispatch('hideOptions');">Back</button>
                 <p class="slider-text"><b>Music</b></p>
                 <div class="music-slider"></div>
                 <p class="slider-text"><b>Sounds</b></p>
                 <div class="effects-slider"></div>
                  <p><b>Difficulty</b></p>
-                <select class="selectDifficulty">
-                    <option value="easy">easy</option>
+                <select class="selectDifficulty" onchange="EventBus.dispatch('setDifficulty',this.value)">
+                    <option value="veryeasy" >very easy</option>
+                    <option value="easy" >easy</option>
                     <option value="medium">medium</option>
-                    <option value="difficult">difficult</option>
+                    <option value="hard">Hard</option>
+                    <option value="veryhard">Very Hard</option>
                 </select>
         </div>
     </div>

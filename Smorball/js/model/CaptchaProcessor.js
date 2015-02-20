@@ -161,6 +161,13 @@
            //console.log("cheat Activated");
            //EventBus.dispatch("setTickerStatus");
            //EventBus.dispatch("showMap");
+            var manifest = [];
+            for(var i=1;i<LoaderData.length;i++){
+                var splash = LoaderData[i];
+                manifest.push({"src": splash.image, "id" : splash.id});
+            }
+            me.config.loader.load(manifest);
+
             output.pass = false;
             output.cheated = true;
             output.message = "cheat code is accessed";

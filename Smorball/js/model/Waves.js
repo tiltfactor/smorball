@@ -15,7 +15,6 @@
     Waves.prototype.init = function(){
         this.totalOpponents = this.config.waves.enemySize;
         this.start();
-        checkSponserShips(this);
         //activateMultipleWaves(this);
     }
     var loadEvents = function(me){
@@ -105,18 +104,7 @@
             wave.forcePush();
         }
     }
-    var checkSponserShips = function(me){
-        var sponserShips = me.config.gameState.gs.sponserShips;
-        for(var i = 0;i<sponserShips.length;i++){
-            switch (sponserShips[i]){
-                case "snike" : createExtraPowerup(me,"cleats",me.config.waves.cleatsSize);break;
-                case "bawling" : createExtraPowerup(me,"helmet",me.config.waves.helmetSize);break;
-                case "loudmouth":createExtraPowerup(me,"bullhorn",me.config.waves.bullhornSize);break;
-            }
-        }
-        var index = me.extraPowerups.length;
-        me.pushPositions = me.totalOpponents/index;
-    }
+
     var createExtraPowerup = function(me,type){
         var properties = {};
         properties[0] = type;

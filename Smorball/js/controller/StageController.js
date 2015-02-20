@@ -69,10 +69,13 @@ function StageController(config) {
         var sh = function(){me.captchaProcessor.showCaptchas()};
         EventBus.addEventListener("showCaptchas",sh);
 
+        var ol = function(){onImagesLoad(me)};
+        EventBus.addEventListener("onImagesLoad",ol);
+
     }
 
     var newGame = function (me) {
-        window.onresize = function(){onResize(me)};
+
 
         $("#inputText").val("");
         resetGame(me);
@@ -83,7 +86,6 @@ function StageController(config) {
         me.spawning = new Spawning({"gameState":me.config.gameState});
         me.captchaProcessor = new CaptchaProcessor({"loader": me.config.loader, "canvasWidth": me.canvasWidth, "canvasHeight": me.canvasHeight, "gameState" : me.config.gameState});
         $("#loaderCanvas").show();
-        onResize(me);
         loadImages(me);
 
         EventBus.dispatch("setMute");
@@ -103,9 +105,9 @@ function StageController(config) {
         if(!me.config.gameState.level){
             me.config.gameState.level = true;
             var manifest = Manifest.level;
-            me.config.loader.loadQueue(manifest, _onImagesLoad, me, me.config.gameState.currentLevel);
+            me.config.loader.loadQueue(manifest, ""/*_onImagesLoad*/, me, me.config.gameState.currentLevel,true);
         }else{
-            me.config.loader.loadQueue(manifest, _onImagesLoad, me, me.config.gameState.currentLevel);
+            me.config.loader.loadQueue(manifest, ""/*_onImagesLoad*/, me, me.config.gameState.currentLevel,true);
         }
 
 
@@ -114,6 +116,8 @@ function StageController(config) {
         /*if(me.config.gameState.currentLevel == 1){
             me.config.gameState.gs.points = 6;
         }*/
+        onResize(me);
+        window.onresize = function(){onResize(me)};
         drawBackGround(me);
         drawLane(me);
         drawStadium(me);
@@ -501,6 +505,7 @@ function StageController(config) {
         if(output.cheated){
             EventBus.dispatch("showCommentary", output.message);
             showMap(me);
+            $("#victoryWrapper").css("display","table");
         }else{
             showMessage(me, output.message);
             if (output.pass) {
@@ -568,25 +573,28 @@ function StageController(config) {
         me.score.addGameLevelPoints(me.config.life);
 
         me.config.gameState.currentLevel++;
-        if(me.config.gameState.currentLevel>me.config.gameState.gs.maxLevel){
+        if(me.config.gameState.currentLevel>me.config.gameState.gs.maxLevel && me.config.gameState.currentLevel<8){
             me.config.gameState.gs.maxLevel = me.config.gameState.currentLevel;
         }
         me.config.gameState.currentState = me.config.gameState.states.GAME_OVER;
         showMap(me);
+        $("#victoryWrapper").css("display","table");
     };
 
     var showMap = function(me){
         me.waves.clearAll();
         me.waves = null;
-        setTimeout(function(){EventBus.dispatch("setTickerStatus");EventBus.dispatch("showMap");EventBus.dispatch("setMute");},2000);
+        setTimeout(function(){EventBus.dispatch("setTickerStatus");/*EventBus.dispatch("showMap")*/EventBus.dispatch("setMute");},2000);
     };
     var gameOver = function(me){
         me.config.gameState.currentState = me.config.gameState.states.GAME_OVER;
         var store = new LocalStorage();
         store.reset();
         me.config.gameState.reset();
+        me.config.myBag.reset();
         EventBus.dispatch("showCommentary", "Game Over");
         showMap(me);
+        $("#defeatedWrapper").css("display","table");
     };
     
     var pushEnemy = function(me,enemy){

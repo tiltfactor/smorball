@@ -30,7 +30,7 @@ PowerupsData.bullhorn = {
 	"data":{
 		"images":["bullhorn"],
 	    "frames": {"regX": 0, "height": 130, "count": 70, "regY": 0, "width": 130},
-	    "animations": {"run": [0, 31, "run", 0.5], "stand":[0,0]}
+	    "animations": {"run": [0, 0, "run", 0.5], "stand":[0,0]}
 	},
 	"extras":{
 		"life": 1,

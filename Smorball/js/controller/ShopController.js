@@ -5,7 +5,7 @@ function ShopController(config) {
         this.initial = true;
         loadEvents(this);
         //createDialog(this);
-       // this.config.loader.loadShopAssets();
+        // this.config.loader.loadShopAssets();
         //this.config.stage = new createjs.Stage("myShopCanvas");
         //setCanvasAttributes(this)
         //this.config.stage.canvas.width = window.innerWidth - 150;//TODO make this better
@@ -141,7 +141,7 @@ function ShopController(config) {
             product.homeX = x;
             product.homeY = y;
             product.setPosition(x,y);
-            x = x+120;
+            x = x + 120;
         }
     }
 

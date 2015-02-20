@@ -24,35 +24,63 @@
     };
 
     var updateLoader =function(e, me){
-        me.preLoader.update(e.progress);
+        me.loaderClass.updateLoader(e.progress);
+        //me.preLoader.update(e.progress);
         me.config.stage.update();
         if(e.progress == 1){
-            me.config.stage.removeAllChildren();
-            me.config.stage.update();
-            $("#loaderDiv").hide();
+            if(me.showTeams){
+                me.loaderClass.drawPlayButton();
+                me.loaderClass.removeChild(me.loaderClass.preloader);
+                //me.config.stage.removeChild(me.preLoader);
+                me.config.stage.update();
+            }else{
+                me.config.stage.removeAllChildren();
+                me.config.stage.update();
+                $("#loaderDiv").hide();
+            }
+
+
         }
     };
 
-    var showLoading = function(me, gameLevel){
-        me.preLoader = new ui.Preloader({"stage" : me.config.stage, "currentLevel" : gameLevel, "loader":me});
+    var showLoading = function(me, gameLevel,showTeams){
+        //me.preLoader = new ui.Preloader({"stage" : me.config.stage, "currentLevel" : gameLevel, "loader":me});
+        //if(showTeams){
+        //    drawText(me,gameLevel);
+        //    drawTeams(me,gameLevel);
+        //    me.preLoader.y = me.config.stage.canvas.height-200;
+        //}
         $("#loaderDiv").show();
-        me.config.stage.addChild(me.preLoader);
-        me.events.loaderEvent =  function(e){ updateLoader(e,me)}
+        //me.config.stage.addChild(me.preLoader);
+        var type = 0;
+        if(showTeams){
+            type =1;
+        }
+        var config = {"stage" : me.config.stage, "gameState" : me.config.gameState,"currentLevel":gameLevel, "loader":me.fg_loader,"type":type};
+        me.loaderClass = new ui.LoaderClass(config);
+       // me.loaderClass.x = me.config.stage.canvas.width/2;
+        me.loaderClass.y = 600 - me.loaderClass.getTransformedBounds().height;
+        me.config.stage.addChild(me.loaderClass);
+        me.events.loaderEvent =  function(e){ updateLoader(e,me)};
         me.fg_loader.addEventListener("progress",me.events.loaderEvent);
     }
 
-    SmbLoadQueue.prototype.loadQueue = function(manifest, callback, ob , gameLevel){
+    SmbLoadQueue.prototype.loadQueue = function(manifest, callback, ob , gameLevel,showTeams){
         if(manifest.length != 0){
             var me = this;
             this.active = true;
-            showLoading(me, gameLevel);
+            showLoading(me, gameLevel,showTeams);
             this.fg_loader.loadManifest(manifest);
             this.events.click = function(){ loadComplete(callback,ob,me); }
             this.fg_loader.addEventListener("complete", this.events.click);
             this.events.error = function(e){console.log(e)};
             this.fg_loader.addEventListener("error",this.events.error);
+            this.showTeams = showTeams;
         }else{
-            callback(ob);
+            if(typeof (ob)!="string"){
+                callback(ob);
+            }
+
         }
 
     }
@@ -93,6 +121,7 @@
         me.active = false;
         me.fg_loader.removeEventListener("complete",me.events.click);
         me.fg_loader.removeEventListener("progress",  me.events.loaderEvent);
+        if(typeof (ob)!= "string")
         callback(ob);
     }
 

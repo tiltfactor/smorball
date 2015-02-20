@@ -54,10 +54,10 @@ function GameLevelController(config) {
         }
         if(!me.config.gameState.map){
             me.config.gameState.map = true;
-            me.config.loader.loadQueue(manifest, showMapScreen, me);
+            me.config.loader.loadQueue(manifest, _showMapScreen, me);
         }else{
             var manifest = [];
-            me.config.loader.loadQueue(manifest, showMapScreen, me);
+            me.config.loader.loadQueue(manifest, _showMapScreen, me);
         }
 
     }
@@ -67,12 +67,12 @@ function GameLevelController(config) {
         EventBus.dispatch("hideAll");
         $("#loaderCanvas").show();
         EventBus.dispatch("saveToStore");
-        window.onresize = function(){onResize(me)};
         onResize(me);
         loadImages(this);
     }
 
     var showMapScreen = function (me) {
+        window.onresize = function(){onResize(me)};
         me.config.stage.removeAllChildren();
         $("#dialog-utility").show();
         me.map = new createjs.Container();

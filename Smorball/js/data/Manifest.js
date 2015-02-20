@@ -5,7 +5,8 @@ Manifest.game = [
     {src: "shapes/bullhorn_icon.png", id: "bullhorn"},
     {src: "shapes/cleats_icon.png",   id: "cleats"},
     {src: "shapes/loader_default_bg.jpg",   id: "loader_default_bg"},
-    {src: "audio/main_theme.mp3", id: "mainTheme"}
+    {src: "audio/main_theme.mp3", id: "mainTheme"},
+    {src:"shapes/btn_bg.png",id:"btn_bg"}
 
    // {src: "shapes/runningBoy.png",id: "man"},
    // {src: "shapes/enemy.png", id: "enemy"},
@@ -64,6 +65,7 @@ Manifest.products = [{src: "shapes/blue-ball.png", id: "blue-ball"}, {src: "shap
     {src: "shapes/red-ball.png", id: "red-ball"}];
 
 Manifest.levelMap = [
+    {src: "shapes/chargers_logo.png", id: "hometeam"},
     {src: "shapes/map_background.png", id: "map_background"},
     {src: "shapes/cash_bar.png", id: "cash_bar"},
     {src: "shapes/menu_btn_idle.png", id: "menu_btn_idle"},

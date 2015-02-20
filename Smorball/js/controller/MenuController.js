@@ -24,7 +24,10 @@ function MenuController(config) {
         EventBus.addEventListener("showOptions",so);
         
         var ho = function(){me.hideOptions(me)};
-        EventBus.addEventListener("hideOptions",ho);        
+        EventBus.addEventListener("hideOptions",ho);
+
+        var sd = function(e){setDifficulty(me, e.target)};
+        EventBus.addEventListener("setDifficulty",sd);
 
     }
 
@@ -41,11 +44,13 @@ function MenuController(config) {
     }
     
     MenuController.prototype.showOptions = function () {
+        checkDifficulty(this);
         $(".mainWrapper").css("display", "none");
         $("#optionsScreen" ).css("display","table");
     }
     
     MenuController.prototype.hideOptions = function () {
+        checkDifficulty(this);
         $(".mainWrapper").css("display", "none");
         $( "#menu-container" ).css("display","table");
     }
@@ -101,6 +106,25 @@ function MenuController(config) {
             case state.RUN:{$("#resumeButton").show();break;}
             case state.GAME_OVER: {$("#resumeButton").hide();break;}
             case state.SHOP:break;
+        }
+    };
+    var setDifficulty = function(me,value){
+        switch(value){
+            case "veryeasy": me.config.gameState.gs.difficulty = 0.5;break;
+            case "easy": me.config.gameState.gs.difficulty = 0.75;break;
+            case "medium": me.config.gameState.gs.difficulty = 1;break;
+            case "hard": me.config.gameState.gs.difficulty = 1.25;break;
+            case  "veryhard": me.config.gameState.gs.difficulty = 1.5;break;
+        }
+    }
+    var checkDifficulty = function(me){
+        var difficulty = me.config.gameState.gs.difficulty;
+        switch (difficulty){
+            case 0.50 :$(".selectDifficulty option:eq(0)").attr('selected', 'selected');break;
+            case 0.75 : $(".selectDifficulty option:eq(1)").attr('selected', 'selected');break;
+            case 1 : $(".selectDifficulty option:eq(2)").attr('selected', 'selected');break;
+            case 1.25 : $(".selectDifficulty option:eq(3)").attr('selected', 'selected');break;
+            case 1.5 : $(".selectDifficulty option:eq(4)").attr('selected', 'selected');break;
         }
     }
 }

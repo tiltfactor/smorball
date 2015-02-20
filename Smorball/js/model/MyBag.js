@@ -7,6 +7,7 @@
         this.myBag = [];
         this.selectedId = -1;
         initialize(this);
+        mybg = this;
     }
     var initialize = function(me){
         loadEvents(me);
@@ -108,6 +109,12 @@
              myBag.push(mp.persist());
         }
        return myBag;
+    }
+
+    MyBag.prototype.reset = function(){
+        this.myBag = [];
+        var inbag = loadInitBag(this);
+        createMyPowerup(this, inbag);
     }
 
 
