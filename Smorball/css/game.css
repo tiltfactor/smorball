@@ -416,7 +416,8 @@ canvas {
 }
 
 /*shop screen style ends here*/
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 900px),
+screen and ( max-height: 600px ){
     #canvasHolder input {
         width: auto !important;
         font-size: .8em;
@@ -433,7 +434,15 @@ canvas {
     }
 }
 
-@media screen and (max-width: 700px) { 
+@media screen and ( max-height: 600px ){
+    .menu-button-container button {
+        font-size: 1em;
+        padding: 1.5% 1%;
+    }
+}
+
+@media screen and (max-width: 700px),
+screen and ( max-height: 500px ) { 
     #timeout-close {
         height: 33px;
     }
@@ -500,11 +509,12 @@ canvas {
     }
 
     .backButton {
-        padding: 5%;
+        padding: 2%;
     }
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 500px),
+screen and ( max-height: 400px ) {
     #canvasHolder input {
         font-size: .6em;
         height: 27px;
@@ -518,7 +528,59 @@ canvas {
     #canvasHolder input[type=button] {
         padding: 0px 10px 11px 10px;
     }
+    #timeout-close {
+        height: 20px;
+    }
+    #timeout-btn-close {
+        padding: 2% 3% 3% 3%;
+    }
+
+    #timeout-btn-close {
+        font-size: .7em;
+        margin-right: -6%;
+    }
+
+    .timeout-content button {
+        font-size: .8em;
+        padding: 2% 4% 8% 5%;
+    }
+    #timout-text {
+        font-size: .8em;
+    }
+    .slider-text {
+        font-size: .7em;
+    }
+    .timeout-buttons{
+        padding-bottom: 1%;
+    }
+    #timeout-container .slider {
+        height: 4px;
+        margin-bottom: 2%;
+    }
+    .slider .ui-slider-handle {
+        height: 1em;
+        width: 1em;
+        top: -.3em;
+    }
 }
+
+@media screen and (max-width: 500px),
+screen and ( max-height: 350px ) {
+    #canvasHolder input {
+        font-size: .6em;
+        height: 19px;
+    }
+
+    #canvasHolder input[type=text] {
+        height: 18px;
+        padding: 0px 9px 6px 10px;
+    }
+
+    #canvasHolder input[type=button] {
+        padding: 0px 10px 11px 10px;
+    }
+}
+
 
 .slimScrollRail {
     background-image: url("../shapes/scroller_back.png");
