@@ -9,11 +9,13 @@
         this.activeIndex = 0;
         this.complete = false;
         this.timer = 0;
+        this.pause = false;
         if(this.config.gameState.currentLevel == this.config.gameState.survivalLevel){
             loadEnemiesOnSurvival(this);
         }else{
             generateEnemyProperties(this);
         }
+
 
         this.push();
         //console.log("start of wave");
@@ -93,10 +95,31 @@
 
     var setNext = function(time, me){
        // console.log(time);
+       // me.currentTime = 0;
+        me.time = time;
+        me.startTimer = true;
         me.timer = setTimeout(function(){
-            me.push();
+            if(!me.pause){
+                console.log("testing the timer............"+createjs.Ticker.getTime());
+                me.push();
+                me.startTimer = false;
+            }
+
         }, time);
     }
+
+    Wave.prototype.paused = function(pause){
+        if(this.startTimer && !pause){
+            //this.push();
+            setNext(this.time/2, this);
+            this.pause = false;
+        }else{
+            this.pause = true;
+            clearTimeout(this.timer);
+        }
+    }
+
+
 
     Wave.prototype.forcePush = function(){
         clearTimeout(this.timer);
@@ -184,7 +207,7 @@
     }
     Wave.prototype.clearAll = function(){
         clearTimeout(this.timer);
-        clearInterval(this.timer);;
+        clearInterval(this.timer);
         this.timer = 0;
     }
 

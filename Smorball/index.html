@@ -121,7 +121,7 @@
     <div class="timeout-button-container">
         <div class="timeout-buttons">
             <div id="timeout-close">
-                <button id="timeout-btn-close" onClick="$('#timeout-container').css('display','none'); EventBus.dispatch('showCaptchas'); EventBus.dispatch('setTickerStatus');EventBus.dispatch('setMute');">X</button>
+                <button id="timeout-btn-close" onClick="$('#timeout-container').css('display','none'); EventBus.dispatch('showCaptchas'); EventBus.dispatch('setTickerStatus');EventBus.dispatch('setMute');EventBus.dispatch('pauseWaves', false);">X</button>
             </div>
              <p id="timout-text"><b>TIMEOUT</b></p>
             <div class="timeout-content">

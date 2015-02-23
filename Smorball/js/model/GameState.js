@@ -5,6 +5,7 @@
     }
     GameState.prototype.init = function(){
         this.gs = {};
+        gms = this;
         this.totalLevels = 16;
         this.maxLife = 6;
         //this.life;

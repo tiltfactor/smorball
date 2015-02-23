@@ -9,6 +9,7 @@
         this.currentIndex = 0;
         this.pushPositions=0;
         this.complete = false;
+        wvs = this;
         loadEvents(this);
     }
 
@@ -23,6 +24,12 @@
 
         var pn = function(type){createExtraPowerup(me,type.target)};
         EventBus.addEventListener("pushExtraPowerup",pn);
+
+        var pw = function(ob){pauseWaves(ob.target,me);}
+        EventBus.addEventListener("pauseWaves",pw);
+
+        var ca = function(){me.clearAll()};
+        EventBus.addEventListener("clearAllWaves", ca);
     }
 
     Waves.prototype.getPendingEnemies = function(){
@@ -34,7 +41,8 @@
     }
 
     Waves.prototype.start = function(){
-        var config = {"id": this.currentIndex,"lanesObj" : this.config.lanesObj, data : this.config.waves.data[this.currentIndex],"lanes": this.config.lanes, "loader" : this.config.loader, "gameState" : this.config.gameState };
+        var data = JSON.parse(JSON.stringify(this.config.waves.data[this.currentIndex]));
+        var config = {"id": this.currentIndex,"lanesObj" : this.config.lanesObj, data : data,"lanes": this.config.lanes, "loader" : this.config.loader, "gameState" : this.config.gameState };
         var wave = new Wave(config);
         this.currentIndex++;
         this.activeWaves.push(wave);
@@ -95,6 +103,12 @@
         }
         this.currentIndex = 0;
     }
+    var pauseWaves = function(flag, me){
+        for(var i = 0; i< me.activeWaves.length; i++){
+            var wave = me.activeWaves[i];
+            wave.paused(flag);
+        }
+    }
     var forcePush = function(me, waveId){
         var wave = getWaveFromId(waveId, me);
         if(wave != null && !wave.isComplete()){
@@ -114,6 +128,10 @@
 
 
     }
+
+
+
+
 
 
 

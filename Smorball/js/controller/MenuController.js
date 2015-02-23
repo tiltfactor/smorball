@@ -75,6 +75,7 @@ function MenuController(config) {
     MenuController.prototype.quitTimeout = function (me) {
         $("#timeout-container" ).css("display","none");
         me.config.gameState.currentState = me.config.gameState.states.GAME_OVER;
+        EventBus.dispatch("clearAllWaves");
         EventBus.dispatch("showMap");
     }
     

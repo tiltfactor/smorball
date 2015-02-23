@@ -75,7 +75,7 @@ function StageController(config) {
     }
 
     var newGame = function (me) {
-
+        me.timeSpend = createjs.Ticker.getTime();
         $("#inputText").val("");
         resetGame(me);
 
@@ -310,6 +310,8 @@ function StageController(config) {
             EventBus.dispatch("setTickerStatus");
             EventBus.dispatch("showTimeout");
             EventBus.dispatch("setMute");
+            EventBus.dispatch('pauseWaves', true);
+
 
 //            $(".ui-dialog").css({
 //            '-webkit-transform': 'scale('+1+',' + me.height/600 + ')',
@@ -592,6 +594,7 @@ function StageController(config) {
         },2000);
     };
     var gameOver = function(me){
+        me.timeSpend = createjs.Ticker.getTime()-me.timeSpend;
         me.config.gameState.currentState = me.config.gameState.states.GAME_OVER;
         var store = new LocalStorage();
         store.reset();
