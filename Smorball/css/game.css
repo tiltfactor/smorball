@@ -610,7 +610,7 @@ screen and ( max-height: 350px ) {
 
 #victoryWrapper,
 #defeatedWrapper,
-#splashScreen,
+.splashScreen,
 #optionsScreen {
     background-color: white;
     display: none;
@@ -624,6 +624,7 @@ screen and ( max-height: 350px ) {
 .victoryContainer,
 .defeatedContainer,
 .helpScreenContainer,
+.splashScreenContainer,
 .optionScreenContainer {
     position: relative;
     padding: 1%;

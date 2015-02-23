@@ -16,14 +16,19 @@ function GameController(config) {
         loadEvents(this);
         loadImages(this);
         window.onkeydown = onKeyBoardEvents;
-    }
+    }    
     var loadFromStore = function(me){
         var ls = new LocalStorage({"gameState":me.config.gameState});
     }
 
     var loadImages = function (me) {
-       var _doInit = function (me) {
-            doInit(me)
+        var _doInit = function (me) {
+            $("#bhlSplashScreen").css("display", "table");
+            $("#bhlSplashScreen").delay(2000).fadeOut(1000, function() {
+                $("#tiltfactorSplashScreen").fadeIn(1000).css('display','table').delay(2000).fadeOut(1000, function() {
+                    doInit(me)
+                });
+            });           
         }
 
         var manifest = Manifest.game;
