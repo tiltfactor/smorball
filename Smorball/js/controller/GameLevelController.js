@@ -65,7 +65,7 @@ function GameLevelController(config) {
             }else{
                 if(me.config.gameState.currentLevel != 7)
                 {
-                    var splash = LoaderData[me.config.gameState.currentLevel+1];
+                    var splash = LoaderData[me.config.gameState.currentLevel];
                     manifest.push({"src": splash.image, "id" : splash.id});
                 }
 
@@ -155,16 +155,27 @@ function GameLevelController(config) {
     var drawSurvival = function (me) {
         var survival = new createjs.Bitmap(me.config.loader.getResult("stopwatch_icon"));
         survival.setTransform(200,700,1,1);
+        survival.addEventListener("mouseover",function(evt){evt.target.cursor = "pointer"});
         survival.addEventListener("click",function(){me.setLevel(0)});
         me.map.addChild(survival);
     }
     var drawLevelInfoBar = function(me){
         me.infoContainer = new createjs.Container();
         me.map.addChild(me.infoContainer);
+
         var inforbar = new createjs.Bitmap(me.config.loader.getResult("level_info_bar"));
-        me.infoContainer.addChild(inforbar);
+        inforbar.y = inforbar.getTransformedBounds().height;
+
+        var logo =  new createjs.Bitmap(me.config.loader.getResult("hometeam"));
+        logo.setTransform(-40,0,0.5,0.5);
+        logo.y = inforbar.y - logo.getTransformedBounds().height/3;
+
+        me.infoText = new createjs.Text("Charlson Chargers","40px Arial", "#ffffff");
+        me.infoText.x = logo.getTransformedBounds().width ;
+        me.infoText.y = inforbar.y + me.infoText.getTransformedBounds().height/2;
+        me.infoContainer.addChild(inforbar,logo,me.infoText);
         me.infoContainer.x = 20;
-        me.infoContainer.y = me.map.getBounds().height-me.infoContainer.getTransformedBounds().height-40;
+        me.infoContainer.y = me.map.getBounds().height-me.infoContainer.getTransformedBounds().height-20;
     }
     var drawPathDots = function(me){
         var pointdata = PointData;
@@ -176,7 +187,7 @@ function GameLevelController(config) {
     }
     var drawFaceBookButton=function(me){
         var fbbtn = new createjs.Bitmap(me.config.loader.getResult("fb_btn_up"));
-        fbbtn.y =  me.map.getBounds().height -  fbbtn.getTransformedBounds().height;
+        fbbtn.y =  me.map.getBounds().height -  fbbtn.getTransformedBounds().height -40;
         fbbtn.x = me.infoContainer.x + me.infoContainer.getTransformedBounds().width + 20;
         fbbtn.addEventListener("mouseover",function(evt){
             evt.target.image = me.config.loader.getResult("fb_btn_over");
@@ -203,7 +214,7 @@ function GameLevelController(config) {
     };
     var drawTwitterButton = function(me){
         var tbtn = new createjs.Bitmap(me.config.loader.getResult("t_btn_up"));
-        tbtn.y =  me.map.getBounds().height -  tbtn.getTransformedBounds().height;
+        tbtn.y =  me.map.getBounds().height -  tbtn.getTransformedBounds().height-40;
         tbtn.x = me.infoContainer.x + me.infoContainer.getTransformedBounds().width + tbtn.getTransformedBounds().width + 40;
         tbtn.addEventListener("mouseover",function(evt){
             evt.target.image = me.config.loader.getResult("t_btn_over");

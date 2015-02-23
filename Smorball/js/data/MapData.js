@@ -2,13 +2,13 @@
  * Created by Abhilash on 23/1/15.
  */
 MapData = [
-    {"x":140, "y":160,"levelId":1},
-    {"x":80, "y":320,"levelId":2},
-    {"x":120, "y":500,"levelId":3},
-    {"x":310, "y":580,"levelId":4},
-    {"x":320, "y":400,"levelId":5},
-    {"x":400, "y":160,"levelId":6},
-    {"x":680, "y":180,"levelId":7},
+    {"x":140, "y":160,"levelId":1,"logo":"splash1"},
+    {"x":80, "y":320,"levelId":2,"logo":"splash2"},
+    {"x":120, "y":500,"levelId":3,"logo":"splash2"},
+    {"x":310, "y":580,"levelId":4,"logo":"splash2"},
+    {"x":320, "y":400,"levelId":5,"logo":"splash3"},
+    {"x":400, "y":160,"levelId":6,"logo":"splash2"},
+    {"x":680, "y":180,"levelId":7,"logo":"splash2"},
     {"x":610, "y":380,"levelId":8},
     {"x":560, "y":600,"levelId":9},
     {"x":660, "y":760,"levelId":10},
@@ -57,7 +57,7 @@ PointData = [
     {"x":1230,"y":560},
     {"x":1250,"y":400},
     {"x":1290,"y":370},
-    {"x":1330,"y":240}
+    {"x":1330,"y":340}
 ]
 
 

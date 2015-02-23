@@ -72,6 +72,8 @@ function StageController(config) {
         var ol = function(){onImagesLoad(me)};
         EventBus.addEventListener("onImagesLoad",ol);
 
+        var ra = function(){resetAll(me)};
+        EventBus.addEventListener("resetAll",ra);
     }
 
     var newGame = function (me) {
@@ -584,26 +586,44 @@ function StageController(config) {
             EventBus.dispatch("setTickerStatus");
             EventBus.dispatch("setMute");
             if(result == 0){
+                $("#canvasHolder").hide();
+                $("#defeatedImage").attr("src","shapes/close_round_butto.png");
+                $(".defeatedText").hide();
                 $("#defeatedWrapper").css("display","table");
             }else if(result == 1){
+                var money = me.config.life * 1000;
+                $("#victoryScore").text("$"+money);
                 $("#victoryWrapper").css("display","table");
             }else if(result == 2){
-
                 EventBus.dispatch("showMap",true);
+            }else if(result == 3){
+                $("#canvasHolder").hide();
+                $(".defeatedText").show();
+                $("#defeatedWrapper").css("display","table");
             }
         },2000);
     };
     var gameOver = function(me){
         me.timeSpend = createjs.Ticker.getTime()-me.timeSpend;
         me.config.gameState.currentState = me.config.gameState.states.GAME_OVER;
+
+        EventBus.dispatch("showCommentary", "Game Over");
+        if(me.config.gameState.currentLevel == me.config.gameState.survivalLevel){
+            showResultScreen(me,3);
+        }else{
+            showResultScreen(me,0);
+        }
+
+
+    };
+    var resetAll = function(me){
         var store = new LocalStorage();
         store.reset();
         me.config.gameState.reset();
         me.config.myBag.reset();
-        EventBus.dispatch("showCommentary", "Game Over");
-        showResultScreen(me,1);
+        EventBus.dispatch("showMap");
 
-    };
+    }
     
     var pushEnemy = function(me,enemy){
         EventBus.dispatch("showPendingEnemies", me.waves.getPendingEnemies());

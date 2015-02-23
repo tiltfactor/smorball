@@ -208,6 +208,7 @@
         clearText(me);
         if(++me.currentPass >= me.maxPass){
             disablePassButton(me,true);
+            document.getElementById(me.captchaPassButton).value = "PASS";
             $("#inputText").focus();
         }
         me.reset();

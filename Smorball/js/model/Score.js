@@ -31,7 +31,11 @@
     return levelTotal;
   }
   Score.prototype.addGameLevelPoints = function(points){
-    this.config.gameState.gs.gameLevelPoints[this.config.gameState.currentLevel-1] = points;
+    var earnedPoint = this.config.gameState.gs.gameLevelPoints[this.config.gameState.currentLevel-1];
+    if(earnedPoint<points||earnedPoint == undefined){
+      this.config.gameState.gs.gameLevelPoints[this.config.gameState.currentLevel-1] = points;
+    }
+
   }
 
   Score.prototype.getMyMoney = function(){
@@ -55,6 +59,10 @@
     return dollars;
 
 
+  }
+  Score.prototype.getMoneyForLevel = function(level){
+    var ponits = this.config.gameState.gs.gameLevelPoints[level];
+    return ponits * 1000
   }
   var arraySum = function(gameLevelPoints){
     var total = 0;

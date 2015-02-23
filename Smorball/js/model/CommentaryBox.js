@@ -22,7 +22,10 @@
 
     };
     var setScore=function(me,score){
-        me.score.text = score;
+        if(score>=0){
+            me.score.text = score;
+        }
+
     }
     var setOpponenets=function(me,opponents){
         me.opponents.text = opponents;

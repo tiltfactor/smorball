@@ -26,21 +26,24 @@
 
         if(me.config.locked){
             stadium.image = me.config.loader.getResult("lock");
-            stadium.id = me.config.id;
+            me.id = me.config.id;
             stadium.x = stadiumBase.getTransformedBounds().width/4;
             stadium.y = -stadium.getTransformedBounds().height/2;
+            me.addChild(stadium);
 
         }else{
             stadium.image = me.config.loader.getResult("stadium");
-            stadium.id = me.config.id;
-            stadium.addEventListener("click",startLevel);
+            me.id = me.config.id;
+            me.addEventListener("click",startLevel);
             stadium.x = stadiumBase.getTransformedBounds().width/8;
             stadium.y = -stadium.getTransformedBounds().height/4;
+            me.addChild(stadium);
+            drawLogo(me,stadium);
 
         }
 
 
-        me.addChild(stadium);
+
 
     }
     Level.prototype.setPosition=function(){
@@ -50,8 +53,14 @@
 
 
     var startLevel = function(e){
-        EventBus.dispatch("setLevel", e.target.id);
+        EventBus.dispatch("setLevel", e.target.parent.id);
     }
+    var drawLogo = function(me,stadium){
+         var logo = new createjs.Bitmap(me.config.loader.getResult(me.config.stadiumInfo.logo));
+        logo.setTransform(0,stadium.y,0.3,0.3);
+        logo.y = stadium.y - logo.getTransformedBounds().height/2 - 25;
+        me.addChild(logo);
+    };
 
 
     window.Level = Level
