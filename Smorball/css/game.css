@@ -654,7 +654,8 @@ screen and ( max-height: 350px ) {
     border-radius: 6px;
 }
 
-@media screen and (max-width: 700px) { 
+@media screen and (max-width: 700px),
+screen and (max-height: 500px) { 
     .title,
     .victoryText {
         margin-bottom: 1%;
@@ -663,6 +664,26 @@ screen and ( max-height: 350px ) {
     .victoryContainer img,
     .defeatedContainer img {
         width:100px;
+    }
+    .title,
+    .victoryText {
+        font-size: 2em;
+    }
+}
+
+@media screen and (max-height: 300px) { 
+    .title,
+    .victoryText {
+        margin-bottom: 1%;
+        font-size: 1.5em;
+    }
+    .victoryContainer img,
+    .defeatedContainer img {
+        width:75px;
+    }
+    .title,
+    .victoryText {
+        font-size: 1.5em;
     }
 }
 
