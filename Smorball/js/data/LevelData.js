@@ -38,7 +38,7 @@ LevelData[3] = { "level" : 3, "lanes" : 3 , "pass" : 2,"levelName":"Local Semifi
     ]  }
 };
 LevelData[4] = { "level" : 4, "lanes" : 3 , "pass" : 2,"levelName":"Local Finals",
-    "waves" : { "activeWaves" : 1, "time" : 1000, "maxOnGround" : 4,"enemySize":16,
+    "waves" : { "activeWaves" : 1, "time" : 1000, "maxOnGround" : 4,"enemySize":15,
         "message":"Powerups make your next word super powerful!@@Type the word to pick up the powerup.@@ Use tab to select your powerup", "data": [
         {"types" : ["boss","cleats"], "time": -1, "size" : 4, "stageDatas": [["cleats",2,2000,"This one deals extra damage!@@ Try it now! ","powerup"],["boss",2,20000],["cleats",1,0,"","powerup"],["cleats",3,0,"","powerup"]] },
         {"types" : ["boss","cleats"], "time": -1, "size" : 3, "stageDatas": [["boss",1,5000],["cleats",3,5000,"","powerup"],["boss",2]] },

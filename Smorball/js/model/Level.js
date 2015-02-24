@@ -11,11 +11,15 @@
     Level.prototype.Container_initialize = Level.prototype.initialize;
     Level.prototype.initialize = function(){
         this.Container_initialize();
+        this.team = this.config.stadiumInfo.team;
+
         drawStadium(this);
         //drawShop(this);
         this.setPosition();
         this.addEventListener("mouseover",function ( evt ) {
-            evt.target.cursor = 'pointer'
+            evt.target.cursor = 'pointer';
+            console.log(evt.target.parent);
+            EventBus.dispatch("changeLevelInfoBar",evt.target.parent)
         });
 
     };
@@ -27,6 +31,7 @@
         if(me.config.locked){
             stadium.image = me.config.loader.getResult("lock");
             me.id = me.config.id;
+
             stadium.x = stadiumBase.getTransformedBounds().width/4;
             stadium.y = -stadium.getTransformedBounds().height/2;
             me.addChild(stadium);

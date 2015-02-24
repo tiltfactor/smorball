@@ -2,22 +2,22 @@
  * Created by Abhilash on 23/1/15.
  */
 MapData = [
-    {"x":140, "y":160,"levelId":1,"logo":"splash1"},
-    {"x":80, "y":320,"levelId":2,"logo":"splash2"},
-    {"x":120, "y":500,"levelId":3,"logo":"splash2"},
-    {"x":310, "y":580,"levelId":4,"logo":"splash2"},
-    {"x":320, "y":400,"levelId":5,"logo":"splash3"},
-    {"x":400, "y":160,"levelId":6,"logo":"splash2"},
-    {"x":680, "y":180,"levelId":7,"logo":"splash2"},
-    {"x":610, "y":380,"levelId":8},
-    {"x":560, "y":600,"levelId":9},
-    {"x":660, "y":760,"levelId":10},
-    {"x":800, "y":480,"levelId":11},
-    {"x":960, "y":320,"levelId":12},
-    {"x":960, "y":640,"levelId":13},
-    {"x":1220, "y":660,"levelId":14},
-    {"x":1140, "y":460,"levelId":15},
-    {"x":1280, "y":250,"levelId":16}
+    {"x":140, "y":160,"levelId":1,"logo":"splash1","team":"Eugene Melonballers"},
+    {"x":80, "y":320,"levelId":2,"logo":"splash2","team":"Carson City Cardinals"},
+    {"x":120, "y":500,"levelId":3,"logo":"splash2","team":"Los Angeles Beige"},
+    {"x":310, "y":580,"levelId":4,"logo":"splash2","team":"Tucson Walruses"},
+    {"x":320, "y":400,"levelId":5,"logo":"splash3","team":"Salt Lake City Diacritics"},
+    {"x":400, "y":160,"levelId":6,"logo":"splash2","team":"Billings Bronies"},
+    {"x":680, "y":180,"levelId":7,"logo":"splash2","team":"Fargo 4.9ers"},
+    {"x":610, "y":380,"levelId":8,"team":"Amarillo Pantyhose"},
+    {"x":560, "y":600,"levelId":9,"team":"Omaha Hoarders"},
+    {"x":660, "y":760,"levelId":10,"team":"Fort Worth Five Finger Discount"},
+    {"x":800, "y":480,"levelId":11,"team":"Kansas City Cupcakes"},
+    {"x":960, "y":320,"levelId":12,"team":"Chicago Chargers"},
+    {"x":960, "y":640,"levelId":13,"team":"Memphis Metaphors"},
+    {"x":1220, "y":660,"levelId":14,"team":"Atlanta Portents"},
+    {"x":1140, "y":460,"levelId":15,"team":"Cincinnati Pharmacists"},
+    {"x":1280, "y":250,"levelId":16,"team":"New England Nerds"}
 
 ];
 

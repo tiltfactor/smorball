@@ -117,6 +117,7 @@ function StageController(config) {
         drawBackGround(me);
         drawLane(me);
         drawStadium(me);
+        drawLogo(me);
         EventBus.dispatch("showCommentary", me.levelConfig.waves.message);
         EventBus.dispatch("setScore", me.config.life);
 
@@ -223,6 +224,15 @@ function StageController(config) {
         });
         me.stadium.addChild(mbtn);
 
+    };
+
+    var drawLogo = function(me){
+        var logo = new createjs.Bitmap();
+        logo.image = me.config.loader.getResult("splash"+me.config.gameState.currentLevel);
+        logo.x = 800-logo.getTransformedBounds().width/2;
+        logo.y = 600;
+        logo.alpha = 0.25;
+        me.config.stage.addChild(logo);
     };
 
     var showScore = function(me){
@@ -506,10 +516,8 @@ function StageController(config) {
 
         }else{
             showMessage(me, output.message);
+            removeActivePowerup(me);
             if (output.pass) {
-                if (me.config.activePowerup != undefined) {
-                    me.config.myBag.removeFromBag(me.config.activePowerup);
-                }
                 if (me.config.activePowerup != null && me.config.activePowerup.getId() == "bullhorn") {
                     startPlayersFromAllLanes(me);
                 } else {
@@ -522,18 +530,29 @@ function StageController(config) {
                 }
                 resetPlayers(me);
             } else{
-                for(var i=0; i<me.config.lanes.length; i++){
-                    var lane = me.config.lanes[i];
-                    if(lane.player){
-                        lane.player.jump();
-                    }
+                playConfusedAnimation(me);
+                updatePlayerOnPowerup(me,me.default_player);
+                me.config.activePowerup = undefined;
 
 
-                }
             }
         }
 
+    };
+    var playConfusedAnimation = function(me){
+        for(var i=0; i<me.config.lanes.length; i++){
+            var lane = me.config.lanes[i];
+            if(lane.player){
+                lane.player.jump();
+            }
 
+        }
+    };
+    var removeActivePowerup = function(me){
+        if(me.config.activePowerup){
+            me.config.myBag.removeFromBag(me.config.activePowerup);
+
+        }
     };
     var startPlayersFromAllLanes = function(me){
         for(var i=0; i<me.config.lanes.length; i++){

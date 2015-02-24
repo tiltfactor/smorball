@@ -9,6 +9,7 @@ function GameLevelController(config) {
         var me = this;
         this.gameLevels = [];
         this.config.stage.enableMouseOver(10);
+        this.config.stage.snapToPixelEnabled = true;
         loadEvents(this);
         setCanvasAttributes(this);
     }
@@ -41,6 +42,11 @@ function GameLevelController(config) {
             me.setLevel(level.target)
         };
         EventBus.addEventListener("setLevel", tl);
+
+        var ci = function(levelInfo){
+            changeLevelInfoBar(me,levelInfo.target);
+        }
+        EventBus.addEventListener("changeLevelInfoBar",ci);
     }
 
     var loadImages = function (me,isCheatd) {
@@ -145,18 +151,23 @@ function GameLevelController(config) {
         cashContainer.y = 20;
 
         cashText.text = score.getMyMoney();
-        cashText.font = "bold 40px Arial";
+        cashText.font = "bold 60px Boogaloo";
         cashText.color = "white";
-        cashText.setTransform(cashbar.getTransformedBounds().width/2-cashText.getMeasuredWidth(),cashText.getMeasuredHeight());
+        cashText.setTransform(cashbar.getTransformedBounds().width/2-cashText.getMeasuredWidth(),cashbar.getTransformedBounds().height/2-cashText.getMeasuredHeight());
         cashContainer.addChild(cashbar,cashText);
         me.map.addChild(cashContainer);
 
     };
     var drawSurvival = function (me) {
-        var survival = new createjs.Bitmap(me.config.loader.getResult("stopwatch_icon"));
-        survival.setTransform(200,700,1,1);
+        var survival = new createjs.Bitmap(me.config.loader.getResult("lock"));
+        survival.setTransform(200,770,1,1);
+        if(me.config.gameState.gs.maxLevel >=7){
+            survival.image =  me.config.loader.getResult("stopwatch_icon");
+            survival.setTransform(200,700,1,1);
+            survival.addEventListener("click",function(){me.setLevel(0)});
+        }
         survival.addEventListener("mouseover",function(evt){evt.target.cursor = "pointer"});
-        survival.addEventListener("click",function(){me.setLevel(0)});
+
         me.map.addChild(survival);
     }
     var drawLevelInfoBar = function(me){
@@ -166,14 +177,20 @@ function GameLevelController(config) {
         var inforbar = new createjs.Bitmap(me.config.loader.getResult("level_info_bar"));
         inforbar.y = inforbar.getTransformedBounds().height;
 
-        var logo =  new createjs.Bitmap(me.config.loader.getResult("hometeam"));
-        logo.setTransform(-40,0,0.5,0.5);
-        logo.y = inforbar.y - logo.getTransformedBounds().height/3;
+        me.logo =  new createjs.Bitmap(me.config.loader.getResult("hometeam"));
+        me.logo.setTransform(-40,0,0.5,0.5);
+        me.logo.y = inforbar.y - me.logo.getTransformedBounds().height/3;
 
-        me.infoText = new createjs.Text("Charlson Chargers","40px Arial", "#ffffff");
-        me.infoText.x = logo.getTransformedBounds().width ;
+        me.infoText = new createjs.Text("Charlson Chargers","40px Boogaloo", "#ffffff");
+        me.infoText.x = me.logo.getTransformedBounds().width - 40;
         me.infoText.y = inforbar.y + me.infoText.getTransformedBounds().height/2;
-        me.infoContainer.addChild(inforbar,logo,me.infoText);
+
+        me.scoreText = new createjs.Text("0/6","40px Boogaloo", "#ffffff");
+        me.scoreText.x  = inforbar.x + inforbar.getTransformedBounds().width-(2*me.scoreText.getMeasuredWidth());
+
+        me.scoreText.y = me.infoText.y;
+
+        me.infoContainer.addChild(inforbar,me.logo,me.infoText,me.scoreText);
         me.infoContainer.x = 20;
         me.infoContainer.y = me.map.getBounds().height-me.infoContainer.getTransformedBounds().height-20;
     }
@@ -267,6 +284,24 @@ function GameLevelController(config) {
             me.config.stage.update();
         });
         me.map.addChild(mbtn);
+    }
+    var changeLevelInfoBar = function(me,levelInfo){
+        me.infoText.text = levelInfo.team;
+        var score = 0;
+        if(me.config.gameState.gs.gameLevelPoints[levelInfo.id-1]){
+            score = me.config.gameState.gs.gameLevelPoints[levelInfo.id-1];
+        }
+        me.scoreText.text = score + "/6";
+
+        if(me.config.loader.getResult("splash"+levelInfo.id)){
+            me.logo.image = me.config.loader.getResult("splash"+levelInfo.id);
+            me.logo.setTransform(-40,0,0.5,0.5);
+        }else{
+            me.logo.image = me.config.loader.getResult("lock");
+            me.logo.setTransform(0,50,1,1);
+        }
+
+        me.config.stage.update();
     }
     GameLevelController.prototype.setLevel = function (level) {
         this.config.gameState.currentLevel = level;
