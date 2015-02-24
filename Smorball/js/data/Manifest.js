@@ -108,9 +108,13 @@ Manifest.levelMap = [
     {src: "audio/Enemies/enemy6damage_01.mp3", id: "enemy6hit"},
     {src: "audio/Enemies/enemy6die_01.mp3",    id: "enemy6die"},
 
-    {src: "shapes/portents_logo.png",    id: "splash0"}
+    {src: "shapes/portents_logo.png",    id: "splash0"},
 
+    {src: "audio/Typewriter/TextEntry1.mp3", id: "textEntry1"},
+    {src: "audio/AmbientSounds/typedcorrectorgan1.mp3", id: "correctSound"},
+    {src: "audio/AmbientSounds/typedincorrectorgan1.mp3", id: "incorrectSound"},
+    {src: "audio/AmbientSounds/StadiumAmbiance.mp3", id: "stadiumAmbiance"},
+    {src: "audio/AmbientSounds/AmbientCrowdCheering.mp3", id: "crowdCheering"}
 
-
-    ];
+];
 

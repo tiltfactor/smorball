@@ -167,7 +167,7 @@
         }
         var cw = new closestWord(input,this.captchasOnScreen);
         if(cw.match){
-            //console.log(cw);
+            EventBus.dispatch("playSound","correctSound");
             if(input.length>8){
                 output.extraDamage = true;
             }
@@ -179,6 +179,7 @@
             output.laneId = captcha.id;
             this.load(captcha);
         }else{
+            EventBus.dispatch("playSound","incorrectSound");
             output.pass = false;
             output.message = "incorrect";
             $("#inputText").prop("disabled",true);

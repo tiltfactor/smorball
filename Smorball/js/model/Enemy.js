@@ -52,10 +52,6 @@
     Enemy.prototype.run  = function(){
         var me = this;
         this.sprite.gotoAndPlay("run");
-        //var fileId = this.config.enemySound.run;
-        //var config = {"file": fileId , "loop": false, "type": this.config.gameState.soundType.EFFECTS, "isMain": false,"loader":this.config.loader, "gameState":me.config.gameState};
-        //var runSound = new Sound(config);
-        //EventBus.dispatch("addAudioToList",runSound);
         this.myTick = function(){tick(me)};
         this.addEventListener("tick",  this.myTick);
     }
@@ -72,9 +68,7 @@
         var me = this;
         this.removeLife();
         var fileId = this.config.enemySound.hit;
-        var config = {"file": fileId , "loop": false, "type": this.config.gameState.soundType.EFFECTS, "isMain": false,"loader":this.config.loader, "gameState":me.config.gameState};
-        var hitSound = new Sound(config);
-        EventBus.dispatch("addAudioToList",hitSound);
+        EventBus.dispatch("playSound",fileId);
         var lanesObj = this.config.lanesObj;
         for(var i=0; i<lanesObj.length; i++){
             if(this.config.laneId == lanesObj[i].laneId){
@@ -84,9 +78,7 @@
         if(this.lifes.length == 0){
             this.hit = true;
             var fileId = this.config.enemySound.die;
-            var config = {"file": fileId , "loop": false, "type": this.config.gameState.soundType.EFFECTS, "isMain": false,"loader":this.config.loader, "gameState":me.config.gameState};
-            var dieSound = new Sound(config);
-            EventBus.dispatch("addAudioToList",dieSound);
+            EventBus.dispatch("playSound",fileId);
             this.sprite.gotoAndPlay("die");
             this.removeEventListener("tick", this.myTick);
             this.myAnimationEnd = function(){removeFallingAnimation(me)};

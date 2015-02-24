@@ -123,6 +123,14 @@ function StageController(config) {
         $("#inputText").val("");
         resetGame(me);
 
+        /*var fileId = "stadiumAmbience";
+        var config = {"file": fileId , "loop": true, "type": me.config.gameState.soundType.EFFECTS, "isMain": false,"loader":me.config.loader, "gameState":me.config.gameState};
+        var ambientSound = new Sound(config);
+        EventBus.dispatch("addAudioToList",ambientSound);*/
+
+        var cheerSound = me.config.loader.getResult("crowdCheering");
+        cheerSound.pause();
+
         me.config.gameState.currentState = me.config.gameState.states.RUN;
         me.levelConfig = LevelData[me.config.gameState.currentLevel];
 
@@ -581,9 +589,9 @@ function StageController(config) {
 
     var compareCaptcha = function (me) {
 
+        EventBus.dispatch("playSound","textEntry1");
         var output = me.captchaProcessor.compare();
-
-        if (output.cheated) {
+        if(output.cheated){
             EventBus.dispatch("showCommentary", output.message);
             showResultScreen(me, 2);
 
@@ -647,7 +655,8 @@ function StageController(config) {
         if (enemyCount == 0 && powerupCount == 0) {
             waitForForcePush(me, object.getWaveId());
         }
-        if (me.waves.getStatus() && enemyCount == 0) {
+        if(me.waves.getStatus() && enemyCount == 0){
+            EventBus.dispatch("playSound","crowdCheering");
             updateLevel(me);
         }
     };

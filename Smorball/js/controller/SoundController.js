@@ -28,8 +28,16 @@ function SoundController(config){
         var sm = function(){setMute(me)};
         EventBus.addEventListener("setMute", sm);
 
+        var pm = function(sound){playSound(me,sound.target)};
+        EventBus.addEventListener("playSound", pm);
     }
 
+    var playSound = function(me,fileId){
+        var config = {"file": fileId , "loop": false, "type": me.config.gameState.soundType.EFFECTS, "isMain": false,"loader":me.config.loader, "gameState":me.config.gameState};
+        var sound = new Sound(config);
+        EventBus.dispatch("addAudioToList",sound);
+
+    }
     var addAudioToList = function(me,sound){
         if(sound.mySound != null){
             sound.play();
@@ -95,6 +103,7 @@ function SoundController(config){
     var persist = function(me){
 
     }
+
 
 }
    
