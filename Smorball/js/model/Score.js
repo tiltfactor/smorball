@@ -61,8 +61,11 @@
 
   }
   Score.prototype.getMoneyForLevel = function(level){
-    var ponits = this.config.gameState.gs.gameLevelPoints[level];
-    return ponits * 1000
+    var points = this.config.gameState.gs.gameLevelPoints[level];
+    if(points == 6){
+      points = 8;
+    }
+    return points * 1000
   }
   var arraySum = function(gameLevelPoints){
     var total = 0;

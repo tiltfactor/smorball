@@ -18,7 +18,6 @@
         this.setPosition();
         this.addEventListener("mouseover",function ( evt ) {
             evt.target.cursor = 'pointer';
-            console.log(evt.target.parent);
             EventBus.dispatch("changeLevelInfoBar",evt.target.parent)
         });
 

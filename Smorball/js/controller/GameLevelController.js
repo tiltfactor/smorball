@@ -286,6 +286,7 @@ function GameLevelController(config) {
         me.map.addChild(mbtn);
     }
     var changeLevelInfoBar = function(me,levelInfo){
+        var maxLevel = me.config.gameState.gs.maxLevel;
         me.infoText.text = levelInfo.team;
         var score = 0;
         if(me.config.gameState.gs.gameLevelPoints[levelInfo.id-1]){
@@ -293,7 +294,7 @@ function GameLevelController(config) {
         }
         me.scoreText.text = score + "/6";
 
-        if(me.config.loader.getResult("splash"+levelInfo.id)){
+        if(me.config.loader.getResult("splash"+levelInfo.id)&& levelInfo.id<=maxLevel){
             me.logo.image = me.config.loader.getResult("splash"+levelInfo.id);
             me.logo.setTransform(-40,0,0.5,0.5);
         }else{

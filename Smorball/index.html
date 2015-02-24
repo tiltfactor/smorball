@@ -121,7 +121,7 @@
     <div class="timeout-button-container">
         <div class="timeout-buttons">
             <div id="timeout-close">
-                <button id="timeout-btn-close" onClick="$('#timeout-container').css('display','none'); EventBus.dispatch('showCaptchas'); EventBus.dispatch('setTickerStatus');EventBus.dispatch('setMute');EventBus.dispatch('pauseWaves', false);">X</button>
+                <button id="timeout-btn-close" onClick="EventBus.dispatch('hideTimeOut')">X</button>
             </div>
              <p id="timout-text"><b>TIMEOUT</b></p>
             <div class="timeout-content">
@@ -194,8 +194,8 @@
             <div class="defeatedTitle title">DEFEATED!</div>
             <img id="defeatedImage" src="shapes/close_round_butto.png"/>
             <div class="clear"></div>
-            <div class="defeatedText">0 minutes 0seconds</div>
-            <div class="defeatedText">(Your highscore is 4 minutes 13 seconds)</div>
+            <div class="defeatedText"><span id="minutes">0</span> minutes <span id="seconds">0</span>seconds</div>
+            <div class="defeatedText">(Your highscore is <span id="highMinutes">0</span> minutes <span id="highSeconds">0</span> seconds)</div>
             <button id="defeatedBackButton" onclick="$('#defeatedWrapper').hide();EventBus.dispatch('showMap')">Back to map</button>
             <button id="defeatedTryButton" onclick="$('#defeatedWrapper').hide();EventBus.dispatch('newGame')">Try again</button>
     </div>
