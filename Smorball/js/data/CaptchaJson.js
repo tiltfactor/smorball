@@ -6,58 +6,64 @@ var localData = {
             "image": "000.png",
             "ocr1": "2)retty",
             "ocr2": "pretty",
-            "message" : "Type the word and press enter to stop the Jujube."
+            "message" : "Type the word to tackle your opponent.                       "
         },
         {
             "image": "001.png",
             "ocr1": "thraugliout,",
             "ocr2": "throughout,",
-            "message" : "Careful, because punctuation maters !"
+            "message" : "Careful, because punctuation matters.                        "
 
         },
         {
             "image": "002.png",
             "ocr1": "ToTT.",
             "ocr2": "Torr.",
-            "message" : "Captialization matters too !"
+            "message" : "Capitalization doesn't matter, though.                        "
         },
         {
             "image": "003.png",
             "ocr1": "EosA",
             "ocr2": "ROSA",
-            "message" :"Every letter in this word is capital"
+            "message" :""
 
         },
         {
             "image": "004.png",
             "ocr1": "Gray'sFlora^",
             "ocr2": "Gray's Flora,",
-            "message" : "Use space  to separate multiple words!"
+            "message" : "Use space to separate multiple words!                       "
         },
         {
             "image": "005.png",
             "ocr1": "ROSACEiE.",
             "ocr2": "ROSACEJE.",
-            "message" : "Type Æ as AE.."
+            "message" : "Type Æ as AE..                                             "
         },
         {
             "image": "006.png",
             "ocr1": "l-l|",
             "ocr2": "1-1j",
-            "message" : "...and use / for fractions"
+            "message" : "...and use / for fractions                           "
+        },
+        {
+            "image": "073.png",
+            "ocr1": "bracte^",
+            "ocr2": "bracted",
+            "message" : "You dont need to type accents.                        "
         },
         {
             "image": "007.png",
             "ocr1": "m dvu",
-            "ocr2": "«Em",
-            "message" : "You dont need to type accents."
+            "ocr2": "Â«Em",
+            "message" : "If you can't type it, click 'pass'                       "
 
         },
         {
             "image": "008.png",
             "ocr1": "decumhens",
             "ocr2": "decumbens",
-            "message" : "If you can't type it, click 'pass'"
+            "message" : "Good luck, coach!                       "
 
         },
         {
@@ -67,7 +73,7 @@ var localData = {
         },
         {
             "image": "010.png",
-            "ocr1": "IIosACKTA",
+            "ocr1": "HosACKTA",
             "ocr2": "HIOSACKIA",
         },
         {
@@ -384,11 +390,6 @@ var localData = {
             "ocr2": "nova",
         },
         {
-            "image": "073.png",
-            "ocr1": "bracte^",
-            "ocr2": "bracted",
-        },
-        {
             "image": "074.png",
             "ocr1": "lineari-lanceolata",
             "ocr2": "lineari-lanceolatS",
@@ -487,7 +488,7 @@ var localData = {
         {
             "image": "093.png",
             "ocr1": "diflimilis planta",
-            "ocr2": "diﬂimiligﬂama",
+            "ocr2": "diï¬‚imiligï¬‚ama",
         },
         {
             "image": "094.png",
@@ -507,7 +508,7 @@ var localData = {
         {
             "image": "097.png",
             "ocr1": "&: firmis",
-            "ocr2": "aggﬁtmis",
+            "ocr2": "aggï¬tmis",
         },
         {
             "image": "098.png",
@@ -517,7 +518,7 @@ var localData = {
         {
             "image": "099.png",
             "ocr1": "D. Augcrio",
-            "ocr2": "D.fﬁt3‘gcrio",
+            "ocr2": "D.fï¬t3â€˜gcrio",
         },
         {
             "image": "100.png",
@@ -532,7 +533,7 @@ var localData = {
         {
             "image": "102.png",
             "ocr1": "molliorum , non",
-            "ocr2": "mul1i¢r§.im,non",
+            "ocr2": "mul1iÂ¢rÂ§.im,non",
         },
         {
             "image": "103.png",
@@ -547,7 +548,7 @@ var localData = {
         {
             "image": "105.png",
             "ocr1": "fummi dcfinunt",
-            "ocr2": "fumngidcﬁnunt",
+            "ocr2": "fumngidcï¬nunt",
         },
         {
             "image": "106.png",
@@ -587,7 +588,7 @@ var localData = {
         {
             "image": "113.png",
             "ocr1": "florem",
-            "ocr2": "ﬂorcm",
+            "ocr2": "ï¬‚orcm",
         },
         {
             "image": "114.png",
@@ -597,7 +598,7 @@ var localData = {
         {
             "image": "115.png",
             "ocr1": "Auftriaca,",
-            "ocr2": "Auﬁriaca,",
+            "ocr2": "Auï¬riaca,",
         },
         {
             "image": "116.png",
@@ -617,7 +618,7 @@ var localData = {
         {
             "image": "119.png",
             "ocr1": "dilutiorisquc",
-            "ocr2": "dilutiqriscﬁuc",
+            "ocr2": "dilutiqriscï¬uc",
         },
         {
             "image": "120.png",
@@ -627,17 +628,17 @@ var localData = {
         {
             "image": "121.png",
             "ocr1": "florem,",
-            "ocr2": "ﬂorcm.",
+            "ocr2": "ï¬‚orcm.",
         },
         {
             "image": "122.png",
             "ocr1": "villofls",
-            "ocr2": "villoﬁs",
+            "ocr2": "villoï¬s",
         },
         {
             "image": "123.png",
             "ocr1": "ftarainibus:",
-            "ocr2": "ﬁaminibus:",
+            "ocr2": "ï¬aminibus:",
         },
         {
             "image": "124.png",
@@ -652,7 +653,7 @@ var localData = {
         {
             "image": "126.png",
             "ocr1": "tra*5tata",
-            "ocr2": "trzﬁlata",
+            "ocr2": "trzï¬lata",
         },
         {
             "image": "127.png",
@@ -667,17 +668,17 @@ var localData = {
         {
             "image": "129.png",
             "ocr1": "florebat",
-            "ocr2": "ﬂorcbat",
+            "ocr2": "ï¬‚orcbat",
         },
         {
             "image": "130.png",
             "ocr1": "Augufto.",
-            "ocr2": "Auguﬂo.",
+            "ocr2": "Auguï¬‚o.",
         },
         {
             "image": "131.png",
             "ocr1": "CONYZA",
-            "ocr2": "‘CQNfY.Z.A",
+            "ocr2": "â€˜CQNfY.Z.A",
         },
         {
             "image": "132.png",
@@ -687,7 +688,7 @@ var localData = {
         {
             "image": "133.png",
             "ocr1": "Narboncnfl",
-            "ocr2": "Narboncnﬁiiuc",
+            "ocr2": "Narboncnï¬iiuc",
         },
         {
             "image": "134.png",
@@ -702,12 +703,12 @@ var localData = {
         {
             "image": "136.png",
             "ocr1": "Salmanticenfi",
-            "ocr2": "Salmanticcnﬁ",
+            "ocr2": "Salmanticcnï¬",
         },
         {
             "image": "137.png",
             "ocr1": "Caftellsc",
-            "ocr2": "Caﬁcllx",
+            "ocr2": "Caï¬cllx",
         },
         {
             "image": "138.png",
@@ -727,12 +728,12 @@ var localData = {
         {
             "image": "141.png",
             "ocr1": "Bsctic^",
-            "ocr2": "Bzticé",
+            "ocr2": "BzticÃ©",
         },
         {
             "image": "142.png",
             "ocr1": "longe",
-            "ocr2": "longg’:",
+            "ocr2": "longgâ€™:",
         },
         {
             "image": "143.png",
@@ -757,12 +758,12 @@ var localData = {
         {
             "image": "147.png",
             "ocr1": "mihiconfpeda",
-            "ocr2": "niihiicotifpcéfa",
+            "ocr2": "niihiicotifpcÃ©fa",
         },
         {
             "image": "148.png",
             "ocr1": "(raonftrantc",
-            "ocr2": "’(rn'on(Ixantc",
+            "ocr2": "â€™(rn'on(Ixantc",
         },
         {
             "image": "149.png",
@@ -777,7 +778,7 @@ var localData = {
         {
             "image": "151.png",
             "ocr1": "coriieduram",
-            "ocr2": "cohicétuxam",
+            "ocr2": "cohicÃ©tuxam",
         },
         {
             "image": "152.png",
@@ -796,13 +797,13 @@ var localData = {
         },
         {
             "image": "155.png",
-            "ocr1": "neglcxit»",
+            "ocr1": "neglcxitÂ»",
             "ocr2": "ncgtcxit,",
         },
         {
             "image": "156.png",
-            "ocr1": "pi£lor",
-            "ocr2": "piétot",
+            "ocr1": "piÂ£lor",
+            "ocr2": "piÃ©tot",
         },
         {
             "image": "157.png",
@@ -832,12 +833,12 @@ var localData = {
         {
             "image": "162.png",
             "ocr1": "tra^antur,'",
-            "ocr2": "traéikmtsr",
+            "ocr2": "traÃ©ikmtsr",
         },
         {
             "image": "163.png",
             "ocr1": "detagena",
-            "ocr2": "Jetégaaé",
+            "ocr2": "JetÃ©gaaÃ©",
         },
         {
             "image": "164.png",
@@ -852,17 +853,17 @@ var localData = {
         {
             "image": "166.png",
             "ocr1": "Atera",
-            "ocr2": "'-.A4l:¢m",
+            "ocr2": "'-.A4l:Â¢m",
         },
         {
             "image": "167.png",
             "ocr1": "pecagona.",
-            "ocr2": "_D£.CA.!§QN‘A\.",
+            "ocr2": "_DÂ£.CA.!Â§QNâ€˜A\.",
         },
         {
             "image": "168.png",
             "ocr1": "-^thiopica,",
-            "ocr2": "fﬁmnotércs,",
+            "ocr2": "fï¬mnotÃ©rcs,",
         },
         {
             "image": "169.png",
@@ -876,7 +877,7 @@ var localData = {
         },
         {
             "image": "171.png",
-            "ocr1": "//'».7.",
+            "ocr1": "//'Â».7.",
             "ocr2": "lin.-,7.",
         },
         {
@@ -902,7 +903,7 @@ var localData = {
         {
             "image": "176.png",
             "ocr1": "commiflis",
-            "ocr2": "commiﬁis",
+            "ocr2": "commiï¬is",
         },
         {
             "image": "177.png",
@@ -927,7 +928,7 @@ var localData = {
         {
             "image": "181.png",
             "ocr1": "P4^. XXV.",
-            "ocr2": "‘Pag. xxv.",
+            "ocr2": "â€˜Pag. xxv.",
         },
         {
             "image": "182.png",
@@ -972,12 +973,12 @@ var localData = {
         {
             "image": "190.png",
             "ocr1": "compa&a",
-            "ocr2": "compaéta"
+            "ocr2": "compaÃ©ta"
         },
         {
             "image": "191.png",
             "ocr1": "vaiis",
-            "ocr2": "vaﬁs"
+            "ocr2": "vaï¬s"
         },
         {
             "image": "192.png",
@@ -987,7 +988,7 @@ var localData = {
         {
             "image": "193.png",
             "ocr1": "far&a>fcrendis",
-            "ocr2": "faré‘ta,fcrcndis"
+            "ocr2": "farÃ©â€˜ta,fcrcndis"
         },
         {
             "image": "194.png",
@@ -1022,11 +1023,11 @@ var localData = {
         {
             "image": "200.png",
             "ocr1": "infantiaad",
-            "ocr2": "mlantxa ad‘."
+            "ocr2": "mlantxa adâ€˜."
         },
         {
             "image": "201.png",
-            "ocr1": "iplém",
+            "ocr1": "iplÃ©m",
             "ocr2": "ipfam"
         },
         {
@@ -1037,7 +1038,7 @@ var localData = {
         {
             "image": "203.png",
             "ocr1": "fenedam",
-            "ocr2": "fcncétam"
+            "ocr2": "fcncÃ©tam"
         },
         {
             "image": "204.png",
@@ -1062,7 +1063,7 @@ var localData = {
         {
             "image": "208.png",
             "ocr1": "no&ifve",
-            "ocr2": "noétiﬁrc"
+            "ocr2": "noÃ©tiï¬rc"
         },
         {
             "image": "209.png",
@@ -1237,7 +1238,7 @@ var localData = {
         {
             "image": "243.png",
             "ocr1": "e",
-            "ocr2": "é"
+            "ocr2": "Ã©"
         },
         {
             "image": "244.png",
@@ -1287,7 +1288,7 @@ var localData = {
         {
             "image": "253.png",
             "ocr1": "detraxiffe;",
-            "ocr2": "dctraxiﬂc;"
+            "ocr2": "dctraxiï¬‚c;"
         },
         {
             "image": "254.png",
@@ -1302,7 +1303,7 @@ var localData = {
         {
             "image": "256.png",
             "ocr1": "infubjc&oraro",
-            "ocr2": "in fubjcélo taro"
+            "ocr2": "in fubjcÃ©lo taro"
         },
         {
             "image": "257.png",
@@ -1407,7 +1408,7 @@ var localData = {
         {
             "image": "277.png",
             "ocr1": "lipothy-",
-            "ocr2": "l1pothy—-"
+            "ocr2": "l1pothyâ€”-"
         },
         {
             "image": "278.png",
@@ -1462,7 +1463,7 @@ var localData = {
         {
             "image": "288.png",
             "ocr1": "fearificationibus",
-            "ocr2": "{cariﬁcationibus"
+            "ocr2": "{cariï¬cationibus"
         },
         {
             "image": "289.png",
@@ -1472,7 +1473,7 @@ var localData = {
         {
             "image": "290.png",
             "ocr1": "frequentiflime",
-            "ocr2": "frcqucntiﬂimc"
+            "ocr2": "frcqucntiï¬‚imc"
         },
         {
             "image": "291.png",
@@ -1492,7 +1493,7 @@ var localData = {
         {
             "image": "294.png",
             "ocr1": "dcfedhim",
-            "ocr2": "dcfcétum"
+            "ocr2": "dcfcÃ©tum"
         },
         {
             "image": "295.png",
@@ -1552,7 +1553,7 @@ var localData = {
         {
             "image": "306.png",
             "ocr1": "anguftiflima",
-            "ocr2": "angulhﬂima"
+            "ocr2": "angulhï¬‚ima"
         },
         {
             "image": "307.png",
@@ -1582,7 +1583,7 @@ var localData = {
         {
             "image": "312.png",
             "ocr1": "fu&ione",
-            "ocr2": "fuétionc"
+            "ocr2": "fuÃ©tionc"
         },
         {
             "image": "313.png",
@@ -1592,7 +1593,7 @@ var localData = {
         {
             "image": "314.png",
             "ocr1": "validiflime",
-            "ocr2": "validiﬂimc"
+            "ocr2": "validiï¬‚imc"
         },
         {
             "image": "315.png",
@@ -1612,7 +1613,7 @@ var localData = {
         {
             "image": "318.png",
             "ocr1": "Suctum",
-            "ocr2": "Suéhun"
+            "ocr2": "SuÃ©hun"
         },
         {
             "image": "319.png",
@@ -1682,7 +1683,7 @@ var localData = {
         {
             "image": "332.png",
             "ocr1": "f carificatio",
-            "ocr2": "lcariﬁcatio"
+            "ocr2": "lcariï¬catio"
         },
         {
             "image": "333.png",
@@ -1697,7 +1698,7 @@ var localData = {
         {
             "image": "335.png",
             "ocr1": "tra",
-            "ocr2": "‘tra"
+            "ocr2": "â€˜tra"
         },
         {
             "image": "336.png",
@@ -1757,7 +1758,7 @@ var localData = {
         {
             "image": "347.png",
             "ocr1": "duas",
-            "ocr2": "‘duas"
+            "ocr2": "â€˜duas"
         },
         {
             "image": "348.png",
@@ -1772,7 +1773,7 @@ var localData = {
         {
             "image": "350.png",
             "ocr1": "fuccefTu",
-            "ocr2": "fucccﬂh"
+            "ocr2": "fucccï¬‚h"
         },
         {
             "image": "351.png",
@@ -1782,7 +1783,7 @@ var localData = {
         {
             "image": "352.png",
             "ocr1": "fcarificationem",
-            "ocr2": "fcariﬁcationcm"
+            "ocr2": "fcariï¬cationcm"
         },
         {
             "image": "353.png",
@@ -1792,7 +1793,7 @@ var localData = {
         {
             "image": "354.png",
             "ocr1": "educlas.",
-            "ocr2": "cduétas,"
+            "ocr2": "cduÃ©tas,"
         },
         {
             "image": "355.png",
@@ -1822,7 +1823,7 @@ var localData = {
         {
             "image": "360.png",
             "ocr1": "fanguinem",
-            "ocr2": "félnguincm"
+            "ocr2": "fÃ©lnguincm"
         },
         {
             "image": "361.png",
@@ -1867,7 +1868,7 @@ var localData = {
         {
             "image": "369.png",
             "ocr1": "convenitBrafilianis",
-            "ocr2": "convcn1'tBraﬁlianis"
+            "ocr2": "convcn1'tBraï¬lianis"
         },
         {
             "image": "370.png",
@@ -1912,7 +1913,7 @@ var localData = {
         {
             "image": "378.png",
             "ocr1": "fiiperficiarie,",
-            "ocr2": "fupcrﬁciaric,"
+            "ocr2": "fupcrï¬ciaric,"
         },
         {
             "image": "379.png",
@@ -1937,7 +1938,7 @@ var localData = {
         {
             "image": "383.png",
             "ocr1": "(finequibus",
-            "ocr2": "(ﬁne quibus"
+            "ocr2": "(ï¬ne quibus"
         },
         {
             "image": "384.png",
@@ -1952,7 +1953,7 @@ var localData = {
         {
             "image": "386.png",
             "ocr1": "fiunt,",
-            "ocr2": "ﬁunt“,"
+            "ocr2": "ï¬untâ€œ,"
         },
         {
             "image": "387.png",
@@ -2002,12 +2003,12 @@ var localData = {
         {
             "image": "396.png",
             "ocr1": "fiiris,",
-            "ocr2": "ﬁlris"
+            "ocr2": "ï¬lris"
         },
         {
             "image": "397.png",
             "ocr1": "Hac",
-            "ocr2": "‘I-lac"
+            "ocr2": "â€˜I-lac"
         },
         {
             "image": "398.png",
@@ -2037,7 +2038,7 @@ var localData = {
         {
             "image": "403.png",
             "ocr1": "venaefectionem",
-            "ocr2": "vcnzcfcélioncm."
+            "ocr2": "vcnzcfcÃ©lioncm."
         },
         {
             "image": "404.png",
@@ -2062,7 +2063,7 @@ var localData = {
         {
             "image": "408.png",
             "ocr1": "cucurbitulis fcarificatis.",
-            "ocr2": "cucurbitulisfcariﬁcatis."
+            "ocr2": "cucurbitulisfcariï¬catis."
         },
         {
             "image": "409.png",
@@ -2072,7 +2073,7 @@ var localData = {
         {
             "image": "410.png",
             "ocr1": "doloribus",
-            "ocr2": "cloloribus‘"
+            "ocr2": "cloloribusâ€˜"
         },
         {
             "image": "411.png",
@@ -2087,11 +2088,11 @@ var localData = {
         {
             "image": "413.png",
             "ocr1": "aggrediafttur",
-            "ocr2": "aggrcdiaﬂtur,"
+            "ocr2": "aggrcdiaï¬‚tur,"
         },
         {
             "image": "414.png",
-            "ocr1": "folumofriﬁionibus,",
+            "ocr1": "folumofriï¬ionibus,",
             "ocr2": "folum friclionibus"
         },
         {
@@ -2112,7 +2113,7 @@ var localData = {
         {
             "image": "418.png",
             "ocr1": "ituporem",
-            "ocr2": "ﬂfuporcm"
+            "ocr2": "ï¬‚fuporcm"
         },
         {
             "image": "419.png",
@@ -2166,12 +2167,12 @@ var localData = {
         },
         {
             "image": "429.png",
-            "ocr1": "arf e£his",
-            "ocr2": "affccﬁus"
+            "ocr1": "arf eÂ£his",
+            "ocr2": "affccï¬us"
         },
         {
             "image": "430.png",
-            "ocr1": "rcﬁituunt",
+            "ocr1": "rcï¬ituunt",
             "ocr2": "ref tituunt"
         },
         {
@@ -2197,7 +2198,7 @@ var localData = {
         {
             "image": "435.png",
             "ocr1": "Opiata^tnimadverfione",
-            "ocr2": "Ofaizgzummxadvcrﬁonc"
+            "ocr2": "Ofaizgzummxadvcrï¬onc"
         },
         {
             "image": "436.png",
@@ -2212,7 +2213,7 @@ var localData = {
         {
             "image": "438.png",
             "ocr1": "Incolarum",
-            "ocr2": "Incolmrum‘"
+            "ocr2": "Incolmrumâ€˜"
         },
         {
             "image": "439.png",
@@ -2247,7 +2248,7 @@ var localData = {
         {
             "image": "445.png",
             "ocr1": "difficile",
-            "ocr2": "difﬁcilc"
+            "ocr2": "difï¬cilc"
         },
         {
             "image": "446.png",
@@ -2281,18 +2282,18 @@ var localData = {
         },
         {
             "image": "452.png",
-            "ocr1": "nece£",
+            "ocr1": "neceÂ£",
             "ocr2": "nccdi"
         },
         {
             "image": "453.png",
             "ocr1": "fe.",
-            "ocr2": "‘ft."
+            "ocr2": "â€˜ft."
         },
         {
             "image": "454.png",
             "ocr1": "-^Eftate",
-            "ocr2": "Eﬁatc"
+            "ocr2": "Eï¬atc"
         },
         {
             "image": "455.png",
@@ -2307,7 +2308,7 @@ var localData = {
         {
             "image": "457.png",
             "ocr1": "qualemcunquc , a",
-            "ocr2": "qu-alcmcunq'uc,:‘t"
+            "ocr2": "qu-alcmcunq'uc,:â€˜t"
         },
         {
             "image": "458.png",
@@ -2317,7 +2318,7 @@ var localData = {
         {
             "image": "459.png",
             "ocr1": "fugacium &",
-            "ocr2": "fugaciumﬁc"
+            "ocr2": "fugaciumï¬c"
         },
         {
             "image": "460.png",
@@ -2332,12 +2333,12 @@ var localData = {
         {
             "image": "462.png",
             "ocr1": "efii",
-            "ocr2": "cﬁx"
+            "ocr2": "cï¬x"
         },
         {
             "image": "463.png",
             "ocr1": "ventriculo colle&am",
-            "ocr2": "v¢11triculo‘col1c&:a:n"
+            "ocr2": "vÂ¢11triculoâ€˜col1c&:a:n"
         },
         {
             "image": "464.png",
@@ -2347,7 +2348,7 @@ var localData = {
         {
             "image": "465.png",
             "ocr1": "exiftimant",
-            "ocr2": "aziﬂimant"
+            "ocr2": "aziï¬‚imant"
         },
         {
             "image": "466.png",
@@ -2367,7 +2368,7 @@ var localData = {
         {
             "image": "469.png",
             "ocr1": "mKpc%ohoi",
-            "ocr2": "mxpéxakasm‘"
+            "ocr2": "mxpÃ©xakasmâ€˜"
         },
         {
             "image": "470.png",
@@ -2382,7 +2383,7 @@ var localData = {
         {
             "image": "472.png",
             "ocr1": "rem Medicam fc-",
-            "ocr2": "rem’Mcdigam'fc-"
+            "ocr2": "remâ€™Mcdigam'fc-"
         },
         {
             "image": "473.png",
@@ -2456,7 +2457,7 @@ var localData = {
         },
         {
             "image": "487.png",
-            "ocr1": "intraﬁatuvfunplicium",
+            "ocr1": "intraï¬atuvfunplicium",
             "ocr2": "in tractatu fimplicium"
         },
         {
@@ -2472,22 +2473,22 @@ var localData = {
         {
             "image": "490.png",
             "ocr1": "refugiura",
-            "ocr2": "rcﬁgium"
+            "ocr2": "rcï¬gium"
         },
         {
             "image": "491.png",
             "ocr1": "capiunt",
-            "ocr2": "’ca}nT_unt"
+            "ocr2": "â€™ca}nT_unt"
         },
         {
             "image": "492.png",
             "ocr1": "omnes",
-            "ocr2": "onmés"
+            "ocr2": "onmÃ©s"
         },
         {
             "image": "493.png",
             "ocr1": "pariter Incolse,",
-            "ocr2": "«path:-er\"Incolac,"
+            "ocr2": "Â«path:-er\"Incolac,"
         },
         {
             "image": "494.png",
@@ -2497,7 +2498,7 @@ var localData = {
         {
             "image": "495.png",
             "ocr1": "tutiifimas",
-            "ocr2": "mdﬂimas"
+            "ocr2": "mdï¬‚imas"
         },
         {
             "image": "496.png",
@@ -2507,7 +2508,7 @@ var localData = {
         {
             "image": "497.png",
             "ocr1": "affumtum",
-            "ocr2": "aﬂiumum"
+            "ocr2": "aï¬‚iumum"
         },
         {
             "image": "498.png",
@@ -2517,7 +2518,7 @@ var localData = {
         {
             "image": "499.png",
             "ocr1": "num , five",
-            "ocr2": "numgﬁvc"
+            "ocr2": "numgï¬vc"
         },
         {
             "image": "500.png",
@@ -2551,7 +2552,7 @@ var localData = {
         },
         {
             "image": "506.png",
-            "ocr1": "contmﬂuxus",
+            "ocr1": "contmï¬‚uxus",
             "ocr2": "contra fluxus"
         },
         {
@@ -2617,7 +2618,7 @@ var localData = {
         {
             "image": "519.png",
             "ocr1": "de Braffica",
-            "ocr2": "dcBraﬂic;a"
+            "ocr2": "dcBraï¬‚ic;a"
         },
         {
             "image": "520.png",
@@ -2637,7 +2638,7 @@ var localData = {
         {
             "image": "523.png",
             "ocr1": "fruclus",
-            "ocr2": "ﬁuélus"
+            "ocr2": "ï¬uÃ©lus"
         },
         {
             "image": "524.png",
@@ -2657,7 +2658,7 @@ var localData = {
         {
             "image": "527.png",
             "ocr1": "fuperiora",
-            "ocr2": "ﬁxpcxiota"
+            "ocr2": "ï¬xpcxiota"
         },
         {
             "image": "528.png",
@@ -2667,7 +2668,7 @@ var localData = {
         {
             "image": "529.png",
             "ocr1": "tes,",
-            "ocr2": "__t€S"
+            "ocr2": "__tâ‚¬S"
         },
         {
             "image": "530.png",
@@ -2677,7 +2678,7 @@ var localData = {
         {
             "image": "531.png",
             "ocr1": "RicinusAmericanusmajor&minor.",
-            "ocr2": "Ricmus-A usmajor écmjnor."
+            "ocr2": "Ricmus-A usmajor Ã©cmjnor."
         },
         {
             "image": "532.png",

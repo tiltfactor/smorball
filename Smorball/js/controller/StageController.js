@@ -119,7 +119,7 @@ function StageController(config) {
 
     var newGame = function (me) {
         me.timeSpend = 0;
-        me.currentTime = createjs.Ticker.getTime();
+        me.currentTime = createjs.Ticker.getTime(true);
         $("#inputText").val("");
         resetGame(me);
 
@@ -399,7 +399,7 @@ function StageController(config) {
             EventBus.dispatch("showTimeout");
             EventBus.dispatch("setMute");
             EventBus.dispatch('pauseWaves', true);
-            calculateTime(me);
+            //calculateTime(me);
 
 
 //            $(".ui-dialog").css({
@@ -671,6 +671,11 @@ function StageController(config) {
 
         me.score.addGameLevelPoints(me.config.life);
 
+        if(me.config.gameState.currentLevel == 1){
+            calculateTime(me);
+            calculateDifficulty(me);
+        }
+
         me.config.gameState.currentLevel++;
         if (me.config.gameState.currentLevel > me.config.gameState.gs.maxLevel && me.config.gameState.currentLevel < 8) {
             me.config.gameState.gs.maxLevel = me.config.gameState.currentLevel;
@@ -701,7 +706,7 @@ function StageController(config) {
                 var time = timeConvert(me.timeSpend);
                 var highScore = me.config.gameState.gs.highScore;
                 if(highScore.min<=time.min){
-                    if(highScore.sec<time.sec){
+                    if(highScore.sec<=time.sec){
                         me.config.gameState.gs.highScore = time;
                         highScore = me.config.gameState.gs.highScore;
                     }
@@ -806,11 +811,11 @@ function StageController(config) {
     var unselectAllInBag = function (me) {
         me.config.myBag.unselectAll();
         me.config.activePowerup = undefined;
-        updatePlayerOnPowerup(me, me.default_player)
+        updatePlayerOnPowerup(me, me.default_player);
     };
     var selectPowerUp = function (me, mypowerup) {
         me.config.activePowerup = mypowerup;
-        updatePlayerOnPowerup(me, me.powerup_player)
+        updatePlayerOnPowerup(me, me.powerup_player);
     };
 
     var updatePlayerOnPowerup = function (me, playerId) {
@@ -825,6 +830,7 @@ function StageController(config) {
 
             }
         }
+
     };
 
     var changeLane = function (me, enemy) {
@@ -844,7 +850,7 @@ function StageController(config) {
         return laneId;
     };
     var hideTimeOut = function (me) {
-        calculateTime(me);
+        //calculateTime(me);
         $('#timeout-container').css('display', 'none');
         EventBus.dispatch('showCaptchas');
         EventBus.dispatch('setTickerStatus');
@@ -852,13 +858,33 @@ function StageController(config) {
         EventBus.dispatch('pauseWaves', false);
     };
     var calculateTime = function (me) {
-        me.timeSpend += createjs.Ticker.getTime() - me.currentTime;
-        me.currentTime = createjs.Ticker.getTime();
+        me.timeSpend = createjs.Ticker.getTime(true) - me.currentTime;
+        me.currentTime = createjs.Ticker.getTime(true);
     };
     var timeConvert = function (milliSeconds) {
         var min = Math.floor((milliSeconds/1000/60));
         var sec = Math.floor((milliSeconds/1000) % 60);
         return {"min":min,"sec":sec}
+    };
+    var calculateDifficulty = function(me){
+        var wordCount = me.captchaProcessor.getWordCount();
+        var time = timeConvert(me.timeSpend);
+        time = time.min+"."+time.sec;
+        time = parseFloat(time);
+        var wpm = wordCount/time;
+
+        if(wpm<=10){
+            me.config.gameState.gs.difficulty = 0.5;
+        }else if(wpm<=15){
+            me.config.gameState.gs.difficulty = 0.75;
+        }else if(wpm<=20){
+            me.config.gameState.gs.difficulty = 1;
+        }else if(wpm<=30){
+            me.config.gameState.gs.difficulty = 1.25;
+        }else if(wpm>30){
+            me.config.gameState.gs.difficulty = 1.5;
+        }
+
     };
     var persist = function (me) {
 

@@ -5,9 +5,9 @@ LevelData = [];
 
 LevelData[1] = { "level" : 1, "lanes" : 1 , "pass" : 1,"levelName":"Local Qualifiers",
     "waves" : { "activeWaves" : 1, "time" : 1000, "maxOnGround" : 4, "enemySize":13,
-        "message":"Jujubes come from the right.@@ Keep the Jujubes from getting to the grass. @@Type the word and press enter to stop the Jujube.","data": [
+        "message":"Opponents come from the right.@@Keep them from scoring in your endzone. ","data": [
         {"types" : ["enemy_regular"], "time": -1, "size" : 10, "stageDatas": [] },
-        {"types" : ["fast"], "time": -1, "size" : 2, "stageDatas": [["fast",1,6000,"Look out! Here they come!"],["fast",1]] }
+        {"types" : ["fast"], "time": -1, "size" : 2, "stageDatas": [["fast",1,6000,"Look out, this one's fast!"],["fast",1]] }
     ]  }
 };
 

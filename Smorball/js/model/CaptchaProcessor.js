@@ -5,6 +5,7 @@
 
     var CaptchaProcessor = function(config){
         this.config = config;
+        this.wordCount = 0;
         this.currentPass = 0;
         this.maxPass = 1;
         this.captchasOnScreen=[];
@@ -175,6 +176,7 @@
             output.message = "correct";
             var captcha = cw.closestOcr;
             var index = this.captchasOnScreen.indexOf(captcha);
+            this.wordCount++;
             this.captchasOnScreen.splice(index,1);
             output.laneId = captcha.id;
             this.load(captcha);
@@ -316,7 +318,10 @@
         for(var i =0;i<this.captchasOnScreen.length;i++){
             this.captchasOnScreen[i].alpha=1;
         }
-    }
+    };
+    CaptchaProcessor.prototype.getWordCount = function(){
+      return this.wordCount;
+    };
 
 
     window.CaptchaProcessor = CaptchaProcessor;
