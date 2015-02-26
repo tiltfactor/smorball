@@ -386,12 +386,13 @@ canvas {
     font-family: 'Boogaloo';
     cursor: pointer;
     text-transform: uppercase;
+    outline: none;
 }
 
 .innerItem .upgrade {
     float: right;
     margin-right: 10%;
-    padding: 1% 5% 4% 5%;
+    padding: 0% 5% 5% 5%;
     margin-bottom: 6px;
 }
 
@@ -637,7 +638,6 @@ screen and ( max-height: 350px ) {
 .victoryText {
     margin-bottom: 2%;
     font-size: 3em;
-    font-family: arial;
 }
 
 .victoryContainer img,
