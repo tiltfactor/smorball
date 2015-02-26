@@ -39,7 +39,7 @@ Manifest.level = [
 
 
     {src: "shapes/player_normal.png",id: "player_normal"},
-    {src: "shapes/baseball_run.png",id: "baseball"},
+    {src: "shapes/Friendly_Baseball_Normal.png",id: "baseball"},
     {src: "shapes/man1.png",id: "man1"},
 
     {src: "shapes/enemy_regular.png", id: "enemy_regular"},

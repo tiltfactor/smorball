@@ -153,7 +153,7 @@ function GameLevelController(config) {
         cashText.text = score.getMyMoney();
         cashText.font = "bold 60px Boogaloo";
         cashText.color = "white";
-        cashText.setTransform(cashbar.getTransformedBounds().width/2-cashText.getMeasuredWidth(),cashbar.getTransformedBounds().height/2-cashText.getMeasuredHeight());
+        cashText.setTransform(cashbar.getTransformedBounds().width/2-cashText.getMeasuredWidth()/2,cashbar.getTransformedBounds().height/2-cashText.getMeasuredHeight());
         cashContainer.addChild(cashbar,cashText);
         me.map.addChild(cashContainer);
 
@@ -181,18 +181,22 @@ function GameLevelController(config) {
         me.logo.setTransform(-40,0,0.5,0.5);
         me.logo.y = inforbar.y - me.logo.getTransformedBounds().height/3;
 
-        me.infoText = new createjs.Text("Charlson Chargers","40px Boogaloo", "#ffffff");
+        me.infoText = new createjs.Text("Charlson Chargers","50px Boogaloo", "#ffffff");
+
         me.infoText.x = me.logo.getTransformedBounds().width - 40;
-        me.infoText.y = inforbar.y + me.infoText.getTransformedBounds().height/2;
+        me.infoText.y = inforbar.getBounds().height + me.infoText.getBounds().height/2-5;
 
-        me.scoreText = new createjs.Text("0/6","40px Boogaloo", "#ffffff");
-        me.scoreText.x  = inforbar.x + inforbar.getTransformedBounds().width-(2*me.scoreText.getMeasuredWidth());
+        me.scoreText = new createjs.Text("0/6","bold 75px Boogaloo", "#ffffff");
 
-        me.scoreText.y = me.infoText.y;
+        me.scoreText.x  = inforbar.x + inforbar.getTransformedBounds().width-me.scoreText.getMeasuredWidth()-10;
+
+        me.scoreText.y = me.infoText.y-me.scoreText.getMeasuredHeight()/3+10;
 
         me.infoContainer.addChild(inforbar,me.logo,me.infoText,me.scoreText);
         me.infoContainer.x = 20;
         me.infoContainer.y = me.map.getBounds().height-me.infoContainer.getTransformedBounds().height-20;
+        //me.infoText.lineWidth = inforbar.getTransformedBounds().width/2;
+        me.infoText.maxWidth = inforbar.getTransformedBounds().width/2;
     }
     var drawPathDots = function(me){
         var pointdata = PointData;

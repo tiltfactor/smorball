@@ -132,7 +132,7 @@ function GameController(config) {
                 //currentActivePlayer.y ++;
                 break;
             case SPACE_KEY_DOWN:
-                //currentActivePlayer.gotoAndPlay("jump")
+                //currentActivePlayer.gotoAndPlay("confused")
                 break;
             case ESC_KEY:
                 EventBus.dispatch("showTimeoutScreen");

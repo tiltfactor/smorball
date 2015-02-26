@@ -584,9 +584,9 @@ function StageController(config) {
 
     var isCollision = function (player, object) {
         return (object.x <= player.x + player.getWidth() &&
-        player.x <= object.x + object.getWidth() &&
-        object.y <= player.y + player.getHeight() &&
-        player.y <= object.y + object.getHeight())
+        player.x <= object.x + object.getWidth() )//&&
+        //object.y <= player.y + player.getHeight() &&
+        //player.y <= object.y + object.getHeight())
     };
 
     var compareCaptcha = function (me) {
@@ -626,7 +626,7 @@ function StageController(config) {
         for (var i = 0; i < me.config.lanes.length; i++) {
             var lane = me.config.lanes[i];
             if (lane.player) {
-                lane.player.jump();
+                lane.player.confused();
             }
 
         }

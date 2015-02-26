@@ -16,7 +16,7 @@
 
     p.initialize = function () {
         this.spriteData = new SpriteSheet({"id" : this.config.id, "data": PlayerData[this.config.id].data, "loader" : this.config.loader, "gameState": this.config.gameState});
-        this.sprite = new createjs.Sprite(this.spriteData, "stand");
+        this.sprite = new createjs.Sprite(this.spriteData, "idle");
         this.extras = PlayerData[this.config.id].extras;
         this.setScale(this.extras.sX,this.extras.sY);
         this.setEffects();
@@ -29,6 +29,7 @@
         this.hitEnemies = [];
         this.speed = this.config.speed || 6;
 
+
         this.bounds = this.getBounds();
         //this.setTransform(0,0,0.5,0.5);
     }
@@ -39,7 +40,7 @@
         }
 
         me.shape = new createjs.Shape();
-        me.shape.graphics.beginStroke("#000").setStrokeStyle(0.2).drawRect(0,0,me.getWidth(), me.getHeight());
+        me.shape.graphics.beginStroke("#000").setStrokeStyle(0.5).drawRect(0,0,me.getWidth(), me.getHeight());
         me.addChild(me.shape);
 
     }
@@ -61,6 +62,7 @@
     }
     SpriteMan.prototype.run  = function(){
         var me = this;
+        //drawBorder(this);
         this.sprite.gotoAndPlay("run");
         //var fileId = this.config.playerSound.run;
         //var config = {"file": fileId , "loop": false, "type": this.config.gameState.gs.soundType.EFFECTS, "isMain": false,"loader":this.config.loader, "gameState":me.config.gameState};
@@ -75,11 +77,11 @@
     }
     SpriteMan.prototype.pause = function(){
         this.removeEventListener("tick",  this.myTick);
-        this.sprite.gotoAndPlay("stand");
+        this.sprite.gotoAndPlay("idle");
     }
 
-    SpriteMan.prototype.jump = function(){
-        this.sprite.gotoAndPlay("jump");
+    SpriteMan.prototype.confused = function(){
+        this.sprite.gotoAndPlay("confused");
     }
     SpriteMan.prototype.setPosition = function(x, y){
         this.x  = x;
@@ -100,7 +102,7 @@
         EventBus.dispatch("addAudioToList",killSound);*/
         if(this.life == 0){
             this.hit = true;
-            this.sprite.gotoAndPlay("fall");
+            this.sprite.gotoAndPlay("tackle");
             this.myAnimationEnd = function(){removeFallingAnimation(me)};
             me.removeEventListener("tick",  this.myTick);
             this.sprite.addEventListener("animationend",this.myAnimationEnd);
