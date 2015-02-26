@@ -20,6 +20,12 @@
     padding: 0;
 }
 
+button {
+    background-color: transparent;
+    outline: none;
+    border: none;
+}
+
 #canvasHolder input {
     background: none;
     border: none;
@@ -414,6 +420,7 @@ canvas {
     height: 10%;
     background-position: 0% 100%;
     margin-top: -3%;
+    outline: none;
 }
 
 .backButton:hover {
