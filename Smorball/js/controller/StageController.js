@@ -115,6 +115,11 @@ function StageController(config) {
             hideTimeOut(me)
         };
         EventBus.addEventListener("hideTimeOut", ht);
+
+        var ch = function () {
+            stopCheering(me);
+        };
+        EventBus.addEventListener("stopCheering", ch);
     }
 
     var newGame = function (me) {
@@ -681,7 +686,10 @@ function StageController(config) {
         showResultScreen(me, 1);
 
     };
-
+    var stopCheering = function(me){
+        var cheerSound = me.config.loader.getResult("crowdCheering");
+        cheerSound.pause();
+    }
     var showResultScreen = function (me, result) {
         me.waves.clearAll();
         me.waves = null;
@@ -694,8 +702,6 @@ function StageController(config) {
                 $(".defeatedText").hide();
                 $("#defeatedWrapper").css("display", "table");
             } else if (result == 1) {
-                var cheerSound = me.config.loader.getResult("crowdCheering");
-                cheerSound.pause();
                 var money = me.score.getMoneyForLevel(me.config.gameState.currentLevel - 2);
                 $("#victoryScore").text("$" + money);
                 $("#victoryWrapper").css("display", "table");

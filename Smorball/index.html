@@ -185,7 +185,7 @@
             <div class="victoryTitle title">VICTORY!</div>
             <img  src="shapes/star_background.png"/>
             <div class="victoryText">You earnt<br><span id="victoryScore">$1000</span></div>
-            <button id="victoryBackButton" onclick="EventBus.dispatch('showMap');$('#victoryWrapper').hide() ">CONTINUE</button>
+            <button id="victoryBackButton" onclick="EventBus.dispatch('stopCheering');EventBus.dispatch('showMap');$('#victoryWrapper').hide();">CONTINUE</button>
     </div>
 </div>
 
