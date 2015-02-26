@@ -128,9 +128,6 @@ function StageController(config) {
         var ambientSound = new Sound(config);
         EventBus.dispatch("addAudioToList",ambientSound);*/
 
-        var cheerSound = me.config.loader.getResult("crowdCheering");
-        cheerSound.pause();
-
         me.config.gameState.currentState = me.config.gameState.states.RUN;
         me.levelConfig = LevelData[me.config.gameState.currentLevel];
 
@@ -697,6 +694,8 @@ function StageController(config) {
                 $(".defeatedText").hide();
                 $("#defeatedWrapper").css("display", "table");
             } else if (result == 1) {
+                var cheerSound = me.config.loader.getResult("crowdCheering");
+                cheerSound.pause();
                 var money = me.score.getMoneyForLevel(me.config.gameState.currentLevel - 2);
                 $("#victoryScore").text("$" + money);
                 $("#victoryWrapper").css("display", "table");

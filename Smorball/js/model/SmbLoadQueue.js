@@ -28,8 +28,6 @@
         me.config.stage.update();
     };
 
-
-
     var addEventsonLoad = function(me, manifest,callback, ob){
         me.events.loaderEvent =  function(e){ updateLoader(e,me)};
         me.fg_loader.addEventListener("progress",me.events.loaderEvent);

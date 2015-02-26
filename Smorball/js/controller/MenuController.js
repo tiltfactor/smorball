@@ -11,8 +11,8 @@ function MenuController(config) {
         var sm = function(){me.showMenu(me)};
         EventBus.addEventListener("showMenu",sm);
         
-        var sm = function(){me.showTimeout(me)};
-        EventBus.addEventListener("showTimeout",sm);
+        var st = function(){me.showTimeout(me)};
+        EventBus.addEventListener("showTimeout",st);
         
         var qt = function(){me.quitTimeout(me)};
         EventBus.addEventListener("quitTimeout",qt);
