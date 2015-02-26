@@ -154,15 +154,15 @@
                                 <table>
                                     <tr>
                                         <td>
-                                            <img src=<%=item.src%> class="image"/>
+                                <img src=<%=item.src%> class="image"/>
                                         </td>
                                         <td class="innerDiv" id=<%=item.id%>>
-                                            <div class="title" pType =<%=item.type%> ><%=item.name%></div>
-                                            <div class="caption"><%=item.description%></div>
-                                            <!--<div class="rate">&dollar;<%=item.price%></div>-->
-                                            <br>
-                                            <button class="upgrade" type="button" style="background-color:#a7cb00;" >$<%=item.price%>
-                                            </button>
+                                    <div class="title" pType =<%=item.type%> ><%=item.name%></div>
+                                    <div class="caption"><%=item.description%></div>
+                                    <!--<div class="rate">&dollar;<%=item.price%></div>-->
+                                    <br>
+                            <button class="upgrade" type="button" style="background-color:#a7cb00;" >$<%=item.price%>
+                                    </button>
                                         </td>
                                     </tr>
                                 </table>
@@ -181,24 +181,46 @@
     </div>
 </div>
 
-<div id="victoryWrapper" class="mainWrapper">
-    <div class="victoryContainer">
-            <div class="victoryTitle title">VICTORY!</div>
-            <img  src="shapes/star_background.png"/>
-            <div class="victoryText">You earnt<br><span id="victoryScore">$1000</span></div>
-            <button id="victoryBackButton" onclick="EventBus.dispatch('stopCheering');EventBus.dispatch('showMap');$('#victoryWrapper').hide();">CONTINUE</button>
-    </div>
-</div>
-
-<div id="defeatedWrapper" class="mainWrapper">
-    <div class="defeatedContainer">
-            <div class="defeatedTitle title">DEFEATED!</div>
-            <img id="defeatedImage" src="shapes/close_round_butto.png"/>
-            <div class="clear"></div>
-            <div class="defeatedText"><span id="minutes">0</span> minutes <span id="seconds">0</span>seconds</div>
-            <div class="defeatedText">(Your highscore is <span id="highMinutes">0</span> minutes <span id="highSeconds">0</span> seconds)</div>
-            <button id="defeatedBackButton" onclick="$('#defeatedWrapper').hide();EventBus.dispatch('showMap')">Back to map</button>
-            <button id="defeatedTryButton" onclick="$('#defeatedWrapper').hide();EventBus.dispatch('newGame')">Try again</button>
+<div id="resultWrapper" class="shadedContainer">
+    <div class="centerScreenContainer">
+        <div class="innerContainer">
+            <div>
+                <div id="lostContainer" class="resultContainer">
+                    <div class="title"><b>LOST</b></div>
+                    <div class="details">
+                        <div>
+                            <p><b>MONEY MADE:</b></p><p class="moneyMade"><b>999,999</b></p>
+                        </div> 
+                        <div class="clear"></div>
+                    </div>
+                    <button onclick="$('.resultContainer, #resultWrapper').hide(); EventBus.dispatch('showMap')"><b>LEVEL SELECT</b></button>
+                    <button onclick="$('.resultContainer,  #resultWrapper').hide();EventBus.dispatch('newGame')"><b>TRY AGAIN</b></button>
+                </div>
+                <div id="survivalEndContainer" class="resultContainer">
+                     <div class="title"><b>SURVIVAL END</b></div>
+                    <div class="details">
+                         <div>
+                             <div class="timeDetails"><p>TIME SURVIVED:</p><p class="time"><span id="minutes">686</span>:<span id="seconds">18</span></p> </div>
+                             <div class="timeDetails"><p>HIGH SCORE:</p><p class="time"><span id="highMinutes">88</span>:<span id="highSeconds">878</span></p> </div>
+                        </div> 
+                        <div class="clear"></div>
+                    </div>
+                     <button onclick="$('.resultContainer, #resultWrapper').hide(); EventBus.dispatch('showMap')"><b>LEVEL SELECT</b></button>
+                     <button onclick="$('.resultContainer,  #resultWrapper').hide();EventBus.dispatch('newGame')"><b>CONTINUE</b></button>
+                </div> 
+                <div id="victoryContainer" class="resultContainer">
+                    <div class="title"><b>VICTORY</b></div>
+                    <div class="details">
+                        <div>
+                            <p><b>MONEY MADE:</b></p><p class="moneyMade"><b>999,999</b></p>
+                        </div> 
+                        <div class="clear"></div>
+                    </div>
+                    <button onclick="$('.resultContainer, #resultWrapper').hide(); EventBus.dispatch('showMap')"><b>LEVEL SELECT</b></button>
+                    <button onclick="$('.resultContainer,  #resultWrapper').hide();EventBus.dispatch('showMap')"><b>CONTINUE</b></button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

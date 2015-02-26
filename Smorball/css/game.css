@@ -12,7 +12,8 @@
 }
 
 #canvasHolder *,
-.mainWndw *{
+.mainWndw *,
+.shadedContainer *{
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     margin: 0;
@@ -424,6 +425,229 @@ canvas {
 }
 
 /*shop screen style ends here*/
+.slimScrollRail {
+    background-image: url("../shapes/scroller_back.png");
+    background-size: 100% 100%;
+}
+
+.slimScrollBar {
+    background-image: url("../shapes/scroller_btn.png") !important;
+    background-size: 100% 100% !important;
+}
+
+.clear {
+    clear: both;
+}
+
+/*Placeholder style for victory, defeated, splash, help screens*/
+
+.optionScreen {
+    display: none;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background-size: 100% 100%;
+}
+
+.shadedContainer {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+    background-color: rgba(0, 0, 0, 0.3);
+    font-family: 'Boogaloo';
+}
+
+.centerScreenContainer {
+    position: relative;
+    padding: 1%;
+    border-radius: 5px;
+    display: table-cell;
+    vertical-align: middle;  
+}
+
+.innerContainer {
+    width: 70%;
+    margin: 0px auto;
+    background-image: url("../shapes/level_end_box.png");
+    background-size: 100% 100%;
+    max-width: 500px;
+}
+
+.resultContainer {
+    display: none;
+    text-align: left;
+}
+
+.innerContainer > div {
+    padding: 8%;
+    box-sizing: border-box;
+}
+
+.centerScreenContainer .title {
+    color: white;
+    font-family: 'Boogaloo';
+    font-size: 3em;
+    text-shadow: 2px 2px #020202; 
+    text-align: center;
+    margin-bottom: 2%;
+}
+
+.shadedContainer .details {
+    background-image: url("../shapes/clubhouse_inner_box.png");
+    background-size: 100% 100%; 
+    font-size: 2.1em;
+    padding: 6% 2%;
+    color: white;
+    margin-bottom: 5%;
+}
+
+.details b {
+    float: left;
+    padding: 2%;
+}
+
+.moneyMade {
+    background-image: url("../shapes/cash_bar.png");
+    background-size: 100% 100%;
+    width: 200px;
+    padding: 2% 2% 5% 14%;
+    float: right;
+    text-align: center;
+}
+
+.moneyMade b {
+    width: 100%;
+    text-align: center;
+}
+
+#resultWrapper button {
+    background-image: url("../shapes/btn-sprite.png");
+    background-size: 100% 300%;
+    background-color: transparent;
+    padding: 3% 0% 10% 0%;
+    border: none;
+    font-size: 1.5em;
+    font-family: 'Boogaloo';
+    width: 42%;
+    color: white;
+    background-position: 0 100%;
+    outline: none;
+}
+
+.resultContainer button:nth-of-type(2) {
+    float: right;
+}
+
+#resultWrapper button:hover {
+    background-position: 0 50%;
+}
+
+#resultWrapper button:active {
+    background-position: 0 0%;
+}
+
+#resultScreenTryAgainButton,
+#resultScreenContinueButton {
+    display: none;
+}
+
+.timeDetails p{
+    width: 50%;
+    float: left;
+}
+
+.time {
+    text-align: center;
+}
+
+.splashScreen,
+#optionsScreen {
+    background-color: white;
+    display: none;
+    position: absolute;
+    height: 94%;
+    width: 94%;
+    top: 3%;
+    left: 3%;
+}
+
+.helpScreenContainer,
+.splashScreenContainer,
+.optionScreenContainer {
+    position: relative;
+    padding: 1%;
+    border-radius: 5px;
+    display: table-cell;
+    vertical-align: middle;   
+}
+
+.helpBackButton {
+    padding: 1% 2%;
+    border-radius: 6px;
+}
+
+#helpScreen {
+    background-color: white;
+    display: none;
+    position: absolute;
+    height: 70%;
+    width: 50%;
+    top: 15%;
+    left: 25%;
+}
+
+@media screen and (max-width: 700px) {
+    #helpScreen {
+        width: 90%;
+        left: 5%;
+    } 
+}
+
+#helpScreen .title {
+    display: inline;
+}
+
+#helpScreen button {
+    position: absolute;
+    left: 3%;
+    top: 1%;
+}
+
+.helpScreenContent {
+    height: calc(100% - 150px);
+    width: 94%;
+    margin: 0px auto;
+    overflow-y: scroll;
+    margin-top: 10px;
+}
+
+.BHLLogo {
+    width: 60%;
+    max-width: 400px;
+    border: 2px #020202;
+}
+
+#slideContainer {
+    width: 50%;
+    max-width: 300px;
+    margin: 0px auto;
+}
+
+.optionsScreen .slider {
+    width: 200px;
+}
+
+.optionsBackButton {
+    position: absolute;
+    top: 10%;
+    left: 10%;
+}
+
 @media screen and (max-width: 992px),
 screen and ( max-height: 600px ){
     #canvasHolder input {
@@ -451,6 +675,24 @@ screen and ( max-height: 600px ){
 
 @media screen and (max-width: 768px),
 screen and ( max-height: 500px ) { 
+    .centerScreenContainer .title {
+        font-size: 2.5em;
+    }
+    .shadedContainer .details {
+        font-size: 1.8em;
+    }
+    .moneyMade {
+        width: 170px;
+    }
+
+    #resultWrapper button {
+        font-size: 1em;
+    }
+
+    .innerContainer {
+        max-width: 450px;
+    }
+
     #timeout-close {
         height: 33px;
     }
@@ -522,6 +764,16 @@ screen and ( max-height: 500px ) {
     }
 }
 
+@media screen and (max-width: 650px) {
+    .shadedContainer .details {
+        font-size: 1.5em;
+    }
+    .moneyMade {
+        width: 120px;
+        padding: 2% 2% 5% 10%;
+    }
+}
+
 @media screen and (max-width: 480px),
 screen and ( max-height: 400px ) {
     #canvasHolder input {
@@ -571,6 +823,22 @@ screen and ( max-height: 400px ) {
         width: 1em;
         top: -.3em;
     }
+    .innerContainer {
+        max-width: 300px;
+    }
+    .centerScreenContainer .title {
+        font-size: 2em;
+    }
+    .shadedContainer .details {
+        font-size: 1em;
+    }
+    .moneyMade {
+        width: 100px;
+    }
+
+    #resultWrapper button {
+        font-size: .8em;
+    }
 }
 
 @media screen and (max-width: 320px),
@@ -588,159 +856,4 @@ screen and ( max-height: 350px ) {
     #canvasHolder input[type=button] {
         padding: 0px 10px 11px 10px;
     }
-}
-
-
-.slimScrollRail {
-    background-image: url("../shapes/scroller_back.png");
-    background-size: 100% 100%;
-}
-
-.slimScrollBar {
-    background-image: url("../shapes/scroller_btn.png") !important;
-    background-size: 100% 100% !important;
-}
-
-.clear {
-    clear: both;
-}
-
-/*Placeholder style for victory, defeated, splash, help screens*/
-
-.optionScreen {
-    display: none;
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    top: 0;
-    left: 0;
-    background-size: 100% 100%;
-}
-
-#victoryWrapper,
-#defeatedWrapper,
-.splashScreen,
-#optionsScreen {
-    background-color: white;
-    display: none;
-    position: absolute;
-    height: 94%;
-    width: 94%;
-    top: 3%;
-    left: 3%;
-}
-
-.victoryContainer,
-.defeatedContainer,
-.helpScreenContainer,
-.splashScreenContainer,
-.optionScreenContainer {
-    position: relative;
-    padding: 1%;
-    border-radius: 5px;
-    display: table-cell;
-    vertical-align: middle;   
-}
-
-.title,
-.victoryText {
-    margin-bottom: 2%;
-    font-size: 3em;
-}
-
-.victoryContainer img,
-.defeatedContainer img {
-    width:200px;
-    padding-bottom: 1%;
-}
-
-#victoryBackButton,
-#defeatedBackButton,
-#defeatedTryButton,
-.helpBackButton {
-    padding: 1% 2%;
-    border-radius: 6px;
-}
-
-@media screen and (max-width: 768px),
-screen and (max-height: 500px) { 
-    .title,
-    .victoryText {
-        margin-bottom: 1%;
-        font-size: 2em;
-    }
-    .victoryContainer img,
-    .defeatedContainer img {
-        width:100px;
-    }
-    .title,
-    .victoryText {
-        font-size: 2em;
-    }
-}
-
-@media screen and (max-height: 300px) { 
-    .title,
-    .victoryText {
-        margin-bottom: 1%;
-        font-size: 1.5em;
-    }
-    .victoryContainer img,
-    .defeatedContainer img {
-        width:75px;
-    }
-    .title,
-    .victoryText {
-        font-size: 1.5em;
-    }
-}
-
-#helpScreen {
-    background-color: white;
-    display: none;
-    position: absolute;
-    height: 70%;
-    width: 94%;
-    top: 15%;
-    left: 3%;
-}
-
-#helpScreen .title {
-    display: inline;
-}
-
-#helpScreen button {
-    position: absolute;
-    left: 3%;
-    top: 1%;
-}
-
-.helpScreenContent {
-    height: calc(100% - 150px);
-    width: 94%;
-    margin: 0px auto;
-    overflow-y: scroll;
-    margin-top: 10px;
-}
-
-.BHLLogo {
-    width: 60%;
-    max-width: 400px;
-    border: 2px #020202;
-}
-
-#slideContainer {
-    width: 50%;
-    max-width: 300px;
-    margin: 0px auto;
-}
-
-.optionsScreen .slider {
-    width: 200px;
-}
-
-.optionsBackButton {
-    position: absolute;
-    top: 10%;
-    left: 10%;
 }

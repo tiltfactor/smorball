@@ -698,13 +698,13 @@ function StageController(config) {
             EventBus.dispatch("setMute");
             if (result == 0) {
                 $("#canvasHolder").hide();
-                $("#defeatedImage").attr("src", "shapes/close_round_butto.png");
-                $(".defeatedText").hide();
-                $("#defeatedWrapper").css("display", "table");
+                $("#lostContainer").show();
+                $("#resultWrapper").css("display", "table");
             } else if (result == 1) {
                 var money = me.score.getMoneyForLevel(me.config.gameState.currentLevel - 2);
-                $("#victoryScore").text("$" + money);
-                $("#victoryWrapper").css("display", "table");
+                $("#victoryContainer .moneyMade").text("$" + money);
+                $("#victoryContainer").show();
+                $("#resultWrapper").css("display", "table");
             } else if (result == 2) {
                 EventBus.dispatch("showMap", true);
             } else if (result == 3) {
@@ -722,8 +722,8 @@ function StageController(config) {
                 $("#highMinutes").text(highScore.min);
                 $("#highSeconds").text(highScore.sec);
                 $("#canvasHolder").hide();
-                $(".defeatedText").show();
-                $("#defeatedWrapper").css("display", "table");
+                $("#survivalEndContainer").show();
+                $("#resultWrapper").css("display", "table");
             }
         }, 2000);
     };
