@@ -142,31 +142,32 @@
     <div class="centerContainer">
         <div id="shop" class="mainWndw">
             <div class="titleBar">
-                <span class="clubhouse">Clubhouse</span>
+                <span class="clubhouse"><b>Clubhouse</b></span>
                 <span class="wallet">$2600</span>
             </div>
             <div class="shopInnerBg">
                 <div class="scrollContainer">
                     <div class="itemDiv">
                         <script type="text/template" id="shopComponents">
-
-
                             <% _.each(items, function(item) { %>
-
                             <div class="innerItem">
-                                <img src=<%=item.src%> class="image"/>
-
-                                <div class="innerDiv" id=<%=item.id%>>
-                                    <div class="title" pType =<%=item.type%> ><%=item.name%></div>
-                                    <div class="caption"><%=item.description%></div>
-                                    <!--<div class="rate">&dollar;<%=item.price%></div>-->
-                                    <br>
-                            <button class="upgrade" type="button" style="background-color:#a7cb00;" >$<%=item.price%>
-                                    </button>
-                                </div>
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <img src=<%=item.src%> class="image"/>
+                                        </td>
+                                        <td class="innerDiv" id=<%=item.id%>>
+                                            <div class="title" pType =<%=item.type%> ><%=item.name%></div>
+                                            <div class="caption"><%=item.description%></div>
+                                            <!--<div class="rate">&dollar;<%=item.price%></div>-->
+                                            <br>
+                                            <button class="upgrade" type="button" style="background-color:#a7cb00;" >$<%=item.price%>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </table>
                                 <div class="clear"></div>
                             </div>
-                            <br>
                             <% }); %>
 
                         </script>
