@@ -31,7 +31,7 @@ button {
     border: none;
     outline: none;
     background-size: 100% 100%;
-    height: 50px;
+    height: 55px;
     font-family: 'Boogaloo';
     font-size: 1em;
     padding: 0px 10px 10px 10px;
@@ -61,7 +61,7 @@ button {
     background-image: url("../shapes/input_bg.png");
     color: black;
     width: 16%;
-    height: 45px;
+    height: 40px;
 }
 
 html, body  {
@@ -368,13 +368,10 @@ canvas {
 
 .innerItem .image {
     width: 80%;
-    float: left;
     margin: 10%;
 }
 
 .innerItem .innerDiv {
-    width: 63%;
-    float: right;
     text-align: left;
     color: white;
 }
@@ -596,6 +593,7 @@ canvas {
 .helpBackButton {
     padding: 1% 2%;
     border-radius: 6px;
+    background-color: gray;
 }
 
 #helpScreen {
@@ -653,6 +651,7 @@ canvas {
     position: absolute;
     top: 10%;
     left: 10%;
+    background-color: gray;
 }
 
 @media screen and (max-width: 992px),
@@ -742,7 +741,7 @@ screen and ( max-height: 500px ) {
     }
 
     .shopInnerBg {
-        padding: 7% 0%;
+        padding: 10% 0%;
     }
     .titleBar {
         font-size: 1.5em;
@@ -862,5 +861,11 @@ screen and ( max-height: 350px ) {
 
     #canvasHolder input[type=button] {
         padding: 0px 10px 11px 10px;
+    }
+}
+
+@media screen and ( max-width: 700px ) and ( min-height: 500px ) { 
+    .shopInnerBg {
+        padding: 15% 0%;
     }
 }
