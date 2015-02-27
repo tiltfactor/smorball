@@ -856,6 +856,8 @@ function StageController(config) {
     };
     var hideTimeOut = function (me) {
         //calculateTime(me);
+        event.preventDefault();
+		$("#inputText").focus();
         $('#timeout-container').css('display', 'none');
         EventBus.dispatch('showCaptchas');
         EventBus.dispatch('setTickerStatus');

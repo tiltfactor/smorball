@@ -159,8 +159,9 @@ function GameController(config) {
                 break;
 
             case TAB_KEY:
-                EventBus.dispatch("selectOnTab");
+                e.preventDefault();
                 $("#inputText").focus();
+                EventBus.dispatch("selectOnTab");
                 break;
 
         }
