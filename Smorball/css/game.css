@@ -290,6 +290,7 @@ canvas {
     width: 90%;
     max-width: 800px;
     height: 98%;
+    max-height: 700px;
     border-radius: 5px;
     font-family: 'Boogaloo';
     text-align: center;
@@ -356,7 +357,7 @@ canvas {
 
 .innerItem {
     background-image: url("../shapes/clubhouse_inner_box.png");
-    width: 69%;
+    width: 74%;
     margin: 0px auto;
     background-size: 100% 100%;
     margin: 0% 0% 2% 9%;
@@ -631,7 +632,7 @@ canvas {
     margin-top: 10px;
 }
 
-.BHLLogo {
+.splashLogo {
     width: 60%;
     max-width: 400px;
     border: 2px #020202;
@@ -768,6 +769,9 @@ screen and ( max-height: 500px ) {
     .backButton {
         padding: 4%;
     }
+    .mainWndw {
+        max-width: 600px;
+    }
 }
 
 @media screen and (max-width: 650px) {
@@ -777,6 +781,10 @@ screen and ( max-height: 500px ) {
     .moneyMade {
         width: 120px;
         padding: 2% 2% 5% 10%;
+    }
+    
+    .innerItem {
+        width: 77%;
     }
 }
 
@@ -868,4 +876,31 @@ screen and ( max-height: 350px ) {
     .shopInnerBg {
         padding: 15% 0%;
     }
+}
+
+
+/*Custom scrollbar style*/
+.mCSB_scrollTools_vertical {
+    background-image: url("../shapes/scroller_back.png");
+    background-size: 100% 100%;
+}
+
+.mCSB_buttonUp,
+.mCSB_buttonDown {
+    background-image: none;
+}
+
+.mCSB_dragger_bar {
+    background-image: url("../shapes/scroller_btn.png");
+    background-size: 100% 106%;
+    background-color: transparent !important;
+    background-repeat: no-repeat;
+}
+
+#mCSB_1_scrollbar_vertical {
+    opacity: 1 !important;
+}
+
+#mCSB_1_dragger_vertical {
+    min-height: 15px !important;
 }

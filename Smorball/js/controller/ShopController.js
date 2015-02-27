@@ -48,12 +48,7 @@ function ShopController(config) {
         EventBus.dispatch("hideAll");
         setUpgradeStatus(me);
         $("#shopOuterWrapper").css("display","block");
-        $('.scrollContainer').slimscroll({
-            alwaysVisible: true,
-            railVisible: true,
-            height: "100%",
-            color : 'transparent'
-        });
+        $('.scrollContainer').mCustomScrollbar({theme:"rounded",axis:"y", setWidth: "100%",scrollButtons:{ enable: true } });
 
     }
     var setUpgradeStatus = function(me){

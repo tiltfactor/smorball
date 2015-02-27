@@ -26,7 +26,9 @@ function GameController(config) {
             $("#bhlSplashScreen").css("display", "table");
             $("#bhlSplashScreen").delay(2000).fadeOut(1000, function() {
                 $("#tiltfactorSplashScreen").fadeIn(1000).css('display','table').delay(2000).fadeOut(1000, function() {
-                    doInit(me)
+                    $("#MBGSplashScreen").fadeIn(1000).css('display','table').delay(2000).fadeOut(1000, function() {
+                        doInit(me)
+                    }); 
                 });
             });           
         }
