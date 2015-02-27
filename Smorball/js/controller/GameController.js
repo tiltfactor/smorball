@@ -23,10 +23,10 @@ function GameController(config) {
 
     var loadImages = function (me) {
         var _doInit = function (me) {
-            $("#bhlSplashScreen").css("display", "table");
-            $("#bhlSplashScreen").delay(2000).fadeOut(1000, function() {
-                $("#tiltfactorSplashScreen").fadeIn(1000).css('display','table').delay(2000).fadeOut(1000, function() {
-                    $("#MBGSplashScreen").fadeIn(1000).css('display','table').delay(2000).fadeOut(1000, function() {
+            $("#MBGSplashScreen").css("display", "table");
+            $("#MBGSplashScreen").delay(2000).fadeOut(1000, function() {
+                $("#bhlSplashScreen").fadeIn(1000).css('display','table').delay(2000).fadeOut(1000, function() {
+                    $("#tiltfactorSplashScreen").fadeIn(1000).css('display','table').delay(2000).fadeOut(1000, function() {
                         doInit(me)
                     }); 
                 });
