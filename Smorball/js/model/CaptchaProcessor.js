@@ -221,6 +221,10 @@
         document.getElementById(me.captchaTextBoxId).value = "";
     }
     var disablePassButton = function(me,status){
+        if(status){
+            document.getElementById(me.captchaPassButton).style.backgroundImage="url(shapes/btn1_grey.png)";
+            document.getElementById(me.captchaPassButton).style.backgroundSize= "100% 100%";
+        }
         document.getElementById(me.captchaPassButton).disabled = status;
     }
 
