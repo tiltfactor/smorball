@@ -115,7 +115,13 @@
         this.myBag = [];
         var inbag = loadInitBag(this);
         createMyPowerup(this, inbag);
+    };
+    MyBag.prototype.newGame = function(){
+        this.selectedId = -1;
+        this.myBag = [];
+        loadBag(this);
     }
+
 
 
     window.MyBag = MyBag;

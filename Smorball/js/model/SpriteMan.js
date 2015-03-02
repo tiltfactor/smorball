@@ -50,7 +50,7 @@
         this.sprite.spriteSheet = this.spriteData;
         this.extras = PlayerData[id].extras;
         this.setScale(this.extras.sX,this.extras.sY);
-        this.sprite.gotoAndPlay("stand");
+        this.sprite.gotoAndPlay("idle");
        // this.setScale(1,1);
         //return nm;
     }

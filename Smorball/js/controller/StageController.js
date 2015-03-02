@@ -123,6 +123,7 @@ function StageController(config) {
     }
 
     var newGame = function (me) {
+       me.config.myBag.newGame();
         me.timeSpend = 0;
         me.currentTime = createjs.Ticker.getTime(true);
         $("#inputText").val("");

@@ -16,6 +16,7 @@ function GameController(config) {
         loadEvents(this);
         loadImages(this);
         window.onkeydown = onKeyBoardEvents;
+        window.onblur = function(){EventBus.dispatch("showTimeoutScreen")};
     }    
     var loadFromStore = function(me){
         var ls = new LocalStorage({"gameState":me.config.gameState});
