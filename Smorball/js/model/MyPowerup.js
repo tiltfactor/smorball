@@ -21,6 +21,7 @@
         drawPowerup(this);
         initText(this);
         loadEvents(this);
+        checkCount(this,this.getSum());
 
     }
 

@@ -17,7 +17,7 @@ PlayerData.man1 = {
 	"data":{
 	    "images":["man1"],
 	    "frames": {"regX": 0, "height": 148, "count": 30, "regY": 0, "width": 120},
-	    "animations": {"run": [0, 29, "run", 1.5], "confused": [12, 17], "stand": [3], "fall" :[18,24,4]}
+	    "animations": {"run": [0, 29, "run", 1.5], "confused": [12, 17], "idle": [3], "tackle" :[18,24,4]}
 	},
 	"extras":{
 		"sound": {"fall": "hit", "run": "run"},
