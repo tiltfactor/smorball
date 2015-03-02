@@ -300,7 +300,7 @@ function GameLevelController(config) {
 
         if(me.config.loader.getResult("splash"+levelInfo.id)&& levelInfo.id<=maxLevel){
             me.logo.image = me.config.loader.getResult("splash"+levelInfo.id);
-            me.logo.setTransform(-40,0,0.5,0.5);
+            me.logo.setTransform(-30,0,0.5,0.5);
         }else{
             me.logo.image = me.config.loader.getResult("lock");
             me.logo.setTransform(0,50,1,1);

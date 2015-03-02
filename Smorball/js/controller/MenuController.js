@@ -122,21 +122,21 @@ function MenuController(config) {
     };
     var setDifficulty = function(me,value){
         switch(value){
-            case "veryeasy": me.config.gameState.gs.difficulty = 0.5;break;
-            case "easy": me.config.gameState.gs.difficulty = 0.75;break;
-            case "medium": me.config.gameState.gs.difficulty = 1;break;
-            case "hard": me.config.gameState.gs.difficulty = 1.25;break;
-            case  "veryhard": me.config.gameState.gs.difficulty = 1.5;break;
+            case "veryeasy": me.config.gameState.gs.difficulty = 2.33;break;
+            case "easy": me.config.gameState.gs.difficulty = 2;break;
+            case "medium": me.config.gameState.gs.difficulty = 1.67;break;
+            case "hard": me.config.gameState.gs.difficulty = 1.33;break;
+            case  "veryhard": me.config.gameState.gs.difficulty = 1;break;
         }
     }
     var checkDifficulty = function(me){
         var difficulty = me.config.gameState.gs.difficulty;
         switch (difficulty){
-            case 0.50 :$(".selectDifficulty option:eq(0)").attr('selected', 'selected');break;
-            case 0.75 : $(".selectDifficulty option:eq(1)").attr('selected', 'selected');break;
-            case 1 : $(".selectDifficulty option:eq(2)").attr('selected', 'selected');break;
-            case 1.25 : $(".selectDifficulty option:eq(3)").attr('selected', 'selected');break;
-            case 1.5 : $(".selectDifficulty option:eq(4)").attr('selected', 'selected');break;
+            case 2.33 :$(".selectDifficulty option:eq(0)").attr('selected', 'selected');break;
+            case 2 : $(".selectDifficulty option:eq(1)").attr('selected', 'selected');break;
+            case 1.67 : $(".selectDifficulty option:eq(2)").attr('selected', 'selected');break;
+            case 1.33 : $(".selectDifficulty option:eq(3)").attr('selected', 'selected');break;
+            case 1 : $(".selectDifficulty option:eq(4)").attr('selected', 'selected');break;
         }
     }
 }

@@ -170,10 +170,13 @@
     }
 
     Wave.prototype.pushEnemy = function(enemyProperties,lanesObj){
-        console.log(this.currentIndex +"  //"+ this.complete)
+        console.log(this.currentIndex +"  //"+ this.complete);
         var type = enemyProperties[0];
         var lane = enemyProperties[1];
         var time = enemyProperties[2];
+        if(time!= -1){
+            time = time * this.config.gameState.gs.difficulty;
+        }
         var msg =  enemyProperties[3];
         lane = this.config.lanes == 1? 2 : lane;
         console.log("time===============  :::::::::::::::>>>>"+ time);

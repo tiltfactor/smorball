@@ -66,7 +66,7 @@
         me.gs.knockBack = me.config.store.knockBack||0.1;
         me.gs.extraDamage = me.config.store.extraDamage||1;
         me.gs.penalty = me.config.store.penalty||2000;
-        me.gs.difficulty = me.config.store.difficulty || 1;
+        me.gs.difficulty = me.config.store.difficulty || 1.67;
         me.gs.highScore = me.config.store.highScore ||{"min":0,"sec":0};
     }
 

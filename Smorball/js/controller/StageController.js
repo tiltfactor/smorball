@@ -882,15 +882,15 @@ function StageController(config) {
         var wpm = wordCount/time;
 
         if(wpm<=10){
-            me.config.gameState.gs.difficulty = 0.5;
+            me.config.gameState.gs.difficulty = 2.33;
         }else if(wpm<=15){
-            me.config.gameState.gs.difficulty = 0.75;
+            me.config.gameState.gs.difficulty = 2;
         }else if(wpm<=20){
-            me.config.gameState.gs.difficulty = 1;
+            me.config.gameState.gs.difficulty = 1.67;
         }else if(wpm<=30){
-            me.config.gameState.gs.difficulty = 1.25;
+            me.config.gameState.gs.difficulty = 1.33;
         }else if(wpm>30){
-            me.config.gameState.gs.difficulty = 1.5;
+            me.config.gameState.gs.difficulty = 1;
         }
 
     };
