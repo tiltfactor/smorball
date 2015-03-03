@@ -39,7 +39,7 @@ button {
 
 #canvasHolder input[type=button],
 .menu-popup button
- {
+{
     background-image: url("../shapes/btn-sprite.png");
     background-size: 100% 300%;
     background-color: transparent;
@@ -94,7 +94,7 @@ canvas {
     top: 0;
     left: 0;
     background: url("../shapes/menu_background.png"); 
-  background-size: 100% 100%;
+    background-size: 100% 100%;
 }
 
 .timeout-button-container {
@@ -142,8 +142,8 @@ canvas {
 }
 
 #menu-confirm-popup button{
-   width: 65%;
-padding: 5% 0% 16% 0%;
+    width: 65%;
+    padding: 5% 0% 16% 0%;
 }
 /*menu screen style ends here*/
 
@@ -280,18 +280,24 @@ padding: 5% 0% 16% 0%;
 /*timeout screen style ends here*/
 
 /*shop screen style starts here*/
-#shopOuterWrapper,
-#helpScreen {
+#shopOuterWrapper {
     display: none;
     position: absolute;
     height: 100%;
     width: 100%;
     top: 0;
     left: 0;
+}
+
+.blue_bg {
     background-size: 100% 100%;
     background-image: url("../shapes/background.png");
 }
-#helpScreen .centerScreenContainer,
+
+.star_bg {
+    background-image: url("../shapes/star_background.png"); 
+}
+
 .centerContainer {
     position: relative;
     padding: 1%;
@@ -345,7 +351,8 @@ padding: 5% 0% 16% 0%;
     padding: .5% 2% 2% 6%;
 }
 
-.shop-back-btn {
+.shop-back-btn,
+.help-back-btn {
     height: 55px;
 }
 
@@ -501,14 +508,14 @@ padding: 5% 0% 16% 0%;
 }
 
 #menu-confirm-popup .innerContainer{
-     max-width: 350px;
-     padding: 6% 3%;
+    max-width: 350px;
+    padding: 6% 3%;
 }
 
 #menu-confirm-popup .innerContainer p {
-color: white;
-font-size: 1.8em;
-margin-bottom: 4%;
+    color: white;
+    font-size: 1.8em;
+    margin-bottom: 4%;
 }
 
 .resultContainer {
@@ -651,10 +658,10 @@ margin-bottom: 4%;
 }
 
 .helpScreenContent .imageWrapper {
-width: 100%;
-background-image: url("../shapes/instructions_border.png");
-background-size: 100% 100%;
-padding: 2%;
+    width: 100%;
+    background-image: url("../shapes/instructions_border.png");
+    background-size: 100% 100%;
+    padding: 2%;
 }
 
 .helpScreenContent img {
@@ -662,11 +669,11 @@ padding: 2%;
 }
 
 .sliderPager li{
-width: 10px;
-height: 10px;
-display: inline-block;
-background-image: url("../shapes/paging_dot_back.png");
-background-size: 100% 100%;
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    background-image: url("../shapes/paging_dot_back.png");
+    background-size: 100% 100%;
 }
 
 .splashLogo {
@@ -821,7 +828,7 @@ screen and ( max-height: 500px ) {
         width: 120px;
         padding: 2% 2% 5% 10%;
     }
-    
+
     .innerItem {
         width: 77%;
     }
