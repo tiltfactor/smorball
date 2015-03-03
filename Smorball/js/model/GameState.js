@@ -65,8 +65,8 @@
             me.gs.music = 50;
             me.gs.soundEffects = 50;
         }*/
-        me.gs.music = me.config.store.music == null ? 50 : me.config.store.music;
-        me.gs.soundEffects = me.config.store.soundEffects == null ? 50 : me.config.store.soundEffects;
+        me.gs.music = me.config.store.music == undefined ? 50 : me.config.store.music;
+        me.gs.soundEffects = me.config.store.soundEffects == undefined ? 50 : me.config.store.soundEffects;
        /* me.gs.music = me.config.store.music || 50;
         me.gs.soundEffects = me.config.store.soundEffects || 50;*/
         me.gs.dollorSpend = me.config.store.dollorSpend || 0;

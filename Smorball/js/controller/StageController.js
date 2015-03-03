@@ -747,7 +747,7 @@ function StageController(config) {
     };
     var resetAll = function (me) {
         var store = new LocalStorage();
-        store.reset();
+       // store.reset();
         me.config.gameState.reset();
         me.config.myBag.reset();
         EventBus.dispatch("showMap");

@@ -75,7 +75,7 @@ function MenuController(config) {
     }
     var setSliderValue = function(me){
         $(".music-slider").slider({
-            value: me.config.gameState.config.store.music = me.config.gameState.config.store.music == undefined ? 50 : me.config.gameState.config.store.music,
+            value: me.config.gameState.config.store.music = me.config.gameState.config.store.music == undefined ? me.config.gameState.gs.music : me.config.gameState.config.store.music,
             range: "min",
             slide: function( event, ui ) {
                 me.config.gameState.gs.music = ui.value;
@@ -86,7 +86,7 @@ function MenuController(config) {
         });
 
         $(".effects-slider").slider({
-            value: me.config.gameState.config.store.soundEffects = me.config.gameState.config.store.soundEffects == undefined ? 50 : me.config.gameState.config.store.soundEffects,
+            value: me.config.gameState.config.store.soundEffects = me.config.gameState.config.store.soundEffects == undefined ? me.config.gameState.gs.soundEffects : me.config.gameState.config.store.soundEffects,
             range: "min",
             slide: function( event, ui ) {
                 me.config.gameState.gs.soundEffects = ui.value;
@@ -111,12 +111,7 @@ function MenuController(config) {
         checkStatus(me);
         me.config.gameState.currentState = me.config.gameState.states.MAIN_MENU;
         $("#timeout-container" ).css("display","table");
-        $(".effects-slider").slider({
-            value: me.config.gameState.config.store.soundEffects
-        });
-        $(".music-slider").slider({
-            value: me.config.gameState.config.store.music
-        });
+        setSliderValue(this);
         EventBus.dispatch("pauseAllSound");
     } 
     
