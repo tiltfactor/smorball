@@ -233,6 +233,7 @@ function StageController(config) {
         var paddingTop = (window.innerHeight - me.canvasHeight) / 2 > 0 ? (window.innerHeight - me.canvasHeight) / 2 : 0;
         $("#myCanvas").css({top: paddingTop});
         $("#canvasHolder").css({top: me.canvasHeight + paddingTop - $("#canvasHolder").height(), position: 'absolute'});
+        $("#menu-container").css({height:me.canvasHeight, width:me.canvasWidth,top: paddingTop});
     };
 
 

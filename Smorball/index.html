@@ -241,14 +241,39 @@
     </div>
 </div>
 
-<div id="helpScreen" class="mainWrapper">
-    <button class="helpBackButton" onClick="EventBus.dispatch(&quot;hideHelp&quot;);">Back</button>
+<div id="helpScreen" class="mainWrapper shadedContainer">
+     <div class="centerScreenContainer">
+        <div>
              <div class="title">INSTRUCTIONS</div>
-    <div class="helpScreenContent">
+            <!--<p>back</p>-->
+            <div class="helpScreenContent innerContainer">
+                 <div class="innerItem">
+                    <div class="imageWrapper">
+                        <img src="shapes/instructions1.png">
+                    </div>
+                    <p>
                     Lorem ipsum dolor sit amet, ut fringilla. Sed nostrud, per purus elit leo, sem ut lobortis aliquam lacinia et, leo quisque nunc enim enim porttitor. Ut fringilla tempor in tincidunt, phasellus tortor convallis magna,
                     qui integer adipiscing, amet neque consectetuer.
+                </p>
                 </div>
             </div>
+            <!--<p>next</p>-->
+            <ul class="sliderPager">
+                <li>
+                </li>
+                <li>
+                </li>
+                <li>
+                </li>
+                <li>
+                </li>
+            </ul>
+        </div>
+        <div class="help-back-btn">
+                <input id="helpBackButton" class="backButton" type="button" onClick="EventBus.dispatch(&quot;hideHelp&quot;);"/>
+            </div>
+    </div>
+</div>
 
 <div id="bhlSplashScreen" class="mainWrapper splashScreen">
         <div class="splashScreenContainer">

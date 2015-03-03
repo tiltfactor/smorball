@@ -6,7 +6,7 @@ function MenuController(config) {
         $("#resumeButton").hide();
     }
 
-    var loadEvents = function (me) {
+    var loadEvents = function (me) {   
         EventBus.addEventListener("exitMenu", me.hideMenu);
         var sm = function(){me.showMenu(me)};
         EventBus.addEventListener("showMenu",sm);
@@ -36,7 +36,7 @@ function MenuController(config) {
         EventBus.addEventListener("setDifficulty",sd);
 
     }
-
+    
     MenuController.prototype.showMenu = function (me) {
         checkStatus(me);
         $("#canvasHolder").hide();
@@ -45,7 +45,7 @@ function MenuController(config) {
     } 
    
     MenuController.prototype.play = function (me) {
-        if(me.config.gameState.currentLevel = 1){
+        if(me.config.gameState.currentLevel > 1){
             $('#menu-confirm-popup').css('display','table');
             $('#game-popup').show();
         }
@@ -56,7 +56,7 @@ function MenuController(config) {
     }
 
     MenuController.prototype.showHelp = function () {
-        $("#helpScreen" ).css("display","block");
+        $("#helpScreen" ).css("display","table");
     }
     
     MenuController.prototype.hideHelp = function () {
