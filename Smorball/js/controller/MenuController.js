@@ -11,6 +11,9 @@ function MenuController(config) {
         var sm = function(){me.showMenu(me)};
         EventBus.addEventListener("showMenu",sm);
         
+        var pl = function(){me.play(me)};
+        EventBus.addEventListener("play",pl);
+
         var st = function(){me.showTimeout(me)};
         EventBus.addEventListener("showTimeout",st);
         
@@ -38,9 +41,20 @@ function MenuController(config) {
         checkStatus(me);
         $("#canvasHolder").hide();
         me.config.gameState.currentState = me.config.gameState.states.MAIN_MENU;
-        $("#menu-container" ).css("display","table");
+        $("#menu-container" ).css("display","block");
     } 
-    
+   
+    MenuController.prototype.play = function (me) {
+        if(me.config.gameState.currentLevel = 1){
+            $('#menu-confirm-popup').css('display','table');
+            $('#game-popup').show();
+        }
+        else{
+            EventBus.dispatch("exitMenu");
+            EventBus.dispatch("resetAll");
+        }
+    }
+
     MenuController.prototype.showHelp = function () {
         $("#helpScreen" ).css("display","block");
     }
@@ -56,7 +70,7 @@ function MenuController(config) {
         setSliderValue(this);
     }
     var createDialog = function(me){
-        $("#menu-container" ).css("display","table");
+        $("#menu-container" ).css("display","block");
         setSliderValue(me);
     }
     var setSliderValue = function(me){

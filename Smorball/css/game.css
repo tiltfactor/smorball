@@ -37,7 +37,9 @@ button {
     padding: 0px 10px 10px 10px;
 }
 
-#canvasHolder input[type=button] {
+#canvasHolder input[type=button],
+.menu-popup button
+{
     background-image: url("../shapes/btn-sprite.png");
     background-size: 100% 300%;
     background-color: transparent;
@@ -49,11 +51,13 @@ button {
     padding: 0px 10px 19px 10px;
 }
 
-#canvasHolder input[type=button]:hover {
+#canvasHolder input[type=button]:hover,
+.menu-popup button:hover {
     background-position: 0 50%;
 }
 
-#canvasHolder input[type=button]:active {
+#canvasHolder input[type=button]:active,
+.menu-popup button:active {
     background-position: 0 0%;
 }
 
@@ -88,17 +92,26 @@ canvas {
     width: 100%;
     top: 0;
     left: 0;
-    background-image: url("../shapes/sample.jpg");
+    background: url("../shapes/menu_background.png") no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 .timeout-button-container {
     background-color: rgba(0, 0, 0, 0.48);
 }
 
-.menu-button-container,
+.menu-button-container {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    border-radius: 5px;
+}
+
 .timeout-button-container {
     position: relative;
-    padding: 1%;
     border-radius: 5px;
     display: table-cell;
     vertical-align: middle;
@@ -106,28 +119,33 @@ canvas {
 
 .menu-buttons {
     margin: 0px auto;
-    width: 50%;
-    max-width: 400px;
+    width: 100%;
     border-radius: 5px;
-    padding: 1% 0%;
+    padding: 3% 0% 0% 0%;
+    background-image: url("../shapes/menu_btn_back.png");
+    background-size: 100% 100%;
 }
 
-.menu-button-container button {
-    margin: 1% 5%;
-    width: 90%;
-    border: 1px solid #cccccc;
-    background: #f6f6f6;
+.menu-popup button {
+    margin: 2% 3%;
+    width: 18%;
     font-weight: bold;
-    color: #1c94c4;
-    font-size: 1.3em;
-    padding: 2% 1%;
+    font-size: 1.8em;
+    padding: 1% 0% 4% 0%;
+    font-family: 'Boogaloo';
 }
 
-.menu-button-container button:hover {
-    border: 1px solid #fbcb09;
-    background: #fdf5ce;
-    font-weight: bold;
-    color: #c77405;
+.sb_logo {
+    width: 30%;
+}
+
+#menu-confirm-popup .innerContainer {
+    display: none;
+}
+
+#menu-confirm-popup button{
+    width: 65%;
+    padding: 5% 0% 16% 0%;
 }
 /*menu screen style ends here*/
 
@@ -264,7 +282,8 @@ canvas {
 /*timeout screen style ends here*/
 
 /*shop screen style starts here*/
-#shopOuterWrapper {
+#shopOuterWrapper,
+#helpScreen {
     display: none;
     position: absolute;
     height: 100%;
@@ -274,7 +293,7 @@ canvas {
     background-size: 100% 100%;
     background-image: url("../shapes/background.png");
 }
-
+#helpScreen .centerScreenContainer,
 .centerContainer {
     position: relative;
     padding: 1%;
@@ -483,6 +502,17 @@ canvas {
     max-width: 500px;
 }
 
+#menu-confirm-popup .innerContainer{
+    max-width: 350px;
+    padding: 6% 3%;
+}
+
+#menu-confirm-popup .innerContainer p {
+    color: white;
+    font-size: 1.8em;
+    margin-bottom: 4%;
+}
+
 .resultContainer {
     display: none;
     text-align: left;
@@ -609,9 +639,9 @@ canvas {
 
 @media screen and (max-width: 700px) {
     #helpScreen {
-        width: 90%;
+    width: 90%;
         left: 5%;
-    } 
+}
 }
 
 #helpScreen .title {
@@ -671,17 +701,19 @@ screen and ( max-height: 600px ){
     #canvasHolder input[type=button] {
         padding: 0px 10px 13px 10px;
     }
-}
-
-@media screen and ( max-height: 600px ){
-    .menu-button-container button {
-        font-size: 1em;
-        padding: 1.5% 1%;
+    .menu-popup button,
+    #menu-confirm-popup .innerContainer p {
+        font-size: 1.5em;    
     }
+
 }
 
 @media screen and (max-width: 768px),
 screen and ( max-height: 500px ) { 
+    .menu-popup button,
+    #menu-confirm-popup .innerContainer p {
+        font-size: 1.2em;    
+    }
     .centerScreenContainer .title {
         font-size: 2.5em;
     }
@@ -782,7 +814,7 @@ screen and ( max-height: 500px ) {
         width: 120px;
         padding: 2% 2% 5% 10%;
     }
-    
+
     .innerItem {
         width: 77%;
     }
@@ -790,6 +822,10 @@ screen and ( max-height: 500px ) {
 
 @media screen and (max-width: 480px),
 screen and ( max-height: 400px ) {
+    .menu-popup button,
+    #menu-confirm-popup .innerContainer p {
+        font-size: .8em;    
+    }
     #canvasHolder input {
         font-size: .6em;
         height: 27px;

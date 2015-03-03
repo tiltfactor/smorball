@@ -381,6 +381,8 @@ function StageController(config) {
     var resumeGame = function (me) {
         me.captchaProcessor.showCaptchas();
         EventBus.dispatch("exitMenu");
+        $("#canvasHolder").show();
+        $("#myCanvas").show();
         EventBus.dispatch("setTickerStatus");
         createjs.Ticker.addEventListener("tick", me.events.tick);
     };

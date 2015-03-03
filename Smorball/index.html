@@ -89,21 +89,37 @@
     <canvas id="utilityCanvas"></canvas>
 </div>
 
-<div id="menu-container" class="mainWrapper">
+<div id="menu-container" class="mainWrapper menu-popup">
+    <img class="sb_logo" src="shapes/SB_logo.png">
     <div class="menu-button-container">
         <div class="menu-buttons">
-            <button onClick="EventBus.dispatch(&quot;exitMenu&quot;);EventBus.dispatch(&quot;resetAll&quot;)">New Game
+           <!--  <button onClick="EventBus.dispatch(&quot;exitMenu&quot;);EventBus.dispatch(&quot;resetAll&quot;)">New Game
             </button>
             <button id="resumeButton" onClick="EventBus.dispatch(&quot;resumeGame&quot;)">Resume Game</button>
             <button onClick="EventBus.dispatch(&quot;exitMenu&quot;);EventBus.dispatch(&quot;showMap&quot;)">Map
-            </button>
-            <button onClick="EventBus.dispatch(&quot;showHelp&quot;);">Help</button>
+            </button> -->
+            <button onClick="EventBus.dispatch(&quot;play&quot;);">Play</button>
             <button onClick="EventBus.dispatch(&quot;showOptions&quot;);">Options</button>
-            <button onClick="EventBus.dispatch(&quot;exitMenu&quot;)">Exit</button>
+            <button onClick="EventBus.dispatch(&quot;showHelp&quot;);">Help</button>
+           
+            <!-- <button onClick="EventBus.dispatch(&quot;exitMenu&quot;)">Exit</button> -->
         </div>
     </div>
 </div>
 
+<div id="menu-confirm-popup" class="shadedContainer menu-popup">
+   <div class="centerScreenContainer">
+        <div id="game-popup" class="innerContainer">
+            <button onClick="$('#game-popup').hide(); $('#confirm-popup').show();">newgame</button>
+            <button onClick="$('#game-popup, #menu-confirm-popup').hide(); EventBus.dispatch(&quot;resumeGame&quot;)">Continue</button>
+        </div>
+        <div id="confirm-popup" class="innerContainer">
+            <p><b>ARE YOU SURE YOU WANT TO ERASE YOUR CURRENT GAME</b></p>
+            <button onClick="$('#confirm-popup, #menu-confirm-popup').hide(); EventBus.dispatch(&quot;exitMenu&quot;);EventBus.dispatch(&quot;resetAll&quot;)">YES</button>
+            <button onClick="$('#confirm-popup, #menu-confirm-popup').hide();$('#game-popup').show()">NO</button>
+        </div>
+    </div>
+</div>
 <!--<div id="dialog-level" style="display:none; text-align:center">-->
 <!--<p>-->
 <!--<input id="levelButton" type="button" onclick="EventBus.dispatch(&quot;exitMenu&quot;);EventBus.dispatch(&quot;hideMap&quot;);EventBus.dispatch(&quot;newGame&quot;)"></input>-->
@@ -227,12 +243,12 @@
 
 <div id="helpScreen" class="mainWrapper">
     <button class="helpBackButton" onClick="EventBus.dispatch(&quot;hideHelp&quot;);">Back</button>
-    <div class="title">INSTRUCTIONS</div>
+             <div class="title">INSTRUCTIONS</div>
     <div class="helpScreenContent">
-            Lorem ipsum dolor sit amet, ut fringilla. Sed nostrud, per purus elit leo, sem ut lobortis aliquam lacinia et, leo quisque nunc enim enim porttitor. Ut fringilla tempor in tincidunt, phasellus tortor convallis magna,
-            qui integer adipiscing, amet neque consectetuer.
-    </div>
-</div>
+                    Lorem ipsum dolor sit amet, ut fringilla. Sed nostrud, per purus elit leo, sem ut lobortis aliquam lacinia et, leo quisque nunc enim enim porttitor. Ut fringilla tempor in tincidunt, phasellus tortor convallis magna,
+                    qui integer adipiscing, amet neque consectetuer.
+                </div>
+            </div>
 
 <div id="bhlSplashScreen" class="mainWrapper splashScreen">
         <div class="splashScreenContainer">
