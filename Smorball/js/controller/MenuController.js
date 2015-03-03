@@ -45,7 +45,7 @@ function MenuController(config) {
     } 
    
     MenuController.prototype.play = function (me) {
-        if(me.config.gameState.currentLevel > 1){
+        if(me.config.gameState.gs.maxLevel > 1){
             $('#menu-confirm-popup').css('display','table');
             $('#game-popup').show();
         }

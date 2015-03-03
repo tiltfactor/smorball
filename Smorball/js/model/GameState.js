@@ -32,8 +32,11 @@
         //this.brawlin = false;
         //this.loudMouth = false;
 
-        this.reset();
+        //this.reset();
 
+        this.currentLevel = 1;
+        getFromStore(this);
+        setFromStore(this);
 
         //this.gs.inBag = this.config.inBag || [];
 
