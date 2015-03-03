@@ -79,6 +79,7 @@ function GameController(config) {
         });
         me.config.gameLeveController.init();
         hideAll();
+        EventBus.dispatch("showMenu");
         //EventBus.dispatch("exitShop");
         // EventBus.dispatch("exitMenu");
     }
@@ -97,6 +98,9 @@ function GameController(config) {
         $("#dialog-shop").hide();
         $("#myCanvas").hide();
         $("#canvasHolder").hide();
+        $("#menu-container").hide();
+
+
         
     }
 

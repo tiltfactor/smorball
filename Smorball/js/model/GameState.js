@@ -43,6 +43,11 @@
     GameState.prototype.reset = function(){
         this.currentLevel = 1;
         getFromStore(this);
+        var music = this.config.store.music;
+        var se = this.config.store.soundEffects;
+        this.config.store = {};
+        this.config.store.music = music;
+        this.config.store.soundEffects = se;
         setFromStore(this);
     }
 
