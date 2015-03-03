@@ -111,6 +111,12 @@ function MenuController(config) {
         checkStatus(me);
         me.config.gameState.currentState = me.config.gameState.states.MAIN_MENU;
         $("#timeout-container" ).css("display","table");
+        $(".effects-slider").slider({
+            value: me.config.gameState.config.store.soundEffects
+        });
+        $(".music-slider").slider({
+            value: me.config.gameState.config.store.music
+        });
         EventBus.dispatch("pauseAllSound");
     } 
     
