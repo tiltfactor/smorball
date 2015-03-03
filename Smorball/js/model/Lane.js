@@ -32,7 +32,7 @@
     Lane.prototype.setPlayer = function(player){
         this.player = player;
         this.player.x = 0;
-        this.player.y = this.config.y - this.config.height*0.75;
+        this.player.y = (this.config.y - this.config.height*0.75);
         this.player.setEndPoint(this.config.x + this.config.width);
     }
 

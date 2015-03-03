@@ -24,19 +24,23 @@
         //    setBackground(this);
         //}
 
-        setMessage(this,"Loading...");
+        setMessage(this,"LOADING...");
         //setPosition(this);
     };
 
     var drawPreloader = function (me) {
-        var outline = new createjs.Shape();
-        outline.graphics.beginStroke(me.strokeColor);
-        outline.graphics.drawRect(0, 0, me.width, me.height);
+        var outline = new createjs.Bitmap("shapes/loading_bar_bottom.png");
+        var inline = new createjs.Bitmap("shapes/loading_bar_top.png");
+        var bar = document.createElement("img");
+        bar.src = "shapes/loading_bar.png";
+        //outline.graphics.beginBitmapFill("shapes/loading_bar_bottom.png");
+        //outline.graphics.drawRect(0, 0, me.width, me.height);
+
         me.bar = new createjs.Shape();
-        me.bar.graphics.beginFill(me.fillColor);
-        me.bar.graphics.drawRect(0, 0, me.width, me.height);
+        me.bar.graphics.beginBitmapFill(bar).drawRect(5, 5, 570, 44).endFill();
+
         me.bar.scaleX = 0;
-        me.addChild(me.bar, outline);
+        me.addChild(outline,me.bar,inline);
     };
 
 
@@ -52,9 +56,9 @@
     };
     
     var setMessage=function(me, text){
-        var msgField = new createjs.Text(text,"40px Arial","#ff770");
-        msgField.y = me.y-60;
-        msgField.x = me.x+150;
+        var msgField = new createjs.Text(text,"Bold 60px Boogaloo","#ffffff");
+        msgField.y = me.y - 80;
+        msgField.x = me.x + 200;
         //msgField.scaleX = me.config.stage.canvas.width/800;
         //msgField.scaleY = me.config.stage.canvas.height/600;
         me.addChild(msgField);
@@ -62,7 +66,7 @@
     
     var setBackground=function(me){
         var loaderData = LoaderData[me.config.currentLevel];
-        var loaderMessage = new createjs.Text("Loading..", "40px Arial","#ff770");
+        var loaderMessage = new createjs.Text("LOADING...", "40px Boogaloo","#ff770");
         loaderMessage.x = -loaderMessage.getMeasuredHeight();
         var logo = new createjs.Bitmap();
         var img = me.config.loader.getResult("loader_default_bg");

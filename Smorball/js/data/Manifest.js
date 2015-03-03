@@ -1,6 +1,7 @@
 Manifest = {};
 Manifest.game = [
 
+    {src:"shapes/SB_logo.png", id:"smorball_logo"},
     {src: "shapes/helmet_icon.png",  id: "helmet"},
     {src: "shapes/bullhorn_icon.png", id: "bullhorn"},
     {src: "shapes/cleats_icon.png",   id: "cleats"},
@@ -38,8 +39,9 @@ Manifest.level = [
     {src: "shapes/grass_tile4.png", id: "grassTile4"},
 
 
-    {src: "shapes/player_normal.png",id: "player_normal"},
-    {src: "shapes/Friendly_Baseball_Normal.png",id: "baseball"},
+    //{src: "shapes/player_normal.png",id: "player_normal"},
+    {src: "shapes/Friendly Baseball Normal.png",id: "baseball"},
+    {src: "shapes/Friendly Baseball Helmet.png",id: "player_helmet"},
     {src: "shapes/man1.png",id: "man1"},
 
     {src: "shapes/enemy_regular.png", id: "enemy_regular"},

@@ -954,3 +954,15 @@ screen and ( max-height: 350px ) {
 #mCSB_1_dragger_vertical {
     min-height: 15px !important;
 }
+
+/* Loader div styles */
+#loadOuterWrapper {
+    /*display: none;*/
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background-size: 100% 100%;
+    background-image: url("../shapes/background.png");
+}

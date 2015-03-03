@@ -8,8 +8,11 @@
         this.config = config;
         onResize(this);
         this.initialize();
-        this.y = 600 - this.getTransformedBounds().height;
+        //this.y = 600 - this.getTransformedBounds().height;
         window.onresize = function(){onResize(me)}
+        this.y = 600 - this.getTransformedBounds().height/2;
+        onResize(this);
+
     };
 
     LoaderClass.prototype = new createjs.Container();
@@ -23,12 +26,22 @@
         this.preloader = new ui.Preloader(config);
         this.addChild(this.preloader);
         if(this.config.type == 0){
-            //load Splash screen
-            this.preloader.x = 350;
-            //this.preloader.y = 400;
+            var sb = new createjs.Bitmap(this.config.loader.getResult("smorball_logo"));
+            if(sb.image != null){
+                this.addChild(sb);
+                sb.setTransform(500,0,1,1);
+                this.preloader.x = 500;
+                this.preloader.y = 800;
+            }else{
+                this.preloader.x = 500;
+                this.preloader.y = 0;
+            }
+
+
+
         }
         if(this.config.type == 1){
-            this.preloader.x = 350;
+            this.preloader.x = 500;
             this.preloader.y = 400;
             drawText(this,gameLevel);
             drawTeams(this,gameLevel);
@@ -42,7 +55,7 @@
     };
     var drawText = function(me,gameLevel){
         var team = LevelData[gameLevel].levelName;
-        var text = new createjs.Text(team,"60px Arial","#ff770");
+        var text = new createjs.Text(team,"60px Boogaloo","#ff770");
         text.x = 800-text.getMeasuredWidth()/2 + 20;
         me.addChild(text);
     };
@@ -70,7 +83,7 @@
 
 
         var teamtext =  "Chargers";
-        var teamname = new createjs.Text(teamtext,"30px Arial","#ff770");
+        var teamname = new createjs.Text(teamtext,"30px Boogaloo","#ff770");
         teamname.y = team.y + team.getTransformedBounds().height ;
         container.addChild(circle_one,team,teamname);
         container.setTransform(500,160);
@@ -89,7 +102,7 @@
 
 
         var teamtext =  "Melonballers";
-        var teamname = new createjs.Text(teamtext,"30px Arial","#ff770");
+        var teamname = new createjs.Text(teamtext,"30px Boogaloo","#ff770");
         teamname.y = team.y + team.getTransformedBounds().height ;
         container.addChild(circle_one,team,teamname);
         container.setTransform(1200,160);
@@ -98,7 +111,7 @@
     LoaderClass.prototype.drawPlayButton = function(){
         var me = this;
         var btn = new createjs.Bitmap(me.config.loader.getResult("btn_bg"));
-        btn.x = this.preloader.x+btn.getTransformedBounds().width;
+        btn.x = this.preloader.x + btn.getTransformedBounds().width/2;
         btn.y = this.preloader.y;
         btn.addEventListener("click",function(){
             window.onresize = "";
@@ -129,6 +142,15 @@
     LoaderClass.prototype.removeLoader = function(){
         this.removeChild(this.preloader);
 
+    };
+    var drawSBlogo = function(me){
+        var sb = new createjs.Bitmap(me.config.loader.getResult("smorball_logo"));
+
+        //if(sb.getBounds()){
+        //    me.preloader.y = 1300;
+        //    sb.setTransform(359,370);
+        //}
+        me.addChild(sb);
     }
     window.ui.LoaderClass = LoaderClass
 }());

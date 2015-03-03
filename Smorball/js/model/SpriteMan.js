@@ -30,6 +30,7 @@
         this.speed = this.config.speed || 6;
 
 
+
         this.bounds = this.getBounds();
         //this.setTransform(0,0,0.5,0.5);
     }
@@ -88,6 +89,7 @@
         this.y = y;
         this.regX = 0;
         this.regY = this.getHeight();///2;
+
     }
     SpriteMan.prototype.setSpeed = function(speed){
         this.speed = speed;

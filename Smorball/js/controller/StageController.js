@@ -18,7 +18,7 @@ function StageController(config) {
         loadEvents(this);
         this.currentIndex = 0;
         this.default_player = "player_normal";
-        this.powerup_player = "man1";
+        this.powerup_player = "player_helmet";
 
     };
 
@@ -617,8 +617,8 @@ function StageController(config) {
                 }
                 resetPlayers(me);
             } else {
-                playConfusedAnimation(me);
                 updatePlayerOnPowerup(me, me.default_player);
+                playConfusedAnimation(me);
                 me.config.activePowerup = undefined;
 
 
