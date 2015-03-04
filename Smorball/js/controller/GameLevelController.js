@@ -132,7 +132,13 @@ function GameLevelController(config) {
         shop.id = me.config.gameState.gs.maxLevel;
         shop.x = 1000;
         shop.y = 780;
-        shop.addEventListener("click", showShop);
+        if(me.config.gameState.gs.maxLevel>1){
+            shop.addEventListener("click", showShop);
+        }else{
+            shop.image = me.config.loader.getResult("lock");
+            shop.y = 830;
+        }
+
         shop.addEventListener("mouseover",function(evt){
             evt.target.cursor = 'pointer';
         });

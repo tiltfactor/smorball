@@ -79,7 +79,8 @@
        captcha.y = captcha.maxHeight/2 - (captcha.getTransformedBounds().height/2) ;
 
               // captcha.datas = captchaData;
-
+        captcha.scaleX =captcha.scaleY = 0;
+        createjs.Tween.get(captcha).to({scaleX:1,scaleY:1},1000,createjs.Ease.backOut);
         this.captchasOnScreen.push(captcha);
        // console.log(this.captchasOnScreen);
         ++this.currentIndex;
