@@ -957,7 +957,12 @@ screen and ( max-height: 350px ) {
     top: 0;
     left: 0;
     background-size: 100% 100%;
-    background-image: url("../shapes/background.png");
+}
+
+#loadOuterWrapper .centerContainer {
+    padding: 0%;
+    height: 100%;
+    top: 0;
 }
 
 /*instruction screen style*/
