@@ -14,7 +14,7 @@ var sliderData = [
     {"image": "instructions14", "description": 'To use a piece of equipment, press tab to select it.  If you have multiple different types of equipment, press tab multiple times to cycle through them.'},
     {"image": "instructions15", "description": 'With a piece of equipment selected, the next phrase you type will convey that bonus to your athlete!'},
     {"image": "instructions16", "description": 'The helmet allows your athlete to hit all of the opponents in one lane!'},
-    {"image": "instructions17", "description": 'You’ll run into opponents of all different shapes, sizes, and abilities.  Some are fast, some are slow, and some are hard to deal with'},
+    {"image": "instructions17", "description": 'The cleats allow your athlete to tackle strong opponents faster. '},
     {"image": "instructions18", "description": 'The bullhorn lets you command all of your athletes at once!'}
 ];
 
