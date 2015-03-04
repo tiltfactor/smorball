@@ -71,8 +71,19 @@ function MenuController(config) {
     }
     var createDialog = function(me){
         $("#menu-container" ).css("display","block");
+        setInstructionScreen();
         setSliderValue(me);
     }
+    var setInstructionScreen = function() {
+        var template = $("#sliderComponents").html();
+        var compile = _.template(template);
+        $("#slider").append(compile({items:sliderData}));
+        $('#slider').leanSlider({
+            directionNav: '#slider-direction-nav',
+            controlNav: '#slider-control-nav'
+        });
+    }
+    
     var setSliderValue = function(me){
         $(".music-slider").slider({
             value: me.config.gameState.config.store.music = me.config.gameState.config.store.music == undefined ? me.config.gameState.gs.music : me.config.gameState.config.store.music,
