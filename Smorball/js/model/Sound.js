@@ -16,6 +16,9 @@
           if(!me.config.loop){
             me.mySound.onended=function(){EventBus.dispatch("removeAudioFromList",me.mySound)};
           }
+            else{
+              me.mySound.onended=function(){me.play()};
+          }
         }
    }
     var setVolumeValue = function(me){
@@ -38,9 +41,9 @@
     }
 
    Sound.prototype.play = function(){
-       if(this.loop){
+       /*if(this.loop){
            this.mySound.loop = true;
-       }
+       }*/
        this.mySound.play();
    }
    Sound.prototype.pause = function(){
