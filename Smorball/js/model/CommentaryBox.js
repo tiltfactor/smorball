@@ -119,17 +119,23 @@
 
     var show = function(me,msg){
         me.free = false;
+        w = me.info;
         me.info.text = msg.text;
+        me.info.alpha = 0;
         me.speech.alpha=1;
-        createjs.Tween.get(me.info).wait(msg.time)
-            .call(function(){
-                me.free = true;
-                me.info.text = "";
-                me.speech.alpha=0;
-                if(me.infoAry.length != 0){
-                    show(me,me.infoAry.shift());
-                }
-            });
+        me.speech.scaleX = me.speech.scaleY = 0;
+        createjs.Tween.get(me.speech).to({scaleX:1,scaleY:1},1000,createjs.Ease.backOut).call(function(){
+            createjs.Tween.get(me.info).to({alpha:1},100).wait(msg.time)
+                .call(function(){
+                    me.free = true;
+                    me.info.text = "";
+                    me.speech.alpha=0;
+                    if(me.infoAry.length != 0){
+                        show(me,me.infoAry.shift());
+                    }
+                });
+        });
+
     }
 
 

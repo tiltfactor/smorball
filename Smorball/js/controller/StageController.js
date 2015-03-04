@@ -462,7 +462,9 @@ function StageController(config) {
 //            player.setScale(sf,sf);
             if (lane.player == undefined) {
                 lane.setPlayer(player);
-                me.config.stage.addChild(player);
+                var laneId = lane.getLaneId();
+
+                me.config.stage.addChildAt(player,laneId+6);
             }
 
         }
@@ -535,13 +537,14 @@ function StageController(config) {
                         var hitList = player.hitEnemies;
                         if (hitList.indexOf(enemy.id) == -1) {
                             player.hitEnemies.push(enemy.id);
-                            enemy.kill();
+                            enemy.kill(player.getLife());
                         }
 
 
                     } else {
-                        player.kill();
-                        enemy.kill();
+                        var enemyLife = enemy.getLife();
+                        enemy.kill(player.getLife());
+                        player.kill(enemyLife);
                     }
                 }
 

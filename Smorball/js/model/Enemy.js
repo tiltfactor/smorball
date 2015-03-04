@@ -63,9 +63,14 @@
     Enemy.prototype.die = function(){
         this.sprite.gotoAndPlay("die");
     }
-    Enemy.prototype.kill = function(){
+    Enemy.prototype.kill = function(life){
         var me = this;
-        this.removeLife();
+        for(i=0;i<life;i++){
+            if(this.lifes.length != 0){
+                this.removeLife();
+            }
+        }
+
         var fileId = this.config.enemySound.hit;
         EventBus.dispatch("playSound",fileId);
         var lanesObj = this.config.lanesObj;
@@ -140,6 +145,9 @@
 
     Enemy.prototype.getMaxLife = function(){
         return  EnemyData[this.config.id].extras.life
+    }
+    Enemy.prototype.getLife = function(){
+        return this.lifes.length;
     }
     var generateLife = function(me){
         for(var i = 0 ; i< me.life; i++){

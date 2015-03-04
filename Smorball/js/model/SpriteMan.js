@@ -95,9 +95,24 @@
         this.speed = speed;
         this.sprite._animation.speed = speed;
     }
-    SpriteMan.prototype.kill = function(){
+    SpriteMan.prototype.kill = function(enemyLife){
         var me = this;
-        this.life -= 1;  
+        for(var i=0;i<enemyLife;i++){
+            if(this.life!=0){
+                this.life -= 1;
+
+            }
+
+        }
+        if(this.life!=0){
+            this.sprite.gotoAndPlay("tackle");
+            this.toRun = function(){
+                me.sprite.removeEventListener("animationend",me.toRun);
+                me.sprite.gotoAndPlay("run");
+            };
+            this.sprite.addEventListener("animationend",this.toRun);
+        }
+
         /*var fileId = this.config.playerSound.fall;
         var config = {"file": fileId , "loop": false, "type": this.config.gameState.soundType.EFFECTS, "isMain": false,"loader":this.config.loader, "gameState":me.config.gameState};
         var killSound = new Sound(config);
