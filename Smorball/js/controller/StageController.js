@@ -633,6 +633,11 @@ function StageController(config) {
         for (var i = 0; i < me.config.lanes.length; i++) {
             var lane = me.config.lanes[i];
             if (lane.player) {
+                lane.player.x = lane.player.x + 70;
+                lane.player.sprite.addEventListener("animationend",function(e){
+                    e.target.removeEventListener("animationend", e.target._listeners.animationend[0]);
+                    e.target.parent.x = e.target.parent.x-70;
+                });
                 lane.player.confused();
             }
 
@@ -706,6 +711,7 @@ function StageController(config) {
             if (result == 0) {
                 $("#canvasHolder").hide();
                 $("#lostContainer").show();
+                $("#victoryContainer .moneyMade").text("$" + 0);
                 $("#resultWrapper").css("display", "table");
             } else if (result == 1) {
                 var money = me.score.getMoneyForLevel(me.config.gameState.currentLevel - 2);

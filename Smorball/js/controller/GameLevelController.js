@@ -111,6 +111,7 @@ function GameLevelController(config) {
         drawLevelInfoBar(me);
         drawFaceBookButton(me);
         drawTwitterButton(me);
+        drawStatusText(me);
 
         me.config.stage.update();
     }
@@ -143,22 +144,23 @@ function GameLevelController(config) {
             evt.target.cursor = 'pointer';
         });
         me.map.addChild(shop);
-        drawStatusText(me);
+
 
     }
     var drawStatusText = function(me){
-        var text = new createjs.Text("status","bold 45px Boogaloo", "#ffffff");
+        var text = new createjs.Text("status","bold 45px Boogaloo", "#000");
         var level = _.pick(LevelData[me.config.gameState.gs.maxLevel],"extras");
-        if(level.message){
-            text.text = level.message;
+        if(level.extras.message){
+            text.text = level.extras.message;
             text.addEventListener("click",function(e){me.map.removeChild(text)});
             text.maxWidth = 400;
-            text.x = 1000 + text.getMeasuredWidth()/2;
+            text.x = 1110 ;
             text.y = 750;
         }else{
             text.text  = "";
         }
         me.map.addChild(text);
+        createjs.Tween.get(text).to({alpha:0},5000);
     }
     var showShop = function () {
         EventBus.dispatch("showShop");
