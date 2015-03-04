@@ -29,15 +29,15 @@
     };
 
     var drawPreloader = function (me) {
-        var outline = new createjs.Bitmap("shapes/loading_bar_bottom.png");
-        var inline = new createjs.Bitmap("shapes/loading_bar_top.png");
-        var bar = document.createElement("img");
-        bar.src = "shapes/loading_bar.png";
+        var outline = new createjs.Bitmap(me.config.loader.getResult("loading_bar_bottom"));
+        var inline = new createjs.Bitmap(me.config.loader.getResult("loading_bar_top"));
+        var bar = new createjs.Bitmap(me.config.loader.getResult("loading_bar"));
+
         //outline.graphics.beginBitmapFill("shapes/loading_bar_bottom.png");
         //outline.graphics.drawRect(0, 0, me.width, me.height);
 
         me.bar = new createjs.Shape();
-        me.bar.graphics.beginBitmapFill(bar).drawRect(5, 5, 570, 44).endFill();
+        me.bar.graphics.beginBitmapFill(bar.image).drawRect(5, 5, 570, 44).endFill();
 
         me.bar.scaleX = 0;
         me.addChild(outline,me.bar,inline);

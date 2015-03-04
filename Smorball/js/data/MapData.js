@@ -9,15 +9,15 @@ MapData = [
     {"x":320, "y":400,"levelId":5,"logo":"splash5","team":"Salt Lake City Diacritics"},
     {"x":400, "y":160,"levelId":6,"logo":"splash6","team":"Billings Bronies"},
     {"x":680, "y":180,"levelId":7,"logo":"splash7","team":"Fargo 4.9ers"},
-    {"x":610, "y":380,"levelId":8,"team":"Amarillo Pantyhose"},
-    {"x":560, "y":600,"levelId":9,"team":"Omaha Hoarders"},
-    {"x":660, "y":760,"levelId":10,"team":"Fort Worth Five Finger Discount"},
-    {"x":800, "y":480,"levelId":11,"team":"Kansas City Cupcakes"},
-    {"x":960, "y":320,"levelId":12,"team":"Chicago Chargers"},
-    {"x":960, "y":640,"levelId":13,"team":"Memphis Metaphors"},
-    {"x":1220, "y":660,"levelId":14,"team":"Atlanta Portents"},
-    {"x":1140, "y":460,"levelId":15,"team":"Cincinnati Pharmacists"},
-    {"x":1280, "y":250,"levelId":16,"team":"New England Nerds"}
+    {"x":610, "y":380,"levelId":8,"logo":"splash8","team":"Amarillo Pantyhose"},
+    {"x":560, "y":600,"levelId":9,"logo":"splash9","team":"Omaha Hoarders"},
+    {"x":660, "y":760,"levelId":10,"logo":"splash10","team":"Fort Worth Five Finger Discount"},
+    {"x":800, "y":480,"levelId":11,"logo":"splash11","team":"Kansas City Cupcakes"},
+    {"x":960, "y":320,"levelId":12,"logo":"splash12","team":"Chicago Chargers"},
+    {"x":960, "y":640,"levelId":13,"logo":"splash13","team":"Memphis Metaphors"},
+    {"x":1220, "y":660,"levelId":14,"logo":"splash14","team":"Atlanta Portents"},
+    {"x":1140, "y":460,"levelId":15,"logo":"splash15","team":"Cincinnati Pharmacists"},
+    {"x":1280, "y":250,"levelId":16,"logo":"splash16","team":"New England Nerds"}
 
 ];
 

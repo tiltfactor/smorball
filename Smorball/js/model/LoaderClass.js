@@ -101,7 +101,7 @@
 
 
 
-        var teamtext =  "Melonballers";
+        var teamtext = _.pick(MapData[gameLevel-1],"team").team;
         var teamname = new createjs.Text(teamtext,"30px Boogaloo","#ff770");
         teamname.y = team.y + team.getTransformedBounds().height ;
         container.addChild(circle_one,team,teamname);

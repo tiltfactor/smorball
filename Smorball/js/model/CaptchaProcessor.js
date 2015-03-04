@@ -158,7 +158,7 @@
             return output;
         }
         if(input=="unlockall"){
-           this.config.gameState.gs.maxLevel = 7;
+           this.config.gameState.gs.maxLevel = this.config.gameState.totalLevels;
            this.config.gameState.currentState = this.config.gameState.states.GAME_OVER;
             output.pass = false;
             output.cheated = true;

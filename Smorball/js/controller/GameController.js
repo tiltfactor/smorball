@@ -35,12 +35,18 @@ function GameController(config) {
                 });
             });           
         }
+        var afterLoad = function(me){
+            me.config.smbLoadQueue.loadQueue(manifest, _doInit, me);
+        }
+
 
         var manifest = Manifest.game;
         var splash = LoaderData[1];
         manifest.push({"src": splash.image, "id" : splash.id});
         me.config.smbLoadQueue = new SmbLoadQueue({"stage": me.config.stage, "gameState":me.config.gameState });
-        me.config.smbLoadQueue.loadQueue(manifest, _doInit, me);
+        me.config.smbLoadQueue.initialLoad(Manifest.initial,afterLoad,me);
+
+
     }
 
     var doInit = function (me) {

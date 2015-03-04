@@ -47,6 +47,7 @@ function ShopController(config) {
         resetAll(me);
         EventBus.dispatch("hideAll");
         setUpgradeStatus(me);
+        setLockedStatus(me);
         $("#shopOuterWrapper").css("display","block");
         $('.scrollContainer').mCustomScrollbar({theme:"rounded",axis:"y", setWidth: "100%",scrollButtons:{ enable: true } });
 
@@ -61,10 +62,12 @@ function ShopController(config) {
                 $(item).find(".upgrade").css("background-color","#FF3030");
                 $(item).find(".upgrade").unbind( "click" );
                 $(item).find(".upgrade").css("background-image","url(shapes/btn1_grey.png)");
+                $(item).find(".upgrade").text("$" + price)
             }else if(price<=me.score.getMyMoney()){
                 $(item).find(".upgrade").css("background-color","#a7cb00");
                 $(item).find(".upgrade").click(function(){EventBus.dispatch("addToBag", this.parentElement)});
                 $(item).find(".upgrade").css("background-image","url(shapes/btn_bg.png)");
+                $(item).find(".upgrade").text("$" + price)
             }
             _.each(me.config.myBag.myBag,function(upgrade){
                 if (upgrade.shopped>0&& upgrade.getType()== item.id) {
@@ -93,6 +96,21 @@ function ShopController(config) {
         });
 
     };
+    var setLockedStatus = function(me){
+        var innerItems = $(".itemDiv").children().filter(".innerItem").find(".innerDiv");
+        _.each(innerItems,function(item){
+            var id = item.id;
+            var unlocksAt = getUnlockStatus(id);
+            if(unlocksAt > me.config.gameState.gs.maxLevel){
+                $(item).find(".upgrade").css("background-color","#FF3030");
+                $(item).find(".upgrade").unbind( "click" );
+                $(item).find(".upgrade").css("background-image","url(shapes/btn1_grey.png)");
+                $(item).find(".upgrade").text("Locked");
+            }
+
+
+        });
+    };
     var setButtonDown = function(btn){
         btn.unbind("click");
         btn.css("background-image","url(shapes/btn1_down.png)");
@@ -104,6 +122,10 @@ function ShopController(config) {
                 return shopData[i].price
             }
         }
+    };
+    var getUnlockStatus =function(id){
+        var json = _.where(shopData,{"id":id});
+        return json[0].unlocksAt;
     }
     var drawExit = function(me){
         var label = new createjs.Text();

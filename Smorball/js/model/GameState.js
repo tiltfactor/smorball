@@ -23,8 +23,8 @@
         this.level = false;
 
         this.cleatsUnlockLevel = 4;
-        this.helmetUnlockLevel = 5;
-        this.bullhornUnlockLevel = 7;
+        this.helmetUnlockLevel = 6;
+        this.bullhornUnlockLevel = 12;
 
         this.survivalLevel = 0;
 

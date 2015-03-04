@@ -1,4 +1,9 @@
 Manifest = {};
+Manifest.initial = [
+    {src:"shapes/loading_bar_bottom.png", id:"loading_bar_bottom"},
+    {src: "shapes/loading_bar_top.png",  id: "loading_bar_top"},
+    {src: "shapes/loading_bar.png", id: "loading_bar"}
+]
 Manifest.game = [
 
     {src:"shapes/SB_logo.png", id:"smorball_logo"},

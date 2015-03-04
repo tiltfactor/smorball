@@ -52,6 +52,21 @@
 
 
     }
+    SmbLoadQueue.prototype.initialLoad = function(manifest,callback,ob){
+        var me  =this;
+        $("#loaderDiv").show();
+        var text = new createjs.Text("LOADING...","Bold 60px Boogaloo","#ffffff");
+        text.setTransform(800,600);
+        this.config.stage.addChild(text);
+        this.fg_loader.loadManifest(manifest);
+        this.fg_loader.addEventListener("complete", function(){
+            //
+            me.config.stage.removeAllChildren();
+            me.fg_loader.removeAllEventListeners();
+            callback(ob);
+        });
+    }
+
 
     SmbLoadQueue.prototype.loadQueue = function(manifest, callback, ob ,level){
         $("#loaderDiv").show();

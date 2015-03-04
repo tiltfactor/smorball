@@ -69,7 +69,7 @@ function GameLevelController(config) {
                     manifest.push({"src": splash.image, "id": splash.id});
                 }
             }else{
-                if(me.config.gameState.currentLevel != 7)
+                if(me.config.gameState.currentLevel != me.config.gameState.gs.totalLevels)
                 {
                     var splash = LoaderData[me.config.gameState.currentLevel];
                     manifest.push({"src": splash.image, "id" : splash.id});
@@ -143,7 +143,22 @@ function GameLevelController(config) {
             evt.target.cursor = 'pointer';
         });
         me.map.addChild(shop);
+        drawStatusText(me);
 
+    }
+    var drawStatusText = function(me){
+        var text = new createjs.Text("status","bold 45px Boogaloo", "#ffffff");
+        var level = _.pick(LevelData[me.config.gameState.gs.maxLevel],"extras");
+        if(level.message){
+            text.text = level.message;
+            text.addEventListener("click",function(e){me.map.removeChild(text)});
+            text.maxWidth = 400;
+            text.x = 1000 + text.getMeasuredWidth()/2;
+            text.y = 750;
+        }else{
+            text.text  = "";
+        }
+        me.map.addChild(text);
     }
     var showShop = function () {
         EventBus.dispatch("showShop");
@@ -167,7 +182,7 @@ function GameLevelController(config) {
     var drawSurvival = function (me) {
         var survival = new createjs.Bitmap(me.config.loader.getResult("lock"));
         survival.setTransform(200,770,1,1);
-        if(me.config.gameState.gs.maxLevel >=7){
+        if(me.config.gameState.gs.maxLevel >=me.config.gameState.totalLevels){
             survival.image =  me.config.loader.getResult("stopwatch_icon");
             survival.setTransform(200,700,1,1);
             survival.addEventListener("click",function(){me.setLevel(0)});
