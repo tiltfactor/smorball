@@ -610,10 +610,10 @@ canvas {
     background-color: white;
     display: none;
     position: absolute;
-    height: 94%;
-    width: 94%;
-    top: 3%;
-    left: 3%;
+    height: 100%;
+    width: 100%;
+    top: 0%;
+    left: 0%;
 }
 
 .splashScreenContainer,
@@ -680,6 +680,11 @@ canvas {
     width: 60%;
     max-width: 400px;
     border: 2px #020202;
+}
+
+#BHLlogo,
+#tiltfactorLogo {
+    display: none;
 }
 
 #slideContainer {

@@ -24,11 +24,13 @@ function GameController(config) {
 
     var loadImages = function (me) {
         var _doInit = function (me) {
-            $("#MBGSplashScreen").css("display", "table");
-            $("#MBGSplashScreen").delay(2000).fadeOut(1000, function() {
-                $("#bhlSplashScreen").fadeIn(1000).css('display','table').delay(2000).fadeOut(1000, function() {
-                    $("#tiltfactorSplashScreen").fadeIn(1000).css('display','table').delay(2000).fadeOut(1000, function() {
-                        doInit(me)
+            $("#mainSplashScreen").css("display", "table");
+            $("#MBGLogo").delay(2000).fadeOut(1000, function() {
+                $("#BHLlogo").fadeIn(1000).delay(2000).fadeOut(1000, function() {
+                    $("#tiltfactorLogo").fadeIn(1000).delay(2000, function() {
+                        $("#mainSplashScreen").fadeOut(1000, function() {
+                             doInit(me)
+                        })
                     }); 
                 });
             });           
