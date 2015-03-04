@@ -49,6 +49,7 @@ button {
     background-position: 0 100%;
     outline: none;
     padding: 0px 10px 19px 10px;
+    cursor: pointer;
 }
 
 #canvasHolder input[type=button]:hover,
@@ -66,6 +67,18 @@ button {
     color: black;
     width: 16%;
     height: 40px;
+}
+
+#canvasHolder input[type=button]:disabled {
+    background-image: url("../shapes/btn1_grey.png");
+    background-size: 100% 89%;
+    background-repeat: no-repeat;
+    background-position: 0% 0%;
+    cursor: default;
+}
+
+#canvasHolder input[type=text]:disabled {
+    background-image: url("../shapes/input_bg_disabled.png");
 }
 
 html, body  {
@@ -1025,7 +1038,8 @@ screen and ( max-height: 350px ) {
     text-indent: -9999px;
     background: url(../shapes/nav_button.png) no-repeat 0 0;
     background-size: 200% 200%;
-    background-position: 0% 0%
+    background-position: 0% 0%;
+    outline: none;
 }
 
 #slider-direction-nav a:active {
@@ -1062,6 +1076,7 @@ screen and ( max-height: 350px ) {
     -ms-transition: none;
     -o-transition: none;
     transition: none;
+    outline: none;
 }
 #slider-control-nav a.active { 
     background: url(../shapes/paging_dot.png) no-repeat 0 0;

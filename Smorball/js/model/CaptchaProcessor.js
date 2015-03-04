@@ -185,9 +185,9 @@
             EventBus.dispatch("playSound","incorrectSound");
             output.pass = false;
             output.message = "incorrect";
-            $("#inputText").prop("disabled",true);
+            $("#canvasHolder input").prop("disabled",true);
             setTimeout(function(){
-                $("#inputText").prop("disabled",false);
+                $("#canvasHolder input").prop("disabled",false);
                 me.reset();
                 $("#inputText").focus();
             },me.config.gameState.gs.penalty);
@@ -222,10 +222,6 @@
         document.getElementById(me.captchaTextBoxId).value = "";
     }
     var disablePassButton = function(me,status){
-        if(status){
-            document.getElementById(me.captchaPassButton).style.backgroundImage="url(shapes/btn1_grey.png)";
-            document.getElementById(me.captchaPassButton).style.backgroundSize= "100% 100%";
-        }
         document.getElementById(me.captchaPassButton).disabled = status;
     }
 
