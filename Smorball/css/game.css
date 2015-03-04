@@ -647,6 +647,7 @@ canvas {
     padding: 4% !important;
     border-radius: 6px;
     margin-top: -3%;
+    position: relative;
 }
 
 #helpScreen .innerItem {
