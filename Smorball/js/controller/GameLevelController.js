@@ -150,7 +150,7 @@ function GameLevelController(config) {
     var drawStatusText = function(me){
         var text = new createjs.Text("status","bold 45px Boogaloo", "#000");
         var level = _.pick(LevelData[me.config.gameState.gs.maxLevel],"extras");
-        if(level.extras.message){
+        if(level.extras != undefined){
             text.text = level.extras.message;
             text.addEventListener("click",function(e){me.map.removeChild(text)});
             text.maxWidth = 400;

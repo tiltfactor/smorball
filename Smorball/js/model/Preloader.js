@@ -57,6 +57,7 @@
     
     var setMessage=function(me, text){
         var msgField = new createjs.Text(text,"Bold 60px Boogaloo","#ffffff");
+        msgField.shadow = new createjs.Shadow("#000000", 3, 3, 1);
         msgField.y = me.y - 80;
         msgField.x = me.x + 200;
         //msgField.scaleX = me.config.stage.canvas.width/800;

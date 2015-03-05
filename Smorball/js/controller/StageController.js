@@ -833,6 +833,9 @@ function StageController(config) {
     };
     var selectPowerUp = function (me, mypowerup) {
         me.config.activePowerup = mypowerup;
+        var type = mypowerup.getType();
+        if(type!="bullhorn")
+            me.powerup_player = "player_"+type;
         updatePlayerOnPowerup(me, me.powerup_player);
     };
 

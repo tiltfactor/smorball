@@ -9,7 +9,7 @@
         onResize(this);
         this.initialize();
         //this.y = 600 - this.getTransformedBounds().height;
-        window.onresize = function(){onResize(me)}
+        window.onresize = function(){onResize(me)};
         this.y = 600 - this.getTransformedBounds().height/2;
         onResize(this);
 
@@ -42,7 +42,7 @@
         }
         if(this.config.type == 1){
             this.preloader.x = 500;
-            this.preloader.y = 400;
+            this.preloader.y = 800;
             drawText(this,gameLevel);
             drawTeams(this,gameLevel);
 
@@ -55,65 +55,44 @@
     };
     var drawText = function(me,gameLevel){
         var team = LevelData[gameLevel].levelName;
-        var text = new createjs.Text(team,"60px Boogaloo","#ff770");
-        text.x = 800-text.getMeasuredWidth()/2 + 20;
+        var text = new createjs.Text(team,"bold 120px Boogaloo","#ffffff");
+        text.lineWidth = 630;
+        text.textAlign = "center";
+        text.shadow = new createjs.Shadow("#000000", 3, 3, 1);
+
+        text.x = 800;
         me.addChild(text);
     };
     var drawTeams = function(me,gameLevel){
         drawHomeTeam(me,gameLevel);
-        drawVSImage(me);
+        drawVSText(me);
         drawEnemyTeam(me,gameLevel);
 
     };
-    var drawVSImage = function(me){
-        var vs = new createjs.Bitmap("shapes/vs.jpg");
-        vs.setTransform(800,160,0.5,0.5);
+    var drawVSText = function(me){
+        var vs = new createjs.Text("VS","bold 140px Boogaloo","#ffffff");
+        vs.shadow = new createjs.Shadow("#000000", 3, 3, 1);
+        vs.setTransform(780,300);
         me.addChild(vs);
     };
     var drawHomeTeam = function(me){
-        var container = new createjs.Container();
-        var circle_one = new createjs.Shape();
-        circle_one.graphics.beginStroke("black").drawCircle(0, 0, 120);
-
         var team = new createjs.Bitmap(me.config.loader.getResult("hometeam"));
-        team.scaleX = team.scaleY = 0.5;
-        team.x = -team.getTransformedBounds().width/2;
-        team.y = -120;
-
-
-
-        var teamtext =  "Chargers";
-        var teamname = new createjs.Text(teamtext,"30px Boogaloo","#ff770");
-        teamname.y = team.y + team.getTransformedBounds().height ;
-        container.addChild(circle_one,team,teamname);
-        container.setTransform(500,160);
-        me.addChild(container);
+        team.setTransform(180,100);
+        me.addChild(team);
     };
     var drawEnemyTeam = function(me,gameLevel){
-        var container = new createjs.Container();
-        var circle_one = new createjs.Shape();
-        circle_one.graphics.beginStroke("black").drawCircle(0, 0, 120);
-
         var team = new createjs.Bitmap(me.config.loader.getResult("splash"+gameLevel));
-        team.scaleX = team.scaleY = 0.5;
-        team.x = -team.getTransformedBounds().width/2;
-        team.y = -120;
-
-
-
-        var teamtext = _.pick(MapData[gameLevel-1],"team").team;
-        var teamname = new createjs.Text(teamtext,"30px Boogaloo","#ff770");
-        teamname.y = team.y + team.getTransformedBounds().height ;
-        container.addChild(circle_one,team,teamname);
-        container.setTransform(1200,160);
-        me.addChild(container);
+        team.setTransform(1000,100);
+        me.addChild(team);
     };
     LoaderClass.prototype.drawPlayButton = function(){
         var me = this;
+        this.config.stage.enableMouseOver(10);
+        var btnContainer = new createjs.Container();
         var btn = new createjs.Bitmap(me.config.loader.getResult("btn_bg"));
-        btn.x = this.preloader.x + btn.getTransformedBounds().width/2;
-        btn.y = this.preloader.y;
-        btn.addEventListener("click",function(){
+        btnContainer.x = this.preloader.x + btn.getTransformedBounds().width/2;
+        btnContainer.y = this.preloader.y;
+        btnContainer.addEventListener("mousedown",function(){
             window.onresize = "";
             me.config.stage.removeAllChildren();
             me.config.stage.update();
@@ -121,7 +100,32 @@
             EventBus.dispatch("onImagesLoad");
 
         });
-        this.addChild(btn);
+
+        btnContainer.addEventListener("mouseout",function(e){
+            e.target.cursor = "pointer";
+            btn.image = me.config.loader.getResult("btn_bg");
+            me.config.stage.update();
+        });
+        btnContainer.addEventListener("mouseover",function(e){
+            e.target.cursor = "pointer";
+            btn.image = me.config.loader.getResult("btn_over");
+            me.config.stage.update();
+        });
+        btnContainer.addEventListener("mousedown",function(e){
+            e.target.cursor = "pointer";
+            btn.image = me.config.loader.getResult("btn_down");
+            me.config.stage.update();
+        });
+        btnContainer.addEventListener("pressup",function(e){
+            e.target.cursor = "pointer";
+            btn.image = me.config.loader.getResult("btn_bg");
+            me.config.stage.update();
+        });
+        var btnText = new createjs.Text("PLAY","bold 60px Boogaloo","#ffffff");
+        btnText.x =  btn.getTransformedBounds().width/2 - btnText.getMeasuredWidth()/2;
+        btnText.y =  btn.getTransformedBounds().height/2 -  btnText.getMeasuredHeight() - 20;
+        btnContainer.addChild(btn,btnText);
+        this.addChild(btnContainer);
         this.removeLoader();
     };
     var onResize = function(me){

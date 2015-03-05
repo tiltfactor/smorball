@@ -4,7 +4,7 @@
 LevelData = [];
 
 LevelData[1] = {
-    "level": 1, "lanes": 1, "pass": 1, "levelName": "Local Qualifiers",
+    "level": 1, "lanes": 1, "pass": 1, "levelName": "LOCAL QUALIFIERS",
     "waves": {
         "activeWaves": 1, "time": 1000, "maxOnGround": 4, "enemySize": 13,
         "message": "Opponents come from the right.@@Keep them from scoring in your endzone. ", "data": [
@@ -20,7 +20,7 @@ LevelData[1] = {
 };
 
 LevelData[2] = {
-    "level": 2, "lanes": 3, "pass": 2, "levelName": "Local Quarterfinals",
+    "level": 2, "lanes": 3, "pass": 2, "levelName": "LOCAL QUARTERFINALS",
     "waves": {
         "activeWaves": 1, "time": 1000, "maxOnGround": 4, "enemySize": 18,
         "message": "Jujubes come in 3 different rows now.", "data": [
@@ -63,7 +63,7 @@ LevelData[2] = {
     "extras":{"message":"Shop has been unlocked"}
 };
 LevelData[3] = {
-    "level": 3, "lanes": 3, "pass": 2, "levelName": "Local Semifinals",
+    "level": 3, "lanes": 3, "pass": 2, "levelName": "LOCAL SEMIFINALS",
     "waves": {
         "activeWaves": 1, "time": 1000, "maxOnGround": 4, "enemySize": 22,
         "data": [
@@ -113,7 +113,7 @@ LevelData[3] = {
     }
 };
 LevelData[4] = {
-    "level": 4, "lanes": 3, "pass": 2, "levelName": "Local Finals",
+    "level": 4, "lanes": 3, "pass": 2, "levelName": "LOCAL FINALS",
     "waves": {
         "activeWaves": 1,
         "time": 1000,
@@ -163,7 +163,7 @@ LevelData[4] = {
     "extras":{"message":"Cleats has been unlocked"}
 };
 LevelData[5] = {
-    "level": 5, "lanes": 3, "pass": 2, "levelName": "State Qualifiers",
+    "level": 5, "lanes": 3, "pass": 2, "levelName": "STATE QUALIFIERS",
     "waves": {
         "activeWaves": 1, "time": 1000, "maxOnGround": 4, "enemySize": 28,
         "data": [
@@ -203,7 +203,7 @@ LevelData[5] = {
     }
 };
 LevelData[6] = {
-    "level": 6, "lanes": 3, "pass": 2, "levelName": "State Quarterfinals",
+    "level": 6, "lanes": 3, "pass": 2, "levelName": "STATE QUARTERFINALS",
     "waves": {
         "activeWaves": 1, "time": 1000, "maxOnGround": 4, "enemySize": 52,
         "message": "Pick up the powerup.@@Use tab to select it", "data": [
@@ -260,7 +260,7 @@ LevelData[6] = {
     "extras":{"message":"Helmet has been unlocked"}
 };
 LevelData[7] = {
-    "level": 7, "lanes": 3, "pass": 2, "levelName": "State Semifinals",
+    "level": 7, "lanes": 3, "pass": 2, "levelName": "STATE SEMIFINALS",
     "waves": {
         "activeWaves": 1, "time": 1000, "maxOnGround": 4, "enemySize": 31,
         "data": [
@@ -305,7 +305,7 @@ LevelData[7] = {
     }
 };
 LevelData[8] = {
-    "level": 8, "lanes": 3, "pass": 2, "levelName": "State finals",
+    "level": 8, "lanes": 3, "pass": 2, "levelName": "STATE FINALS",
     "waves": {
         "activeWaves": 1, "time": 1000, "maxOnGround": 4, "enemySize": 31,
         "data": [
@@ -350,7 +350,7 @@ LevelData[8] = {
     }
 };
 LevelData[9] = {
-    "level": 9, "lanes": 3, "pass": 2, "levelName": "State finals",
+    "level": 9, "lanes": 3, "pass": 2, "levelName": "STATE FINALS",
     "waves": {
         "activeWaves": 1, "time": 1000, "maxOnGround": 4, "enemySize": 31,
         "data": [

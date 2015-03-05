@@ -12,7 +12,9 @@ Manifest.game = [
     {src: "shapes/cleats_icon.png",   id: "cleats"},
     {src: "shapes/loader_default_bg.jpg",   id: "loader_default_bg"},
     {src: "audio/main_theme.mp3", id: "mainTheme"},
-    {src:"shapes/btn_bg.png",id:"btn_bg"}
+    {src:"shapes/btn_bg.png",id:"btn_bg"},
+    {src:"shapes/btn1_over.png",id:"btn_over"},
+    {src:"shapes/btn1_down.png",id:"btn_down"}
 
    // {src: "shapes/runningBoy.png",id: "man"},
    // {src: "shapes/enemy.png", id: "enemy"},
@@ -47,6 +49,7 @@ Manifest.level = [
     //{src: "shapes/player_normal.png",id: "player_normal"},
     {src: "shapes/Friendly Baseball Normal.png",id: "baseball"},
     {src: "shapes/Friendly Baseball Helmet.png",id: "player_helmet"},
+    {src: "shapes/Friendly Baseball Cleets.png",id: "player_cleats"},
     {src: "shapes/man1.png",id: "man1"},
 
     {src: "shapes/enemy_regular.png", id: "enemy_regular"},

@@ -117,11 +117,12 @@ function ShopController(config) {
         btn.click(function(){EventBus.dispatch("removeFromBag", this.parentElement)});
     };
     var getPrice = function(id){
-        for(var i=0;i<shopData.length;i++){
-            if(id==shopData[i].id){
-                return shopData[i].price
-            }
-        }
+        var price = _.pick(_.where(shopData,{"id":id})[0],"price");
+        //for(var i=0;i<shopData.length;i++){
+        //    if(id==shopData[i].id){
+                return price.price;
+        //    }
+        //}
     };
     var getUnlockStatus =function(id){
         var json = _.where(shopData,{"id":id});
