@@ -50,6 +50,14 @@ Manifest.level = [
     {src: "shapes/Friendly Baseball Normal.png",id: "baseball"},
     {src: "shapes/Friendly Baseball Helmet.png",id: "player_helmet"},
     {src: "shapes/Friendly Baseball Cleets.png",id: "player_cleats"},
+    {src: "shapes/Friendly Footballl Cleets.png",id: "football_cleats"},
+    {src: "shapes/Friendly Footballl Helmet.png",id: "football_helmet"},
+    {src: "shapes/Friendly Footballl Normal.png",id: "football_normal"},
+    {src: "shapes/Friendly Hockey Normal.png",id: "hockey_normal"},
+    {src: "shapes/Friendly Hockey Helmet.png",id: "hockey_helmet"},
+    {src: "shapes/Friendly Hockey Cleets.png",id: "hockey_cleats"},
+
+
     {src: "shapes/man1.png",id: "man1"},
 
     {src: "shapes/enemy_regular.png", id: "enemy_regular"},

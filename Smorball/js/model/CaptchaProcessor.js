@@ -157,6 +157,18 @@
             output.message = "Enter text";
             return output;
         }
+        if(input == "completelevel"){
+            this.config.gameState.gs.gameLevelPoints[this.config.gameState.currentLevel-1] = 3;
+            if(this.config.gameState.gs.maxLevel<=this.config.gameState.currentLevel+1){
+                this.config.gameState.gs.maxLevel = ++this.config.gameState.currentLevel;
+            }
+            this.config.gameState.currentState = this.config.gameState.states.GAME_OVER;
+            output.pass = false;
+            output.cheated = true;
+            output.message = "cheat code is accessed";
+            clearText(this);
+            return output;
+        }
         if(input=="unlockall"){
            this.config.gameState.gs.maxLevel = this.config.gameState.totalLevels;
            this.config.gameState.currentState = this.config.gameState.states.GAME_OVER;

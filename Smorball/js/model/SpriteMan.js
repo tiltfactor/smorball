@@ -7,6 +7,7 @@
 
     var SpriteMan = function (config) {
         this.config = config;
+        this.playerTypes = ["player","hockey","football"];
         this.initialize();
         pl = this;
     }
@@ -15,11 +16,13 @@
     p.Sprite_initialize = p.initialize;
 
     p.initialize = function () {
-        this.spriteData = new SpriteSheet({"id" : this.config.id, "data": PlayerData[this.config.id].data, "loader" : this.config.loader, "gameState": this.config.gameState});
+        this.type = getRandomType(this);
+        var id = this.type +"_normal";
+        this.spriteData = new SpriteSheet({"id" : id, "data": PlayerData[id].data, "loader" : this.config.loader, "gameState": this.config.gameState});
         this.sprite = new createjs.Sprite(this.spriteData, "idle");
-        this.extras = PlayerData[this.config.id].extras;
+        this.extras = PlayerData[id].extras;
         this.setScale(this.extras.sX,this.extras.sY);
-        this.setEffects();
+        this.setEffects(id);
         this.Sprite_initialize();
         this.addChild(this.sprite);
         this.hit = false;
@@ -34,6 +37,10 @@
         this.bounds = this.getBounds();
         //this.setTransform(0,0,0.5,0.5);
     }
+    var getRandomType = function(me){
+        var type = Math.floor(Math.random() * me.playerTypes.length);
+        return me.playerTypes[type];
+    };
 
     var drawBorder = function(me){
         if(me.shape != undefined){
@@ -46,20 +53,29 @@
 
     }
 
-    SpriteMan.prototype.setSpriteSheet = function(id){
+    SpriteMan.prototype.setDefaultSpriteSheet = function(){
+        var id = this.type+"_normal";
         this.spriteData = new SpriteSheet({"id" : id, "data": PlayerData[id].data, "loader" : this.config.loader});
         this.sprite.spriteSheet = this.spriteData;
         this.extras = PlayerData[id].extras;
         this.setScale(this.extras.sX,this.extras.sY);
         this.sprite.gotoAndPlay("idle");
-       // this.setScale(1,1);
-        //return nm;
+
+    }
+    SpriteMan.prototype.setPowerupSpriteSheet = function(powerupType){
+        var id = this.type+"_"+powerupType;
+        this.spriteData = new SpriteSheet({"id" : id, "data": PlayerData[id].data, "loader" : this.config.loader});
+        this.sprite.spriteSheet = this.spriteData;
+        this.extras = PlayerData[id].extras;
+        this.setScale(this.extras.sX,this.extras.sY);
+        this.sprite.gotoAndPlay("idle");
+
     }
     
     window.sprites.SpriteMan = SpriteMan;
-    SpriteMan.prototype.setEffects = function(){
+    SpriteMan.prototype.setEffects = function(id){
        // console.log("EFFECTS");
-        this.config.playerSound = PlayerData[this.config.id].extras.sound;
+        this.config.playerSound = PlayerData[id].extras.sound;
     }
     SpriteMan.prototype.run  = function(){
         var me = this;

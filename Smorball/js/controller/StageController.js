@@ -441,7 +441,7 @@ function StageController(config) {
             if (lane.player == undefined) {
                 setTimeout(addPlayer, 1000, lane, me);
             } else {
-                lane.player.setSpriteSheet(me.default_player);
+                lane.player.setDefaultSpriteSheet();
 //                var sf = getScaleFactor(lane,lane.player);
 //                lane.player.setScale(sf,sf);
             }
@@ -452,7 +452,6 @@ function StageController(config) {
     var addPlayer = function (lane, me) {
         if (!(me.config.gameState.currentLevel == 1 && (lane.getLaneId() == 1 || lane.getLaneId() == 3))) {
             var config = {
-                "id": me.default_player,
                 "loader": me.config.loader,
                 "laneId": lane.getLaneId(),
                 "gameState": me.config.gameState
@@ -620,7 +619,7 @@ function StageController(config) {
                 }
                 resetPlayers(me);
             } else {
-                updatePlayerOnPowerup(me, me.default_player);
+                updatePlayerOnDefault(me);
                 playConfusedAnimation(me);
                 me.config.activePowerup = undefined;
 
@@ -829,30 +828,38 @@ function StageController(config) {
     var unselectAllInBag = function (me) {
         me.config.myBag.unselectAll();
         me.config.activePowerup = undefined;
-        updatePlayerOnPowerup(me, me.default_player);
+        updatePlayerOnDefault(me, me.default_player);
     };
     var selectPowerUp = function (me, mypowerup) {
         me.config.activePowerup = mypowerup;
         var type = mypowerup.getType();
         if(type!="bullhorn")
             me.powerup_player = "player_"+type;
-        updatePlayerOnPowerup(me, me.powerup_player);
+        updatePlayerOnPowerup(me,type);
     };
 
-    var updatePlayerOnPowerup = function (me, playerId) {
+    var updatePlayerOnPowerup = function (me, type) {
 
         for (var i = 0; i < me.config.lanes.length; i++) {
             var lane = me.config.lanes[i];
             var player = lane.player;
             if (player != undefined) {
-                player.setSpriteSheet(playerId);
-//                var sf = getScaleFactor(lane, player);
-//                player.setScale(sf,sf);
+                player.setPowerupSpriteSheet(type);
 
             }
         }
 
     };
+    var updatePlayerOnDefault = function (me, playerId) {
+        for (var i = 0; i < me.config.lanes.length; i++) {
+            var lane = me.config.lanes[i];
+            var player = lane.player;
+            if (player != undefined) {
+                player.setDefaultSpriteSheet();
+
+            }
+        }
+    }
 
     var changeLane = function (me, enemy) {
         var laneId = newLaneId(enemy.getLaneId(), me);
