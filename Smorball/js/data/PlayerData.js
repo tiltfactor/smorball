@@ -52,7 +52,7 @@ PlayerData.player_helmet = {
     } ,
 
     "extras": {
-        "sound": {},
+        "sound": {"tackle":"batHit"},
         "sX": 1.5,//0.5,
         "sY": 1.5//0.5
     }
@@ -90,7 +90,7 @@ PlayerData.player_normal = {
         }
     },
     "extras": {
-        "sound": {},
+        "sound": {"tackle":"batHit"},
         "sX": 1.5,//0.5,
         "sY": 1.5//0.5
     }

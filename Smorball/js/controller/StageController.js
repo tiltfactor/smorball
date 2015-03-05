@@ -123,6 +123,9 @@ function StageController(config) {
     }
 
     var newGame = function (me) {
+        if(me.config.gameState.inputTextArr.length != 0){
+            saveInputTexts(me);
+        }
        me.config.myBag.newGame();
         me.timeSpend = 0;
         me.currentTime = createjs.Ticker.getTime(true);
@@ -607,6 +610,12 @@ function StageController(config) {
             showMessage(me, output.message);
             removeActivePowerup(me);
             if (output.pass) {
+                if(me.config.activePowerup != null){
+                    EventBus.dispatch("playSound","correctPowerup");
+                }
+                else{
+                    EventBus.dispatch("playSound","correctSound");
+                }
                 if (me.config.activePowerup != null && me.config.activePowerup.getId() == "bullhorn") {
                     startPlayersFromAllLanes(me);
                 } else {
@@ -619,6 +628,7 @@ function StageController(config) {
                 }
                 resetPlayers(me);
             } else {
+                EventBus.dispatch("playSound","incorrectSound");
                 updatePlayerOnDefault(me);
                 playConfusedAnimation(me);
                 me.config.activePowerup = undefined;
@@ -695,6 +705,7 @@ function StageController(config) {
         }
         me.config.gameState.currentState = me.config.gameState.states.GAME_OVER;
         showResultScreen(me, 1);
+        saveInputTexts(me);
 
     };
     var stopCheering = function(me){
@@ -916,6 +927,31 @@ function StageController(config) {
         }
 
     };
+    var saveInputTexts = function(me){
+         var arr = me.config.gameState.inputTextArr;
+         $.ajax({
+             url: 'http://tiltfactor1.dartmouth.edu:8080/api/difference',
+             type: 'PUT',
+             dataType: 'json',
+             headers: {"x-access-token": 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJHYW1lIiwiaWF0IjoxNDE1MzQxNjMxMjY4LCJpc3MiOiJCSExTZXJ2ZXIifQ.bwRps5G6lAd8tGZKK7nExzhxFrZmAwud0C2RW26sdRM'},
+             processData: false,
+             contentType: 'application/json',
+             timeout: 10000,
+             data:JSON.stringify(arr), //this data will be in the format of a json object of user inputs and database IDs of the word they were going for (provided in the json that GET returns)
+             crossDomain: true,
+             error: function(err)
+             {
+                 var errorText = JSON.parse(err.responseText);
+                 console.log(errorText);
+                 me.config.gameState.inputTextArr = [];
+             },
+             success: function(data)
+             {
+                 me.config.gameState.inputTextArr = [];
+                 console.log(data);
+             }
+         });
+     }
     var persist = function (me) {
 
     }

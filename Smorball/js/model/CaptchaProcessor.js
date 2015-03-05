@@ -73,6 +73,7 @@
             captcha.sourceRect = new createjs.Rectangle(myCords.sPoint.x,myCords.sPoint.y,myCords.width,myCords.height);
             setScale(captcha, myCords.width, myCords.height);
             captcha.texts  =captchaData.texts;
+            captcha._id = captchaData._id;
         }
 
        //captcha.x = 10;
@@ -181,7 +182,6 @@
         }
         var cw = new closestWord(input,this.captchasOnScreen);
         if(cw.match){
-            EventBus.dispatch("playSound","correctSound");
             if(input.length>8){
                 output.extraDamage = true;
             }
@@ -194,9 +194,9 @@
             output.laneId = captcha.id;
             this.load(captcha);
         }else{
-            EventBus.dispatch("playSound","incorrectSound");
             output.pass = false;
             output.message = "incorrect";
+            var captcha = cw.closestOcr;
             $("#canvasHolder input").prop("disabled",true);
             setTimeout(function(){
                 $("#canvasHolder input").prop("disabled",false);
@@ -204,6 +204,12 @@
                 $("#inputText").focus();
             },me.config.gameState.gs.penalty);
 
+        }
+        var ob = {};
+        ob._id = captcha._id;
+        ob.text = input;
+        if(ob._id){
+            me.config.gameState.inputTextArr.push(ob);
         }
         clearText(this);
         return output;

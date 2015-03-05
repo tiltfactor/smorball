@@ -34,6 +34,7 @@
 
         //this.reset();
 
+        this.inputTextArr = [];
         this.currentLevel = 1;
         getFromStore(this);
         setFromStore(this);

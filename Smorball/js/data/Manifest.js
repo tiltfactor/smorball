@@ -14,7 +14,10 @@ Manifest.game = [
     {src: "audio/main_theme.mp3", id: "mainTheme"},
     {src:"shapes/btn_bg.png",id:"btn_bg"},
     {src:"shapes/btn1_over.png",id:"btn_over"},
-    {src:"shapes/btn1_down.png",id:"btn_down"}
+    {src:"shapes/btn1_down.png",id:"btn_down"},
+    {src: "audio/Click.mp3", id: "click"},
+    {src: "audio/Mouse_Over_Button.mp3", id: "mouseover"}
+
 
    // {src: "shapes/runningBoy.png",id: "man"},
    // {src: "shapes/enemy.png", id: "enemy"},
@@ -133,7 +136,14 @@ Manifest.levelMap = [
     {src: "audio/Typewriter/WordTypedIncorrect.mp3", id: "incorrectSound"},
 
     {src: "audio/AmbientSounds/StadiumAmbience.mp3", id: "stadiumAmbience"},
-    {src: "audio/AmbientSounds/CrowdCheeringAmbient.mp3", id: "crowdCheering"}
+    {src: "audio/AmbientSounds/CrowdCheeringAmbient.mp3", id: "crowdCheering"},
+
+    {src: "audio/Baseball_Bat_Hit.mp3", id: "batHit"},
+    {src: "audio/Powerup_Activated.mp3", id: "powerupActivated"},
+    {src: "audio/Powerup_Selection_Changed.mp3", id: "powerupChange"},
+    {src: "audio/Purchase_Item.mp3", id: "purchaseItem"},
+    {src: "audio/Insufficient_Money.mp3", id: "insufficientMoney"},
+    {src: "audio/WordTypedCorrectly_WithPowerup.mp3", id: "correctPowerup"}
 
 ];
 

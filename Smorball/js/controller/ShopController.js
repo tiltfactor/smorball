@@ -62,10 +62,11 @@ function ShopController(config) {
                 $(item).find(".upgrade").css("background-color","#FF3030");
                 $(item).find(".upgrade").unbind( "click" );
                 $(item).find(".upgrade").css("background-image","url(shapes/btn1_grey.png)");
-                $(item).find(".upgrade").text("$" + price)
+                $(item).find(".upgrade").text("$" + price);
+                $(item).find(".upgrade").click(function(){EventBus.dispatch("playSound","insufficientMoney")});
             }else if(price<=me.score.getMyMoney()){
                 $(item).find(".upgrade").css("background-color","#a7cb00");
-                $(item).find(".upgrade").click(function(){EventBus.dispatch("addToBag", this.parentElement)});
+                $(item).find(".upgrade").click(function(){EventBus.dispatch("playSound","purchaseItem");EventBus.dispatch("addToBag", this.parentElement);});
                 $(item).find(".upgrade").css("background-image","url(shapes/btn_bg.png)");
                 $(item).find(".upgrade").text("$" + price)
             }

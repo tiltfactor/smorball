@@ -81,10 +81,6 @@
         var me = this;
         //drawBorder(this);
         this.sprite.gotoAndPlay("run");
-        //var fileId = this.config.playerSound.run;
-        //var config = {"file": fileId , "loop": false, "type": this.config.gameState.gs.soundType.EFFECTS, "isMain": false,"loader":this.config.loader, "gameState":me.config.gameState};
-        //var runSound = new Sound(config);
-        //EventBus.dispatch("addAudioToList",runSound);
         this.myTick = function(){tick(me)};
         this.addEventListener("tick", this.myTick);
     }
@@ -118,24 +114,22 @@
                 this.life -= 1;
 
             }
-
         }
         if(this.life!=0){
             this.sprite.gotoAndPlay("tackle");
+            var fileId = this.config.playerSound.tackle;
+            EventBus.dispatch("playSound",fileId);
             this.toRun = function(){
                 me.sprite.removeEventListener("animationend",me.toRun);
                 me.sprite.gotoAndPlay("run");
             };
             this.sprite.addEventListener("animationend",this.toRun);
         }
-
-        /*var fileId = this.config.playerSound.fall;
-        var config = {"file": fileId , "loop": false, "type": this.config.gameState.soundType.EFFECTS, "isMain": false,"loader":this.config.loader, "gameState":me.config.gameState};
-        var killSound = new Sound(config);
-        EventBus.dispatch("addAudioToList",killSound);*/
         if(this.life == 0){
             this.hit = true;
             this.sprite.gotoAndPlay("tackle");
+            var fileId = this.config.playerSound.tackle;
+            EventBus.dispatch("playSound",fileId);
             this.myAnimationEnd = function(){removeFallingAnimation(me)};
             me.removeEventListener("tick",  this.myTick);
             this.sprite.addEventListener("animationend",this.myAnimationEnd);

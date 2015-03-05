@@ -75,7 +75,50 @@
     </script>
 </head>
 <body onload="init()" style="background:#ccc;text-align: center">
+<!--<script>
+window.fbAsyncInit = function() {
+// init the FB JS SDK
+FB.init({
+appId      : '356239614580013', // App ID from the App Dashboard
+//channelUrl : '//WWW.YOUR_DOMAIN.COM/channel.html', // Channel File for x-domain communication
+status     : true, // check the login status upon init?
+cookie     : true, // set sessions cookies to allow your server to access the session?
+xfbml      : true  // parse XFBML tags on this page?
+});
 
+// Additional initialization code such as adding Event Listeners goes here
+FB.ui(
+{
+    method: 'feed',
+    name: 'Smorball', // name of the product or content you want to share
+    link: 'http://localhost:8080/smorball-github/Smorball/index.html',//'https://developers.facebook.com/docs/reference/dialogs/', // link back to the product or content you are sharing
+    picture: '',//'http://media1.santabanta.com/full1/Cricket/Rahul%20Dravid/rah20a.jpg', // path to an image you would like to share with this content
+    caption: 'http://smorball.com', // caption
+    description: 'I just defeated Chennai Super Kings. They scored 3422 against me!' // description of your product or content
+    },
+    function(response) {
+        if (response && response.post_id) {
+            alert('Post was published.');
+        } else {
+            alert('Post was not published.');
+        }
+    }
+);
+
+};
+
+// Load the SDK Asynchronously
+function fb_callout() {
+    (function(d){
+        console.log(d);
+        var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement('script'); js.id = id; js.async = true;
+        js.src = "//connect.facebook.net/en_US/all.js";
+        ref.parentNode.insertBefore(js, ref);
+    }(document));
+}
+</script>-->
 
 <canvas id="myCanvas"></canvas>
 
@@ -106,9 +149,9 @@
             <button id="resumeButton" onClick="EventBus.dispatch(&quot;resumeGame&quot;)">Resume Game</button>
             <button onClick="EventBus.dispatch(&quot;exitMenu&quot;);EventBus.dispatch(&quot;showMap&quot;)">Map
             </button> -->
-            <button onClick="EventBus.dispatch(&quot;play&quot;);">Play</button>
-            <button onClick="EventBus.dispatch(&quot;showOptions&quot;);">Options</button>
-            <button onClick="EventBus.dispatch(&quot;showHelp&quot;);">Help</button>
+            <button onmouseover="EventBus.dispatch('playSound','mouseover');" onClick="EventBus.dispatch(&quot;play&quot;);">Play</button>
+            <button onmouseover="EventBus.dispatch('playSound','mouseover');" onClick="EventBus.dispatch(&quot;showOptions&quot;);">Options</button>
+            <button onmouseover="EventBus.dispatch('playSound','mouseover');" onClick="EventBus.dispatch(&quot;showHelp&quot;);">Help</button>
            
             <!-- <button onClick="EventBus.dispatch(&quot;exitMenu&quot;)">Exit</button> -->
         </div>
@@ -118,13 +161,13 @@
 <div id="menu-confirm-popup" class="shadedContainer menu-popup">
    <div class="centerScreenContainer">
         <div id="game-popup" class="innerContainer">
-            <button onClick="$('#game-popup').hide(); $('#confirm-popup').show();">newgame</button>
-            <button onClick="$('#game-popup, #menu-confirm-popup').hide(); EventBus.dispatch(&quot;showMap&quot;)">Continue</button>
+            <button onmouseover="EventBus.dispatch('playSound','mouseover');" onClick="$('#game-popup').hide(); $('#confirm-popup').show();">newgame</button>
+            <button onmouseover="EventBus.dispatch('playSound','mouseover');" onClick="$('#game-popup, #menu-confirm-popup').hide(); EventBus.dispatch(&quot;showMap&quot;)">Continue</button>
         </div>
         <div id="confirm-popup" class="innerContainer">
             <p><b>ARE YOU SURE YOU WANT TO ERASE YOUR CURRENT GAME</b></p>
-            <button onClick="$('#confirm-popup, #menu-confirm-popup').hide(); EventBus.dispatch(&quot;exitMenu&quot;);EventBus.dispatch(&quot;resetAll&quot;)">YES</button>
-            <button onClick="$('#confirm-popup, #menu-confirm-popup').hide();$('#game-popup').show()">NO</button>
+            <button onmouseover="EventBus.dispatch('playSound','mouseover');" onClick="$('#confirm-popup, #menu-confirm-popup').hide(); EventBus.dispatch(&quot;exitMenu&quot;);EventBus.dispatch(&quot;resetAll&quot;)">YES</button>
+            <button onmouseover="EventBus.dispatch('playSound','mouseover');" onClick="$('#confirm-popup, #menu-confirm-popup').hide();$('#game-popup').show()">NO</button>
         </div>
     </div>
 </div>
@@ -135,18 +178,18 @@
 <!--</div>-->
 
 <div id="canvasHolder">
-    <input id="passButton" type="button" value="Pass" onclick="EventBus.dispatch(&quot;passText&quot;)"></input>
+    <input id="passButton" type="button" value="Pass" onmouseover="EventBus.dispatch('playSound','mouseover');" onclick="EventBus.dispatch(&quot;passText&quot;)"></input>
     <input id="inputText" type="text" placeholder="Type Phrase"
            onkeydown="if(event.keyCode == 13){EventBus.dispatch(&quot;compareCaptcha&quot;)}"></input>
     <input id="submitButton" type="button" value="Submit"
-           onclick="EventBus.dispatch(&quot;compareCaptcha&quot;)"></input>
+           onmouseover="EventBus.dispatch('playSound','mouseover');" onclick="EventBus.dispatch(&quot;compareCaptcha&quot;)"></input>
 </div>
 
 <div id="timeout-container" class="mainWrapper">
     <div class="timeout-button-container">
         <div class="timeout-buttons">
             <div id="timeout-close">
-                <button id="timeout-btn-close" onClick="EventBus.dispatch('hideTimeOut')">X</button>
+                <button id="timeout-btn-close" onmouseover="EventBus.dispatch('playSound','mouseover');" onClick="EventBus.dispatch('hideTimeOut')">X</button>
             </div>
              <p id="timout-text"><b>TIMEOUT</b></p>
             <div class="timeout-content">
@@ -156,8 +199,8 @@
                 <p class="slider-text"><b>SOUND EFFECTS</b></p>
 
                 <div class="effects-slider slider"></div>
-                <button>HELP</button><br/>
-                <button onClick="EventBus.dispatch('quitTimeout');">QUIT</button>
+                <button onmouseover="EventBus.dispatch('playSound','mouseover');" onclick="EventBus.dispatch(&quot;showHelp&quot;);" >HELP</button><br/>
+                <button onmouseover="EventBus.dispatch('playSound','mouseover');" onClick="EventBus.dispatch('quitTimeout');">QUIT</button>
             </div>
         </div>
     </div>
@@ -186,7 +229,7 @@
                                     <div class="caption"><%=item.description%></div>
                                     <!--<div class="rate">&dollar;<%=item.price%></div>-->
                                     <br>
-                            <button class="upgrade" type="button" style="background-color:#a7cb00;" >$<%=item.price%>
+                            <button class="upgrade" type="button" onmouseover="EventBus.dispatch('playSound','mouseover');" style="background-color:#a7cb00;" >$<%=item.price%>
                                     </button>
                                         </td>
                                     </tr>
@@ -200,7 +243,7 @@
                 </div>
             </div>
             <div class="shop-back-btn">
-                <input class="backButton" type="button" onclick="EventBus.dispatch(&quot;showMap&quot;)"/>
+                <input class="backButton" type="button" onmouseover="EventBus.dispatch('playSound','mouseover');" onclick="EventBus.dispatch(&quot;showMap&quot;)"/>
             </div>
         </div>
     </div>
@@ -218,8 +261,8 @@
                         </div> 
                         <div class="clear"></div>
                     </div>
-                    <button onclick="$('.resultContainer, #resultWrapper').hide(); EventBus.dispatch('showMap')"><b>LEVEL SELECT</b></button>
-                    <button onclick="$('.resultContainer,  #resultWrapper').hide();EventBus.dispatch('newGame')"><b>TRY AGAIN</b></button>
+                    <button onmouseover="EventBus.dispatch('playSound','mouseover');" onclick="$('.resultContainer, #resultWrapper').hide(); EventBus.dispatch('showMap')"><b>LEVEL SELECT</b></button>
+                    <button onmouseover="EventBus.dispatch('playSound','mouseover');" onclick="$('.resultContainer,  #resultWrapper').hide();EventBus.dispatch('newGame')"><b>TRY AGAIN</b></button>
                 </div>
                 <div id="survivalEndContainer" class="resultContainer">
                      <div class="title"><b>SURVIVAL END</b></div>
@@ -230,8 +273,8 @@
                         </div> 
                         <div class="clear"></div>
                     </div>
-                     <button onclick="$('.resultContainer, #resultWrapper').hide(); EventBus.dispatch('showMap')"><b>LEVEL SELECT</b></button>
-                     <button onclick="$('.resultContainer,  #resultWrapper').hide();EventBus.dispatch('newGame')"><b>CONTINUE</b></button>
+                     <button onmouseover="EventBus.dispatch('playSound','mouseover');" onclick="$('.resultContainer, #resultWrapper').hide(); EventBus.dispatch('showMap')"><b>LEVEL SELECT</b></button>
+                     <button onmouseover="EventBus.dispatch('playSound','mouseover');" onclick="$('.resultContainer,  #resultWrapper').hide();EventBus.dispatch('newGame')"><b>CONTINUE</b></button>
                 </div> 
                 <div id="victoryContainer" class="resultContainer">
                     <div class="title"><b>VICTORY</b></div>
@@ -241,8 +284,8 @@
                         </div> 
                         <div class="clear"></div>
                     </div>
-                    <button onclick="$('.resultContainer, #resultWrapper').hide(); EventBus.dispatch('showMap')"><b>LEVEL SELECT</b></button>
-                    <button onclick="$('.resultContainer,  #resultWrapper').hide();EventBus.dispatch('stopCheering');EventBus.dispatch('showMap')"><b>CONTINUE</b></button>
+                    <button onmouseover="EventBus.dispatch('playSound','mouseover');" onclick="$('.resultContainer, #resultWrapper').hide(); EventBus.dispatch('showMap')"><b>LEVEL SELECT</b></button>
+                    <button onmouseover="EventBus.dispatch('playSound','mouseover');" onclick="$('.resultContainer,  #resultWrapper').hide();EventBus.dispatch('stopCheering');EventBus.dispatch('showMap')"><b>CONTINUE</b></button>
                 </div>
             </div>
         </div>
@@ -262,8 +305,8 @@
             </div>
             <div id="slider-control-nav"></div>
             <div class="help-back-btn">
-             <input class="backButton helpBackButton" type="button" onClick="EventBus.dispatch(&quot;hideHelp&quot;);"/>
-            </div>
+             <input class="backButton helpBackButton" type="button" onmouseover="EventBus.dispatch('playSound','mouseover');" onClick="EventBus.dispatch(&quot;hideHelp&quot;);"/>
+			</div>
         </div>
     </div>
 </div>
@@ -289,7 +332,7 @@
 <div id="optionsScreen" class="mainWrapper">
     <div class="optionScreenContainer">
         <div id="slideContainer">
-             <button class="optionsBackButton" onclick="EventBus.dispatch('hideOptions');">Back</button>
+             <button class="optionsBackButton" onmouseover="EventBus.dispatch('playSound','mouseover');" onclick="EventBus.dispatch('hideOptions');">Back</button>
                 <p class="slider-text"><b>Music</b></p>
                 <div class="music-slider slider"></div>
                 <p class="slider-text"><b>Sounds</b></p>

@@ -60,16 +60,17 @@
     MyPowerup.prototype.unselect = function(){
         this.selected = false;
         this.powerup.scaleY = 1;
+        var fileId = "powerupChange";
+        EventBus.dispatch("playSound",fileId);
     }
     MyPowerup.prototype.select = function(){
+        var fileId = "powerupActivated";
+        EventBus.dispatch("playSound",fileId);
        if(this.getSum()>0){
            EventBus.dispatch("selectPowerUp",this);
            this.selected = true;
            this.powerup.scaleY = 1.1;
        }
-
-
-
     }
     MyPowerup.prototype.getId=function(){
         return this.config.type;
