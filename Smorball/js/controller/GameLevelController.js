@@ -88,7 +88,7 @@ function GameLevelController(config) {
     GameLevelController.prototype.showMap = function (isCheated) {
         var me = this;
         EventBus.dispatch("hideAll");
-        $("#loaderCanvas").show();
+        $("#loaderDiv").show();
         EventBus.dispatch("saveToStore");
         onResize(me);
         loadImages(this,isCheated);
@@ -134,7 +134,7 @@ function GameLevelController(config) {
         shop.x = 1000;
         shop.y = 780;
         if(me.config.gameState.gs.maxLevel>1){
-            shop.addEventListener("click", showShop);
+        shop.addEventListener("click", showShop);
         }else{
             shop.image = me.config.loader.getResult("lock");
             shop.y = 830;

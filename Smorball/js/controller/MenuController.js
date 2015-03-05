@@ -6,7 +6,7 @@ function MenuController(config) {
         $("#resumeButton").hide();
     }
 
-    var loadEvents = function (me) {   
+    var loadEvents = function (me) {
         EventBus.addEventListener("exitMenu", me.hideMenu);
         var sm = function(){me.showMenu(me)};
         EventBus.addEventListener("showMenu",sm);
@@ -36,12 +36,23 @@ function MenuController(config) {
         EventBus.addEventListener("setDifficulty",sd);
 
     }
+
+    var onMenuResize = function() {
+        var width = window.innerHeight * 4 / 3 > window.innerWidth ? window.innerWidth : window.innerHeight * 4 / 3;
+        var height = width * 3 / 4 > window.innerHeight ? window.innerHeight :width * 3 / 4;
+        var paddingTop = (window.innerHeight - height) / 2 > 0 ? (window.innerHeight - height) / 2 : 0;
+        $("#menu-container").css({height:height, width:width,top: paddingTop});
+    }
     
     MenuController.prototype.showMenu = function (me) {
         checkStatus(me);
         $("#canvasHolder").hide();
         me.config.gameState.currentState = me.config.gameState.states.MAIN_MENU;
-        $("#menu-container" ).css("display","block");
+        onMenuResize(me)
+        window.onresize = function () {
+            onMenuResize();
+        };
+        $("#menu-container").css("display","block");
     } 
    
     MenuController.prototype.play = function (me) {
@@ -64,8 +75,8 @@ function MenuController(config) {
     }
     
     MenuController.prototype.showOptions = function () {
+        EventBus.dispatch("hideAll");
         checkDifficulty(this);
-        $(".mainWrapper").css("display", "none");
         $("#optionsScreen" ).css("display","table");
         setSliderValue(this);
     }
@@ -110,8 +121,8 @@ function MenuController(config) {
     }
     MenuController.prototype.hideOptions = function () {
         checkDifficulty(this);
-        $(".mainWrapper").css("display", "none");
-        $( "#menu-container" ).css("display","table");
+        EventBus.dispatch("hideAll");
+        EventBus.dispatch("showMenu");
     }
     
     MenuController.prototype.hideMenu = function () {

@@ -147,9 +147,9 @@ function StageController(config) {
             "canvasHeight": me.canvasHeight,
             "gameState": me.config.gameState
         });
-        $("#loaderCanvas").show();
+        $("#loaderDiv").show();
         loadImages(me);
-
+        $("#myCanvas").show();
         EventBus.dispatch("setMute");
 
         var config = {"gameState": me.config.gameState};
@@ -236,7 +236,6 @@ function StageController(config) {
         var paddingTop = (window.innerHeight - me.canvasHeight) / 2 > 0 ? (window.innerHeight - me.canvasHeight) / 2 : 0;
         $("#myCanvas").css({top: paddingTop});
         $("#canvasHolder").css({top: me.canvasHeight + paddingTop - $("#canvasHolder").height(), position: 'absolute'});
-        $("#menu-container").css({height:me.canvasHeight, width:me.canvasWidth,top: paddingTop});
     };
 
 
@@ -891,7 +890,7 @@ function StageController(config) {
     var hideTimeOut = function (me) {
         //calculateTime(me);
         event.preventDefault();
-		$("#inputText").focus();
+	$("#inputText").focus();
         $('#timeout-container').css('display', 'none');
         EventBus.dispatch('showCaptchas');
         EventBus.dispatch('setTickerStatus');

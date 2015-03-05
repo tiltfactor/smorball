@@ -123,10 +123,10 @@ function fb_callout() {
 <canvas id="myCanvas"></canvas>
 
 <div id="loaderDiv" style="position: absolute; top: 0%; left: 0%; width: 100%; height: 100%; display: none ">
-    <div id="loadOuterWrapper" class="mainWrapper1 blueBg">
+    <div id="loadOuterWrapper" class="blueBg">
         <div class="centerContainer starBg">
-    <canvas id="loaderCanvas"></canvas>
-</div>
+            <canvas id="loaderCanvas"></canvas>
+        </div>
     </div>
 
 
@@ -140,7 +140,7 @@ function fb_callout() {
     <canvas id="utilityCanvas"></canvas>
 </div>
 
-<div id="menu-container" class="mainWrapper menu-popup">
+<div id="menu-container" class="menu-popup">
     <img class="sb_logo" src="shapes/SB_logo.png">
     <div class="menu-button-container">
         <div class="menu-buttons">
@@ -161,13 +161,13 @@ function fb_callout() {
 <div id="menu-confirm-popup" class="shadedContainer menu-popup">
    <div class="centerScreenContainer">
         <div id="game-popup" class="innerContainer">
-            <button onmouseover="EventBus.dispatch('playSound','mouseover');" onClick="$('#game-popup').hide(); $('#confirm-popup').show();">newgame</button>
-            <button onmouseover="EventBus.dispatch('playSound','mouseover');" onClick="$('#game-popup, #menu-confirm-popup').hide(); EventBus.dispatch(&quot;showMap&quot;)">Continue</button>
+            <button  onmouseover="EventBus.dispatch('playSound','mouseover');" onClick="EventBus.dispatch(&quot;hideAll&quot;); EventBus.dispatch(&quot;showMenu&quot;); $('#confirm-popup, #menu-confirm-popup').show();">new game</button>
+            <button  onmouseover="EventBus.dispatch('playSound','mouseover');" onClick="EventBus.dispatch(&quot;showMap&quot;)">Continue</button>
         </div>
         <div id="confirm-popup" class="innerContainer">
             <p><b>ARE YOU SURE YOU WANT TO ERASE YOUR CURRENT GAME</b></p>
-            <button onmouseover="EventBus.dispatch('playSound','mouseover');" onClick="$('#confirm-popup, #menu-confirm-popup').hide(); EventBus.dispatch(&quot;exitMenu&quot;);EventBus.dispatch(&quot;resetAll&quot;)">YES</button>
-            <button onmouseover="EventBus.dispatch('playSound','mouseover');" onClick="$('#confirm-popup, #menu-confirm-popup').hide();$('#game-popup').show()">NO</button>
+            <button onmouseover="EventBus.dispatch('playSound','mouseover');" onClick="EventBus.dispatch(&quot;hideAll&quot;); EventBus.dispatch(&quot;exitMenu&quot;);EventBus.dispatch(&quot;resetAll&quot;)">YES</button>
+            <button onmouseover="EventBus.dispatch('playSound','mouseover');" onClick="EventBus.dispatch(&quot;hideAll&quot;); EventBus.dispatch(&quot;showMenu&quot;);">NO</button>
         </div>
     </div>
 </div>
@@ -185,7 +185,7 @@ function fb_callout() {
            onmouseover="EventBus.dispatch('playSound','mouseover');" onclick="EventBus.dispatch(&quot;compareCaptcha&quot;)"></input>
 </div>
 
-<div id="timeout-container" class="mainWrapper">
+<div id="timeout-container">
     <div class="timeout-button-container">
         <div class="timeout-buttons">
             <div id="timeout-close">
@@ -206,7 +206,7 @@ function fb_callout() {
     </div>
 </div>
 
-<div id="shopOuterWrapper" class="mainWrapper blueBg">
+<div id="shopOuterWrapper" class="blueBg">
     <div class="centerContainer starBg">
         <div id="shop" class="mainWndw">
             <div class="titleBar">
@@ -261,8 +261,8 @@ function fb_callout() {
                         </div> 
                         <div class="clear"></div>
                     </div>
-                    <button onmouseover="EventBus.dispatch('playSound','mouseover');" onclick="$('.resultContainer, #resultWrapper').hide(); EventBus.dispatch('showMap')"><b>LEVEL SELECT</b></button>
-                    <button onmouseover="EventBus.dispatch('playSound','mouseover');" onclick="$('.resultContainer,  #resultWrapper').hide();EventBus.dispatch('newGame')"><b>TRY AGAIN</b></button>
+                    <button onmouseover="EventBus.dispatch('playSound','mouseover');" onclick="EventBus.dispatch('showMap')"><b>LEVEL SELECT</b></button>
+                    <button onmouseover="EventBus.dispatch('playSound','mouseover');" onclick="EventBus.dispatch(&quot;hideAll&quot;);EventBus.dispatch('newGame')"><b>TRY AGAIN</b></button>
                 </div>
                 <div id="survivalEndContainer" class="resultContainer">
                      <div class="title"><b>SURVIVAL END</b></div>
@@ -273,8 +273,8 @@ function fb_callout() {
                         </div> 
                         <div class="clear"></div>
                     </div>
-                     <button onmouseover="EventBus.dispatch('playSound','mouseover');" onclick="$('.resultContainer, #resultWrapper').hide(); EventBus.dispatch('showMap')"><b>LEVEL SELECT</b></button>
-                     <button onmouseover="EventBus.dispatch('playSound','mouseover');" onclick="$('.resultContainer,  #resultWrapper').hide();EventBus.dispatch('newGame')"><b>CONTINUE</b></button>
+                     <button onmouseover="EventBus.dispatch('playSound','mouseover');" onclick="EventBus.dispatch('showMap')"><b>LEVEL SELECT</b></button>
+                     <button onmouseover="EventBus.dispatch('playSound','mouseover');" onclick="EventBus.dispatch(&quot;hideAll&quot;);EventBus.dispatch('newGame')"><b>CONTINUE</b></button>
                 </div> 
                 <div id="victoryContainer" class="resultContainer">
                     <div class="title"><b>VICTORY</b></div>
@@ -284,31 +284,31 @@ function fb_callout() {
                         </div> 
                         <div class="clear"></div>
                     </div>
-                    <button onmouseover="EventBus.dispatch('playSound','mouseover');" onclick="$('.resultContainer, #resultWrapper').hide(); EventBus.dispatch('showMap')"><b>LEVEL SELECT</b></button>
-                    <button onmouseover="EventBus.dispatch('playSound','mouseover');" onclick="$('.resultContainer,  #resultWrapper').hide();EventBus.dispatch('stopCheering');EventBus.dispatch('showMap')"><b>CONTINUE</b></button>
+                    <button onmouseover="EventBus.dispatch('playSound','mouseover');" onclick="EventBus.dispatch('showMap')"><b>LEVEL SELECT</b></button>
+                    <button onmouseover="EventBus.dispatch('playSound','mouseover');" onclick="EventBus.dispatch('stopCheering');EventBus.dispatch('showMap')"><b>CONTINUE</b></button>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<div id="helpScreen" class="mainWrapper shadedContainer blueBg">
-    <div class="centerScreenContainer starBg">
+<div id="helpScreen" class="shadedContainer blueBg">
+     <div class="centerScreenContainer starBg">
         <div>
-            <div class="title">INSTRUCTIONS</div>
+             <div class="title">INSTRUCTIONS</div>
             <div class="helpScreenContent innerContainer">
                 <div class="slider-wrapper innerItem">
                     <div id="slider">
                     </div>
                     <div id="slider-direction-nav"></div>
-                </div> 
+                </div>
             </div>
             <div id="slider-control-nav"></div>
-            <div class="help-back-btn">
+         <div class="help-back-btn">
              <input class="backButton helpBackButton" type="button" onmouseover="EventBus.dispatch('playSound','mouseover');" onClick="EventBus.dispatch(&quot;hideHelp&quot;);"/>
-			</div>
-        </div>
+         </div>
     </div>
+</div>
 </div>
 <script type="text/template" id="sliderComponents">
                             <% _.each(items, function(item, position) { %>
@@ -321,15 +321,15 @@ function fb_callout() {
                            <% }); %>
 </script>
 
-<div id="mainSplashScreen" class="mainWrapper splashScreen">
-        <div class="splashScreenContainer">
-           <img id="MBGLogo" class="splashLogo" src="shapes/MBG-Logo.jpg"/>
-           <img id="BHLlogo" class="splashLogo" src="shapes/BHL_Logo.png"/>
-           <img id="tiltfactorLogo" class="splashLogo" src="shapes/Tiltfacor_on_White.png"/>
-        </div>
+<div id="mainSplashScreen" class="splashScreen">
+    <div class="splashScreenContainer">
+        <img id="MBGLogo" class="splashLogo" src="shapes/MBG-Logo.jpg"/>
+        <img id="BHLlogo" class="splashLogo" src="shapes/BHL_Logo.png"/>
+        <img id="tiltfactorLogo" class="splashLogo" src="shapes/Tiltfacor_on_White.png"/>
+    </div>
 </div>
 
-<div id="optionsScreen" class="mainWrapper">
+<div id="optionsScreen">
     <div class="optionScreenContainer">
         <div id="slideContainer">
              <button class="optionsBackButton" onmouseover="EventBus.dispatch('playSound','mouseover');" onclick="EventBus.dispatch('hideOptions');">Back</button>

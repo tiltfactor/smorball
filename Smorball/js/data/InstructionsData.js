@@ -1,6 +1,7 @@
 var sliderData = [
     {"image": "instructions1", "description": 'When an opponent tries to reach your endzone, stop it by typing the phrase in the corresponding row and pressing ‘enter.’'},
     {"image": "instructions2", "description": 'Some opponents must be tackled multiple times before they actually go down - type fast!'},
+    {"image": "instructions2", "description": 'You’ll run into opponents of all different shapes, sizes, and abilities.  Some are fast, some are slow, and some are hard to deal with'},
     {"image": "instructions4", "description": 'Defeat all of the opponents in a level without letting them score 6 points against you to proceed'},
     {"image": "instructions5", "description": 'The better you score, the more money you make which you can spend at the shop to make your athletes better.'},
     {"image": "instructions6", "description": 'Punctuation in phrases matters, so type carefully.'},

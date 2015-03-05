@@ -105,15 +105,17 @@ function GameController(config) {
     var hideAll = function(){
         window.onresize = "";
         $("#shopOuterWrapper").css("display","none");
-        $("#loaderCanvas").hide();
+        $("#loaderDiv").hide();
         $("#dialog-utility").hide();
         $("#dialog-shop").hide();
         $("#myCanvas").hide();
         $("#canvasHolder").hide();
         $("#menu-container").hide();
-
-
-        
+        $('#game-popup').hide(); 
+        $('#confirm-popup').hide(); 
+        $('#menu-confirm-popup').hide(); 
+        $("#optionsScreen" ).hide();
+        $('.resultContainer, #resultWrapper').hide();
     }
 
 

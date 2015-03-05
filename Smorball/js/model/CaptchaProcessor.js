@@ -29,6 +29,7 @@
         //$("#canvasHolder").css({top: me.config.canvasHeight - $("#canvasHolder").height(), position:'absolute'});
         document.getElementById('canvasHolder').style.display = "block";
         document.getElementById(me.captchaPassButton).value = 'Pass('+ me.maxPass + ')';
+        event.preventDefault();
         $('#inputText').focus();
         disablePassButton(me,false);
 

@@ -1,9 +1,3 @@
-.no-close .ui-dialog-titlebar-close, .ui-widget-header {
-    display: none;
-}
-.ui-button {
-    width: 100%;
-}
 #canvasHolder {
     display: none;
     width: 100%;
@@ -123,7 +117,6 @@ canvas {
 
 .timeout-button-container {
     position: relative;
-    border-radius: 5px;
     display: table-cell;
     vertical-align: middle;
 }
@@ -244,6 +237,7 @@ canvas {
     margin: 0% 20%;
     cursor: pointer;
     margin-bottom: 8%;
+    z-index: 0;
 }
 
 .slider .ui-slider-range { 
@@ -731,6 +725,11 @@ screen and ( max-height: 600px ){
 
 @media screen and (max-width: 768px),
 screen and ( max-height: 500px ) { 
+    #menu-confirm-popup .innerContainer{
+        max-width: 250px;
+        padding: 4% 3%;
+    }
+
     .menu-popup button,
     #menu-confirm-popup .innerContainer p {
         font-size: 1.2em;    
@@ -843,6 +842,11 @@ screen and ( max-height: 500px ) {
 
 @media screen and (max-width: 480px),
 screen and ( max-height: 400px ) {
+    #menu-confirm-popup .innerContainer{
+        max-width: 200px;
+        padding: 4% 3%;
+    }
+
     .menu-popup button,
     #menu-confirm-popup .innerContainer p {
         font-size: .8em;    
@@ -882,8 +886,9 @@ screen and ( max-height: 400px ) {
     .slider-text {
         font-size: .7em;
     }
-    .timeout-buttons{
+    .timeout-buttons {
         padding-bottom: 1%;
+        max-width: 250px;
     }
     #timeout-container .slider {
         height: 4px;
