@@ -892,11 +892,9 @@ function StageController(config) {
     };
     var hideTimeOut = function (me) {
         //calculateTime(me);
-        if(event){
-            event.preventDefault();
-        }
-        me.config.gameState.currentState = me.config.gameState.states.RUN;
 
+        me.config.gameState.currentState = me.config.gameState.states.RUN;
+        window.onclick = prevent;
 	    $("#inputText").focus();
         $('#timeout-container').css('display', 'none');
         EventBus.dispatch('showCaptchas');
@@ -904,6 +902,11 @@ function StageController(config) {
         EventBus.dispatch('setMute');
         EventBus.dispatch('pauseWaves', false);
     };
+    var prevent = function(event){
+        if(event){
+            event.preventDefault();
+        }
+    }
     var calculateTime = function (me) {
         me.timeSpend = createjs.Ticker.getTime(true) - me.currentTime;
         me.currentTime = createjs.Ticker.getTime(true);

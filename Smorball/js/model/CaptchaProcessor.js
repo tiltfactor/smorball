@@ -29,10 +29,13 @@
         //$("#canvasHolder").css({top: me.config.canvasHeight - $("#canvasHolder").height(), position:'absolute'});
         document.getElementById('canvasHolder').style.display = "block";
         document.getElementById(me.captchaPassButton).value = 'Pass('+ me.maxPass + ')';
-        event.preventDefault();
-        $('#inputText').focus();
-        disablePassButton(me,false);
 
+        disablePassButton(me,false);
+        window.onload = prevent;
+        $('#inputText').focus();
+    }
+    var prevent = function(e){
+        e.defaultPrevented = true;
     }
     var loadEvents = function(me){
         var pt = function(e){passText(me,e)};
