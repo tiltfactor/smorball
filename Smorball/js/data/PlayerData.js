@@ -225,8 +225,8 @@ PlayerData.hockey_normal={
     },
     "extras": {
         "sound": {},
-        "sX": 1.2,//0.5,
-        "sY": 1.2//0.5
+        "sX": 1.3,//0.5,
+        "sY": 1.3//0.5
     }
 };
 PlayerData.hockey_cleats={
@@ -257,8 +257,8 @@ PlayerData.hockey_cleats={
     },
     "extras": {
         "sound": {},
-        "sX": 1.2,//0.5,
-        "sY": 1.2//0.5
+        "sX": 1.3,//0.5,
+        "sY": 1.3//0.5
     }
 };PlayerData.hockey_helmet={
     "data":{
@@ -288,8 +288,8 @@ PlayerData.hockey_cleats={
     },
     "extras": {
         "sound": {},
-        "sX": 1.2,//0.5,
-        "sY": 1.2//0.5
+        "sX": 1.3,//0.5,
+        "sY": 1.3//0.5
     }
 }
 

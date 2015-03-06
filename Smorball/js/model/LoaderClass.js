@@ -73,7 +73,7 @@
         var vs = new createjs.Text("VS","bold 140px Boogaloo","#ffffff");
         vs.shadow = new createjs.Shadow("#000000", 3, 3, 1);
         vs.textAlign = "center";
-        vs.setTransform(780,400);
+        vs.setTransform(790,400);
         me.addChild(vs);
     };
     var drawHomeTeam = function(me){
@@ -91,7 +91,7 @@
         this.config.stage.enableMouseOver(10);
         var btnContainer = new createjs.Container();
         var btn = new createjs.Bitmap(me.config.loader.getResult("btn_bg"));
-        btnContainer.x = this.preloader.x + btn.getTransformedBounds().width/2;
+        btnContainer.x = this.preloader.x + btn.getTransformedBounds().width/2-40;
         btnContainer.y = this.preloader.y;
         btnContainer.addEventListener("mousedown",function(){
             window.onresize = "";
