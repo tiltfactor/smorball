@@ -200,7 +200,7 @@ function GameLevelController(config) {
         var inforbar = new createjs.Bitmap(me.config.loader.getResult("level_info_bar"));
         inforbar.y = inforbar.getTransformedBounds().height;
 
-        me.logo =  new createjs.Bitmap(me.config.loader.getResult("hometeam"));
+        me.logo =  new createjs.Bitmap(me.config.loader.getResult("splash1"));
         me.logo.setTransform(-40,0,0.5,0.5);
         me.logo.y = inforbar.y - me.logo.getTransformedBounds().height/3;
 
@@ -321,9 +321,9 @@ function GameLevelController(config) {
         }
         me.scoreText.text = score + "/6";
 
-        if(me.config.loader.getResult("splash"+levelInfo.id)&& levelInfo.id<=maxLevel){
-            me.logo.image = me.config.loader.getResult("splash"+levelInfo.id);
-            me.logo.setTransform(-30,0,0.5,0.5);
+        if(me.config.loader.getResult("logo"+levelInfo.id)&& levelInfo.id<=maxLevel){
+            me.logo.image = me.config.loader.getResult("logo"+levelInfo.id);
+            me.logo.setTransform(-30,50,1.5,1.5);
         }else{
             me.logo.image = me.config.loader.getResult("lock");
             me.logo.setTransform(0,50,1,1);

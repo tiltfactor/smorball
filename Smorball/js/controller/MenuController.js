@@ -131,10 +131,11 @@ function MenuController(config) {
 
     MenuController.prototype.showTimeout = function (me) {
         checkStatus(me);
-        me.config.gameState.currentState = me.config.gameState.states.MAIN_MENU;
         $("#timeout-container" ).css("display","table");
         setSliderValue(this);
         EventBus.dispatch("pauseAllSound");
+
+
     } 
     
     MenuController.prototype.quitTimeout = function (me) {
@@ -152,8 +153,8 @@ function MenuController(config) {
         var state = me.config.gameState.states;
         switch(me.config.gameState.currentState){
             case state.MAIN_MENU:{break;}
-            case state.RUN:{$("#resumeButton").show();break;}
-            case state.GAME_OVER: {$("#resumeButton").hide();break;}
+            case state.RUN:{/*$("#resumeButton").show()*/;break;}
+            case state.GAME_OVER: {/*$("#resumeButton").hide();*/break;}
             case state.SHOP:break;
         }
     };

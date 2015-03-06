@@ -358,7 +358,7 @@ function StageController(config) {
             me.config.lanes.push(lane);
 
             if (!(me.levelConfig.lanes == 1 && (laneId == 1 || laneId == 3))) {
-                var captchaHolder = me.captchaProcessor.getCaptchaPlaceHolder(lane.getMaxCaptchaWidth(), lane.getHeight(), laneId);
+                var captchaHolder = me.captchaProcessor.getCaptchaPlaceHolder(150+lane.getMaxCaptchaWidth(), lane.getHeight(), laneId);
                 captchaHolder.x = lane.getCaptchaX();
                 lane.addChild(captchaHolder);
 
@@ -400,7 +400,8 @@ function StageController(config) {
 
 
     var showTimeoutScreen = function (me) {
-        if (!createjs.Ticker.getPaused()) {
+        if (!createjs.Ticker.getPaused() && me.config.gameState.currentState==me.config.gameState.states.RUN) {
+            me.config.gameState.currentState = me.config.gameState.states.MAIN_MENU;
             me.captchaProcessor.hideCaptchas();
             me.config.stage.update();
             EventBus.dispatch("setTickerStatus");
@@ -537,6 +538,7 @@ function StageController(config) {
                     if (player.singleHit) {
                         var hitList = player.hitEnemies;
                         if (hitList.indexOf(enemy.id) == -1) {
+                            player.tackle();
                             player.hitEnemies.push(enemy.id);
                             enemy.kill(player.getLife());
                         }
@@ -746,6 +748,7 @@ function StageController(config) {
                 $("#canvasHolder").hide();
                 $("#survivalEndContainer").show();
                 $("#resultWrapper").css("display", "table");
+
             }
         }, 2000);
     };
@@ -889,8 +892,12 @@ function StageController(config) {
     };
     var hideTimeOut = function (me) {
         //calculateTime(me);
-        event.preventDefault();
-	$("#inputText").focus();
+        if(event){
+            event.preventDefault();
+        }
+        me.config.gameState.currentState = me.config.gameState.states.RUN;
+
+	    $("#inputText").focus();
         $('#timeout-container').css('display', 'none');
         EventBus.dispatch('showCaptchas');
         EventBus.dispatch('setTickerStatus');

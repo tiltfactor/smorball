@@ -712,7 +712,7 @@ LevelData[16] = {
 };
 
 LevelData[0] = {
-    "level": 0, "lanes": 3, "pass": 2,
+    "level": 0, "lanes": 3, "pass": 2,"levelName":"Survival",
     "waves": {
         "activeWaves": 1,
         "time": 1000,

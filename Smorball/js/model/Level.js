@@ -61,7 +61,7 @@
     }
     var drawLogo = function(me,stadium){
          var logo = new createjs.Bitmap(me.config.loader.getResult(me.config.stadiumInfo.logo));
-        logo.setTransform(0,stadium.y,0.3,0.3);
+        logo.setTransform(0,stadium.y,1.1,1.1);
         logo.y = stadium.y - logo.getTransformedBounds().height/2 - 25;
         me.addChild(logo);
     };

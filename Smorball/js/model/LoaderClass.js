@@ -72,17 +72,18 @@
     var drawVSText = function(me){
         var vs = new createjs.Text("VS","bold 140px Boogaloo","#ffffff");
         vs.shadow = new createjs.Shadow("#000000", 3, 3, 1);
-        vs.setTransform(780,300);
+        vs.textAlign = "center";
+        vs.setTransform(780,400);
         me.addChild(vs);
     };
     var drawHomeTeam = function(me){
         var team = new createjs.Bitmap(me.config.loader.getResult("hometeam"));
-        team.setTransform(180,100);
+        team.setTransform(140,200);
         me.addChild(team);
     };
     var drawEnemyTeam = function(me,gameLevel){
         var team = new createjs.Bitmap(me.config.loader.getResult("splash"+gameLevel));
-        team.setTransform(1000,100);
+        team.setTransform(960,200);
         me.addChild(team);
     };
     LoaderClass.prototype.drawPlayButton = function(){
