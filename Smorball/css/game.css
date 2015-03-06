@@ -358,12 +358,12 @@ canvas {
     padding: .5% 2% 2% 6%;
 }
 
-.shop-back-btn,
-.help-back-btn {
+.shopBackBtn {
     height: 55px;
 }
-.help-back-btn{
-    width: 70%;
+.helpBackBtn{
+    width: 74%;
+    height: 0px;
     margin: 0px auto;   
 }
 
@@ -501,11 +501,11 @@ canvas {
     display: none;
     background-color: rgba(0, 0, 0, 0.3);
     font-family: 'Boogaloo';
+    overflow: hidden;
 }
 
 .centerScreenContainer {
     position: relative;
-    padding: 1%;
     border-radius: 5px;
     display: table-cell;
     vertical-align: middle;  
@@ -640,7 +640,7 @@ canvas {
 .helpBackButton {
     padding: 4% !important;
     border-radius: 6px;
-    margin-top: -3%;
+    margin-top: -4%;
     position: relative;
 }
 
@@ -663,6 +663,8 @@ canvas {
 
 .helpScreenContent {
     padding: 5% 2%;
+    width: 60%;
+    max-width: 600px;
 }
 
 .helpScreenContent .imageWrapper {
@@ -670,6 +672,9 @@ canvas {
     background-image: url("../shapes/instructions_border.png");
     background-size: 100% 100%;
     padding: 2%;
+}
+.lean-slider-slide p {
+    font-size: 1.3em;
 }
 
 .splashLogo {
@@ -1007,7 +1012,7 @@ screen and ( max-height: 350px ) {
 }
 .lean-slider-slide.current { display: block; }
 
-.slider-wrapper { 
+.sliderWrapper { 
     position: relative; 
 }
 .lean-slider { overflow: hidden; }
@@ -1029,14 +1034,14 @@ screen and ( max-height: 350px ) {
     width: 100%; 
 }
 
-#slider-direction-nav {
+#sliderDirectionNav {
     position: absolute;
     left: -33%;
     top: 40%;
     width: 166%;
 }
-.slider-wrapper:hover #slider-direction-nav { opacity: 1; }
-#slider-direction-nav a {
+.sliderWrapper:hover #sliderDirectionNav { opacity: 1; }
+#sliderDirectionNav a {
     float: left;
     display: block;
     width: 50px;
@@ -1048,16 +1053,16 @@ screen and ( max-height: 350px ) {
     outline: none;
 }
 
-#slider-direction-nav a:active {
+#sliderDirectionNav a:active {
     background-position: 0% 100%
 }
 
-#slider-direction-nav .lean-slider-next {
+#sliderDirectionNav .lean-slider-next {
     float: right;
     background-position: 100% 0%
 }
 
-#slider-direction-nav .lean-slider-next:active {
+#sliderDirectionNav .lean-slider-next:active {
     background-position: 100% 100%
 }
 
@@ -1066,9 +1071,10 @@ screen and ( max-height: 350px ) {
     left: 0;
     width: 100%;
     text-align: center;
+    margin-top: 1%;
 }
 
-.slider-wrapper:hover #slider-control-nav { opacity: 1; }
+.sliderWrapper:hover #slider-control-nav { opacity: 1; }
 #slider-control-nav a {
     display: inline-block;
     width: 14px;
@@ -1089,99 +1095,99 @@ screen and ( max-height: 350px ) {
     background-size: 100% 100%;
 }
 
-/* Smartphones (portrait and landscape) ----------- */
-@media only screen 
-and (min-device-width : 320px) 
-and (max-width : 480px) {
-
-    #slider-direction-nav,
-    #slider-control-nav { opacity: 1; }
-
-}
-
-/* iPads (portrait and landscape) ----------- */
-@media only screen 
-and (min-device-width : 768px) 
-and (max-device-width : 1024px) {
-
-    #slider-direction-nav,
-    #slider-control-nav { opacity: 1; }
-
-}
-
 @media screen and (max-width: 992px),
-screen and ( max-height: 600px ){
+screen and ( max-height: 650px )
+{
     #helpScreen .title {
         font-size: 2.5em;
     }
     .helpScreenContent {
-        max-width: 400px;
-    }
+        max-width: 500px;
+    } 
 }
 
 @media screen and (max-width: 768px),
-screen and ( max-height: 550px ) { 
+screen and ( max-height: 560px ) 
+{ 
     #helpScreen .title {
         font-size: 2em;
     }
     .helpScreenContent {
-        max-width: 300px;
+        width: 70%;
     }
-    .help-back-btn {
-        max-width: 500px;
-    }
-    .helpScreenContent {
-        padding: 2% 1%;
+    #sliderDirectionNav {
+        left: -25%;
+        width: 150%;
     }
     #slider-control-nav a{
         width: 10px;
         height: 10px;
     }
     .lean-slider-slide p {
-        font-size: .8em;
+        font-size: 1em;
     }
-    #slider-direction-nav a {
+    #sliderDirectionNav a {
         width: 30px;
         height: 41px;
     }
-    .help-back-btn {
-        width: 85%;
+    .helpBackBtn {
+        width: 90%;
+        max-width: 600px;
     }
+    .helpScreenContent {
+        max-width: 480px;
+    } 
 }
 
 @media screen and (max-width: 480px),
-screen and ( max-height: 400px ) {
+screen and ( max-height: 530px )
+{
     #helpScreen .title {
         font-size: 2em;
     }
-    .helpScreenContent {
-        max-width: 250px;
-    }
-    .help-back-btn {
-        max-width: 500px;
+    .helpBackBtn {
+        max-width: 470px;
     }
     .lean-slider-slide p {
-        font-size: .6em;
+        font-size: .9em;
     }
     #slider-control-nav a{
         width: 7px;
         height: 7px;
     }
-
-    #slider-direction-nav {
-
-    }
+    .helpScreenContent {
+        max-width: 370px;
+    } 
 }
 
 @media screen and (max-width: 320px),
-screen and ( max-height: 350px ) {
+screen and ( max-height: 430px ) 
+{
     #helpScreen .title {
         font-size: 1.5em;
     }
     .helpScreenContent {
-        max-width: 200px;
+        max-width: 275px;
+    } 
+    .helpBackBtn {
+        max-width: 350px;
     }
-    .help-back-btn {
-        max-width: 400px;
+    .lean-slider-slide p {
+        font-size: .8em;
     }
+    #sliderDirectionNav {
+        left: -50%;
+        width: 200%;
+    }
+    #sliderDirectionNav {
+        left: -35%;
+        width: 170%;
+    }
+}
+
+@media screen and (max-height: 350px) and (min-width: 500px),
+screen and (max-height: 450px) and (min-width: 500px) {
+    .helpScreenContent {
+         padding: 2% 2%;
+    } 
 }

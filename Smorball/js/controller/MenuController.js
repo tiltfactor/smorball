@@ -90,7 +90,7 @@ function MenuController(config) {
         var compile = _.template(template);
         $("#slider").append(compile({items:sliderData}));
         $('#slider').leanSlider({
-            directionNav: '#slider-direction-nav',
+            directionNav: '#sliderDirectionNav',
             controlNav: '#slider-control-nav'
         });
     }
