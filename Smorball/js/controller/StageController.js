@@ -853,6 +853,9 @@ function StageController(config) {
 
     var updatePlayerOnPowerup = function (me, type) {
 
+        if(type=="bullhorn"){
+            type = "normal"
+        }
         for (var i = 0; i < me.config.lanes.length; i++) {
             var lane = me.config.lanes[i];
             var player = lane.player;
