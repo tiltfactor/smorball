@@ -19,9 +19,6 @@ function SoundController(config){
         var pa = function(){pauseAllSound(me)};
         EventBus.addEventListener("pauseAllSound", pa);
 
-        var al = function(sound){addAudioToList(me,sound.target)};
-        EventBus.addEventListener("addAudioToList", al);
-
         var cs = function(type){changeSoundVolume(me,type.target)};
         EventBus.addEventListener("changeSoundVolume", cs);
 
@@ -35,13 +32,13 @@ function SoundController(config){
     var playSound = function(me,fileId){
         var config = {"file": fileId , "loop": false, "type": me.config.gameState.soundType.EFFECTS, "isMain": false,"loader":me.config.loader, "gameState":me.config.gameState};
         var sound = new Sound(config);
-        EventBus.dispatch("addAudioToList",sound);
-
+        removeSoundEffects(me);
+        addAudioToList(me,sound);
     }
     var addAudioToList = function(me,sound){
         if(sound.mySound != null){
-            sound.play();
             me.config.gameState.audioList.push(sound);
+            sound.play();
         }
     }
     var removeAudioFromList = function(me,sound){
@@ -51,12 +48,16 @@ function SoundController(config){
             me.config.gameState.audioList.splice(index,1);
         }
     }
-    /*var pauseAllSound = function(me){
-        for(var i= 0; i< me.audioList.length; i++){
-            var sound = me.audioList[i];
-            sound.pause();
+    var removeSoundEffects = function(me){
+        for(var i=0; i< me.config.gameState.audioList.length; i++){
+            var removeSound = me.config.gameState.audioList[i];
+            if(!removeSound.config.isMain){
+                removeSound.mySound.pause();
+                removeSound.mySound.currentTime = 0;
+                removeAudioFromList(me,removeSound);
+            }
         }
-    }*/
+    }
     var pauseAllSound = function(me){
         for(var i= 0; i< me.config.gameState.audioList.length; i++){
             var sound = me.config.gameState.audioList[i];
@@ -97,7 +98,7 @@ function SoundController(config){
         var fileId = "mainTheme";
         var config = {"file": fileId , "loop": true, "type": me.config.gameState.soundType.MAIN, "isMain": true,"loader":me.config.loader, "gameState":me.config.gameState};
         var mainSound = new Sound(config);
-        EventBus.dispatch("addAudioToList",mainSound);
+        addAudioToList(me,mainSound);
     }
 
     var persist = function(me){
