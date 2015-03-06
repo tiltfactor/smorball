@@ -198,9 +198,12 @@
             output.pass = false;
             output.message = "incorrect";
             var captcha = cw.closestOcr;
+            var passDisabled = $("#canvasHolder #passButton").prop("disabled");
             $("#canvasHolder input").prop("disabled",true);
             setTimeout(function(){
                 $("#canvasHolder input").prop("disabled",false);
+                if(passDisabled)
+                    $("#canvasHolder #passButton").prop("disabled",true);
                 me.reset();
                 $("#inputText").focus();
             },me.config.gameState.gs.penalty);
