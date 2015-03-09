@@ -123,7 +123,7 @@ function fb_callout() {
 <canvas id="myCanvas"></canvas>
 
 <div id="loaderDiv" style="position: absolute; top: 0%; left: 0%; width: 100%; height: 100%; display: none ">
-    <div id="loadOuterWrapper" class="blueBg">
+    <div id="loadOuterWrapper" class="blueBg fullWidthcontainer">
         <div class="centerContainer starBg">
             <canvas id="loaderCanvas"></canvas>
         </div>
@@ -158,8 +158,8 @@ function fb_callout() {
     </div>
 </div>
 
-<div id="menu-confirm-popup" class="shadedContainer menu-popup">
-   <div class="centerScreenContainer">
+<div id="menu-confirm-popup" class="shadedContainer fullWidthcontainer menu-popup">
+   <div class="centerScreenContainer middleContainer">
         <div id="game-popup" class="innerContainer">
             <button  onmouseover="EventBus.dispatch('playSound','mouseover');" onClick="EventBus.dispatch(&quot;hideAll&quot;); EventBus.dispatch(&quot;showMenu&quot;); $('#confirm-popup, #menu-confirm-popup').show();">new game</button>
             <button  onmouseover="EventBus.dispatch('playSound','mouseover');" onClick="EventBus.dispatch(&quot;showMap&quot;)">Continue</button>
@@ -185,8 +185,8 @@ function fb_callout() {
            onmouseover="EventBus.dispatch('playSound','mouseover');" onclick="EventBus.dispatch(&quot;compareCaptcha&quot;)"></input>
 </div>
 
-<div id="timeout-container">
-    <div class="timeout-button-container">
+<div id="timeout-container" class="fullWidthcontainer">
+    <div class="timeout-button-container middleContainer">
         <div class="timeout-buttons">
             <div id="timeout-close">
                 <button id="timeout-btn-close" onmouseover="EventBus.dispatch('playSound','mouseover');" onClick="EventBus.dispatch('hideTimeOut')">X</button>
@@ -206,7 +206,7 @@ function fb_callout() {
     </div>
 </div>
 
-<div id="shopOuterWrapper" class="blueBg">
+<div id="shopOuterWrapper" class="blueBg fullWidthcontainer">
     <div class="centerContainer starBg">
         <div id="shop" class="mainWndw">
             <div class="titleBar">
@@ -229,7 +229,7 @@ function fb_callout() {
                                     <div class="caption"><%=item.description%></div>
                                     <!--<div class="rate">&dollar;<%=item.price%></div>-->
                                     <br>
-                            <button class="upgrade" type="button" onmouseover="EventBus.dispatch('playSound','mouseover');" style="background-color:#a7cb00;" >$<%=item.price%>
+                            <button class="upgrade" type="button" onmouseover="EventBus.dispatch('playSound','mouseover');">$<%=item.price%>
                                     </button>
                                         </td>
                                     </tr>
@@ -249,8 +249,8 @@ function fb_callout() {
     </div>
 </div>
 
-<div id="resultWrapper" class="shadedContainer">
-    <div class="centerScreenContainer">
+<div id="resultWrapper" class="shadedContainer fullWidthcontainer">
+    <div class="centerScreenContainer middleContainer">
         <div class="innerContainer">
             <div>
                 <div id="lostContainer" class="resultContainer">
@@ -292,8 +292,8 @@ function fb_callout() {
     </div>
 </div>
 
-<div id="helpScreen" class="shadedContainer blueBg">
-     <div class="centerScreenContainer starBg">
+<div id="helpScreen" class="shadedContainer blueBg fullWidthcontainer">
+     <div class="centerScreenContainer starBg middleContainer">
         <div>
              <div class="title">INSTRUCTIONS</div>
             <div class="helpScreenContent innerContainer">
@@ -321,30 +321,38 @@ function fb_callout() {
                            <% }); %>
 </script>
 
-<div id="mainSplashScreen" class="splashScreen">
-    <div class="splashScreenContainer">
+<div id="mainSplashScreen" class="splashScreen fullWidthcontainer">
+    <div class="splashScreenContainer splashScreenContainer">
         <img id="MBGLogo" class="splashLogo" src="shapes/MBG-Logo.jpg"/>
         <img id="BHLlogo" class="splashLogo" src="shapes/BHL_Logo.png"/>
         <img id="tiltfactorLogo" class="splashLogo" src="shapes/Tiltfacor_on_White.png"/>
     </div>
 </div>
 
-<div id="optionsScreen">
-    <div class="optionScreenContainer">
-        <div id="slideContainer">
-             <button class="optionsBackButton" onmouseover="EventBus.dispatch('playSound','mouseover');" onclick="EventBus.dispatch('hideOptions');">Back</button>
-                <p class="slider-text"><b>Music</b></p>
-                <div class="music-slider slider"></div>
-                <p class="slider-text"><b>Sounds</b></p>
-                <div class="effects-slider slider"></div>
-                 <p><b>Difficulty</b></p>
-                <select class="selectDifficulty" onchange="EventBus.dispatch('setDifficulty',this.value)">
-                    <option value="veryeasy" >very easy</option>
-                    <option value="easy" >easy</option>
-                    <option value="medium">medium</option>
-                    <option value="hard">Hard</option>
-                    <option value="veryhard">Very Hard</option>
-                </select>
+<div id="optionsScreen" class="fullWidthcontainer blueBg">
+    <div class="centerScreenContainer middleContainer starBg">
+        <div class="title">OPTIONS</div>
+        <div class="innerContainer">
+            <div class="slideContainer">                
+                    <p class="slider-text"><b>MUSIC</b></p>
+                    <div class="music-slider slider"></div>
+                    <p class="slider-text"><b>SOUND EFFECTS</b></p>
+                    <div class="effects-slider slider"></div>
+                     <p class="slider-text"><b>DIFFICULTY</b></p>
+                     <div id="selectBox">   
+                        <select class="selectDifficulty" onchange="EventBus.dispatch('setDifficulty',this.value)">
+                               <option value="veryeasy" >VERY EASY</option>
+                               <option value="easy" >EASY</option>
+                               <option value="medium">MEDIUM</option>
+                               <option value="hard">HARD</option>
+                               <option value="veryhard">VERY HARD</option>
+                         </select>
+                      </div>
+            </div>
+      </div>
+        <div class="optionBackBtn">
+            <button class="backButton optionsBackButton" onmouseover="EventBus.dispatch('playSound','mouseover');" onclick="EventBus.dispatch('hideOptions');"></button>
+
         </div>
     </div>
 </div>

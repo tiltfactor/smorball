@@ -14,11 +14,19 @@
     padding: 0;
 }
 
-button {
+button,
+input[type=button] {
     background-color: transparent;
     outline: none;
     border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+    color: white;
+    font-family: 'Boogaloo';
 }
+
+:focus {outline:none;}
+::-moz-focus-inner {border:0;}
 
 #canvasHolder input {
     background: none;
@@ -32,18 +40,12 @@ button {
 }
 
 #canvasHolder input[type=button],
-.menu-popup button
-{
+.menu-popup button {
     background-image: url("../shapes/btn-sprite.png");
     background-size: 100% 300%;
-    background-color: transparent;
-    color: white;
     width: 10%;
-    text-transform: uppercase;
     background-position: 0 100%;
-    outline: none;
     padding: 0px 10px 19px 10px;
-    cursor: pointer;
 }
 
 #canvasHolder input[type=button]:hover,
@@ -90,6 +92,64 @@ canvas {
 @font-face { font-family: 'Boogaloo'; src: url('fonts/Boogaloo-Regular.otf'); }
 @font-face { font-family: 'Scoreboard'; src: url('fonts/scoreboard.ttf'); }
 
+.middleContainer {
+    position: relative;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.fullWidthcontainer {
+    display: none;
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+}
+
+.shadedContainer {
+    background-color: rgba(0, 0, 0, 0.3);
+    font-family: 'Boogaloo';
+    overflow: hidden;
+}
+
+.centerContainer {
+    position: relative;
+    height: 95%;
+    top: 2.5%;
+}
+
+.blueBg {
+    background-size: 100% 100%;
+    background-image: url("../shapes/background.png");
+}
+
+.starBg {
+    background-image: url("../shapes/star_background.png"); 
+}
+
+.clear {
+    clear: both;
+}
+
+.innerContainer {
+    width: 70%;
+    margin: 0px auto;
+    background-image: url("../shapes/level_end_box.png");
+    background-size: 100% 100%;
+    max-width: 500px;
+}
+
+.timeout-buttons {
+    background-image: url("../shapes/box_outer_bg.png");
+    background-size: 100% 100%;
+    padding: 0 1%;
+    width: 50%;
+    margin: 0px auto;
+    max-width: 300px;
+    padding-bottom: 2%;
+    color: white;
+}
 
 /*menu screen style starts here*/
 #menu-container {
@@ -104,27 +164,15 @@ canvas {
     background-size: 100% 100%;
 }
 
-.timeout-button-container {
-    background-color: rgba(0, 0, 0, 0.48);
-}
-
 .menu-button-container {
     position: absolute;
     bottom: 0;
     width: 100%;
-    border-radius: 5px;
-}
-
-.timeout-button-container {
-    position: relative;
-    display: table-cell;
-    vertical-align: middle;
 }
 
 .menu-buttons {
     margin: 0px auto;
     width: 100%;
-    border-radius: 5px;
     padding: 3% 0% 0% 0%;
     background-image: url("../shapes/menu_btn_back.png");
     background-size: 100% 100%;
@@ -145,38 +193,26 @@ canvas {
 
 #menu-confirm-popup .innerContainer {
     display: none;
+    max-width: 350px;
+    padding: 6% 3%;
 }
 
 #menu-confirm-popup button{
     width: 65%;
     padding: 5% 0% 16% 0%;
 }
+
+#menu-confirm-popup .innerContainer p {
+    color: white;
+    font-size: 1.8em;
+    margin-bottom: 4%;
+}
 /*menu screen style ends here*/
 
 /*timeout screen style starts here*/
 
-#timeout-container {
-    display: none;
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    top: 0;
-    left: 0;
-    display: none;
-}
-
-.timeout-buttons {
-    background-image: url("../shapes/box_outer_bg.png");
-    background-color: transparent;
-    background-size: 100% 100%;
-    border: none;
-    padding: 0 1%;
-    width: 50%;
-    margin: 0px auto;
-    max-width: 300px;
-    min-width: 200px;
-    padding-bottom: 2%;
-
+.timeout-button-container {
+    background-color: rgba(0, 0, 0, 0.48);
 }
 
 #timeout-container {
@@ -190,20 +226,14 @@ canvas {
 }
 
 #timeout-btn-close {
-    background: none;
     background-image: url("../shapes/scroller_btn.png");
     background-size: 100% 100%;
-    border: none;
     padding: 2% 6% 4% 6%;
     margin-top: -4%;
     float: right;
     margin-right: -8%;
-    color: #ffffff;
     font-weight: bold;
-    font-family: 'Boogaloo';
     font-size: 1.5em;
-    outline: none;
-    cursor: pointer;
 }
 
 .timeout-content {
@@ -230,7 +260,8 @@ canvas {
     margin-top: 2%;
 }
 
-#timeout-container .slider {
+#timeout-container .slider,
+#optionsScreen .slider {
     background: #ef2929;
     height: 7px;
     border: none;
@@ -261,18 +292,12 @@ canvas {
 }
 
 .timeout-content button {
-    color: #fff;
-    cursor: pointer;
-    font-family: 'Boogaloo';
     font-size: 1.9em;
-    border: none;
     background-image: url("../shapes/btn-sprite.png");
     background-size: 100% 300%;
-    background-color: transparent;
     padding: 1% 4% 10% 5%;
     width: 60%;
     margin-top: 9px;
-    outline: none;
     background-position: 0 100%;
 }
 
@@ -287,39 +312,11 @@ canvas {
 /*timeout screen style ends here*/
 
 /*shop screen style starts here*/
-#shopOuterWrapper {
-    display: none;
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    top: 0;
-    left: 0;
-}
-
-.blueBg {
-    background-size: 100% 100%;
-    background-image: url("../shapes/background.png");
-}
-
-.starBg {
-    background-image: url("../shapes/star_background.png"); 
-}
-
-.centerContainer {
-    position: relative;
-    padding: 1%;
-    border-radius: 5px;
-    height: 96%;
-    background-image: url("../shapes/star_background.png");
-    top: 0%;
-}
-
 .mainWndw {
     position: relative;
     margin: 0px auto;
     width: 60%;
     height: 100%;
-    border-radius: 5px;
     font-family: 'Boogaloo';
     text-align: center;
     background-repeat: repeat;
@@ -357,9 +354,10 @@ canvas {
 }
 
 .shopBackBtn {
-    height: 30px;
+    height: 25px;
 }
-.helpBackBtn{
+
+.helpBackBtn, .optionBackBtn {
     width: 74%;
     height: 0px;
     margin: 0px auto;   
@@ -422,16 +420,9 @@ canvas {
 }
 
 .innerItem .upgrade {
-    background-color: transparent !important;
-    border: none;
     background-image: url("../shapes/btn_bg.png");
     background-size: 100% 100%;
-    color: white;
     font-size: 1.7em;
-    font-family: 'Boogaloo';
-    cursor: pointer;
-    text-transform: uppercase;
-    outline: none;
     float: right;
     margin-right: 5%;
     padding: 4% 10% 11% 10%;
@@ -446,13 +437,9 @@ canvas {
     float: left;
     margin-left: 0%;
     padding: 4% 4.5%;
-    background-color: transparent;
-    border: none;
     height: 10%;
     background-position: 0% 100%;
     margin-top: -3%;
-    outline: none;
-    cursor: pointer;
 }
 
 .backButton:hover {
@@ -463,7 +450,6 @@ canvas {
     background-position: 0% 0%;
 }
 
-/*shop screen style ends here*/
 .slimScrollRail {
     background-image: url("../shapes/scroller_back.png");
     background-size: 100% 100%;
@@ -473,60 +459,7 @@ canvas {
     background-image: url("../shapes/scroller_btn.png") !important;
     background-size: 100% 100% !important;
 }
-
-.clear {
-    clear: both;
-}
-
-/*Placeholder style for victory, defeated, splash, help screens*/
-
-.optionScreen {
-    display: none;
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    top: 0;
-    left: 0;
-    background-size: 100% 100%;
-}
-
-.shadedContainer {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: none;
-    background-color: rgba(0, 0, 0, 0.3);
-    font-family: 'Boogaloo';
-    overflow: hidden;
-}
-
-.centerScreenContainer {
-    position: relative;
-    border-radius: 5px;
-    display: table-cell;
-    vertical-align: middle;  
-}
-
-.innerContainer {
-    width: 70%;
-    margin: 0px auto;
-    background-image: url("../shapes/level_end_box.png");
-    background-size: 100% 100%;
-    max-width: 500px;
-}
-
-#menu-confirm-popup .innerContainer{
-    max-width: 350px;
-    padding: 6% 3%;
-}
-
-#menu-confirm-popup .innerContainer p {
-    color: white;
-    font-size: 1.8em;
-    margin-bottom: 4%;
-}
+/*shop screen style ends here*/
 
 .resultContainer {
     display: none;
@@ -578,15 +511,10 @@ canvas {
 #resultWrapper button {
     background-image: url("../shapes/btn-sprite.png");
     background-size: 100% 300%;
-    background-color: transparent;
     padding: 3% 0% 10% 0%;
-    border: none;
     font-size: 1.5em;
-    font-family: 'Boogaloo';
     width: 42%;
-    color: white;
     background-position: 0 100%;
-    outline: none;
 }
 
 .resultContainer button:nth-of-type(2) {
@@ -606,7 +534,7 @@ canvas {
     display: none;
 }
 
-.timeDetails p{
+.timeDetails p {
     width: 50%;
     float: left;
 }
@@ -615,29 +543,8 @@ canvas {
     text-align: center;
 }
 
-.splashScreen,
-#optionsScreen {
-    background-color: white;
-    display: none;
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    top: 0%;
-    left: 0%;
-}
-
-.splashScreenContainer,
-.optionScreenContainer {
-    position: relative;
-    padding: 1%;
-    border-radius: 5px;
-    display: table-cell;
-    vertical-align: middle;   
-}
-
 .helpBackButton {
     padding: 4% !important;
-    border-radius: 6px;
     margin-top: -4%;
     position: relative;
 }
@@ -675,6 +582,10 @@ canvas {
     font-size: 1.3em;
 }
 
+.splashScreen {
+    background-color: white;
+}
+
 .splashLogo {
     width: 60%;
     max-width: 400px;
@@ -686,21 +597,115 @@ canvas {
     display: none;
 }
 
-#slideContainer {
-    width: 50%;
-    max-width: 300px;
-    margin: 0px auto;
+.slideContainer {
+    padding: 15% 2% !important;
+}
+
+.slideContainer .slider-text {
+    margin-left: 18%;
+}
+
+#optionsScreen .innerContainer {
+    max-width: 350px;
+    color: white;
+    font-family: 'Boogaloo';
 }
 
 .optionsScreen .slider {
     width: 200px;
 }
 
-.optionsBackButton {
-    position: absolute;
-    top: 10%;
-    left: 10%;
-    background-color: gray;
+#selectBox {
+    height: 15.5em;
+}
+
+#selectBox .ui-selectmenu-button {
+    background: none;
+    border: none;
+}
+
+#selectBox .ui-selectmenu-text {
+    background-image: url(../shapes/difficulty_btn_up.png), url(../shapes/difficulty_box1.png);
+    background-position: 90% 70%, 0 0; 
+    background-repeat: no-repeat;
+    background-size: 12%, 100%;
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-family: 'Boogaloo';
+    font-size: 1em;
+    padding: 1.5em;
+    line-height: 0;
+}
+
+#selectBox [aria-expanded|="true"] .ui-selectmenu-text {
+    background-image: url(../shapes/difficulty_btn_down.png), url(../shapes/difficulty_box1.png);
+    background-position: 90% 70%, 0px 0;
+    background-repeat: no-repeat;
+    background-size: 12%, 100%;
+    background-color: transparent; 
+}
+
+#selectBox .ui-icon-triangle-1-s {
+    display: none;
+}
+
+#selectBox .ui-selectmenu-menu ul {
+    background-image: url(../shapes/difficulty_box2.png);
+    background-size: 100% 100%;
+    color: white;
+    background-color: transparent;
+    border: none;
+    font-family: 'Boogaloo';
+    font-size: 1.1em;
+    padding: 0 .4em ;
+    text-align: left;
+    font-weight: bold ;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-left: 1.5em;
+}
+
+#selectBox .ui-selectmenu-menu ul li{
+    background-color: transparent;
+    border: none ;
+    background: none ;
+    color: white ;
+    font-size: 1.1em ;
+    padding: .3em ;
+    margin: 0 ;
+}
+
+#selectBox ul li.ui-state-focus {
+    color: black;
+}
+
+@media screen and (min-width: 1050px) and  (min-height: 1000px) {
+    #optionsScreen .innerContainer {
+        max-width: 450px;    
+    }
+
+    .slideContainer .slider-text {
+        font-size: 1.7em;
+    }
+
+    #selectBox {
+        height: 23em;
+    }
+    #selectBox .ui-selectmenu-text {
+        font-size: 1.5em;
+        padding: 1.5em;
+        line-height: 0;
+    }
+
+    #selectBox .ui-selectmenu-menu ul {
+        font-size: 1.5em;
+        padding-left: 1.5em;
+    }
+
+    #selectBox .ui-selectmenu-menu ul li{
+        font-size: 1.3em ;
+    }
 }
 
 @media screen and (max-width: 992px),
@@ -723,7 +728,38 @@ screen and ( max-height: 600px ){
     #menu-confirm-popup .innerContainer p {
         font-size: 1.5em;    
     }
+    #selectBox .ui-selectmenu-text {
+        font-size: .8em;
+        padding: 1.3em 2em;
+    }
+    #selectBox .ui-selectmenu-menu ul {
+        font-size: .9em;
+        padding: 0 .2em ;
+        padding-top: 2px;
+        padding-bottom: 2px;
+        padding-left: 2em;
+    }
+    #selectBox .ui-selectmenu-menu ul li{
+        font-size: 1em ;
+        padding: .3em ;
+        margin: 0 ;
+    }
+    #selectBox {
+        height: 12em;
+    }
+    .slideContainer .slider-text {
+        font-size: 1em;
+    }
+}
 
+@media screen and (max-height: 750px) {
+    #optionsScreen .title {
+        margin: 0;
+        font-size: 2.5em;
+    }
+    .slideContainer {
+        padding: 12% 2% !important;
+    }
 }
 
 @media screen and (max-width: 768px),
@@ -828,6 +864,34 @@ screen and ( max-height: 500px ) {
         width: 90%;
         max-width: 600px;
     }
+    #selectBox .ui-selectmenu-text {
+        font-size: .6em;
+        background-size: 9%, 100%;
+    }
+    #selectBox [aria-expanded|="true"] .ui-selectmenu-text {
+        background-size: 9%, 100%;
+    }
+    #selectBox .ui-selectmenu-menu ul {
+        font-size: .8em;
+        padding: 0 .2em ;
+        padding-top: 1px;
+        padding-bottom: 1px;
+        padding-left: 2em;
+    }
+    #selectBox .ui-selectmenu-menu ul li{
+        font-size: .8em ;
+        padding: .2em ;
+        margin: 0 ;
+    }
+    #selectBox {
+        height: 7em;
+    }
+    .slideContainer .slider-text {
+        font-size: .8em;
+    }
+    .slideContainer {
+        padding: 8% 2% !important;
+    }
 }
 
 @media screen and (max-width: 650px) {
@@ -906,6 +970,10 @@ screen and ( max-height: 400px ) {
     .innerContainer {
         max-width: 300px;
     }
+    
+    #optionsScreen .innerContainer {
+        max-width: 250px;
+    }
     .centerScreenContainer .title {
         font-size: 2em;
     }
@@ -973,12 +1041,7 @@ screen and ( max-height: 350px ) {
 
 /* Loader div styles */
 #loadOuterWrapper {
-    /*display: none;*/
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    top: 0;
-    left: 0;
+    display: block;
     background-size: 100% 100%;
 }
 
@@ -1094,6 +1157,12 @@ screen and ( max-height: 350px ) {
     background-size: 100% 100%;
 }
 
+@media screen and (min-height: 800px){
+    .helpScreenContent {
+        max-width: 700px;
+    }
+}
+
 @media screen and (max-width: 992px),
 screen and ( max-height: 650px )
 {
@@ -1129,7 +1198,7 @@ screen and ( max-height: 560px )
         width: 30px;
         height: 41px;
     }
-    .helpBackBtn {
+    .helpBackBtn, .optionBackBtn {
         width: 90%;
         max-width: 600px;
     }
@@ -1144,7 +1213,7 @@ screen and ( max-height: 530px )
     #helpScreen .title {
         font-size: 2em;
     }
-    .helpBackBtn {
+    .helpBackBtn, .optionBackBtn {
         max-width: 470px;
     }
     .lean-slider-slide p {
@@ -1168,7 +1237,7 @@ screen and ( max-height: 430px )
     .helpScreenContent {
         max-width: 275px;
     } 
-    .helpBackBtn {
+    .helpBackBtn, .optionBackBtn {
         max-width: 350px;
     }
     .lean-slider-slide p {
@@ -1187,6 +1256,44 @@ screen and ( max-height: 430px )
 @media screen and (max-height: 350px) and (min-width: 500px),
 screen and (max-height: 450px) and (min-width: 500px) {
     .helpScreenContent {
-         padding: 2% 2%;
+        padding: 2% 2%;
     } 
+}
+
+@media screen and (min-height: 900px) and (min-width: 1000px){
+    .helpScreenContent {
+        max-width: 800px;
+    }
+}
+
+@media screen and (min-height: 1000px) and (min-width: 1200px){
+    .helpScreenContent {
+        max-width: 800px;
+    }
+    #sliderDirectionNav a {
+        width: 70px;
+        height: 95px;
+    }
+    #slider-control-nav a {
+        width: 25px;
+        height: 25px;
+    }
+    #helpScreen .title {
+        font-size: 4em;
+    }
+    .lean-slider-slide p {
+        font-size: 2em;
+    }
+}
+
+@media screen and (min-height: 1100px) and (min-width: 1500px){
+    .helpScreenContent {
+        max-width: 900px;
+    }
+}
+
+@media screen and (min-height: 1300px) and (min-width: 1501px){
+    .helpScreenContent {
+        max-width: 1000px;
+    }
 }

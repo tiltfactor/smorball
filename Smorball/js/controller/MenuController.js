@@ -42,6 +42,7 @@ function MenuController(config) {
         var height = width * 3 / 4 > window.innerHeight ? window.innerHeight :width * 3 / 4;
         var paddingTop = (window.innerHeight - height) / 2 > 0 ? (window.innerHeight - height) / 2 : 0;
         $("#menu-container").css({height:height, width:width,top: paddingTop});
+        $(".selectDifficulty" ).selectmenu("close");
     }
     
     MenuController.prototype.showMenu = function (me) {
@@ -75,13 +76,19 @@ function MenuController(config) {
     }
     
     MenuController.prototype.showOptions = function () {
-        EventBus.dispatch("hideAll");
         checkDifficulty(this);
         $("#optionsScreen" ).css("display","table");
         setSliderValue(this);
     }
     var createDialog = function(me){
         $("#menu-container" ).css("display","block");
+        $(".selectDifficulty" ).selectmenu({
+            appendTo: "#selectBox",
+            width : '70%',
+            change: function(event, ui) {
+                EventBus.dispatch('setDifficulty',ui.item.value);
+            }
+        });
         setInstructionScreen();
         setSliderValue(me);
     }

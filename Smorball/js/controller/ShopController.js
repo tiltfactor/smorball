@@ -59,13 +59,11 @@ function ShopController(config) {
             $(item).find(".upgrade").unbind( "click" );
             var price = getPrice(item.id);
             if(price>me.score.getMyMoney()){
-                $(item).find(".upgrade").css("background-color","#FF3030");
                 $(item).find(".upgrade").unbind( "click" );
                 $(item).find(".upgrade").css("background-image","url(shapes/btn1_grey.png)");
                 $(item).find(".upgrade").text("$" + price);
                 $(item).find(".upgrade").click(function(){EventBus.dispatch("playSound","insufficientMoney")});
             }else if(price<=me.score.getMyMoney()){
-                $(item).find(".upgrade").css("background-color","#a7cb00");
                 $(item).find(".upgrade").click(function(){EventBus.dispatch("playSound","purchaseItem");EventBus.dispatch("addToBag", this.parentElement);});
                 $(item).find(".upgrade").css("background-image","url(shapes/btn_bg.png)");
                 $(item).find(".upgrade").text("$" + price)
@@ -103,7 +101,6 @@ function ShopController(config) {
             var id = item.id;
             var unlocksAt = getUnlockStatus(id);
             if(unlocksAt > me.config.gameState.gs.maxLevel){
-                $(item).find(".upgrade").css("background-color","#FF3030");
                 $(item).find(".upgrade").unbind( "click" );
                 $(item).find(".upgrade").css("background-image","url(shapes/btn1_grey.png)");
                 $(item).find(".upgrade").text("Locked");
