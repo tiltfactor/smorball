@@ -121,8 +121,6 @@
         if(this.life == 0){
             this.hit = true;
             this.sprite.gotoAndPlay("tackle");
-            var fileId = this.config.playerSound.tackle;
-            EventBus.dispatch("playSound",fileId);
             this.myAnimationEnd = function(){
                 removeFallingAnimation(me);
                 EventBus.addEventListener("removeFromStage",me);
