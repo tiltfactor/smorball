@@ -309,18 +309,16 @@ canvas {
     position: relative;
     padding: 1%;
     border-radius: 5px;
-    height: 95%;
+    height: 96%;
     background-image: url("../shapes/star_background.png");
-    top: 2.5%;
+    top: 0%;
 }
 
 .mainWndw {
     position: relative;
     margin: 0px auto;
-    width: 90%;
-    max-width: 800px;
-    height: 98%;
-    max-height: 700px;
+    width: 60%;
+    height: 100%;
     border-radius: 5px;
     font-family: 'Boogaloo';
     text-align: center;
@@ -359,7 +357,7 @@ canvas {
 }
 
 .shopBackBtn {
-    height: 55px;
+    height: 30px;
 }
 .helpBackBtn{
     width: 74%;
@@ -382,8 +380,8 @@ canvas {
     padding: 8% 0%;
     height: 70%;
     margin-top: 20px;
-    height: calc(100% - 150px);
-    height: -moz-calc(100% - 150px);
+    height: calc(90% - 70px);
+    height: -moz-calc(90% - 70px);
 }
 
 .itemDiv {
@@ -827,6 +825,7 @@ screen and ( max-height: 500px ) {
         padding: 4%;
     }
     .mainWndw {
+        width: 90%;
         max-width: 600px;
     }
 }
