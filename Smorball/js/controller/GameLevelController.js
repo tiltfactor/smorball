@@ -86,6 +86,7 @@ function GameLevelController(config) {
     }
 
     GameLevelController.prototype.showMap = function (isCheated) {
+        EventBus.dispatch("stopSound","crowdCheering");
         var me = this;
         EventBus.dispatch("hideAll");
         $("#loaderDiv").show();

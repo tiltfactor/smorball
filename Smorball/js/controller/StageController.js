@@ -554,6 +554,8 @@ function StageController(config) {
 
                     } else {
                         var enemyLife = enemy.getLife();
+                        var fileId = player.config.playerSound.tackle;
+                        EventBus.dispatch("playSound",fileId);
                         enemy.kill(player.getLife());
                         player.kill(enemyLife);
                     }
@@ -717,13 +719,11 @@ function StageController(config) {
         saveInputTexts(me);
 
     };
-    var stopCheering = function(me){
-        var cheerSound = me.config.loader.getResult("crowdCheering");
-        cheerSound.pause();
-    }
+
     var showResultScreen = function (me, result) {
         me.waves.clearAll();
         me.waves = null;
+        EventBus.dispatch("stopSound","stadiumAmbience");
         setTimeout(function () {
             EventBus.dispatch("setTickerStatus");
             EventBus.dispatch("setMute");
@@ -903,14 +903,26 @@ function StageController(config) {
     };
     var hideTimeOut = function (me) {
         //calculateTime(me);
-
-        me.config.gameState.currentState = me.config.gameState.states.RUN;
         window.onclick = prevent;
-	    $("#inputText").focus();
+        $("#inputText").focus();
+        me.config.gameState.currentState = me.config.gameState.states.RUN;
         $('#timeout-container').css('display', 'none');
         EventBus.dispatch('showCaptchas');
         EventBus.dispatch('setTickerStatus');
         EventBus.dispatch('setMute');
+        //Play Stadium Ambience
+        var audioList = me.config.gameState.audioList;
+        for(var i=0; i<audioList.length; i++){
+            var main = audioList[i].config.type;
+            if(audioList[i].config.loop && main == me.config.gameState.soundType.EFFECTS ) {
+                if (audioList[i].mySound.paused) {
+                    audioList[i].play();
+                }
+                else {
+                    audioList[i].pause();
+                }
+            }
+        }
         EventBus.dispatch('pauseWaves', false);
     };
     var prevent = function(event){

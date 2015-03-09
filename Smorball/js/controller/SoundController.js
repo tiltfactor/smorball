@@ -27,10 +27,24 @@ function SoundController(config){
 
         var pm = function(sound){playSound(me,sound.target)};
         EventBus.addEventListener("playSound", pm);
+
+        var ch = function (sound) {stopSound(me,sound.target);};
+        EventBus.addEventListener("stopSound", ch);
     }
 
+    var stopSound = function(me,fileId){
+        for(var i=0; i<me.config.gameState.audioList.length; i++){
+            var sound = me.config.gameState.audioList[i];
+            if(sound.config.file == fileId){
+                EventBus.dispatch("removeAudioFromList", sound);
+            }
+        }
+    }
     var playSound = function(me,fileId){
         var config = {"file": fileId , "loop": false, "type": me.config.gameState.soundType.EFFECTS, "isMain": false,"loader":me.config.loader, "gameState":me.config.gameState};
+        if(config.file == "stadiumAmbience" || config.file == "crowdCheering"){
+            config.loop = true;
+        }
         var sound = new Sound(config);
         removeSoundEffects(me);
         addAudioToList(me,sound);
@@ -52,6 +66,9 @@ function SoundController(config){
         for(var i=0; i< me.config.gameState.audioList.length; i++){
             var removeSound = me.config.gameState.audioList[i];
             if(!removeSound.config.isMain){
+                if(removeSound.config.file == "stadiumAmbience"){
+                    continue;
+                }
                 removeSound.mySound.pause();
                 removeSound.mySound.currentTime = 0;
                 removeAudioFromList(me,removeSound);

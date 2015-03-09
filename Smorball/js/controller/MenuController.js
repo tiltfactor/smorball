@@ -130,6 +130,7 @@ function MenuController(config) {
     }    
 
     MenuController.prototype.showTimeout = function (me) {
+        $("#inputText").blur();
         checkStatus(me);
         $("#timeout-container" ).css("display","table");
         setSliderValue(this);

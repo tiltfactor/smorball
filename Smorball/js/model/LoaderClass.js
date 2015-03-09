@@ -101,7 +101,8 @@
             me.config.stage.update();
             $("#loaderDiv").hide();
             EventBus.dispatch("onImagesLoad");
-
+            EventBus.dispatch("playSound","stadiumAmbience");
+            $("#inputText").focus();
         });
 
         btnContainer.addEventListener("mouseout",function(e){
@@ -114,7 +115,6 @@
             btn.image = me.config.loader.getResult("btn_over");
             me.config.stage.update();
         });
-
         btnContainer.addEventListener("pressup",function(e){
             e.target.cursor = "pointer";
             btn.image = me.config.loader.getResult("btn_bg");

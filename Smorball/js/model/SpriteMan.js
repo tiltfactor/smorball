@@ -137,8 +137,6 @@
     SpriteMan.prototype.tackle = function(){
         var me  = this;
         this.sprite.gotoAndPlay("tackle");
-        var fileId = this.config.playerSound.tackle;
-        EventBus.dispatch("playSound",fileId);
         this.toRun = function(){
             me.sprite.removeEventListener("animationend",me.toRun);
             me.sprite.gotoAndPlay("run");
