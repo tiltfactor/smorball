@@ -49,9 +49,11 @@
         getFromStore(this);
         var music = this.config.store.music;
         var se = this.config.store.soundEffects;
+        var difficulty = this.config.store.difficulty;
         this.config.store = {};
         this.config.store.music = music;
         this.config.store.soundEffects = se;
+        this.config.store.difficulty = difficulty;
         setFromStore(this);
     }
 

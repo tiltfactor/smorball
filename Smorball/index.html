@@ -180,7 +180,7 @@ function fb_callout() {
 <div id="canvasHolder">
     <input id="passButton" type="button" value="Pass" onmouseover="EventBus.dispatch('playSound','mouseover');" onclick="EventBus.dispatch(&quot;passText&quot;)"></input>
     <input id="inputText" type="text" placeholder="Type Phrase"
-           onkeydown="if(event.keyCode == 13){EventBus.dispatch(&quot;compareCaptcha&quot;)}"></input>
+           onkeydown="if(event.keyCode == 13){EventBus.dispatch(&quot;compareCaptcha&quot;)}" autocomplete="off"></input>
     <input id="submitButton" type="button" value="Submit"
            onmouseover="EventBus.dispatch('playSound','mouseover');" onclick="EventBus.dispatch(&quot;compareCaptcha&quot;)"></input>
 </div>

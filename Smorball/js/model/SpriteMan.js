@@ -123,7 +123,10 @@
             this.sprite.gotoAndPlay("tackle");
             var fileId = this.config.playerSound.tackle;
             EventBus.dispatch("playSound",fileId);
-            this.myAnimationEnd = function(){removeFallingAnimation(me)};
+            this.myAnimationEnd = function(){
+                removeFallingAnimation(me);
+                EventBus.addEventListener("removeFromStage",me);
+            };
             me.removeEventListener("tick",  this.myTick);
             this.sprite.addEventListener("animationend",this.myAnimationEnd);
             return 0;
@@ -173,7 +176,7 @@
 
         if(me.endPoint != null && me.hit == false && me.x > me.endPoint-me.getWidth()){
             me.hit = true;
-            me.kill();
+            me.kill(1);
         }
     }
 

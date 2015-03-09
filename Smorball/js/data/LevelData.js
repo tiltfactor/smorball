@@ -8,7 +8,7 @@ LevelData[1] = {
     "waves": {
         "activeWaves": 1, "time": 1000, "maxOnGround": 4, "enemySize": 13,
         "message": "Opponents come from the right.@@Keep them from scoring in your endzone. ", "data": [
-            {"types": ["enemy_regular"], "time": -1, "size": 10, "stageDatas": []},
+            {"types": ["walkingBacks"], "time": -1, "size": 10, "stageDatas": []},
             {
                 "types": ["fast"],
                 "time": -1,
@@ -25,38 +25,38 @@ LevelData[2] = {
         "activeWaves": 1, "time": 1000, "maxOnGround": 4, "enemySize": 18,
         "message": "Jujubes come in 3 different rows now.", "data": [
             {
-                "types": ["enemy_regular"],
+                "types": ["walkingBacks"],
                 "time": -1,
                 "size": 2,
-                "stageDatas": [["enemy_regular", 1, 10000, " Type the word in the same row as the Jujube to hit that Jujube."], ["enemy_regular", 2, 0, ""]]
+                "stageDatas": [["walkingBacks", 1, 10000, " Type the word in the same row as the Jujube to hit that Jujube."], ["walkingBacks", 2, 0, ""]]
             },
-            {"types": ["enemy_regular"], "time": -1, "size": 1, "stageDatas": []},
-            {"types": ["enemy_regular"], "time": -1, "size": 1, "stageDatas": []},
+            {"types": ["walkingBacks"], "time": -1, "size": 1, "stageDatas": []},
+            {"types": ["walkingBacks"], "time": -1, "size": 1, "stageDatas": []},
             {
-                "types": ["enemy_regular"],
+                "types": ["walkingBacks"],
                 "time": -1,
                 "size": 3,
-                "stageDatas": [["enemy_regular", 2, 4000, ""], ["enemy_regular", 2, 15000, ""], ["enemy_regular", 1, 0, ""]]
+                "stageDatas": [["walkingBacks", 2, 4000, ""], ["walkingBacks", 2, 15000, ""], ["walkingBacks", 1, 0, ""]]
             },
             {
-                "types": ["enemy_regular"],
+                "types": ["walkingBacks"],
                 "time": -1,
                 "size": 2,
-                "stageDatas": [["enemy_regular", 3, 5000], ["enemy_regular", 3]]
+                "stageDatas": [["walkingBacks", 3, 5000], ["walkingBacks", 3]]
             },
             {
-                "types": ["enemy_regular"],
+                "types": ["walkingBacks"],
                 "time": -1,
                 "size": 4,
-                "stageDatas": [["enemy_regular", 3, 4000, ""], ["enemy_regular", 3, 10000, ""], ["enemy_regular", 1, 2000, ""], ["enemy_regular", 1, 0, ""]]
+                "stageDatas": [["walkingBacks", 3, 4000, ""], ["walkingBacks", 3, 10000, ""], ["walkingBacks", 1, 2000, ""], ["walkingBacks", 1, 0, ""]]
             },
-            {"types": ["badGuy"], "time": -1, "size": 1, "stageDatas": []},
-            {"types": ["badGuy"], "time": -1, "size": 1, "stageDatas": []},
+            {"types": ["tallstops"], "time": -1, "size": 1, "stageDatas": []},
+            {"types": ["tallstops"], "time": -1, "size": 1, "stageDatas": []},
             {
-                "types": ["badGuy", "enemy_regular"],
+                "types": ["tallstops", "walkingBacks"],
                 "time": -1,
                 "size": 2,
-                "stageDatas": [["badGuy", 2, 5000, ""], ["enemy_regular", 2, 0, ""]]
+                "stageDatas": [["tallstops", 2, 5000, ""], ["walkingBacks", 2, 0, ""]]
             }
         ]
     },
@@ -68,40 +68,40 @@ LevelData[3] = {
         "activeWaves": 1, "time": 1000, "maxOnGround": 4, "enemySize": 22,
         "data": [
             {
-                "types": ["badGuy", "fast"],
+                "types": ["tallstops", "fast"],
                 "time": -1,
                 "size": 2,
-                "stageDatas": [["badGuy", 1, 3000, ""], ["fast", 2, 0, ""]]
+                "stageDatas": [["tallstops", 1, 3000, ""], ["fast", 2, 0, ""]]
             },
             {
-                "types": ["badGuy", "enemy_regular"],
+                "types": ["tallstops", "walkingBacks"],
                 "time": -1,
                 "size": 2,
-                "stageDatas": [["badGuy", 1, 4000, ""], ["enemy_regular", 3, 0, ""]]
+                "stageDatas": [["tallstops", 1, 4000, ""], ["walkingBacks", 3, 0, ""]]
             },
             {
-                "types": ["enemy_regular", "badGuy"],
+                "types": ["walkingBacks", "tallstops"],
                 "time": -1,
                 "size": 3,
-                "stageDatas": [["enemy_regular", 1, 5000, ""], ["badGuy", 3, 5000, ""], ["badGuy", 2, 0, ""]]
+                "stageDatas": [["walkingBacks", 1, 5000, ""], ["tallstops", 3, 5000, ""], ["tallstops", 2, 0, ""]]
             },
             {
-                "types": ["enemy_regular", "badGuy"],
+                "types": ["walkingBacks", "tallstops"],
                 "time": -1,
                 "size": 3,
-                "stageDatas": [["badGuy", 1, 15000, ""], ["badGuy", 3, 15000, ""], ["enemy_regular", 2, 0, ""]]
+                "stageDatas": [["tallstops", 1, 15000, ""], ["tallstops", 3, 15000, ""], ["walkingBacks", 2, 0, ""]]
             },
             {
-                "types": ["fast,", "enemy_regular", "badGuy"],
+                "types": ["fast,", "walkingBacks", "tallstops"],
                 "time": -1,
                 "size": 5,
-                "stageDatas": [["fast", 3, 3000, ""], ["enemy_regular", 1, 3000, ""], ["badGuy", 2, 8000, ""], ["badGuy", 1, 8000, ""], ["badGuy", 3, 0, ""]]
+                "stageDatas": [["fast", 3, 3000, ""], ["walkingBacks", 1, 3000, ""], ["tallstops", 2, 8000, ""], ["tallstops", 1, 8000, ""], ["tallstops", 3, 0, ""]]
             },
             {
-                "types": ["fast,", "badGuy"],
+                "types": ["fast,", "tallstops"],
                 "time": -1,
                 "size": 5,
-                "stageDatas": [["fast", 2, 4000, ""], ["badGuy", 3, 10000, ""], ["fast", 2, 4000, ""], ["badGuy", 1, 4000, ""], ["fast", 3, 0, ""]]
+                "stageDatas": [["fast", 2, 4000, ""], ["tallstops", 3, 10000, ""], ["fast", 2, 4000, ""], ["tallstops", 1, 4000, ""], ["fast", 3, 0, ""]]
             },
             {
                 "types": ["boss"],
@@ -140,22 +140,22 @@ LevelData[4] = {
                 "stageDatas": [["cleats", 1, 0, "", "powerup"], ["cleats", 2, 0, "", "powerup"], ["cleats", 3, 0, "", "powerup"]]
             },
             {
-                "types": ["boss", "badGuy", "cleats"],
+                "types": ["boss", "tallstops", "cleats"],
                 "time": -1,
                 "size": 6,
-                "stageDatas": [["badGuy", 3, 4000], ["badGuy", 2, 4000], ["badGuy", 3, 4000], ["badGuy", 1, 4000], ["cleats", 2, 5000, "", "powerup"], ["boss", 3]]
+                "stageDatas": [["tallstops", 3, 4000], ["tallstops", 2, 4000], ["tallstops", 3, 4000], ["tallstops", 1, 4000], ["cleats", 2, 5000, "", "powerup"], ["boss", 3]]
             },
             {
-                "types": ["boss", "badGuy", "cleats"],
+                "types": ["boss", "tallstops", "cleats"],
                 "time": -1,
                 "size": 4,
-                "stageDatas": [["boss", 3, 0], ["cleats", 2, 0, "", "powerup"], ["badGuy", 1, 4000], ["badGuy", 2]]
+                "stageDatas": [["boss", 3, 0], ["cleats", 2, 0, "", "powerup"], ["tallstops", 1, 4000], ["tallstops", 2]]
             },
             {
-                "types": ["boss", "badGuy", "cleats"],
+                "types": ["boss", "tallstops", "cleats"],
                 "time": -1,
                 "size": 5,
-                "stageDatas": [["boss", 3, 0], ["cleats", 2, 0, "", "powerup"], ["badGuy", 1, 4000], ["cleats", 3, 0, "", "powerup"], ["badGuy", 2]]
+                "stageDatas": [["boss", 3, 0], ["cleats", 2, 0, "", "powerup"], ["tallstops", 1, 4000], ["cleats", 3, 0, "", "powerup"], ["tallstops", 2]]
             }
 
         ]
@@ -168,29 +168,29 @@ LevelData[5] = {
         "activeWaves": 1, "time": 1000, "maxOnGround": 4, "enemySize": 28,
         "data": [
             {
-                "types": ["regular", "badGuy", "cleats"],
+                "types": ["walkingBacks", "tallstops", "cleats"],
                 "time": -1,
                 "size": 8,
-                "stageDatas": [["regular", 2, 0], ["regular", 1, 0], ["regular", 3, 5000], ["cleats", 1, 0, "", "powerup"], ["cleats", 2, 14000, "", "powerup"], ["badGuy", 3, 8000], ["badGuy", 1, 8000], ["badGuy", 2]]
+                "stageDatas": [["walkingBacks", 2, 0], ["walkingBacks", 1, 0], ["walkingBacks", 3, 5000], ["cleats", 1, 0, "", "powerup"], ["cleats", 2, 14000, "", "powerup"], ["tallstops", 3, 8000], ["tallstops", 1, 8000], ["tallstops", 2]]
             },
             {
-                "types": ["fast", "badGuy", "cleats"],
+                "types": ["fast", "tallstops", "cleats"],
                 "time": -1,
                 "size": 8,
-                "stageDatas": [["fast", 3, 4000], ["fast", 2, 6000], ["fast", 3, 6000], ["cleats", 2, 0, "", "powerup"], ["badGuy", 1, 6000], ["fast", 1, 4000], ["fast", 2], ["cleats", 2, 0, "", "powerup"]]
+                "stageDatas": [["fast", 3, 4000], ["fast", 2, 6000], ["fast", 3, 6000], ["cleats", 2, 0, "", "powerup"], ["tallstops", 1, 6000], ["fast", 1, 4000], ["fast", 2], ["cleats", 2, 0, "", "powerup"]]
             },
             {"types": ["boss"], "time": -1, "size": 1, "stageDatas": []},
             {
-                "types": ["regular", "fast", "badGuy"],
+                "types": ["walkingBacks", "fast", "tallstops"],
                 "time": -1,
                 "size": 5,
-                "stageDatas": [["regular", 3, 5000], ["fast", 1, 8000], ["badGuy", 2, 6000], ["badGuy", 1], ["badGuy", 3]]
+                "stageDatas": [["walkingBacks", 3, 5000], ["fast", 1, 8000], ["tallstops", 2, 6000], ["tallstops", 1], ["tallstops", 3]]
             },
             {
-                "types": ["regular", "fast", "badGuy", "cleats"],
+                "types": ["walkingBacks", "fast", "tallstops", "cleats"],
                 "time": -1,
                 "size": 9,
-                "stageDatas": [["badGuy", 2, 0], ["badGuy", 1, 8000], ["fast", 2, 5000], ["fast", 3, 8000], ["cleats", 3, 0, "", "powerup"], ["cleats", 2, 0, "", "powerup"], ["badGuy", 1, 6000], ["regular", 2, 7000], ["fast", 3, 4000]]
+                "stageDatas": [["tallstops", 2, 0], ["tallstops", 1, 8000], ["fast", 2, 5000], ["fast", 3, 8000], ["cleats", 3, 0, "", "powerup"], ["cleats", 2, 0, "", "powerup"], ["tallstops", 1, 6000], ["walkingBacks", 2, 7000], ["fast", 3, 4000]]
             },
             {
                 "types": ["boss", "cleats"],
@@ -208,46 +208,46 @@ LevelData[6] = {
         "activeWaves": 1, "time": 1000, "maxOnGround": 4, "enemySize": 52,
         "message": "Pick up the powerup.@@Use tab to select it", "data": [
             {
-                "types": ["enemy_regular", "helmet"],
+                "types": ["walkingBacks", "helmet"],
                 "time": -1,
                 "size": 5,
-                "stageDatas": [["helmet", 1, 0, "This one hit every jujube in the row@@ Try it now !", "powerup"], ["enemy_regular", 1, 2000, ""], ["enemy_regular", 1, 2000, ""], ["enemy_regular", 1, 0, ""], ["helmet", 2, 0, "", "powerup"]]
+                "stageDatas": [["helmet", 1, 0, "This one hit every jujube in the row@@ Try it now !", "powerup"], ["walkingBacks", 1, 2000, ""], ["walkingBacks", 1, 2000, ""], ["walkingBacks", 1, 0, ""], ["helmet", 2, 0, "", "powerup"]]
             },
             {
-                "types": ["badGuy", "helmet", "cleats"],
+                "types": ["tallstops", "helmet", "cleats"],
                 "time": -1,
                 "size": 5,
-                "stageDatas": [["badGuy", 1, ""], ["enemy_regular", 3, 3000], ["enemy_regular", 3, 3000], ["enemy_regular", 3, 3000], ["cleats", 3, 0, "", "powerup"]]
+                "stageDatas": [["tallstops", 1, ""], ["walkingBacks", 3, 3000], ["walkingBacks", 3, 3000], ["walkingBacks", 3, 3000], ["cleats", 3, 0, "", "powerup"]]
             },
             {
-                "types": ["helmet", "badGuy", "enemy_regular", "fast", "regular"],
+                "types": ["helmet", "tallstops", "walkingBacks", "fast", "walkingBacks"],
                 "time": -1,
                 "size": 7,
-                "stageDatas": [["helmet", 1, 5000, "", "powerup"], ["badGuy", 1, 0], ["enemy_regular", 1, 2000], ["badGuy", 1, 4000], ["enemy_regular", 1, 2000], ["fast", 3, 7000], ["regular", 2, 0]]
+                "stageDatas": [["helmet", 1, 5000, "", "powerup"], ["tallstops", 1, 0], ["walkingBacks", 1, 2000], ["tallstops", 1, 4000], ["walkingBacks", 1, 2000], ["fast", 3, 7000], ["walkingBacks", 2, 0]]
             },
             {
-                "types": ["regular", "fast", "badGuy", "helmet"],
+                "types": ["walkingBacks", "fast", "tallstops", "helmet"],
                 "time": -1,
                 "size": 10,
-                "stageDatas": [["badGuy", 1, 4000], ["fast", 1, 2000], ["fast", 1, 0], ["regular", 2], ["cleats", 3, 5000, "", "powerup"], ["enemy_regular", 3, 2000], ["enemy_regular", 3, 2000], ["enemy_regular", 3, 2000], ["regular", 2, 3000], ["regular", 2]]
+                "stageDatas": [["tallstops", 1, 4000], ["fast", 1, 2000], ["fast", 1, 0], ["walkingBacks", 2], ["cleats", 3, 5000, "", "powerup"], ["walkingBacks", 3, 2000], ["walkingBacks", 3, 2000], ["walkingBacks", 3, 2000], ["walkingBacks", 2, 3000], ["walkingBacks", 2]]
             },
             {
-                "types": ["regular", "helmet"],
+                "types": ["walkingBacks", "helmet"],
                 "time": -1,
                 "size": 9,
-                "stageDatas": [["helmet", 2, 0, "", "powerup"], ["regular", 3, 3000], ["regular", 3, 3000], ["regular", 3, 3000], ["regular", 3, 7000], ["regular", 1, 2000], ["regular", 1, 2000], ["regular", 1, 2000], ["helmet", 3, 0, "", "powerup"]]
+                "stageDatas": [["helmet", 2, 0, "", "powerup"], ["walkingBacks", 3, 3000], ["walkingBacks", 3, 3000], ["walkingBacks", 3, 3000], ["walkingBacks", 3, 7000], ["walkingBacks", 1, 2000], ["walkingBacks", 1, 2000], ["walkingBacks", 1, 2000], ["helmet", 3, 0, "", "powerup"]]
             },
             {
-                "types": ["regular", "helmet", "cleats", "boss", "badGuy", "fast"],
+                "types": ["walkingBacks", "helmet", "cleats", "boss", "tallstops", "fast"],
                 "time": -1,
                 "size": 17,
-                "stageDatas": [["cleats", 1, 0, "", "powerup"], ["boss", 2, 6000], ["regular", 2, 6000], ["regular", 2, 6000], ["cleats", 1, 0, "", "powerup"], ["regular", 2, 6000], ["regular", 2, 5000], ["helmet", 3, 2000, "", "powerup"], ["badGuy", 3, 2000], ["enemy_regular", 1, 4000], ["fast", 2, 2000], ["fast", 2, 2000], ["fast", 2, 2000], ["fast", 2, 2000], ["fast", 2, 4000], ["cleats", 1, 0, "", "powerup"], ["boss", 2]]
+                "stageDatas": [["cleats", 1, 0, "", "powerup"], ["boss", 2, 6000], ["walkingBacks", 2, 6000], ["walkingBacks", 2, 6000], ["cleats", 1, 0, "", "powerup"], ["walkingBacks", 2, 6000], ["walkingBacks", 2, 5000], ["helmet", 3, 2000, "", "powerup"], ["tallstops", 3, 2000], ["walkingBacks", 1, 4000], ["fast", 2, 2000], ["fast", 2, 2000], ["fast", 2, 2000], ["fast", 2, 2000], ["fast", 2, 4000], ["cleats", 1, 0, "", "powerup"], ["boss", 2]]
             },
             {
-                "types": ["enemy_regular", "fast", "helmet"],
+                "types": ["walkingBacks", "fast", "helmet"],
                 "time": -1,
                 "size": 4,
-                "stageDatas": [["helmet", 2, 2000, "", "powerup"], ["enemy_regular", 1, 5000], ["enemy_regular", 1, 5000], ["fast", 3]]
+                "stageDatas": [["helmet", 2, 2000, "", "powerup"], ["walkingBacks", 1, 5000], ["walkingBacks", 1, 5000], ["fast", 3]]
             },
             {
                 "types": ["fast"],
@@ -265,40 +265,40 @@ LevelData[7] = {
         "activeWaves": 1, "time": 1000, "maxOnGround": 4, "enemySize": 31,
         "data": [
             {
-                "types": ["fast", "cleats", "badGuy", "regular"],
+                "types": ["fast", "cleats", "tallstops", "walkingBacks"],
                 "time": -1,
                 "size": 6,
-                "stageDatas": [["fast", 3, 3000], ["fast", 2, 4000], ["cleats", 2, 5000, "", "powerup"], ["badGuy", 1, 7000], ["regular", 3, 4000], ["fast", 2]]
+                "stageDatas": [["fast", 3, 3000], ["fast", 2, 4000], ["cleats", 2, 5000, "", "powerup"], ["tallstops", 1, 7000], ["walkingBacks", 3, 4000], ["fast", 2]]
             },
             {
-                "types": ["boss", "fast", "regular"],
+                "types": ["boss", "fast", "walkingBacks"],
                 "time": -1,
                 "size": 5,
-                "stageDatas": [["boss", 2, 4000], ["fast", 1, 4000], ["fast", 3, 7000], ["regular", 1, 7000], ["fast", 3]]
+                "stageDatas": [["boss", 2, 4000], ["fast", 1, 4000], ["fast", 3, 7000], ["walkingBacks", 1, 7000], ["fast", 3]]
             },
             {
-                "types": ["cleats", "badGuy", "regular"],
+                "types": ["cleats", "tallstops", "walkingBacks"],
                 "time": -1,
                 "size": 5,
-                "stageDatas": [["cleats", 2, 4000, "", "powerup"], ["regular", 1, 7000], ["regular", 3, 10000], ["badGuy", 2, 5000], ["regular", 1]]
+                "stageDatas": [["cleats", 2, 4000, "", "powerup"], ["walkingBacks", 1, 7000], ["walkingBacks", 3, 10000], ["tallstops", 2, 5000], ["walkingBacks", 1]]
             },
             {
-                "types": ["regular", "fast", "badGuy", "cleats"],
+                "types": ["walkingBacks", "fast", "tallstops", "cleats"],
                 "time": -1,
                 "size": 6,
-                "stageDatas": [["cleats", 2, 5000, "", "powerup"], ["regular", 1, 4000], ["fast", 1, 4000], ["boss", 3, 10000], ["badGuy", 2, 4000], ["fast", 1]]
+                "stageDatas": [["cleats", 2, 5000, "", "powerup"], ["walkingBacks", 1, 4000], ["fast", 1, 4000], ["boss", 3, 10000], ["tallstops", 2, 4000], ["fast", 1]]
             },
             {
-                "types": ["regular", "cleats", "fast", "boss"],
+                "types": ["walkingBacks", "cleats", "fast", "boss"],
                 "time": -1,
                 "size": 6,
-                "stageDatas": [["regular", 1, 0], ["cleats", 2, 3000, "", "powerup"], ["fast", 3, 15000], ["boss", 2, 4000], ["fast", 3, 4000], ["fast", 1, 5000]]
+                "stageDatas": [["walkingBacks", 1, 0], ["cleats", 2, 3000, "", "powerup"], ["fast", 3, 15000], ["boss", 2, 4000], ["fast", 3, 4000], ["fast", 1, 5000]]
             },
             {
-                "types": ["regular", "cleats", "boss", "badGuy", "fast"],
+                "types": ["walkingBacks", "cleats", "boss", "tallstops", "fast"],
                 "time": -1,
                 "size": 7,
-                "stageDatas": [["regular", 1, 0], ["cleats", 2, 5000, "", "powerup"], ["regular", 3, 7000], ["badGuy", 1, 7000], ["boss", 2, 6000], ["regular", 1, 4000], ["fast", 2]]
+                "stageDatas": [["walkingBacks", 1, 0], ["cleats", 2, 5000, "", "powerup"], ["walkingBacks", 3, 7000], ["tallstops", 1, 7000], ["boss", 2, 6000], ["walkingBacks", 1, 4000], ["fast", 2]]
             }
 
         ]
@@ -307,179 +307,75 @@ LevelData[7] = {
 LevelData[8] = {
     "level": 8, "lanes": 3, "pass": 2, "levelName": "STATE FINALS",
     "waves": {
-        "activeWaves": 1, "time": 1000, "maxOnGround": 4, "enemySize": 31,
+        "activeWaves": 1, "time": 1000, "maxOnGround": 4, "enemySize": 7,
         "data": [
             {
-                "types": ["fast", "cleats", "badGuy", "regular"],
-                "time": -1,
-                "size": 6,
-                "stageDatas": [["fast", 3, 3000], ["fast", 2, 4000], ["cleats", 2, 5000, "", "powerup"], ["badGuy", 1, 7000], ["regular", 3, 4000], ["fast", 2]]
-            },
-            {
-                "types": ["boss", "fast", "regular"],
+                "types": [ "cleats", "tallstops"],
                 "time": -1,
                 "size": 5,
-                "stageDatas": [["boss", 2, 4000], ["fast", 1, 4000], ["fast", 3, 7000], ["regular", 1, 7000], ["fast", 3]]
+                "stageDatas": [["cleats", 3, 2000], ["tallstops", 2, 2000], ["cleats", 2, 3000, "", "powerup"], ["tallstops", 2, 3000], ["cleats", 1]]
             },
             {
-                "types": ["cleats", "badGuy", "regular"],
+                "types": ["boss", "fast", "cleats"],
                 "time": -1,
                 "size": 5,
-                "stageDatas": [["cleats", 2, 4000, "", "powerup"], ["regular", 1, 7000], ["regular", 3, 10000], ["badGuy", 2, 5000], ["regular", 1]]
-            },
-            {
-                "types": ["regular", "fast", "badGuy", "cleats"],
-                "time": -1,
-                "size": 6,
-                "stageDatas": [["cleats", 2, 5000, "", "powerup"], ["regular", 1, 4000], ["fast", 1, 4000], ["boss", 3, 10000], ["badGuy", 2, 4000], ["fast", 1]]
-            },
-            {
-                "types": ["regular", "cleats", "fast", "boss"],
-                "time": -1,
-                "size": 6,
-                "stageDatas": [["regular", 1, 0], ["cleats", 2, 3000, "", "powerup"], ["fast", 3, 15000], ["boss", 2, 4000], ["fast", 3, 4000], ["fast", 1, 5000]]
-            },
-            {
-                "types": ["regular", "cleats", "boss", "badGuy", "fast"],
-                "time": -1,
-                "size": 7,
-                "stageDatas": [["regular", 1, 0], ["cleats", 2, 5000, "", "powerup"], ["regular", 3, 7000], ["badGuy", 1, 7000], ["boss", 2, 6000], ["regular", 1, 4000], ["fast", 2]]
+                "stageDatas": [["fast", 2, 3000], ["fast", 1, 2000], ["boss", 3, 3000], ["cleats", 1, 1000,"","powerup"], ["fast", 2]]
             }
-
         ]
     }
 };
 LevelData[9] = {
     "level": 9, "lanes": 3, "pass": 2, "levelName": "STATE FINALS",
     "waves": {
-        "activeWaves": 1, "time": 1000, "maxOnGround": 4, "enemySize": 31,
+        "activeWaves": 1, "time": 1000, "maxOnGround": 4, "enemySize": 5,
         "data": [
             {
-                "types": ["fast", "cleats", "badGuy", "regular"],
-                "time": -1,
-                "size": 6,
-                "stageDatas": [["fast", 3, 3000], ["fast", 2, 4000], ["cleats", 2, 5000, "", "powerup"], ["badGuy", 1, 7000], ["regular", 3, 4000], ["fast", 2]]
-            },
-            {
-                "types": ["boss", "fast", "regular"],
+                "types": ["tallstops", "walkingBacks"],
                 "time": -1,
                 "size": 5,
-                "stageDatas": [["boss", 2, 4000], ["fast", 1, 4000], ["fast", 3, 7000], ["regular", 1, 7000], ["fast", 3]]
-            },
-            {
-                "types": ["cleats", "badGuy", "regular"],
-                "time": -1,
-                "size": 5,
-                "stageDatas": [["cleats", 2, 4000, "", "powerup"], ["regular", 1, 7000], ["regular", 3, 10000], ["badGuy", 2, 5000], ["regular", 1]]
-            },
-            {
-                "types": ["regular", "fast", "badGuy", "cleats"],
-                "time": -1,
-                "size": 6,
-                "stageDatas": [["cleats", 2, 5000, "", "powerup"], ["regular", 1, 4000], ["fast", 1, 4000], ["boss", 3, 10000], ["badGuy", 2, 4000], ["fast", 1]]
-            },
-            {
-                "types": ["regular", "cleats", "fast", "boss"],
-                "time": -1,
-                "size": 6,
-                "stageDatas": [["regular", 1, 0], ["cleats", 2, 3000, "", "powerup"], ["fast", 3, 15000], ["boss", 2, 4000], ["fast", 3, 4000], ["fast", 1, 5000]]
-            },
-            {
-                "types": ["regular", "cleats", "boss", "badGuy", "fast"],
-                "time": -1,
-                "size": 7,
-                "stageDatas": [["regular", 1, 0], ["cleats", 2, 5000, "", "powerup"], ["regular", 3, 7000], ["badGuy", 1, 7000], ["boss", 2, 6000], ["regular", 1, 4000], ["fast", 2]]
+                "stageDatas": [["tallstops", 1, 3000], ["walkingBacks", 2, 2000], ["walkingBacks", 2, 2000], ["walkingBacks", 2, 2000], ["walkingBacks",2]]
             }
-
         ]
     }
 };
 LevelData[10] = {
     "level": 10, "lanes": 3, "pass": 2, "levelName": "State finals",
     "waves": {
-        "activeWaves": 1, "time": 1000, "maxOnGround": 4, "enemySize": 31,
+        "activeWaves": 1, "time": 1000, "maxOnGround": 4, "enemySize": 11,
         "data": [
             {
-                "types": ["fast", "cleats", "badGuy", "regular"],
+                "types": ["fast", "helmet"],
                 "time": -1,
                 "size": 6,
-                "stageDatas": [["fast", 3, 3000], ["fast", 2, 4000], ["cleats", 2, 5000, "", "powerup"], ["badGuy", 1, 7000], ["regular", 3, 4000], ["fast", 2]]
+                "stageDatas": [["fast", 2, 2000], ["fast", 2, 2000],["fast", 2, 2000], ["helmet", 3, 2000, "", "powerup"],["fast", 2, 2000], ["helmet", 3, 0, "", "powerup"]]
             },
             {
-                "types": ["boss", "fast", "regular"],
+                "types": ["cleats", "winger", "walkingBacks","helmet"],
                 "time": -1,
                 "size": 5,
-                "stageDatas": [["boss", 2, 4000], ["fast", 1, 4000], ["fast", 3, 7000], ["regular", 1, 7000], ["fast", 3]]
+                "stageDatas": [["cleats", 3, 10000,"Winger can switch lanes.@@  Time your orders well, @@or else your athletes will miss him!","powerup"], ["winger", 1, 12000], ["helmet", 3, 0,"","powerup"], ["walkingBacks", 3]]
             },
             {
-                "types": ["cleats", "badGuy", "regular"],
+                "types": ["cleats", "winger", "walkingBacks","helmet"],
                 "time": -1,
                 "size": 5,
-                "stageDatas": [["cleats", 2, 4000, "", "powerup"], ["regular", 1, 7000], ["regular", 3, 10000], ["badGuy", 2, 5000], ["regular", 1]]
-            },
-            {
-                "types": ["regular", "fast", "badGuy", "cleats"],
-                "time": -1,
-                "size": 6,
-                "stageDatas": [["cleats", 2, 5000, "", "powerup"], ["regular", 1, 4000], ["fast", 1, 4000], ["boss", 3, 10000], ["badGuy", 2, 4000], ["fast", 1]]
-            },
-            {
-                "types": ["regular", "cleats", "fast", "boss"],
-                "time": -1,
-                "size": 6,
-                "stageDatas": [["regular", 1, 0], ["cleats", 2, 3000, "", "powerup"], ["fast", 3, 15000], ["boss", 2, 4000], ["fast", 3, 4000], ["fast", 1, 5000]]
-            },
-            {
-                "types": ["regular", "cleats", "boss", "badGuy", "fast"],
-                "time": -1,
-                "size": 7,
-                "stageDatas": [["regular", 1, 0], ["cleats", 2, 5000, "", "powerup"], ["regular", 3, 7000], ["badGuy", 1, 7000], ["boss", 2, 6000], ["regular", 1, 4000], ["fast", 2]]
+                "stageDatas": [["helmet", 1, 10000,"","powerup"], ["winger", 3, 12000], ["walkingBacks", 2, 2000], ["walkingBacks", 2, 2000],["walkingBacks", 2, 2000],["cleats",2,15000,"","powerup"],["winger",1]]
             }
-
         ]
     }
 };
 LevelData[11] = {
     "level": 11, "lanes": 3, "pass": 2, "levelName": "State finals",
     "waves": {
-        "activeWaves": 1, "time": 1000, "maxOnGround": 4, "enemySize": 31,
+        "activeWaves": 1, "time": 1000, "maxOnGround": 4, "enemySize": 6,
         "data": [
             {
-                "types": ["fast", "cleats", "badGuy", "regular"],
+                "types": ["helmet", "cleats", "boss", "walkingBacks"],
                 "time": -1,
                 "size": 6,
-                "stageDatas": [["fast", 3, 3000], ["fast", 2, 4000], ["cleats", 2, 5000, "", "powerup"], ["badGuy", 1, 7000], ["regular", 3, 4000], ["fast", 2]]
-            },
-            {
-                "types": ["boss", "fast", "regular"],
-                "time": -1,
-                "size": 5,
-                "stageDatas": [["boss", 2, 4000], ["fast", 1, 4000], ["fast", 3, 7000], ["regular", 1, 7000], ["fast", 3]]
-            },
-            {
-                "types": ["cleats", "badGuy", "regular"],
-                "time": -1,
-                "size": 5,
-                "stageDatas": [["cleats", 2, 4000, "", "powerup"], ["regular", 1, 7000], ["regular", 3, 10000], ["badGuy", 2, 5000], ["regular", 1]]
-            },
-            {
-                "types": ["regular", "fast", "badGuy", "cleats"],
-                "time": -1,
-                "size": 6,
-                "stageDatas": [["cleats", 2, 5000, "", "powerup"], ["regular", 1, 4000], ["fast", 1, 4000], ["boss", 3, 10000], ["badGuy", 2, 4000], ["fast", 1]]
-            },
-            {
-                "types": ["regular", "cleats", "fast", "boss"],
-                "time": -1,
-                "size": 6,
-                "stageDatas": [["regular", 1, 0], ["cleats", 2, 3000, "", "powerup"], ["fast", 3, 15000], ["boss", 2, 4000], ["fast", 3, 4000], ["fast", 1, 5000]]
-            },
-            {
-                "types": ["regular", "cleats", "boss", "badGuy", "fast"],
-                "time": -1,
-                "size": 7,
-                "stageDatas": [["regular", 1, 0], ["cleats", 2, 5000, "", "powerup"], ["regular", 3, 7000], ["badGuy", 1, 7000], ["boss", 2, 6000], ["regular", 1, 4000], ["fast", 2]]
+                "stageDatas": [["walkingBacks", 3, 2000], ["walkingBacks", 3, 2000], ["helmet", 2, 2000, "", "powerup"], ["walkingBacks", 3, 2000], ["helmet", 2, 2000, "", "powerup"], ["walkingBacks", 3, 2000],["boss",2]]
             }
+
 
         ]
     }
@@ -487,43 +383,19 @@ LevelData[11] = {
 LevelData[12] = {
     "level": 12, "lanes": 3, "pass": 2, "levelName": "State finals",
     "waves": {
-        "activeWaves": 1, "time": 1000, "maxOnGround": 4, "enemySize": 31,
+        "activeWaves": 1, "time": 1000, "maxOnGround": 4, "enemySize": 7,
         "data": [
             {
-                "types": ["fast", "cleats", "badGuy", "regular"],
+                "types": ["bullhorn", "walkingBacks"],
                 "time": -1,
                 "size": 6,
-                "stageDatas": [["fast", 3, 3000], ["fast", 2, 4000], ["cleats", 2, 5000, "", "powerup"], ["badGuy", 1, 7000], ["regular", 3, 4000], ["fast", 2]]
+                "stageDatas": [["bullhorn", 2, 30000, "And there’s a Bullhorn on the field!@@Use the Bullhorn to send all of your athletes down the field at once!", "powerup"] , ["walkingBacks", 1], ["walkingBacks", 2], ["walkingBacks", 3]]
             },
             {
-                "types": ["boss", "fast", "regular"],
-                "time": -1,
-                "size": 5,
-                "stageDatas": [["boss", 2, 4000], ["fast", 1, 4000], ["fast", 3, 7000], ["regular", 1, 7000], ["fast", 3]]
-            },
-            {
-                "types": ["cleats", "badGuy", "regular"],
-                "time": -1,
-                "size": 5,
-                "stageDatas": [["cleats", 2, 4000, "", "powerup"], ["regular", 1, 7000], ["regular", 3, 10000], ["badGuy", 2, 5000], ["regular", 1]]
-            },
-            {
-                "types": ["regular", "fast", "badGuy", "cleats"],
+                "types": ["bullhorn", "tallstops"],
                 "time": -1,
                 "size": 6,
-                "stageDatas": [["cleats", 2, 5000, "", "powerup"], ["regular", 1, 4000], ["fast", 1, 4000], ["boss", 3, 10000], ["badGuy", 2, 4000], ["fast", 1]]
-            },
-            {
-                "types": ["regular", "cleats", "fast", "boss"],
-                "time": -1,
-                "size": 6,
-                "stageDatas": [["regular", 1, 0], ["cleats", 2, 3000, "", "powerup"], ["fast", 3, 15000], ["boss", 2, 4000], ["fast", 3, 4000], ["fast", 1, 5000]]
-            },
-            {
-                "types": ["regular", "cleats", "boss", "badGuy", "fast"],
-                "time": -1,
-                "size": 7,
-                "stageDatas": [["regular", 1, 0], ["cleats", 2, 5000, "", "powerup"], ["regular", 3, 7000], ["badGuy", 1, 7000], ["boss", 2, 6000], ["regular", 1, 4000], ["fast", 2]]
+                "stageDatas": [["tallstops", 1, 2000] ,["bullhorn",2,"","powerup"],["bullhorn",2,"","powerup"],["tallstops", 3, 2000],["tallstops", 3, 2000]]
             }
 
         ]
@@ -536,40 +408,40 @@ LevelData[13] = {
         "activeWaves": 1, "time": 1000, "maxOnGround": 4, "enemySize": 31,
         "data": [
             {
-                "types": ["fast", "cleats", "badGuy", "regular"],
+                "types": ["fast", "cleats", "tallstops", "walkingBacks"],
                 "time": -1,
                 "size": 6,
-                "stageDatas": [["fast", 3, 3000], ["fast", 2, 4000], ["cleats", 2, 5000, "", "powerup"], ["badGuy", 1, 7000], ["regular", 3, 4000], ["fast", 2]]
+                "stageDatas": [["fast", 3, 3000], ["fast", 2, 4000], ["cleats", 2, 5000, "", "powerup"], ["tallstops", 1, 7000], ["walkingBacks", 3, 4000], ["fast", 2]]
             },
             {
-                "types": ["boss", "fast", "regular"],
+                "types": ["boss", "fast", "walkingBacks"],
                 "time": -1,
                 "size": 5,
-                "stageDatas": [["boss", 2, 4000], ["fast", 1, 4000], ["fast", 3, 7000], ["regular", 1, 7000], ["fast", 3]]
+                "stageDatas": [["boss", 2, 4000], ["fast", 1, 4000], ["fast", 3, 7000], ["walkingBacks", 1, 7000], ["fast", 3]]
             },
             {
-                "types": ["cleats", "badGuy", "regular"],
+                "types": ["cleats", "tallstops", "walkingBacks"],
                 "time": -1,
                 "size": 5,
-                "stageDatas": [["cleats", 2, 4000, "", "powerup"], ["regular", 1, 7000], ["regular", 3, 10000], ["badGuy", 2, 5000], ["regular", 1]]
+                "stageDatas": [["cleats", 2, 4000, "", "powerup"], ["walkingBacks", 1, 7000], ["walkingBacks", 3, 10000], ["tallstops", 2, 5000], ["walkingBacks", 1]]
             },
             {
-                "types": ["regular", "fast", "badGuy", "cleats"],
+                "types": ["walkingBacks", "fast", "tallstops", "cleats"],
                 "time": -1,
                 "size": 6,
-                "stageDatas": [["cleats", 2, 5000, "", "powerup"], ["regular", 1, 4000], ["fast", 1, 4000], ["boss", 3, 10000], ["badGuy", 2, 4000], ["fast", 1]]
+                "stageDatas": [["cleats", 2, 5000, "", "powerup"], ["walkingBacks", 1, 4000], ["fast", 1, 4000], ["boss", 3, 10000], ["tallstops", 2, 4000], ["fast", 1]]
             },
             {
-                "types": ["regular", "cleats", "fast", "boss"],
+                "types": ["walkingBacks", "cleats", "fast", "boss"],
                 "time": -1,
                 "size": 6,
-                "stageDatas": [["regular", 1, 0], ["cleats", 2, 3000, "", "powerup"], ["fast", 3, 15000], ["boss", 2, 4000], ["fast", 3, 4000], ["fast", 1, 5000]]
+                "stageDatas": [["walkingBacks", 1, 0], ["cleats", 2, 3000, "", "powerup"], ["fast", 3, 15000], ["boss", 2, 4000], ["fast", 3, 4000], ["fast", 1, 5000]]
             },
             {
-                "types": ["regular", "cleats", "boss", "badGuy", "fast"],
+                "types": ["walkingBacks", "cleats", "boss", "tallstops", "fast"],
                 "time": -1,
                 "size": 7,
-                "stageDatas": [["regular", 1, 0], ["cleats", 2, 5000, "", "powerup"], ["regular", 3, 7000], ["badGuy", 1, 7000], ["boss", 2, 6000], ["regular", 1, 4000], ["fast", 2]]
+                "stageDatas": [["walkingBacks", 1, 0], ["cleats", 2, 5000, "", "powerup"], ["walkingBacks", 3, 7000], ["tallstops", 1, 7000], ["boss", 2, 6000], ["walkingBacks", 1, 4000], ["fast", 2]]
             }
 
         ]
@@ -581,40 +453,40 @@ LevelData[14] = {
         "activeWaves": 1, "time": 1000, "maxOnGround": 4, "enemySize": 31,
         "data": [
             {
-                "types": ["fast", "cleats", "badGuy", "regular"],
+                "types": ["fast", "cleats", "tallstops", "walkingBacks"],
                 "time": -1,
                 "size": 6,
-                "stageDatas": [["fast", 3, 3000], ["fast", 2, 4000], ["cleats", 2, 5000, "", "powerup"], ["badGuy", 1, 7000], ["regular", 3, 4000], ["fast", 2]]
+                "stageDatas": [["fast", 3, 3000], ["fast", 2, 4000], ["cleats", 2, 5000, "", "powerup"], ["tallstops", 1, 7000], ["walkingBacks", 3, 4000], ["fast", 2]]
             },
             {
-                "types": ["boss", "fast", "regular"],
+                "types": ["boss", "fast", "walkingBacks"],
                 "time": -1,
                 "size": 5,
-                "stageDatas": [["boss", 2, 4000], ["fast", 1, 4000], ["fast", 3, 7000], ["regular", 1, 7000], ["fast", 3]]
+                "stageDatas": [["boss", 2, 4000], ["fast", 1, 4000], ["fast", 3, 7000], ["walkingBacks", 1, 7000], ["fast", 3]]
             },
             {
-                "types": ["cleats", "badGuy", "regular"],
+                "types": ["cleats", "tallstops", "walkingBacks"],
                 "time": -1,
                 "size": 5,
-                "stageDatas": [["cleats", 2, 4000, "", "powerup"], ["regular", 1, 7000], ["regular", 3, 10000], ["badGuy", 2, 5000], ["regular", 1]]
+                "stageDatas": [["cleats", 2, 4000, "", "powerup"], ["walkingBacks", 1, 7000], ["walkingBacks", 3, 10000], ["tallstops", 2, 5000], ["walkingBacks", 1]]
             },
             {
-                "types": ["regular", "fast", "badGuy", "cleats"],
+                "types": ["walkingBacks", "fast", "tallstops", "cleats"],
                 "time": -1,
                 "size": 6,
-                "stageDatas": [["cleats", 2, 5000, "", "powerup"], ["regular", 1, 4000], ["fast", 1, 4000], ["boss", 3, 10000], ["badGuy", 2, 4000], ["fast", 1]]
+                "stageDatas": [["cleats", 2, 5000, "", "powerup"], ["walkingBacks", 1, 4000], ["fast", 1, 4000], ["boss", 3, 10000], ["tallstops", 2, 4000], ["fast", 1]]
             },
             {
-                "types": ["regular", "cleats", "fast", "boss"],
+                "types": ["walkingBacks", "cleats", "fast", "boss"],
                 "time": -1,
                 "size": 6,
-                "stageDatas": [["regular", 1, 0], ["cleats", 2, 3000, "", "powerup"], ["fast", 3, 15000], ["boss", 2, 4000], ["fast", 3, 4000], ["fast", 1, 5000]]
+                "stageDatas": [["walkingBacks", 1, 0], ["cleats", 2, 3000, "", "powerup"], ["fast", 3, 15000], ["boss", 2, 4000], ["fast", 3, 4000], ["fast", 1, 5000]]
             },
             {
-                "types": ["regular", "cleats", "boss", "badGuy", "fast"],
+                "types": ["walkingBacks", "cleats", "boss", "tallstops", "fast"],
                 "time": -1,
                 "size": 7,
-                "stageDatas": [["regular", 1, 0], ["cleats", 2, 5000, "", "powerup"], ["regular", 3, 7000], ["badGuy", 1, 7000], ["boss", 2, 6000], ["regular", 1, 4000], ["fast", 2]]
+                "stageDatas": [["walkingBacks", 1, 0], ["cleats", 2, 5000, "", "powerup"], ["walkingBacks", 3, 7000], ["tallstops", 1, 7000], ["boss", 2, 6000], ["walkingBacks", 1, 4000], ["fast", 2]]
             }
 
         ]
@@ -626,40 +498,40 @@ LevelData[15] = {
         "activeWaves": 1, "time": 1000, "maxOnGround": 4, "enemySize": 31,
         "data": [
             {
-                "types": ["fast", "cleats", "badGuy", "regular"],
+                "types": ["fast", "cleats", "tallstops", "walkingBacks"],
                 "time": -1,
                 "size": 6,
-                "stageDatas": [["fast", 3, 3000], ["fast", 2, 4000], ["cleats", 2, 5000, "", "powerup"], ["badGuy", 1, 7000], ["regular", 3, 4000], ["fast", 2]]
+                "stageDatas": [["fast", 3, 3000], ["fast", 2, 4000], ["cleats", 2, 5000, "", "powerup"], ["tallstops", 1, 7000], ["walkingBacks", 3, 4000], ["fast", 2]]
             },
             {
-                "types": ["boss", "fast", "regular"],
+                "types": ["boss", "fast", "walkingBacks"],
                 "time": -1,
                 "size": 5,
-                "stageDatas": [["boss", 2, 4000], ["fast", 1, 4000], ["fast", 3, 7000], ["regular", 1, 7000], ["fast", 3]]
+                "stageDatas": [["boss", 2, 4000], ["fast", 1, 4000], ["fast", 3, 7000], ["walkingBacks", 1, 7000], ["fast", 3]]
             },
             {
-                "types": ["cleats", "badGuy", "regular"],
+                "types": ["cleats", "tallstops", "walkingBacks"],
                 "time": -1,
                 "size": 5,
-                "stageDatas": [["cleats", 2, 4000, "", "powerup"], ["regular", 1, 7000], ["regular", 3, 10000], ["badGuy", 2, 5000], ["regular", 1]]
+                "stageDatas": [["cleats", 2, 4000, "", "powerup"], ["walkingBacks", 1, 7000], ["walkingBacks", 3, 10000], ["tallstops", 2, 5000], ["walkingBacks", 1]]
             },
             {
-                "types": ["regular", "fast", "badGuy", "cleats"],
+                "types": ["walkingBacks", "fast", "tallstops", "cleats"],
                 "time": -1,
                 "size": 6,
-                "stageDatas": [["cleats", 2, 5000, "", "powerup"], ["regular", 1, 4000], ["fast", 1, 4000], ["boss", 3, 10000], ["badGuy", 2, 4000], ["fast", 1]]
+                "stageDatas": [["cleats", 2, 5000, "", "powerup"], ["walkingBacks", 1, 4000], ["fast", 1, 4000], ["boss", 3, 10000], ["tallstops", 2, 4000], ["fast", 1]]
             },
             {
-                "types": ["regular", "cleats", "fast", "boss"],
+                "types": ["walkingBacks", "cleats", "fast", "boss"],
                 "time": -1,
                 "size": 6,
-                "stageDatas": [["regular", 1, 0], ["cleats", 2, 3000, "", "powerup"], ["fast", 3, 15000], ["boss", 2, 4000], ["fast", 3, 4000], ["fast", 1, 5000]]
+                "stageDatas": [["walkingBacks", 1, 0], ["cleats", 2, 3000, "", "powerup"], ["fast", 3, 15000], ["boss", 2, 4000], ["fast", 3, 4000], ["fast", 1, 5000]]
             },
             {
-                "types": ["regular", "cleats", "boss", "badGuy", "fast"],
+                "types": ["walkingBacks", "cleats", "boss", "tallstops", "fast"],
                 "time": -1,
                 "size": 7,
-                "stageDatas": [["regular", 1, 0], ["cleats", 2, 5000, "", "powerup"], ["regular", 3, 7000], ["badGuy", 1, 7000], ["boss", 2, 6000], ["regular", 1, 4000], ["fast", 2]]
+                "stageDatas": [["walkingBacks", 1, 0], ["cleats", 2, 5000, "", "powerup"], ["walkingBacks", 3, 7000], ["tallstops", 1, 7000], ["boss", 2, 6000], ["walkingBacks", 1, 4000], ["fast", 2]]
             }
 
         ]
@@ -671,40 +543,40 @@ LevelData[16] = {
         "activeWaves": 1, "time": 1000, "maxOnGround": 4, "enemySize": 31,
         "data": [
             {
-                "types": ["fast", "cleats", "badGuy", "regular"],
+                "types": ["fast", "cleats", "tallstops", "walkingBacks"],
                 "time": -1,
                 "size": 6,
-                "stageDatas": [["fast", 3, 3000], ["fast", 2, 4000], ["cleats", 2, 5000, "", "powerup"], ["badGuy", 1, 7000], ["regular", 3, 4000], ["fast", 2]]
+                "stageDatas": [["fast", 3, 3000], ["fast", 2, 4000], ["cleats", 2, 5000, "", "powerup"], ["tallstops", 1, 7000], ["walkingBacks", 3, 4000], ["fast", 2]]
             },
             {
-                "types": ["boss", "fast", "regular"],
+                "types": ["boss", "fast", "walkingBacks"],
                 "time": -1,
                 "size": 5,
-                "stageDatas": [["boss", 2, 4000], ["fast", 1, 4000], ["fast", 3, 7000], ["regular", 1, 7000], ["fast", 3]]
+                "stageDatas": [["boss", 2, 4000], ["fast", 1, 4000], ["fast", 3, 7000], ["walkingBacks", 1, 7000], ["fast", 3]]
             },
             {
-                "types": ["cleats", "badGuy", "regular"],
+                "types": ["cleats", "tallstops", "walkingBacks"],
                 "time": -1,
                 "size": 5,
-                "stageDatas": [["cleats", 2, 4000, "", "powerup"], ["regular", 1, 7000], ["regular", 3, 10000], ["badGuy", 2, 5000], ["regular", 1]]
+                "stageDatas": [["cleats", 2, 4000, "", "powerup"], ["walkingBacks", 1, 7000], ["walkingBacks", 3, 10000], ["tallstops", 2, 5000], ["walkingBacks", 1]]
             },
             {
-                "types": ["regular", "fast", "badGuy", "cleats"],
+                "types": ["walkingBacks", "fast", "tallstops", "cleats"],
                 "time": -1,
                 "size": 6,
-                "stageDatas": [["cleats", 2, 5000, "", "powerup"], ["regular", 1, 4000], ["fast", 1, 4000], ["boss", 3, 10000], ["badGuy", 2, 4000], ["fast", 1]]
+                "stageDatas": [["cleats", 2, 5000, "", "powerup"], ["walkingBacks", 1, 4000], ["fast", 1, 4000], ["boss", 3, 10000], ["tallstops", 2, 4000], ["fast", 1]]
             },
             {
-                "types": ["regular", "cleats", "fast", "boss"],
+                "types": ["walkingBacks", "cleats", "fast", "boss"],
                 "time": -1,
                 "size": 6,
-                "stageDatas": [["regular", 1, 0], ["cleats", 2, 3000, "", "powerup"], ["fast", 3, 15000], ["boss", 2, 4000], ["fast", 3, 4000], ["fast", 1, 5000]]
+                "stageDatas": [["walkingBacks", 1, 0], ["cleats", 2, 3000, "", "powerup"], ["fast", 3, 15000], ["boss", 2, 4000], ["fast", 3, 4000], ["fast", 1, 5000]]
             },
             {
-                "types": ["regular", "cleats", "boss", "badGuy", "fast"],
+                "types": ["walkingBacks", "cleats", "boss", "tallstops", "fast"],
                 "time": -1,
                 "size": 7,
-                "stageDatas": [["regular", 1, 0], ["cleats", 2, 5000, "", "powerup"], ["regular", 3, 7000], ["badGuy", 1, 7000], ["boss", 2, 6000], ["regular", 1, 4000], ["fast", 2]]
+                "stageDatas": [["walkingBacks", 1, 0], ["cleats", 2, 5000, "", "powerup"], ["walkingBacks", 3, 7000], ["tallstops", 1, 7000], ["boss", 2, 6000], ["walkingBacks", 1, 4000], ["fast", 2]]
             }
 
         ]
@@ -723,7 +595,7 @@ LevelData[0] = {
         "bullhornSize": 0,
         "data": [
             {
-                "types": ["fast", "cleats", "badGuy", "regular"], "time": -1, "size": 6,
+                "types": ["fast", "cleats", "tallstops", "walkingBacks"], "time": -1, "size": 6,
                 "stageDatas": []
             }
 

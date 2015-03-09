@@ -76,7 +76,7 @@ PlayerData.player_cleats = {
         "sX": 1.5,//0.5,
         "sY": 1.5//0.5
     }
-}
+};
 
 PlayerData.player_normal = {
     "data": {
@@ -96,7 +96,7 @@ PlayerData.player_normal = {
     }
 
 
-}
+};
 PlayerData.football_normal = {
     "data": {
         "images": ["football_normal"],
@@ -125,11 +125,11 @@ PlayerData.football_normal = {
         }
     },
     "extras": {
-        "sound": {},
+        "sound": {"tackle":"batHit"},
         "sX": 1.1,//0.5,
         "sY": 1.1//0.5
     }
-}
+};
 PlayerData.football_cleats = {
     "data":{
         "images": ["football_cleats"],
@@ -161,7 +161,7 @@ PlayerData.football_cleats = {
         "sX": 1.1,//0.5,
         "sY": 1.1//0.5
     }
-}
+};
 PlayerData.football_helmet = {
     "data":{
         "images": ["football_helmet"],
@@ -203,7 +203,6 @@ PlayerData.hockey_normal={
                 0,
                 25,
                 "idle"
-
             ],
             "idle": [
                 26,
@@ -224,7 +223,7 @@ PlayerData.hockey_normal={
 
     },
     "extras": {
-        "sound": {},
+        "sound": {"tackle":"batHit"},
         "sX": 1.3,//0.5,
         "sY": 1.3//0.5
     }
@@ -268,7 +267,8 @@ PlayerData.hockey_cleats={
             "confused": [
                 0,
                 25,
-                "idle"
+                "idle",
+                1
             ],
             "idle": [
                 26,

@@ -93,8 +93,10 @@
         var btn = new createjs.Bitmap(me.config.loader.getResult("btn_bg"));
         btnContainer.x = this.preloader.x + btn.getTransformedBounds().width/2-40;
         btnContainer.y = this.preloader.y;
-        btnContainer.addEventListener("mousedown",function(){
+        btnContainer.addEventListener("mousedown",function(e){
             window.onresize = "";
+            e.target.cursor = "pointer";
+            btn.image = me.config.loader.getResult("btn_down");
             me.config.stage.removeAllChildren();
             me.config.stage.update();
             $("#loaderDiv").hide();
@@ -112,11 +114,7 @@
             btn.image = me.config.loader.getResult("btn_over");
             me.config.stage.update();
         });
-        btnContainer.addEventListener("mousedown",function(e){
-            e.target.cursor = "pointer";
-            btn.image = me.config.loader.getResult("btn_down");
-            me.config.stage.update();
-        });
+
         btnContainer.addEventListener("pressup",function(e){
             e.target.cursor = "pointer";
             btn.image = me.config.loader.getResult("btn_bg");

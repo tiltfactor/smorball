@@ -120,6 +120,11 @@ function StageController(config) {
             stopCheering(me);
         };
         EventBus.addEventListener("stopCheering", ch);
+
+        var rs = function(object){
+            removeFromStage(me,object.target);
+        }
+        EventBus.addEventListener("removeFromStage",rs);
     }
 
     var newGame = function (me) {
@@ -154,6 +159,7 @@ function StageController(config) {
 
         var config = {"gameState": me.config.gameState};
         me.score = new Score(config);
+
     };
     var loadImages = function (me) {
         var _onImagesLoad = function (me) {
@@ -175,6 +181,8 @@ function StageController(config) {
         /*if(me.config.gameState.currentLevel == 1){
          me.config.gameState.gs.points = 6;
          }*/
+        window.onmousedown = prevent;
+        $("#inputText").focus();
         onResize(me);
         window.onresize = function () {
             onResize(me)
@@ -466,7 +474,7 @@ function StageController(config) {
                 lane.setPlayer(player);
                 var laneId = lane.getLaneId();
 
-                me.config.stage.addChildAt(player,laneId+6);
+                me.config.stage.addChildAt(player,laneId + 7);
             }
 
         }
@@ -964,6 +972,11 @@ function StageController(config) {
              }
          });
      }
+    var removeFromStage = function(me,object){
+        //var child = _.findWhere(me.config.stage.children,object);
+        var child = me.config.stage.getChildIndex(object);
+        me.config.stage.removeChildAt(child);
+    }
     var persist = function (me) {
 
     }
