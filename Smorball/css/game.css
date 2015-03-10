@@ -321,7 +321,7 @@ canvas {
     text-align: center;
     background-repeat: repeat;
     display: block;
-    overflow: auto;
+    overflow: hidden;
 }
 
 .titleBar {
@@ -354,7 +354,7 @@ canvas {
 }
 
 .shopBackBtn {
-    height: 25px;
+    height: 10px;
 }
 
 .helpBackBtn, .optionBackBtn {
@@ -378,8 +378,8 @@ canvas {
     padding: 8% 0%;
     height: 70%;
     margin-top: 20px;
-    height: calc(90% - 70px);
-    height: -moz-calc(90% - 70px);
+    height: calc(90% - 80px);
+    height: -moz-calc(90% - 80px);
 }
 
 .itemDiv {
@@ -690,7 +690,7 @@ canvas {
     }
 
     #selectBox {
-        height: 23em;
+        height: 24em;
     }
     #selectBox .ui-selectmenu-text {
         font-size: 1.5em;
@@ -705,6 +705,9 @@ canvas {
 
     #selectBox .ui-selectmenu-menu ul li{
         font-size: 1.3em ;
+    }
+    #menu-confirm-popup .innerContainer {
+        max-width: 500px; 
     }
 }
 
@@ -728,6 +731,12 @@ screen and ( max-height: 600px ){
     #menu-confirm-popup .innerContainer p {
         font-size: 1.5em;    
     }
+    .slideContainer .slider-text {
+        font-size: 1em;
+    }
+}
+
+@media screen and (max-height: 750px) {
     #selectBox .ui-selectmenu-text {
         font-size: .8em;
         padding: 1.3em 2em;
@@ -747,12 +756,6 @@ screen and ( max-height: 600px ){
     #selectBox {
         height: 12em;
     }
-    .slideContainer .slider-text {
-        font-size: 1em;
-    }
-}
-
-@media screen and (max-height: 750px) {
     #optionsScreen .title {
         margin: 0;
         font-size: 2.5em;
@@ -864,6 +867,9 @@ screen and ( max-height: 500px ) {
         width: 90%;
         max-width: 600px;
     }
+}
+
+@media screen and ( max-height: 550px ) {
     #selectBox .ui-selectmenu-text {
         font-size: .6em;
         background-size: 9%, 100%;
@@ -891,6 +897,10 @@ screen and ( max-height: 500px ) {
     }
     .slideContainer {
         padding: 8% 2% !important;
+    }
+    #optionsScreen .title {
+        margin: 0;
+        font-size: 2em;
     }
 }
 
@@ -971,9 +981,6 @@ screen and ( max-height: 400px ) {
         max-width: 300px;
     }
     
-    #optionsScreen .innerContainer {
-        max-width: 250px;
-    }
     .centerScreenContainer .title {
         font-size: 2em;
     }
@@ -1237,7 +1244,7 @@ screen and ( max-height: 430px )
     .helpScreenContent {
         max-width: 275px;
     } 
-    .helpBackBtn, .optionBackBtn {
+    .helpBackBtn {
         max-width: 350px;
     }
     .lean-slider-slide p {
