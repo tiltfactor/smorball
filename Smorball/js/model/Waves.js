@@ -16,7 +16,6 @@
     Waves.prototype.init = function(){
         this.totalOpponents = this.config.waves.enemySize;
         this.start();
-        //activateMultipleWaves(this);
     }
     var loadEvents = function(me){
         var fp = function(object){forcePush(me,object.target)};
@@ -88,10 +87,8 @@
         if(status){
             if(this.currentIndex < this.config.waves.data.length){
                 this.start();
-                console.log("New wave started");
             }else{
                 this.complete = true;
-                console.log("Level Completed");
             }
         }
 
@@ -128,13 +125,6 @@
 
 
     }
-
-
-
-
-
-
-
     window.Waves = Waves;
 
 }());

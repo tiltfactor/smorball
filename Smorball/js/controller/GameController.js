@@ -141,38 +141,30 @@ function GameController(config) {
         switch (e.keyCode) {
 
             case ARROW_KEY_LEFT:
-                // currentActivePlayer.x --;
                 break;
             case ARROW_KEY_UP:
-                // currentActivePlayer.y --;
                 break;
             case ARROW_KEY_RIGHT:
-                //currentActivePlayer.x ++;
                 break;
             case ARROW_KEY_DOWN:
-                //currentActivePlayer.y ++;
                 break;
             case SPACE_KEY_DOWN:
-                //currentActivePlayer.gotoAndPlay("confused")
                 break;
             case ESC_KEY:
                 EventBus.dispatch("showTimeoutScreen");
                 break;
             case ONE:
                 if (e.shiftKey) {
-                    console.log("1");
                     EventBus.dispatch("assistText",1);
                 }
                 break;
             case TWO:
                 if (e.shiftKey) {
-                    console.log("2");
                     EventBus.dispatch("assistText",2);
                 }
                 break;
             case THREE:
                 if (e.shiftKey) {
-                    console.log("3");
                     EventBus.dispatch("assistText",3);
                 }
                 break;

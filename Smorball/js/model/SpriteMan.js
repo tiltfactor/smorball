@@ -74,12 +74,10 @@
     
     window.sprites.SpriteMan = SpriteMan;
     SpriteMan.prototype.setEffects = function(id){
-       // console.log("EFFECTS");
         this.config.playerSound = PlayerData[id].extras.sound;
     }
     SpriteMan.prototype.run  = function(){
         var me = this;
-        //drawBorder(this);
         this.sprite.gotoAndPlay("run");
         this.myTick = function(){tick(me)};
         this.addEventListener("tick", this.myTick);
@@ -146,16 +144,13 @@
     }
     SpriteMan.prototype.getHeight = function(){
         return this.sprite._rectangle.height;
-        //return (this.sprite.spriteSheet._frameHeight * this.sprite.scaleY) ;
     }
     SpriteMan.prototype.getWidth = function(){
         return this.sprite._rectangle.width;
-        //return (this.sprite.spriteSheet._frameWidth * this.sprite.scaleX) ;
     }
 
     SpriteMan.prototype.setScale = function(sx,sy){
         this.sprite.setTransform(0,6,sx,sy);
-        //drawBorder(this);
     }
     SpriteMan.prototype.getLaneId = function(){
         return this.config.laneId;

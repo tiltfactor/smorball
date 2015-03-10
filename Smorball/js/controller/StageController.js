@@ -136,12 +136,6 @@ function StageController(config) {
         me.currentTime = createjs.Ticker.getTime(true);
         $("#inputText").val("");
         resetGame(me);
-
-        /*var fileId = "stadiumAmbience";
-        var config = {"file": fileId , "loop": true, "type": me.config.gameState.soundType.EFFECTS, "isMain": false,"loader":me.config.loader, "gameState":me.config.gameState};
-        var ambientSound = new Sound(config);
-        EventBus.dispatch("addAudioToList",ambientSound);*/
-
         me.config.gameState.currentState = me.config.gameState.states.RUN;
         me.levelConfig = LevelData[me.config.gameState.currentLevel];
 
@@ -178,9 +172,6 @@ function StageController(config) {
 
     };
     var onImagesLoad = function (me) {
-        /*if(me.config.gameState.currentLevel == 1){
-         me.config.gameState.gs.points = 6;
-         }*/
         window.onmousedown = prevent;
         $("#inputText").focus();
         onResize(me);
@@ -210,7 +201,6 @@ function StageController(config) {
     };
     var showGameMessage = function (me, msg) {
         var text = msg.target;
-        console.log(text);
         showMessage(me, text);
     };
 
@@ -218,26 +208,21 @@ function StageController(config) {
         me.message.image = me.config.loader.getResult(text);
         me.message.x = 800 - me.message.getBounds().width / 2;
         createjs.Tween.get(me.message).to({alpha: 1}, 100).wait(500).to({alpha: 0}, 1000);
-        //console.log("show");
     };
 
     var setCanvasAttributes = function (me) {
-
         me.freeBottomAreaY = 70;
         me.freeLeftAreaX = 0;
         onResize(me);
         me.width = 1600;
         me.height = 1200;
         me.freeTopAreaY = me.height / 2;
-        //setDivPosition(me);
-
     };
 
     var onResize = function (me) {
         var canvas = me.config.stage.canvas;
         me.canvasWidth = canvas.width = window.innerHeight * 4 / 3 > window.innerWidth ? window.innerWidth : window.innerHeight * 4 / 3;
         me.canvasHeight = canvas.height = me.canvasWidth * 3 / 4 > window.innerHeight ? window.innerHeight : me.canvasWidth * 3 / 4;
-
         me.config.stage.scaleX = me.canvasWidth / 1600;
         me.config.stage.scaleY = me.canvasHeight / 1200;
         me.config.stage.update();
@@ -256,7 +241,6 @@ function StageController(config) {
         me.cbBox = new CommentaryBox({"loader": me.config.loader, "width": width});
         me.adBoard = new AdBoard({"loader": me.config.loader});
         me.adBoard.y = me.cbBox.getTransformedBounds().height - me.adBoard.getTransformedBounds().height / 2 - me.adBoard.getTransformedBounds().height / 6;
-
         me.stadium.addChild(lc, rc, me.cbBox, me.adBoard);
         me.config.stage.addChild(me.stadium);
         drawTimeOut(me);
@@ -416,16 +400,6 @@ function StageController(config) {
             EventBus.dispatch("showTimeout");
             EventBus.dispatch("setMute");
             EventBus.dispatch('pauseWaves', true);
-            //calculateTime(me);
-
-
-//            $(".ui-dialog").css({
-//            '-webkit-transform': 'scale('+1+',' + me.height/600 + ')',
-//            '-moz-transform'    : 'scale('+1+',' + me.height/600 + ')',
-//            '-ms-transform'     : 'scale('+1+',' + me.height/600 + ')',
-//            '-o-transform'      : 'scale('+1+',' + me.height/600 + ')',
-//            'transform'         : 'scale('+1+',' + me.height/600 + ')'
-//        });
         }
     };
 
@@ -453,8 +427,6 @@ function StageController(config) {
                 setTimeout(addPlayer, 1000, lane, me);
             } else {
                 lane.player.setDefaultSpriteSheet();
-//                var sf = getScaleFactor(lane,lane.player);
-//                lane.player.setScale(sf,sf);
             }
 
         }
@@ -468,18 +440,13 @@ function StageController(config) {
                 "gameState": me.config.gameState
             };
             var player = new sprites.SpriteMan(config);
-//            var sf = getScaleFactor(lane,player);
-//            player.setScale(sf,sf);
             if (lane.player == undefined) {
                 lane.setPlayer(player);
                 var laneId = lane.getLaneId();
 
                 me.config.stage.addChildAt(player,laneId + 7);
             }
-
         }
-
-
     };
 
     var activatePlayer = function (player, me) {
@@ -492,8 +459,6 @@ function StageController(config) {
             me.config.players.push(player);
             player.run();
         }
-
-
     };
 
     var resetGame = function (me) {
@@ -507,15 +472,9 @@ function StageController(config) {
         me.config.powerups = [];
         me.config.lanes = [];
         me.config.waves = [];
-//        me.config.myPowerups = me.config.gameState.gs.inBag;
         me.config.activePowerup = undefined;
         me.passCount = 0;
         me.config.life = me.config.gameState.maxLife;
-
-//        if(me.config.gameState.currentLevel == 1){
-//            me.config.lifes = [];
-//        }
-
     };
 
     var removeAllChildren = function (me) {
@@ -550,8 +509,6 @@ function StageController(config) {
                             player.hitEnemies.push(enemy.id);
                             enemy.kill(player.getLife());
                         }
-
-
                     } else {
                         var enemyLife = enemy.getLife();
                         var fileId = player.config.playerSound.tackle;
@@ -560,7 +517,6 @@ function StageController(config) {
                         player.kill(enemyLife);
                     }
                 }
-
                 if (powerup != null && player.hitPowerup == false && powerup.hit == false) {
                     addToMyBag(me, powerup);
                     player.hitPowerup = false;
@@ -604,9 +560,7 @@ function StageController(config) {
 
     var isCollision = function (player, object) {
         return (object.x <= player.x + player.getWidth() &&
-        player.x <= object.x + object.getWidth() )//&&
-        //object.y <= player.y + player.getHeight() &&
-        //player.y <= object.y + object.getHeight())
+        player.x <= object.x + object.getWidth() )
     };
 
     var compareCaptcha = function (me) {
@@ -860,7 +814,6 @@ function StageController(config) {
     };
 
     var updatePlayerOnPowerup = function (me, type) {
-
         if(type=="bullhorn"){
             type = "normal"
         }
@@ -985,7 +938,6 @@ function StageController(config) {
          });
      }
     var removeFromStage = function(me,object){
-        //var child = _.findWhere(me.config.stage.children,object);
         var child = me.config.stage.getChildIndex(object);
         me.config.stage.removeChildAt(child);
     }

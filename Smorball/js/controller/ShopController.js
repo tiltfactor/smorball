@@ -4,12 +4,6 @@ function ShopController(config) {
         this.config.bag = [];
         this.initial = true;
         loadEvents(this);
-        //createDialog(this);
-        // this.config.loader.loadShopAssets();
-        //this.config.stage = new createjs.Stage("myShopCanvas");
-        //setCanvasAttributes(this)
-        //this.config.stage.canvas.width = window.innerWidth - 150;//TODO make this better
-        //this.config.stage.canvas.height = window.innerHeight - 150;//TODO make this better
         this.config.products = [];
         generateDiv(this)
     }
@@ -138,7 +132,6 @@ function ShopController(config) {
         me.config.stage.update();
     }
     var showMap = function(){
-        console.log("clicked exit");
         EventBus.dispatch("exitShop")
     };
 
@@ -147,7 +140,6 @@ function ShopController(config) {
         updateProductLocations(me);
 
         me.config.stage.update();
-        //$( "#dialog-shop" ).dialog("open");
     }
 
     var updateProductLocations = function(me){
@@ -162,7 +154,6 @@ function ShopController(config) {
     }
 
     var addToBag = function(me,ob){
-        console.log(ob);
         var btn = $(ob).find(".upgrade");
         var id = ob.id;
         btn.unbind("click");
@@ -232,7 +223,6 @@ function ShopController(config) {
     ShopController.prototype.hideShop = function () {
         EventBus.dispatch("hideAll");
         EventBus.dispatch("showMap");
-        //$( "#dialog-shop" ).dialog("close");
     }
     var persist = function(me){
     

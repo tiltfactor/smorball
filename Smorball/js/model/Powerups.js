@@ -23,13 +23,8 @@
         this.powerupData = PowerupsData[this.config.id];
         this.spriteData = new SpriteSheet({"id" : this.config.id, "data": this.powerupData.data, "loader" : this.config.loader});
         this.sprite = new createjs.Sprite(this.spriteData, "stand");
-        //this.scaleX = 0.5;
-        //this.scaleY = 0.5;
-        //this.setScale(0.5,0.5);
         this.Sprite_initialize();
         this.addChild(this.sprite);
-        loadEvents(this);
-        
     }
     Powerup.prototype.getId = function(){
         return this.config.id;
@@ -37,23 +32,8 @@
     Powerup.prototype.getPowerupPlayer = function(){
         return this.powerupData.extras.player;
     }
-    var loadEvents = function(me){
-       // var handle = function(){me.handleClick(me)};
-       // me.addEventListener("click", handle);
-    }
-    Powerup.prototype.addActivation = function(){
-        var me = this;
-        this.events.click = function(){activate(me)};
-        me.addEventListener("click", this.events.click);
-    }
     Powerup.prototype.getType=function(){
         return this.config.id;
-    }
-
-    var activate = function(me){
-        //EventBus.dispatch("showCommentary", me.powerupData.extras.message);
-        //me.removeEventListener("click", me.events.click);
-        //EventBus.dispatch("activatePowerup", me);
     }
     Powerup.prototype.getPower = function(){
         return PowerupsData[this.config.id].extras;
@@ -115,19 +95,6 @@
 
     var tick = function(me){
         me.x = me.x ;
-        //if(me.endPoint != null && me.hit == false && me.x < me.endPoint){
-            //me.hit = true;
-            //me.lifes.length =0;
-            //me.kill();
-            //EventBus.dispatch("killLife");
-
-        //}
-        /*if(me.hit == false && me.endPoint == ){
-
-        }*/
-        /*if(me.onTop){
-            console.log(me.onTop);
-        }*/
     }
 
     var removeFallingAnimation = function(me){

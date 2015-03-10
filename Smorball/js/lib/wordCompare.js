@@ -25,7 +25,6 @@ var closestWord = function(input, differences) {
     var l2 = new Levenshtein(input.toLowerCase(), ocr2);
     return Math.min(l1.distance, l2.distance);
   });
-  //console.log(closestOcr);
   /**
    * In our result object we have two properties, the first being the result
    * of the word compare algorithm, which will tell us if the user should get

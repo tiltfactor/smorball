@@ -27,7 +27,6 @@
         EventBus.dispatch("killme", this);
     }
     var tick = function(me){
-        //console.log(me);
         var t = (createjs.Ticker.getTime() / 1000) * BounceRate + me.x * BounceSync;
         var bounce = Math.sin(t) * BounceHeight * 32;
         me.y = me.basePosition.y + bounce;

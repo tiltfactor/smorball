@@ -98,12 +98,8 @@
 
     SmbLoadQueue.prototype.load = function(manifest, callback, ob){
         if(manifest.length!= 0){
-           // console.log("image load");
-
-            //this.loadManifest(manifest);
             var me = this;
             this.events.loadComplete = function(){
-                //console.log("on complete of sever image call");
                 me.active = false;
                 me.bg_loader.removeEventListener("complete", me.events.loadComplete);
                 callback(ob);
@@ -116,7 +112,6 @@
 
     }
     var loadComplete = function(me,callback, ob){
-        //console.log("hii");
         me.active = false;
         me.fg_loader.removeEventListener("complete",me.events.click);
         me.fg_loader.removeEventListener("progress",  me.events.loaderEvent);
@@ -149,13 +144,11 @@
                 me.fg_loader.loadManifest(manifest);
                 me.fg_loader.addEventListener("complete", function(){
                     me.captchaLoad = false;
-                    //console.log("-------------> loaded "+me.localCapthcaSize )
                 });
             }
 
 
             setTimeout(function(){loadLocalImages(me)}, 10000);
-           // console.log("local images loading"+ me.localCapthcaSize);
         }
     }
     // creates number in format 000
