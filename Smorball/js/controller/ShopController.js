@@ -36,7 +36,7 @@ function ShopController(config) {
     var showShop = function (me){
         me.score = new Score({"gameState":me.config.gameState});
         var money = me.score.getMyMoney();
-        $(".wallet").text("$"+money);
+        $(".wallet").text(money);
         me.config.stage.removeAllChildren();
         resetAll(me);
         EventBus.dispatch("hideAll");
@@ -47,7 +47,7 @@ function ShopController(config) {
 
     }
     var setUpgradeStatus = function(me){
-        $(".wallet").text("$"+me.score.getMyMoney());
+        $(".wallet").text(me.score.getMyMoney());
         var innerItems = $(".itemDiv").children().filter(".innerItem").find(".innerDiv");
         _.each(innerItems,function(item){
             $(item).find(".upgrade").unbind( "click" );
