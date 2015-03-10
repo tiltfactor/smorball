@@ -43,10 +43,13 @@
     }
 
     MyBag.prototype.unselectAll = function(){
-        for(var i=0;i<this.myBag.length;i++){
-            var myPowerup = this.myBag[i];
+        //for(var i=0;i<this.myBag.length;i++){
+        //    var myPowerup = this.myBag[i];
+        //    myPowerup.unselect();
+        //}
+        var myPowerup= _.findWhere(this.myBag,{selected:true});
+        if(myPowerup)
             myPowerup.unselect();
-        }
 
     };
     var selectOnTab = function(me){

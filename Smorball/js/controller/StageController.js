@@ -172,6 +172,7 @@ function StageController(config) {
 
     };
     var onImagesLoad = function (me) {
+        $("#canvasHolder input").prop("disabled",false);
         window.onmousedown = prevent;
         $("#inputText").focus();
         onResize(me);
@@ -675,6 +676,7 @@ function StageController(config) {
     };
 
     var showResultScreen = function (me, result) {
+        $("#canvasHolder input").prop("disabled",true);
         me.waves.clearAll();
         me.waves = null;
         EventBus.dispatch("stopSound","stadiumAmbience");

@@ -72,7 +72,7 @@
 
     }
     
-    window.sprites.SpriteMan = SpriteMan;
+
     SpriteMan.prototype.setEffects = function(id){
         this.config.playerSound = PlayerData[id].extras.sound;
     }
@@ -175,5 +175,7 @@
         me.sprite.removeEventListener("animationend",me.myAnimationEnd);
         EventBus.dispatch("killme", me);
     }
+
+    window.sprites.SpriteMan = SpriteMan;
 
 }());

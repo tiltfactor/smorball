@@ -35,6 +35,16 @@ Manifest.game = [
 Manifest.level = [
 
 
+    {src: "shapes/Friendly Baseball Normal.png",id: "baseball"},
+    {src: "shapes/Friendly Baseball Helmet.png",id: "player_helmet"},
+    {src: "shapes/Friendly Baseball Cleets.png",id: "player_cleats"},
+    {src: "shapes/Friendly Footballl Cleets.png",id: "football_cleats"},
+    {src: "shapes/Friendly Footballl Helmet.png",id: "football_helmet"},
+    {src: "shapes/Friendly Footballl Normal.png",id: "football_normal"},
+    {src: "shapes/Friendly Hockey Normal.png",id: "hockey_normal"},
+    {src: "shapes/Friendly Hockey Helmet.png",id: "hockey_helmet"},
+    {src: "shapes/Friendly Hockey Cleets.png",id: "hockey_cleats"},
+
     {src:"shapes/SB Level Assets/ad.png",id:"ad"},
     {src:"shapes/SB Level Assets/seat.png",id:"seat"},
     {src:"shapes/SB Level Assets/commentators.png",id:"cmt"},
@@ -50,18 +60,10 @@ Manifest.level = [
 
 
     //{src: "shapes/player_normal.png",id: "player_normal"},
-    {src: "shapes/Friendly Baseball Normal.png",id: "baseball"},
-    {src: "shapes/Friendly Baseball Helmet.png",id: "player_helmet"},
-    {src: "shapes/Friendly Baseball Cleets.png",id: "player_cleats"},
-    {src: "shapes/Friendly Footballl Cleets.png",id: "football_cleats"},
-    {src: "shapes/Friendly Footballl Helmet.png",id: "football_helmet"},
-    {src: "shapes/Friendly Footballl Normal.png",id: "football_normal"},
-    {src: "shapes/Friendly Hockey Normal.png",id: "hockey_normal"},
-    {src: "shapes/Friendly Hockey Helmet.png",id: "hockey_helmet"},
-    {src: "shapes/Friendly Hockey Cleets.png",id: "hockey_cleats"},
 
 
-    {src: "shapes/man1.png",id: "man1"},
+
+    //{src: "shapes/man1.png",id: "man1"},
 
     {src: "shapes/enemy_regular.png", id: "enemy_regular"},
     {src: "shapes/boss_walk.png", id: "boss_walk"},

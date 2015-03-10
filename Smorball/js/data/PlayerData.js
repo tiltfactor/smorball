@@ -72,7 +72,7 @@ PlayerData.player_cleats = {
         }
     },
     "extras": {
-        "sound": {"tackle":"batHit"},
+        "sound": {},
         "sX": 1.5,//0.5,
         "sY": 1.5//0.5
     }
@@ -90,7 +90,7 @@ PlayerData.player_normal = {
         }
     },
     "extras": {
-        "sound": {"tackle":"batHit"},
+        "sound": {},
         "sX": 1.5,//0.5,
         "sY": 1.5//0.5
     }
@@ -125,7 +125,7 @@ PlayerData.football_normal = {
         }
     },
     "extras": {
-        "sound": {"tackle":"batHit"},
+        "sound": {},
         "sX": 1.1,//0.5,
         "sY": 1.1//0.5
     }
@@ -142,7 +142,9 @@ PlayerData.football_cleats = {
             ],
             "idle": [
                 32,
-                47
+                47,
+                "idle",
+                0.7
             ],
             "run": [
                 48,
@@ -157,7 +159,7 @@ PlayerData.football_cleats = {
 
     },
     "extras": {
-        "sound": {"tackle":"batHit"},
+        "sound": {},
         "sX": 1.1,//0.5,
         "sY": 1.1//0.5
     }
@@ -174,7 +176,9 @@ PlayerData.football_helmet = {
             ],
             "idle": [
                 32,
-                47
+                47,
+                "idle",
+                0.7
             ],
             "run": [
                 48,
@@ -189,7 +193,7 @@ PlayerData.football_helmet = {
 
     },
     "extras": {
-        "sound": {"tackle":"batHit"},
+        "sound": {},
         "sX": 1.1,//0.5,
         "sY": 1.1//0.5
     }
@@ -223,7 +227,7 @@ PlayerData.hockey_normal={
 
     },
     "extras": {
-        "sound": {"tackle":"batHit"},
+        "sound": {},
         "sX": 1.3,//0.5,
         "sY": 1.3//0.5
     }
@@ -240,7 +244,9 @@ PlayerData.hockey_cleats={
             ],
             "idle": [
                 26,
-                41
+                41,
+                "idle",
+                1
             ],
             "run": [
                 42,
@@ -255,7 +261,7 @@ PlayerData.hockey_cleats={
 
     },
     "extras": {
-        "sound": {"tackle":"batHit"},
+        "sound": {},
         "sX": 1.3,//0.5,
         "sY": 1.3//0.5
     }
@@ -267,12 +273,13 @@ PlayerData.hockey_cleats={
             "confused": [
                 0,
                 25,
-                "idle",
-                1
+                "idle"
             ],
             "idle": [
                 26,
-                41
+                41,
+                "idle",
+                1
             ],
             "run": [
                 42,
@@ -287,7 +294,7 @@ PlayerData.hockey_cleats={
 
     },
     "extras": {
-        "sound": {"tackle":"batHit"},
+        "sound": {},
         "sX": 1.3,//0.5,
         "sY": 1.3//0.5
     }
