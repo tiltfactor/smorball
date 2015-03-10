@@ -15,7 +15,6 @@
         cp = this;
     }
     CaptchaProcessor.prototype.init = function(){
-        //this.captchaDatasArray = [localData];
         this.currentIndex = 0;
         if(this.config.gameState.captchaDatasArray.length == 1){
             this.callCaptchaFromServer();
@@ -26,10 +25,8 @@
     }
     var activateUI = function(me){
         $("#canvasHolder").parent().css({position: 'relative'});
-        //$("#canvasHolder").css({top: me.config.canvasHeight - $("#canvasHolder").height(), position:'absolute'});
         document.getElementById('canvasHolder').style.display = "block";
         document.getElementById(me.captchaPassButton).value = 'Pass('+ me.maxPass + ')';
-
         disablePassButton(me,false);
         window.onload = prevent;
         $('#inputText').focus();
@@ -52,9 +49,7 @@
         var captchaHolder = new createjs.Bitmap();
         captchaHolder.maxHeight = height;
         captchaHolder.maxWidth = maxWidth;
-        captchaHolder.id = laneId;//by me
-
-        //  activateCaptchaSet(this);
+        captchaHolder.id = laneId;
         this.load(captchaHolder);
         return captchaHolder;
     }
@@ -62,7 +57,6 @@
     CaptchaProcessor.prototype.load = function(captcha){
         var captchaData = getCaptchaData(this);
         var message = "";
-        //console.log(captchaData);
         captcha.image = captchaData.url;
         if(this.captchaDatas.local){
             setScale(captcha,captcha.image.width, captcha.image.height);
@@ -80,14 +74,10 @@
             captcha._id = captchaData._id;
         }
 
-       //captcha.x = 10;
-       captcha.y = captcha.maxHeight/2 - (captcha.getTransformedBounds().height/2) ;
-
-              // captcha.datas = captchaData;
+        captcha.y = captcha.maxHeight/2 - (captcha.getTransformedBounds().height/2) ;
         captcha.scaleX =captcha.scaleY = 0;
         createjs.Tween.get(captcha).to({scaleX:1,scaleY:1},1000,createjs.Ease.backOut);
         this.captchasOnScreen.push(captcha);
-       // console.log(this.captchasOnScreen);
         ++this.currentIndex;
 
     };
@@ -139,17 +129,13 @@
 
 
     var checkCaptchaSetting = function(me){
-        //console.log("index : " + me.currentIndex);
         if(me.currentIndex == Math.floor(me.captchaDatas.differences.length/2) && me.config.gameState.currentLevel != 1){
-            console.log("next load");
             me.callCaptchaFromServer();
         }
         if(me.captchaDatas.local && me.config.loader.localCapthcaSize <= me.currentIndex){
-           // console.log(me.config.loader.localCapthcaSize +" entering into loop..")
             activateCaptchaSet(me);
         }
         if(me.currentIndex >= me.captchaDatas.differences.length){
-            //console.log("change");
             activateCaptchaSet(me);
         }
     }
@@ -272,7 +258,6 @@
         var me = this;
         var url = "http://tiltfactor1.dartmouth.edu:8080/api/page";
         // setTimeout(function(){
-       // console.log("call from server");
         $.ajax({
             dataType: 'json',
             url: url,
@@ -283,7 +268,6 @@
                 console.log("error: "+ textStatus);
             },
             success: function(data){
-                //console.log(data);
                 if(data != null)
                     processCaptchaData(data, me);
             }
@@ -294,7 +278,6 @@
     var processCaptchaData = function(data, me){
         var myData = {"url" : data.url, "differences" : data.differences, "_id": data._id, "local": false };
         var _onImageLoad = function(me){
-            //console.log("after image load");
             me.config.gameState.captchaDatasArray.push(myData);
             if((me.captchaDatas == undefined ||  me.captchaDatas.local) && me.config.gameState.currentLevel != 1 ){
                 activateCaptchaSet(me);
@@ -304,7 +287,6 @@
 
     }
     var activateCaptchaSet = function(me){
-        //console.log(me.config.gameState.currentLevel+ " activate captcha set");
         if(me.config.gameState.currentLevel == 1){
             me.captchaDatas = me.config.gameState.captchaDatasArray[0];
         }else{
@@ -315,7 +297,6 @@
             me.config.gameState.captchaDatasArray.pop();
         }
         me.currentIndex = 0;
-       // console.log(me.captchaDatas.differences.length);
     }
     CaptchaProcessor.prototype.getCaptchaImageData = function(){
         if(this.config.gameState.captchaDatasArray.length == 1){
