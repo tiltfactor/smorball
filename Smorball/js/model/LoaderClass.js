@@ -121,8 +121,9 @@
             me.config.stage.update();
         });
         var btnText = new createjs.Text("PLAY","bold 60px Boogaloo","#ffffff");
+        btnText.textBaseline='middle';
         btnText.x =  btn.getTransformedBounds().width/2 - btnText.getMeasuredWidth()/2;
-        btnText.y =  btn.getTransformedBounds().height/2 -  btnText.getMeasuredHeight() - 20;
+        btnText.y =  btn.getTransformedBounds().height/2 -  btnText.getMeasuredHeight()/2;
         btnContainer.addChild(btn,btnText);
         this.addChild(btnContainer);
         this.removeLoader();
