@@ -4,7 +4,7 @@
 LevelData = [];
 
 LevelData[1] = {
-    "level": 1, "lanes": 1, "pass": 1, "levelName": "LOCAL QUALIFIERS",
+    "level": 1, "lanes": 1, "pass": 1, "levelName": "PRE SEASON",
     "waves": {
         "activeWaves": 1, "time": 1000, "maxOnGround": 4, "enemySize": 13,
         "message": "Opponents come from the right.@@Keep them from scoring in your endzone. ", "data": [
@@ -20,7 +20,7 @@ LevelData[1] = {
 };
 
 LevelData[2] = {
-    "level": 2, "lanes": 3, "pass": 2, "levelName": "LOCAL QUARTERFINALS",
+    "level": 2, "lanes": 3, "pass": 2, "levelName": "LOCAL QUALIFIERS",
     "waves": {
         "activeWaves": 1, "time": 1000, "maxOnGround": 4, "enemySize": 18,
         "message": "Jujubes come in 3 different rows now.", "data": [
@@ -63,7 +63,7 @@ LevelData[2] = {
     "extras":{"message":"Shop has been unlocked"}
 };
 LevelData[3] = {
-    "level": 3, "lanes": 3, "pass": 2, "levelName": "LOCAL SEMIFINALS",
+    "level": 3, "lanes": 3, "pass": 2, "levelName": "LOCAL QUARTERFINALS",
     "waves": {
         "activeWaves": 1, "time": 1000, "maxOnGround": 4, "enemySize": 22,
         "data": [
@@ -113,7 +113,7 @@ LevelData[3] = {
     }
 };
 LevelData[4] = {
-    "level": 4, "lanes": 3, "pass": 2, "levelName": "LOCAL FINALS",
+    "level": 4, "lanes": 3, "pass": 2, "levelName": "LOCAL SEMIFINALS",
     "waves": {
         "activeWaves": 1,
         "time": 1000,
@@ -163,7 +163,7 @@ LevelData[4] = {
     "extras":{"message":"Cleats has been unlocked"}
 };
 LevelData[5] = {
-    "level": 5, "lanes": 3, "pass": 2, "levelName": "STATE QUALIFIERS",
+    "level": 5, "lanes": 3, "pass": 2, "levelName": "LOCAL FINALS",
     "waves": {
         "activeWaves": 1, "time": 1000, "maxOnGround": 4, "enemySize": 28,
         "data": [
@@ -203,7 +203,7 @@ LevelData[5] = {
     }
 };
 LevelData[6] = {
-    "level": 6, "lanes": 3, "pass": 2, "levelName": "STATE QUARTERFINALS",
+    "level": 6, "lanes": 3, "pass": 2, "levelName": "STATE QUALIFIERS",
     "waves": {
         "activeWaves": 1, "time": 1000, "maxOnGround": 4, "enemySize": 52,
         "message": "Pick up the powerup.@@Use tab to select it", "data": [
@@ -260,7 +260,7 @@ LevelData[6] = {
     "extras":{"message":"Helmet has been unlocked"}
 };
 LevelData[7] = {
-    "level": 7, "lanes": 3, "pass": 2, "levelName": "STATE SEMIFINALS",
+    "level": 7, "lanes": 3, "pass": 2, "levelName": "STATE QUARTERFINALS",
     "waves": {
         "activeWaves": 1, "time": 1000, "maxOnGround": 4, "enemySize": 31,
         "data": [
@@ -305,7 +305,7 @@ LevelData[7] = {
     }
 };
 LevelData[8] = {
-    "level": 8, "lanes": 3, "pass": 2, "levelName": "STATE FINALS",
+    "level": 8, "lanes": 3, "pass": 2, "levelName": "STATE SEMIFINALS",
     "waves": {
         "activeWaves": 1, "time": 1000, "maxOnGround": 4, "enemySize": 7,
         "data": [
@@ -339,7 +339,7 @@ LevelData[9] = {
     }
 };
 LevelData[10] = {
-    "level": 10, "lanes": 3, "pass": 2, "levelName": "State finals",
+    "level": 10, "lanes": 3, "pass": 2, "levelName": "REGIONAL QUALIFIERS",
     "waves": {
         "activeWaves": 1, "time": 1000, "maxOnGround": 4, "enemySize": 11,
         "data": [
@@ -365,7 +365,7 @@ LevelData[10] = {
     }
 };
 LevelData[11] = {
-    "level": 11, "lanes": 3, "pass": 2, "levelName": "State finals",
+    "level": 11, "lanes": 3, "pass": 2, "levelName": "REGIONAL QUARTERFINALS",
     "waves": {
         "activeWaves": 1, "time": 1000, "maxOnGround": 4, "enemySize": 6,
         "data": [
@@ -381,7 +381,7 @@ LevelData[11] = {
     }
 };
 LevelData[12] = {
-    "level": 12, "lanes": 3, "pass": 2, "levelName": "State finals",
+    "level": 12, "lanes": 3, "pass": 2, "levelName": "REGIONAL SEMIFINALS",
     "waves": {
         "activeWaves": 1, "time": 1000, "maxOnGround": 4, "enemySize": 7,
         "data": [
@@ -403,7 +403,7 @@ LevelData[12] = {
     "extras":{"message":"Bullhorn has been unlocked"}
 };
 LevelData[13] = {
-    "level": 13, "lanes": 3, "pass": 2, "levelName": "State finals",
+    "level": 13, "lanes": 3, "pass": 2, "levelName": "REGIONAL FINALS",
     "waves": {
         "activeWaves": 1, "time": 1000, "maxOnGround": 4, "enemySize": 31,
         "data": [
@@ -418,7 +418,7 @@ LevelData[13] = {
     }
 };
 LevelData[14] = {
-    "level": 14, "lanes": 3, "pass": 2, "levelName": "State finals",
+    "level": 14, "lanes": 3, "pass": 2, "levelName": "NATIONAL QUALIFIER",
     "waves": {
         "activeWaves": 1, "time": 1000, "maxOnGround": 4, "enemySize": 6,
         "data": [
@@ -438,7 +438,7 @@ LevelData[14] = {
     }
 };
 LevelData[15] = {
-    "level": 15, "lanes": 3, "pass": 2, "levelName": "State finals",
+    "level": 15, "lanes": 3, "pass": 2, "levelName": "NATIONAL QUARTERFINALS",
     "waves": {
         "activeWaves": 1, "time": 1000, "maxOnGround": 4, "enemySize": 3,
         "data": [
@@ -452,7 +452,7 @@ LevelData[15] = {
     }
 };
 LevelData[16] = {
-    "level": 16, "lanes": 3, "pass": 2, "levelName": "State finals",
+    "level": 16, "lanes": 3, "pass": 2, "levelName": "NATIONAL SEMIFINALS",
     "waves": {
         "activeWaves": 1, "time": 1000, "maxOnGround": 4, "enemySize": 31,
         "data": [
@@ -473,7 +473,7 @@ LevelData[16] = {
 };
 
 LevelData[0] = {
-    "level": 0, "lanes": 3, "pass": 2,"levelName":"Survival",
+    "level": 0, "lanes": 3, "pass": 2,"levelName":"NATIONAL FINALS",
     "waves": {
         "activeWaves": 1,
         "time": 1000,

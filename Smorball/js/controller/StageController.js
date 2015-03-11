@@ -351,7 +351,7 @@ function StageController(config) {
             me.config.lanes.push(lane);
 
             if (!(me.levelConfig.lanes == 1 && (laneId == 1 || laneId == 3))) {
-                var captchaHolder = me.captchaProcessor.getCaptchaPlaceHolder(lane.getMaxCaptchaWidth(), lane.getHeight(), laneId);
+                var captchaHolder = me.captchaProcessor.getCaptchaPlaceHolder(lane.getMaxCaptchaWidth(), 60+lane.getHeight(), laneId);
                 captchaHolder.x = lane.getCaptchaX()+30;
                 lane.addChild(captchaHolder);
 
