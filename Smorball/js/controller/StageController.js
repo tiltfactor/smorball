@@ -686,11 +686,11 @@ function StageController(config) {
             if (result == 0) {
                 $("#canvasHolder").hide();
                 $("#lostContainer").show();
-                $("#victoryContainer .moneyMade").text("$" + 0);
+                $("#lostContainer .moneyMade").text(0);
                 $("#resultWrapper").css("display", "table");
             } else if (result == 1) {
                 var money = me.score.getMoneyForLevel(me.config.gameState.currentLevel - 2);
-                $("#victoryContainer .moneyMade").text("$" + money);
+                $("#victoryContainer .moneyMade").text(money);
                 $("#victoryContainer").show();
                 $("#resultWrapper").css("display", "table");
             } else if (result == 2) {
