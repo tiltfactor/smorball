@@ -74,51 +74,6 @@
     </script>
 </head>
 <body onload="init()" style="background:#ccc;text-align: center">
-<!--<script>
-window.fbAsyncInit = function() {
-// init the FB JS SDK
-FB.init({
-appId      : '356239614580013', // App ID from the App Dashboard
-//channelUrl : '//WWW.YOUR_DOMAIN.COM/channel.html', // Channel File for x-domain communication
-status     : true, // check the login status upon init?
-cookie     : true, // set sessions cookies to allow your server to access the session?
-xfbml      : true  // parse XFBML tags on this page?
-});
-
-// Additional initialization code such as adding Event Listeners goes here
-FB.ui(
-{
-    method: 'feed',
-    name: 'Smorball', // name of the product or content you want to share
-    link: 'http://localhost:8080/smorball-github/Smorball/index.html',//'https://developers.facebook.com/docs/reference/dialogs/', // link back to the product or content you are sharing
-    picture: '',//'http://media1.santabanta.com/full1/Cricket/Rahul%20Dravid/rah20a.jpg', // path to an image you would like to share with this content
-    caption: 'http://smorball.com', // caption
-    description: 'I just defeated Chennai Super Kings. They scored 3422 against me!' // description of your product or content
-    },
-    function(response) {
-        if (response && response.post_id) {
-            alert('Post was published.');
-        } else {
-            alert('Post was not published.');
-        }
-    }
-);
-
-};
-
-// Load the SDK Asynchronously
-function fb_callout() {
-    (function(d){
-        console.log(d);
-        var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
-        if (d.getElementById(id)) {return;}
-        js = d.createElement('script'); js.id = id; js.async = true;
-        js.src = "//connect.facebook.net/en_US/all.js";
-        ref.parentNode.insertBefore(js, ref);
-    }(document));
-}
-</script>-->
-
 <canvas id="myCanvas"></canvas>
 
 <div id="loaderDiv" style="position: absolute; top: 0%; left: 0%; width: 100%; height: 100%; display: none ">

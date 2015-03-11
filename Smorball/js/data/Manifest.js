@@ -155,7 +155,7 @@ Manifest.levelMap = [
     {src: "audio/Typewriter/WordTypedCorrect.mp3", id: "correctSound"},
     {src: "audio/Typewriter/WordTypedIncorrect.mp3", id: "incorrectSound"},
 
-    {src: "audio/Smorball_Stadium_Ambience_V3.mp3", id: "stadiumAmbience"},
+    {src: "audio/StadiumAmbienceLooping.mp3", id: "stadiumAmbience"},
     {src: "audio/AmbientSounds/CrowdCheeringAmbient.mp3", id: "crowdCheering"},
 
     {src: "audio/Baseball_Bat_Hit.mp3", id: "batHit"},
