@@ -32,6 +32,9 @@
     Lane.prototype.setPlayer = function(player){
         this.player = player;
         this.player.x = 0;
+        if(player.type == "football"){
+            this.player.x =20;
+        }
         this.player.y = (this.config.y - this.config.height*0.75);
         this.player.setEndPoint(this.config.x + this.config.width);
     }
@@ -58,7 +61,8 @@
 
     Lane.prototype.setCaptcha = function(captcha){
         this.captcha.image = this.config.loader.getResult(captcha.id);
-        this.captcha.regY = this.captcha.image.height/2;
+        this.captcha.x = 100;
+        this.captcha.regY = this.captcha.image.height/2 ;
         this.captcha.text = captcha.ocr2;//id.value
     }
     Lane.prototype.getStartPoint = function(){

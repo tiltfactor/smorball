@@ -351,8 +351,8 @@ function StageController(config) {
             me.config.lanes.push(lane);
 
             if (!(me.levelConfig.lanes == 1 && (laneId == 1 || laneId == 3))) {
-                var captchaHolder = me.captchaProcessor.getCaptchaPlaceHolder(150+lane.getMaxCaptchaWidth(), 60+lane.getHeight(), laneId);
-                captchaHolder.x = lane.getCaptchaX();
+                var captchaHolder = me.captchaProcessor.getCaptchaPlaceHolder(lane.getMaxCaptchaWidth(), lane.getHeight(), laneId);
+                captchaHolder.x = lane.getCaptchaX()+30;
                 lane.addChild(captchaHolder);
 
             }
@@ -440,12 +440,26 @@ function StageController(config) {
                 "laneId": lane.getLaneId(),
                 "gameState": me.config.gameState
             };
-            var player = new sprites.SpriteMan(config);
             if (lane.player == undefined) {
+                var player = new sprites.SpriteMan(config);
                 lane.setPlayer(player);
                 var laneId = lane.getLaneId();
+                me.config.stage.addChild(player);
+                var setPlayerIndex = function(){
+                    var index0 = me.config.stage.getChildIndex(me.config.lanes[0].player);
+                    var index1 = me.config.stage.getChildIndex(me.config.lanes[1].player);
+                    var index2 = me.config.stage.getChildIndex(me.config.lanes[2].player);
+                    if (index0 > index1 && index1 >= 0){
+                        me.config.stage.swapChildren(me.config.lanes[0].player,me.config.lanes[1].player);
+                        setPlayerIndex();
+                    } else if (index1 > index2 && index2 >= 0){
+                        me.config.stage.swapChildren(me.config.lanes[1].player,me.config.lanes[2].player);
+                        setPlayerIndex();
+                    }
+                }
+                setPlayerIndex();
 
-                me.config.stage.addChildAt(player,laneId + 7);
+
             }
         }
     };
@@ -767,7 +781,7 @@ function StageController(config) {
     var pushPowerup = function (me, powerup) {
         setPowerupProperties(me, powerup);
         me.spawning.onPowerupSpawned();
-        me.config.stage.addChild(powerup);
+        me.config.stage.addChildAt(powerup,7);
         me.config.powerups.push(powerup);
     };
 

@@ -3,14 +3,14 @@
  */
 EnemyData = {};
 
-EnemyData.boss = {
+EnemyData.coach = {
     "data":{
         "images":["boss_walk", "boss_die"],
         "frames": {"regX": 0, "height": 114, "count": 70, "regY": 0, "width": 104},
         "animations": {"run": [0, 15, "run", 0.2],  "die" : [15,70,0.2],"stand":[12,12]}
     },
     "extras":{
-        "id" : "boss",
+        "id" : "coach",
         "speed": 2,
         "life": 6,
         "sound": {"hit": "enemy1hit", "die" : "enemy1die"}
@@ -73,17 +73,17 @@ EnemyData.winger = {
     
     }
 };
-EnemyData.enemy_regular = {
+EnemyData.wideCenters = {
     "data":{
         "images":["enemy_regular"],
         "frames": {"regX": 0, "height": 513, "count": 1, "regY": 0, "width": 493},
         "animations": {"run": [0, 0, "run", 0.2],  "die" : [0,0,0.2],"stand":[0,0]}
     },
     "extras":{
-        "id" : "enemy_regular",
-        "speed": 4,
-        "life": 1,
-        "sound": {"hit": "enemy6hit", "die" : "enemy6die"},
+        "id" : "wideCenters",
+        "speed": 2,
+        "life": 6,
+        "sound": {"hit": "enemy1hit", "die" : "enemy1die"},
         "sX" : 0.5,
         "sY" : 0.5
     

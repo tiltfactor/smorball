@@ -104,10 +104,10 @@ LevelData[3] = {
                 "stageDatas": [["fast", 2, 4000, ""], ["tallstops", 3, 10000, ""], ["fast", 2, 4000, ""], ["tallstops", 1, 4000, ""], ["fast", 3, 0, ""]]
             },
             {
-                "types": ["boss"],
+                "types": ["wideCenters"],
                 "time": -1,
                 "size": 1,
-                "stageDatas": [["boss", 2, 0, "Watchout for Boss! He's very strong!"]]
+                "stageDatas": [["wideCenters", 2, 0, "Watchout for wideCenters! He's very strong!"]]
             }
         ]
     }
@@ -122,16 +122,16 @@ LevelData[4] = {
         "message": "Powerups make your next word super powerful!@@Type the word to pick up the powerup.@@ Use tab to select your powerup",
         "data": [
             {
-                "types": ["boss", "cleats"],
+                "types": ["wideCenters", "cleats"],
                 "time": -1,
                 "size": 4,
-                "stageDatas": [["cleats", 2, 2000, "This one deals extra damage!@@ Try it now! ", "powerup"], ["boss", 2, 20000], ["cleats", 1, 0, "", "powerup"], ["cleats", 3, 0, "", "powerup"]]
+                "stageDatas": [["cleats", 2, 2000, "This one deals extra damage!@@ Try it now! ", "powerup"], ["wideCenters", 2, 20000], ["cleats", 1, 0, "", "powerup"], ["cleats", 3, 0, "", "powerup"]]
             },
             {
-                "types": ["boss", "cleats"],
+                "types": ["wideCenters", "cleats"],
                 "time": -1,
                 "size": 3,
-                "stageDatas": [["boss", 1, 5000], ["cleats", 3, 5000, "", "powerup"], ["boss", 2]]
+                "stageDatas": [["wideCenters", 1, 5000], ["cleats", 3, 5000, "", "powerup"], ["wideCenters", 2]]
             },
             {
                 "types": ["cleats"],
@@ -140,22 +140,22 @@ LevelData[4] = {
                 "stageDatas": [["cleats", 1, 0, "", "powerup"], ["cleats", 2, 0, "", "powerup"], ["cleats", 3, 0, "", "powerup"]]
             },
             {
-                "types": ["boss", "tallstops", "cleats"],
+                "types": ["wideCenters", "tallstops", "cleats"],
                 "time": -1,
                 "size": 6,
-                "stageDatas": [["tallstops", 3, 4000], ["tallstops", 2, 4000], ["tallstops", 3, 4000], ["tallstops", 1, 4000], ["cleats", 2, 5000, "", "powerup"], ["boss", 3]]
+                "stageDatas": [["tallstops", 3, 4000], ["tallstops", 2, 4000], ["tallstops", 3, 4000], ["tallstops", 1, 4000], ["cleats", 2, 5000, "", "powerup"], ["wideCenters", 3]]
             },
             {
-                "types": ["boss", "tallstops", "cleats"],
+                "types": ["wideCenters", "tallstops", "cleats"],
                 "time": -1,
                 "size": 4,
-                "stageDatas": [["boss", 3, 0], ["cleats", 2, 0, "", "powerup"], ["tallstops", 1, 4000], ["tallstops", 2]]
+                "stageDatas": [["wideCenters", 3, 0], ["cleats", 2, 0, "", "powerup"], ["tallstops", 1, 4000], ["tallstops", 2]]
             },
             {
-                "types": ["boss", "tallstops", "cleats"],
+                "types": ["wideCenters", "tallstops", "cleats"],
                 "time": -1,
                 "size": 5,
-                "stageDatas": [["boss", 3, 0], ["cleats", 2, 0, "", "powerup"], ["tallstops", 1, 4000], ["cleats", 3, 0, "", "powerup"], ["tallstops", 2]]
+                "stageDatas": [["wideCenters", 3, 0], ["cleats", 2, 0, "", "powerup"], ["tallstops", 1, 4000], ["cleats", 3, 0, "", "powerup"], ["tallstops", 2]]
             }
 
         ]
@@ -179,7 +179,7 @@ LevelData[5] = {
                 "size": 8,
                 "stageDatas": [["fast", 3, 4000], ["fast", 2, 6000], ["fast", 3, 6000], ["cleats", 2, 0, "", "powerup"], ["tallstops", 1, 6000], ["fast", 1, 4000], ["fast", 2], ["cleats", 2, 0, "", "powerup"]]
             },
-            {"types": ["boss"], "time": -1, "size": 1, "stageDatas": []},
+            {"types": ["wideCenters"], "time": -1, "size": 1, "stageDatas": []},
             {
                 "types": ["walkingBacks", "fast", "tallstops"],
                 "time": -1,
@@ -193,10 +193,10 @@ LevelData[5] = {
                 "stageDatas": [["tallstops", 2, 0], ["tallstops", 1, 8000], ["fast", 2, 5000], ["fast", 3, 8000], ["cleats", 3, 0, "", "powerup"], ["cleats", 2, 0, "", "powerup"], ["tallstops", 1, 6000], ["walkingBacks", 2, 7000], ["fast", 3, 4000]]
             },
             {
-                "types": ["boss", "cleats"],
+                "types": ["wideCenters", "cleats"],
                 "time": -1,
                 "size": 5,
-                "stageDatas": [["cleats", 1, 0, "", "powerup"], ["cleats", 2, 0, "", "powerup"], ["cleats", 3, 500, "", "powerup"], ["boss", 2, 0], ["boss", 3, 0]]
+                "stageDatas": [["cleats", 1, 0, "", "powerup"], ["cleats", 2, 0, "", "powerup"], ["cleats", 3, 500, "", "powerup"], ["wideCenters", 2, 0], ["wideCenters", 3, 0]]
             }
 
         ]
@@ -238,10 +238,10 @@ LevelData[6] = {
                 "stageDatas": [["helmet", 2, 0, "", "powerup"], ["walkingBacks", 3, 3000], ["walkingBacks", 3, 3000], ["walkingBacks", 3, 3000], ["walkingBacks", 3, 7000], ["walkingBacks", 1, 2000], ["walkingBacks", 1, 2000], ["walkingBacks", 1, 2000], ["helmet", 3, 0, "", "powerup"]]
             },
             {
-                "types": ["walkingBacks", "helmet", "cleats", "boss", "tallstops", "fast"],
+                "types": ["walkingBacks", "helmet", "cleats", "wideCenters", "tallstops", "fast"],
                 "time": -1,
                 "size": 17,
-                "stageDatas": [["cleats", 1, 0, "", "powerup"], ["boss", 2, 6000], ["walkingBacks", 2, 6000], ["walkingBacks", 2, 6000], ["cleats", 1, 0, "", "powerup"], ["walkingBacks", 2, 6000], ["walkingBacks", 2, 5000], ["helmet", 3, 2000, "", "powerup"], ["tallstops", 3, 2000], ["walkingBacks", 1, 4000], ["fast", 2, 2000], ["fast", 2, 2000], ["fast", 2, 2000], ["fast", 2, 2000], ["fast", 2, 4000], ["cleats", 1, 0, "", "powerup"], ["boss", 2]]
+                "stageDatas": [["cleats", 1, 0, "", "powerup"], ["wideCenters", 2, 6000], ["walkingBacks", 2, 6000], ["walkingBacks", 2, 6000], ["cleats", 1, 0, "", "powerup"], ["walkingBacks", 2, 6000], ["walkingBacks", 2, 5000], ["helmet", 3, 2000, "", "powerup"], ["tallstops", 3, 2000], ["walkingBacks", 1, 4000], ["fast", 2, 2000], ["fast", 2, 2000], ["fast", 2, 2000], ["fast", 2, 2000], ["fast", 2, 4000], ["cleats", 1, 0, "", "powerup"], ["wideCenters", 2]]
             },
             {
                 "types": ["walkingBacks", "fast", "helmet"],
@@ -271,10 +271,10 @@ LevelData[7] = {
                 "stageDatas": [["fast", 3, 3000], ["fast", 2, 4000], ["cleats", 2, 5000, "", "powerup"], ["tallstops", 1, 7000], ["walkingBacks", 3, 4000], ["fast", 2]]
             },
             {
-                "types": ["boss", "fast", "walkingBacks"],
+                "types": ["wideCenters", "fast", "walkingBacks"],
                 "time": -1,
                 "size": 5,
-                "stageDatas": [["boss", 2, 4000], ["fast", 1, 4000], ["fast", 3, 7000], ["walkingBacks", 1, 7000], ["fast", 3]]
+                "stageDatas": [["wideCenters", 2, 4000], ["fast", 1, 4000], ["fast", 3, 7000], ["walkingBacks", 1, 7000], ["fast", 3]]
             },
             {
                 "types": ["cleats", "tallstops", "walkingBacks"],
@@ -286,19 +286,19 @@ LevelData[7] = {
                 "types": ["walkingBacks", "fast", "tallstops", "cleats"],
                 "time": -1,
                 "size": 6,
-                "stageDatas": [["cleats", 2, 5000, "", "powerup"], ["walkingBacks", 1, 4000], ["fast", 1, 4000], ["boss", 3, 10000], ["tallstops", 2, 4000], ["fast", 1]]
+                "stageDatas": [["cleats", 2, 5000, "", "powerup"], ["walkingBacks", 1, 4000], ["fast", 1, 4000], ["wideCenters", 3, 10000], ["tallstops", 2, 4000], ["fast", 1]]
             },
             {
-                "types": ["walkingBacks", "cleats", "fast", "boss"],
+                "types": ["walkingBacks", "cleats", "fast", "wideCenters"],
                 "time": -1,
                 "size": 6,
-                "stageDatas": [["walkingBacks", 1, 0], ["cleats", 2, 3000, "", "powerup"], ["fast", 3, 15000], ["boss", 2, 4000], ["fast", 3, 4000], ["fast", 1, 5000]]
+                "stageDatas": [["walkingBacks", 1, 0], ["cleats", 2, 3000, "", "powerup"], ["fast", 3, 15000], ["wideCenters", 2, 4000], ["fast", 3, 4000], ["fast", 1, 5000]]
             },
             {
-                "types": ["walkingBacks", "cleats", "boss", "tallstops", "fast"],
+                "types": ["walkingBacks", "cleats", "wideCenters", "tallstops", "fast"],
                 "time": -1,
                 "size": 7,
-                "stageDatas": [["walkingBacks", 1, 0], ["cleats", 2, 5000, "", "powerup"], ["walkingBacks", 3, 7000], ["tallstops", 1, 7000], ["boss", 2, 6000], ["walkingBacks", 1, 4000], ["fast", 2]]
+                "stageDatas": [["walkingBacks", 1, 0], ["cleats", 2, 5000, "", "powerup"], ["walkingBacks", 3, 7000], ["tallstops", 1, 7000], ["wideCenters", 2, 6000], ["walkingBacks", 1, 4000], ["fast", 2]]
             }
 
         ]
@@ -316,10 +316,10 @@ LevelData[8] = {
                 "stageDatas": [["cleats", 3, 2000], ["tallstops", 2, 2000], ["cleats", 2, 3000, "", "powerup"], ["tallstops", 2, 3000], ["cleats", 1]]
             },
             {
-                "types": ["boss", "fast", "cleats"],
+                "types": ["wideCenters", "fast", "cleats"],
                 "time": -1,
                 "size": 5,
-                "stageDatas": [["fast", 2, 3000], ["fast", 1, 2000], ["boss", 3, 3000], ["cleats", 1, 1000,"","powerup"], ["fast", 2]]
+                "stageDatas": [["fast", 2, 3000], ["fast", 1, 2000], ["wideCenters", 3, 3000], ["cleats", 1, 1000,"","powerup"], ["fast", 2]]
             }
         ]
     }
@@ -370,10 +370,10 @@ LevelData[11] = {
         "activeWaves": 1, "time": 1000, "maxOnGround": 4, "enemySize": 6,
         "data": [
             {
-                "types": ["helmet", "cleats", "boss", "walkingBacks"],
+                "types": ["helmet", "cleats", "wideCenters", "walkingBacks"],
                 "time": -1,
                 "size": 6,
-                "stageDatas": [["walkingBacks", 3, 2000], ["walkingBacks", 3, 2000], ["helmet", 2, 2000, "", "powerup"], ["walkingBacks", 3, 2000], ["helmet", 2, 2000, "", "powerup"], ["walkingBacks", 3, 2000],["boss",2]]
+                "stageDatas": [["walkingBacks", 3, 2000], ["walkingBacks", 3, 2000], ["helmet", 2, 2000, "", "powerup"], ["walkingBacks", 3, 2000], ["helmet", 2, 2000, "", "powerup"], ["walkingBacks", 3, 2000],["wideCenters",2]]
             }
 
 
@@ -408,40 +408,10 @@ LevelData[13] = {
         "activeWaves": 1, "time": 1000, "maxOnGround": 4, "enemySize": 31,
         "data": [
             {
-                "types": ["fast", "cleats", "tallstops", "walkingBacks"],
+                "types": ["fast", "cleats", "bullhorn", "helmet","wideCenters"],
                 "time": -1,
-                "size": 6,
-                "stageDatas": [["fast", 3, 3000], ["fast", 2, 4000], ["cleats", 2, 5000, "", "powerup"], ["tallstops", 1, 7000], ["walkingBacks", 3, 4000], ["fast", 2]]
-            },
-            {
-                "types": ["boss", "fast", "walkingBacks"],
-                "time": -1,
-                "size": 5,
-                "stageDatas": [["boss", 2, 4000], ["fast", 1, 4000], ["fast", 3, 7000], ["walkingBacks", 1, 7000], ["fast", 3]]
-            },
-            {
-                "types": ["cleats", "tallstops", "walkingBacks"],
-                "time": -1,
-                "size": 5,
-                "stageDatas": [["cleats", 2, 4000, "", "powerup"], ["walkingBacks", 1, 7000], ["walkingBacks", 3, 10000], ["tallstops", 2, 5000], ["walkingBacks", 1]]
-            },
-            {
-                "types": ["walkingBacks", "fast", "tallstops", "cleats"],
-                "time": -1,
-                "size": 6,
-                "stageDatas": [["cleats", 2, 5000, "", "powerup"], ["walkingBacks", 1, 4000], ["fast", 1, 4000], ["boss", 3, 10000], ["tallstops", 2, 4000], ["fast", 1]]
-            },
-            {
-                "types": ["walkingBacks", "cleats", "fast", "boss"],
-                "time": -1,
-                "size": 6,
-                "stageDatas": [["walkingBacks", 1, 0], ["cleats", 2, 3000, "", "powerup"], ["fast", 3, 15000], ["boss", 2, 4000], ["fast", 3, 4000], ["fast", 1, 5000]]
-            },
-            {
-                "types": ["walkingBacks", "cleats", "boss", "tallstops", "fast"],
-                "time": -1,
-                "size": 7,
-                "stageDatas": [["walkingBacks", 1, 0], ["cleats", 2, 5000, "", "powerup"], ["walkingBacks", 3, 7000], ["tallstops", 1, 7000], ["boss", 2, 6000], ["walkingBacks", 1, 4000], ["fast", 2]]
+                "size": 10,
+                "stageDatas": [["bullhorn", 3, 30000,"","powerup"], ["fast", 1, 0],["fast", 2, 0], ["helmet", 3, 4000, "", "powerup"], ["fast", 1, 0], ["fast", 2, 0], ["fast", 3,2000],["cleats",2,0,"","powerup"],["fast",2,2000],["fast",2,2000],["fast",2,2000],["wideCenters",3]]
             }
 
         ]
@@ -450,90 +420,34 @@ LevelData[13] = {
 LevelData[14] = {
     "level": 14, "lanes": 3, "pass": 2, "levelName": "State finals",
     "waves": {
-        "activeWaves": 1, "time": 1000, "maxOnGround": 4, "enemySize": 31,
+        "activeWaves": 1, "time": 1000, "maxOnGround": 4, "enemySize": 6,
         "data": [
             {
-                "types": ["fast", "cleats", "tallstops", "walkingBacks"],
-                "time": -1,
-                "size": 6,
-                "stageDatas": [["fast", 3, 3000], ["fast", 2, 4000], ["cleats", 2, 5000, "", "powerup"], ["tallstops", 1, 7000], ["walkingBacks", 3, 4000], ["fast", 2]]
-            },
-            {
-                "types": ["boss", "fast", "walkingBacks"],
+                "types": ["winger","bullhorn", "cleats", "tallstops", "walkingBacks"],
                 "time": -1,
                 "size": 5,
-                "stageDatas": [["boss", 2, 4000], ["fast", 1, 4000], ["fast", 3, 7000], ["walkingBacks", 1, 7000], ["fast", 3]]
+                "stageDatas": [["cleats", 3, 30000,"","powerup"], ["winger", 2, 4000], ["walkingBacks", 1, 0], ["bullhorn", 2, 5000,"","powerup"], ["bullhorn", 3, 0,"","powerup"]]
             },
             {
-                "types": ["cleats", "tallstops", "walkingBacks"],
+                "types": ["bullhorn", "winger", "tallstops"],
                 "time": -1,
-                "size": 5,
-                "stageDatas": [["cleats", 2, 4000, "", "powerup"], ["walkingBacks", 1, 7000], ["walkingBacks", 3, 10000], ["tallstops", 2, 5000], ["walkingBacks", 1]]
-            },
-            {
-                "types": ["walkingBacks", "fast", "tallstops", "cleats"],
-                "time": -1,
-                "size": 6,
-                "stageDatas": [["cleats", 2, 5000, "", "powerup"], ["walkingBacks", 1, 4000], ["fast", 1, 4000], ["boss", 3, 10000], ["tallstops", 2, 4000], ["fast", 1]]
-            },
-            {
-                "types": ["walkingBacks", "cleats", "fast", "boss"],
-                "time": -1,
-                "size": 6,
-                "stageDatas": [["walkingBacks", 1, 0], ["cleats", 2, 3000, "", "powerup"], ["fast", 3, 15000], ["boss", 2, 4000], ["fast", 3, 4000], ["fast", 1, 5000]]
-            },
-            {
-                "types": ["walkingBacks", "cleats", "boss", "tallstops", "fast"],
-                "time": -1,
-                "size": 7,
-                "stageDatas": [["walkingBacks", 1, 0], ["cleats", 2, 5000, "", "powerup"], ["walkingBacks", 3, 7000], ["tallstops", 1, 7000], ["boss", 2, 6000], ["walkingBacks", 1, 4000], ["fast", 2]]
+                "size": 4,
+                "stageDatas": [["bullhorn", 2, 30000,"","powerup"], ["tallstops", 1, 0], ["tallstops", 3, 3000], ["winger", 1]]
             }
-
         ]
     }
 };
 LevelData[15] = {
     "level": 15, "lanes": 3, "pass": 2, "levelName": "State finals",
     "waves": {
-        "activeWaves": 1, "time": 1000, "maxOnGround": 4, "enemySize": 31,
+        "activeWaves": 1, "time": 1000, "maxOnGround": 4, "enemySize": 3,
         "data": [
             {
-                "types": ["fast", "cleats", "tallstops", "walkingBacks"],
-                "time": -1,
-                "size": 6,
-                "stageDatas": [["fast", 3, 3000], ["fast", 2, 4000], ["cleats", 2, 5000, "", "powerup"], ["tallstops", 1, 7000], ["walkingBacks", 3, 4000], ["fast", 2]]
-            },
-            {
-                "types": ["boss", "fast", "walkingBacks"],
+                "types": ["winger", "helmet"],
                 "time": -1,
                 "size": 5,
-                "stageDatas": [["boss", 2, 4000], ["fast", 1, 4000], ["fast", 3, 7000], ["walkingBacks", 1, 7000], ["fast", 3]]
-            },
-            {
-                "types": ["cleats", "tallstops", "walkingBacks"],
-                "time": -1,
-                "size": 5,
-                "stageDatas": [["cleats", 2, 4000, "", "powerup"], ["walkingBacks", 1, 7000], ["walkingBacks", 3, 10000], ["tallstops", 2, 5000], ["walkingBacks", 1]]
-            },
-            {
-                "types": ["walkingBacks", "fast", "tallstops", "cleats"],
-                "time": -1,
-                "size": 6,
-                "stageDatas": [["cleats", 2, 5000, "", "powerup"], ["walkingBacks", 1, 4000], ["fast", 1, 4000], ["boss", 3, 10000], ["tallstops", 2, 4000], ["fast", 1]]
-            },
-            {
-                "types": ["walkingBacks", "cleats", "fast", "boss"],
-                "time": -1,
-                "size": 6,
-                "stageDatas": [["walkingBacks", 1, 0], ["cleats", 2, 3000, "", "powerup"], ["fast", 3, 15000], ["boss", 2, 4000], ["fast", 3, 4000], ["fast", 1, 5000]]
-            },
-            {
-                "types": ["walkingBacks", "cleats", "boss", "tallstops", "fast"],
-                "time": -1,
-                "size": 7,
-                "stageDatas": [["walkingBacks", 1, 0], ["cleats", 2, 5000, "", "powerup"], ["walkingBacks", 3, 7000], ["tallstops", 1, 7000], ["boss", 2, 6000], ["walkingBacks", 1, 4000], ["fast", 2]]
+                "stageDatas": [ ["helmet", 2, 0, "", "powerup"],["helmet", 1, 30000, "", "powerup"], ["winger", 1, 0], ["winger", 3, 4000], ["helmet", 2,0,"","powerup"]]
             }
-
         ]
     }
 };
@@ -543,42 +457,17 @@ LevelData[16] = {
         "activeWaves": 1, "time": 1000, "maxOnGround": 4, "enemySize": 31,
         "data": [
             {
-                "types": ["fast", "cleats", "tallstops", "walkingBacks"],
+                "types": ["coach", "fast","walkingBacks"],
                 "time": -1,
                 "size": 6,
-                "stageDatas": [["fast", 3, 3000], ["fast", 2, 4000], ["cleats", 2, 5000, "", "powerup"], ["tallstops", 1, 7000], ["walkingBacks", 3, 4000], ["fast", 2]]
+                "stageDatas": [["coach", 2, 0],["walkingBacks",1,2000],["walkingBacks",1]]
             },
             {
-                "types": ["boss", "fast", "walkingBacks"],
+                "types": ["coach", "fast", "walkingBacks"],
                 "time": -1,
                 "size": 5,
-                "stageDatas": [["boss", 2, 4000], ["fast", 1, 4000], ["fast", 3, 7000], ["walkingBacks", 1, 7000], ["fast", 3]]
-            },
-            {
-                "types": ["cleats", "tallstops", "walkingBacks"],
-                "time": -1,
-                "size": 5,
-                "stageDatas": [["cleats", 2, 4000, "", "powerup"], ["walkingBacks", 1, 7000], ["walkingBacks", 3, 10000], ["tallstops", 2, 5000], ["walkingBacks", 1]]
-            },
-            {
-                "types": ["walkingBacks", "fast", "tallstops", "cleats"],
-                "time": -1,
-                "size": 6,
-                "stageDatas": [["cleats", 2, 5000, "", "powerup"], ["walkingBacks", 1, 4000], ["fast", 1, 4000], ["boss", 3, 10000], ["tallstops", 2, 4000], ["fast", 1]]
-            },
-            {
-                "types": ["walkingBacks", "cleats", "fast", "boss"],
-                "time": -1,
-                "size": 6,
-                "stageDatas": [["walkingBacks", 1, 0], ["cleats", 2, 3000, "", "powerup"], ["fast", 3, 15000], ["boss", 2, 4000], ["fast", 3, 4000], ["fast", 1, 5000]]
-            },
-            {
-                "types": ["walkingBacks", "cleats", "boss", "tallstops", "fast"],
-                "time": -1,
-                "size": 7,
-                "stageDatas": [["walkingBacks", 1, 0], ["cleats", 2, 5000, "", "powerup"], ["walkingBacks", 3, 7000], ["tallstops", 1, 7000], ["boss", 2, 6000], ["walkingBacks", 1, 4000], ["fast", 2]]
+                "stageDatas": [["walkingbacks", 1,0],["walkingbacks", 3, 3000], ["coach", 2, 2000], ["fast", 2, 0], ["fast", 2]]
             }
-
         ]
     }
 };
@@ -595,7 +484,7 @@ LevelData[0] = {
         "bullhornSize": 0,
         "data": [
             {
-                "types": ["fast", "cleats", "tallstops", "walkingBacks"], "time": -1, "size": 6,
+                "types": ["fast", "cleats", "tallstops", "walkingBacks","wideCenters","coach","helmet"], "time": -1, "size": 6,
                 "stageDatas": []
             }
 

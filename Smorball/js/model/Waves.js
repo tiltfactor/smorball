@@ -74,7 +74,8 @@
         if(type == "enemy"){
             wave.killEnemy();
         }
-        var status = wave.isComplete();
+        if(wave)
+            var status = wave.isComplete();
 
         if(status){
             var index = this.activeWaves.indexOf(wave);
