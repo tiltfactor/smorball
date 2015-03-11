@@ -1338,6 +1338,37 @@ screen and (max-height: 450px) and (min-width: 500px) {
     #canvasHolder input[type=button] {
         padding: 0px 15px 21px 15px;
     }
+    .timeout-buttons {
+        max-width: 500px;
+    }
+    .timeout-content {
+        padding-top: 1%;
+    }
+    #timeout-close {
+        height: 42px;
+    }
+    #timeout-btn-close,
+    .slider-text {
+        font-size: 2em;
+    }
+    #timout-text {
+        font-size: 2.5em;
+    }
+    .slider .ui-slider-handle {
+        height: 3em;
+        width: 3em;
+        top: -1.2em;
+    }
+    .timeout-content button {
+        font-size: 2.5em;
+    }
+    .titleBar {
+        height: 85px;
+    }
+    .titleBar .wallet {
+        font-size: 3em;
+        max-width: 300px;
+    }
 }
 
 @media screen and (min-width: 1500px) and (min-height: 1100px){
