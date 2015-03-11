@@ -466,6 +466,10 @@ canvas {
     text-align: left;
 }
 
+#victoryContainer {
+    text-align: center;
+}
+
 .innerContainer > div {
     padding: 8%;
     box-sizing: border-box;
@@ -527,11 +531,6 @@ canvas {
 
 #resultWrapper button:active {
     background-position: 0 0%;
-}
-
-#resultScreenTryAgainButton,
-#resultScreenContinueButton {
-    display: none;
 }
 
 .timeDetails p {
