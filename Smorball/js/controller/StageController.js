@@ -303,7 +303,7 @@ function StageController(config) {
         logo.x = 800 - logo.getTransformedBounds().width / 2;
         logo.y = 600;
         logo.alpha = 0.25;
-        me.config.stage.addChild(logo);
+        me.config.stage.addChildAt(logo,6);
     };
 
     var showScore = function (me) {
@@ -810,7 +810,7 @@ function StageController(config) {
     var pushPowerup = function (me, powerup) {
         setPowerupProperties(me, powerup);
         me.spawning.onPowerupSpawned();
-        me.config.stage.addChildAt(powerup,7);
+        me.config.stage.addChildAt(powerup,8);
         me.config.powerups.push(powerup);
     };
 
