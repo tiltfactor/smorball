@@ -313,7 +313,7 @@ LevelData[8] = {
                 "types": [ "cleats", "tallstops"],
                 "time": -1,
                 "size": 5,
-                "stageDatas": [["cleats", 3, 2000], ["tallstops", 2, 2000], ["cleats", 2, 3000, "", "powerup"], ["tallstops", 2, 3000], ["cleats", 1]]
+                "stageDatas": [["cleats", 3, 2000,"","powerup"], ["tallstops", 2, 2000], ["cleats", 2, 3000, "", "powerup"], ["tallstops", 2, 3000], ["cleats", 1,0, "", "powerup"]]
             },
             {
                 "types": ["wideCenters", "fast", "cleats"],
@@ -341,7 +341,7 @@ LevelData[9] = {
 LevelData[10] = {
     "level": 10, "lanes": 3, "pass": 2, "levelName": "REGIONAL QUALIFIERS",
     "waves": {
-        "activeWaves": 1, "time": 1000, "maxOnGround": 4, "enemySize": 11,
+        "activeWaves": 1, "time": 1000, "maxOnGround": 4, "enemySize": 12,
         "data": [
             {
                 "types": ["fast", "helmet"],
@@ -373,7 +373,7 @@ LevelData[11] = {
                 "types": ["helmet", "cleats", "wideCenters", "walkingBacks"],
                 "time": -1,
                 "size": 7,
-                "stageDatas": [["walkingBacks", 3, 2000], ["walkingBacks", 3, 2000], ["helmet", 2, 2000, "", "powerup"], ["walkingBacks", 3, 2000], ["cleats", 2, 2000, "", "powerup"], ["walkingBacks", 3, 2000],["wideCenters",2]]
+                "stageDatas": [["walkingBacks", 3, 2000], ["walkingBacks", 3, 2000], ["helmet", 2, 2000, "", "powerup"], ["walkingBacks", 3, 2000], ["cleats", 3, 2000, "", "powerup"], ["walkingBacks", 3, 2000],["wideCenters",2]]
             }
 
 
@@ -395,7 +395,7 @@ LevelData[12] = {
                 "types": ["bullhorn", "tallstops"],
                 "time": -1,
                 "size": 5,
-                "stageDatas": [["tallstops", 1, 2000] ,["bullhorn",2,0,"","powerup"],["bullhorn",2,0,"","powerup"],["tallstops", 3, 2000],["tallstops", 3]]
+                "stageDatas": [["tallstops", 1, 2000] ,["bullhorn",2,0,"","powerup"],["bullhorn",2,0,"","powerup"],["tallstops", 3, 2000],["tallstops", 2]]
             }
 
         ]
