@@ -58,9 +58,10 @@
         var text = new createjs.Text(team,"bold 120px Boogaloo","#ffffff");
         text.lineWidth = 630;
         text.textAlign = "center";
+        text.lineHeight = text.getMeasuredHeight()/2 + 20;
         text.shadow = new createjs.Shadow("#000000", 3, 3, 1);
-
         text.x = 800;
+        text.y = -50;
         me.addChild(text);
     };
     var drawTeams = function(me,gameLevel){
@@ -73,17 +74,17 @@
         var vs = new createjs.Text("VS","bold 140px Boogaloo","#ffffff");
         vs.shadow = new createjs.Shadow("#000000", 3, 3, 1);
         vs.textAlign = "center";
-        vs.setTransform(790,400);
+        vs.setTransform(790,410);
         me.addChild(vs);
     };
     var drawHomeTeam = function(me){
         var team = new createjs.Bitmap(me.config.loader.getResult("hometeam"));
-        team.setTransform(140,200);
+        team.setTransform(140,210);
         me.addChild(team);
     };
     var drawEnemyTeam = function(me,gameLevel){
         var team = new createjs.Bitmap(me.config.loader.getResult("splash"+gameLevel));
-        team.setTransform(960,200);
+        team.setTransform(960,210);
         me.addChild(team);
     };
     LoaderClass.prototype.drawPlayButton = function(){

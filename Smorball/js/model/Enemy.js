@@ -9,7 +9,7 @@
         this.config = config || {};
         this.lifes = [];
         this.speed = config.speed || 1;
-        this.lifeRectSize = 5;
+        //this.lifeRectSize = 5;
         this.hit = false;
         this.initialize();
 
@@ -111,8 +111,9 @@
         updateLifePos(this);
     }
     Enemy.prototype.addLife = function(start){
-        var life = new createjs.Shape();
-        life.graphics.beginFill("#123").drawRect(0,0,this.lifeRectSize,this.lifeRectSize);
+        var life = new createjs.Bitmap(this.config.loader.getResult("heart_full"));
+        //life.graphics.beginFill("#123").drawRect(0,0,this.lifeRectSize,this.lifeRectSize);
+        this.lifeRectSize = life.getBounds().width;
         this.addChild(life);
         this.lifes.push(life);
         if(!start){
@@ -121,7 +122,8 @@
     }
     Enemy.prototype.removeLife = function(){
         var life = this.lifes.pop();
-        this.removeChild(life);
+        //this.removeChild(life);
+        life.image = this.config.loader.getResult("heart_empty");
         updateLifePos(this);
     }
     Enemy.prototype.getHeight = function(){
@@ -157,7 +159,7 @@
     var updateLifePos = function(me){
 
         var sx = (me.getWidth()/2) - (me.life * (me.lifeRectSize))/2 ;
-        var sy = 0;
+        var sy = -10;
 
         for(var i= 0 ; i< me.lifes.length ; i++){
             var life = me.lifes[i];

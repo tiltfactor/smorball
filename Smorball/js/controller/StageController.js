@@ -756,7 +756,16 @@ function StageController(config) {
     var pushEnemy = function (me, enemy) {
         EventBus.dispatch("showPendingEnemies", me.waves.getPendingEnemies());
         setEnemyProperties(me, enemy);
-        me.config.stage.addChild(enemy);
+        var laneId =  enemy.getLaneId();
+        if(laneId<3 && me.config.gameState.currentLevel!=1){
+            var player = me.config.lanes[laneId].player;
+            var index = me.config.stage.getChildIndex(player) ;
+            me.config.stage.addChildAt(enemy,index);
+        }else{
+            me.config.stage.addChild(enemy)
+        }
+
+
         me.config.enemies.push(enemy);
     };
 

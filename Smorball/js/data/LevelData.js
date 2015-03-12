@@ -372,8 +372,8 @@ LevelData[11] = {
             {
                 "types": ["helmet", "cleats", "wideCenters", "walkingBacks"],
                 "time": -1,
-                "size": 6,
-                "stageDatas": [["walkingBacks", 3, 2000], ["walkingBacks", 3, 2000], ["helmet", 2, 2000, "", "powerup"], ["walkingBacks", 3, 2000], ["helmet", 2, 2000, "", "powerup"], ["walkingBacks", 3, 2000],["wideCenters",2]]
+                "size": 7,
+                "stageDatas": [["walkingBacks", 3, 2000], ["walkingBacks", 3, 2000], ["helmet", 2, 2000, "", "powerup"], ["walkingBacks", 3, 2000], ["cleats", 2, 2000, "", "powerup"], ["walkingBacks", 3, 2000],["wideCenters",2]]
             }
 
 
@@ -405,13 +405,13 @@ LevelData[12] = {
 LevelData[13] = {
     "level": 13, "lanes": 3, "pass": 2, "levelName": "REGIONAL FINALS",
     "waves": {
-        "activeWaves": 1, "time": 1000, "maxOnGround": 4, "enemySize": 31,
+        "activeWaves": 1, "time": 1000, "maxOnGround": 4, "enemySize": 10,
         "data": [
             {
                 "types": ["fast", "cleats", "bullhorn", "helmet","wideCenters"],
                 "time": -1,
-                "size": 10,
-                "stageDatas": [["bullhorn", 3, 30000,"","powerup"], ["fast", 1, 0],["fast", 2, 0], ["helmet", 3, 4000, "", "powerup"], ["fast", 1, 0], ["fast", 2, 0], ["fast", 3,2000],["cleats",2,0,"","powerup"],["fast",2,2000],["fast",2,2000],["fast",2,2000],["wideCenters",3]]
+                "size": 12,
+                "stageDatas": [["bullhorn", 3, 30000,"","powerup"], ["fast", 1, 0],["fast", 2, 0], ["helmet", 3, 4000, "", "powerup"], ["fast", 1, 0], ["fast", 2, 0], ["fast", 3,2000],["cleats",1,0,"","powerup"],["fast",2,2000],["fast",2,2000],["fast",2,2000],["wideCenters",3]]
             }
 
         ]

@@ -58,13 +58,6 @@ Manifest.level = [
     {src: "shapes/grass_tile3.png", id: "grassTile3"},
     {src: "shapes/grass_tile4.png", id: "grassTile4"},
 
-
-    //{src: "shapes/player_normal.png",id: "player_normal"},
-
-
-
-    //{src: "shapes/man1.png",id: "man1"},
-
     {src: "shapes/enemy_regular.png", id: "enemy_regular"},
     {src: "shapes/boss_walk.png", id: "boss_walk"},
     {src: "shapes/boss_die.png",id: "boss_die"},
@@ -79,7 +72,9 @@ Manifest.level = [
 
 
     {src:"shapes/correct_text.png",id:"correct"},
-    {src:"shapes/incorrect_text.png",id:"incorrect"}
+    {src:"shapes/incorrect_text.png",id:"incorrect"},
+    {src:"shapes/heart_empty.png",id:"heart_empty"},
+    {src:"shapes/heart_full.png",id:"heart_full"}
 
 
    ];
