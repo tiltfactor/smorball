@@ -59,12 +59,6 @@
         return this.config.height;
     }
 
-    Lane.prototype.setCaptcha = function(captcha){
-        this.captcha.image = this.config.loader.getResult(captcha.id);
-        this.captcha.x = 100;
-        this.captcha.regY = this.captcha.image.height/2 ;
-        this.captcha.text = captcha.ocr2;//id.value
-    }
     Lane.prototype.getStartPoint = function(){
         var point = {};
         point.x = this.config.x +10;

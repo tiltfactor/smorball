@@ -189,6 +189,7 @@ function StageController(config) {
         initShowMessage(me);
         generateWaves(me);
         showPowerup(me);
+        setCaptchaIndex(me);
         EventBus.dispatch("setTickerStatus");
 
     };
@@ -200,6 +201,11 @@ function StageController(config) {
         me.message.alpha = 0;
         me.config.stage.addChild(me.message);
     };
+    var setCaptchaIndex = function(me){
+        var captchas = _.filter(me.config.stage.children,function(a){if(a.name =="captchaHolder")return a});
+        var length = me.config.stage.children.length;
+        _.each(captchas,function(a){me.config.stage.setChildIndex(a,length-1)});
+    }
     var showGameMessage = function (me, msg) {
         var text = msg.target;
         showMessage(me, text);
@@ -352,8 +358,10 @@ function StageController(config) {
 
             if (!(me.levelConfig.lanes == 1 && (laneId == 1 || laneId == 3))) {
                 var captchaHolder = me.captchaProcessor.getCaptchaPlaceHolder(lane.getMaxCaptchaWidth(), 60+lane.getHeight(), laneId);
+                captchaHolder.name = "captchaHolder";
                 captchaHolder.x = lane.getCaptchaX()+30;
-                lane.addChild(captchaHolder);
+                captchaHolder.y = lane.y + 60;
+                me.config.stage.addChild(captchaHolder);
 
             }
         }
@@ -458,6 +466,7 @@ function StageController(config) {
                     }
                 }
                 setPlayerIndex();
+                setCaptchaIndex(me);
 
 
             }

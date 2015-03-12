@@ -28,7 +28,7 @@ LevelData[2] = {
                 "types": ["walkingBacks"],
                 "time": -1,
                 "size": 2,
-                "stageDatas": [["walkingBacks", 1, 10000, " Type the word in the same row as the Jujube to hit that Jujube."], ["walkingBacks", 2, 0, ""]]
+                "stageDatas": [["walkingBacks", 1, 10000, " Type the word in the same row as the Jujube to hit that Jujube."], ["walkingBacks", 2]]
             },
             {"types": ["walkingBacks"], "time": -1, "size": 1, "stageDatas": []},
             {"types": ["walkingBacks"], "time": -1, "size": 1, "stageDatas": []},
@@ -389,13 +389,13 @@ LevelData[12] = {
                 "types": ["bullhorn", "walkingBacks"],
                 "time": -1,
                 "size": 4,
-                "stageDatas": [["bullhorn", 2, 30000, "And there’s a Bullhorn on the field!@@Use the Bullhorn to send all of your athletes down the field at once!", "powerup"] , ["walkingBacks", 1], ["walkingBacks", 2], ["walkingBacks", 3]]
+                "stageDatas": [["bullhorn", 2, 30000, "And there’s a Bullhorn on the field!@@Use the Bullhorn to send all of your athletes down the field at once!", "powerup"] , ["walkingBacks", 1,0], ["walkingBacks", 2,0], ["walkingBacks", 3]]
             },
             {
                 "types": ["bullhorn", "tallstops"],
                 "time": -1,
                 "size": 5,
-                "stageDatas": [["tallstops", 1, 2000] ,["bullhorn",2,"","powerup"],["bullhorn",2,"","powerup"],["tallstops", 3, 2000],["tallstops", 3, 2000]]
+                "stageDatas": [["tallstops", 1, 2000] ,["bullhorn",2,0,"","powerup"],["bullhorn",2,0,"","powerup"],["tallstops", 3, 2000],["tallstops", 3]]
             }
 
         ]
@@ -423,7 +423,7 @@ LevelData[14] = {
         "activeWaves": 1, "time": 1000, "maxOnGround": 4, "enemySize": 6,
         "data": [
             {
-                "types": ["winger","bullhorn", "cleats", "tallstops", "walkingBacks"],
+                "types": ["winger","bullhorn", "cleats", "walkingBacks"],
                 "time": -1,
                 "size": 5,
                 "stageDatas": [["cleats", 3, 30000,"","powerup"], ["winger", 2, 4000], ["walkingBacks", 1, 0], ["bullhorn", 2, 5000,"","powerup"], ["bullhorn", 3, 0,"","powerup"]]
@@ -454,12 +454,12 @@ LevelData[15] = {
 LevelData[16] = {
     "level": 16, "lanes": 3, "pass": 2, "levelName": "NATIONAL SEMIFINALS",
     "waves": {
-        "activeWaves": 1, "time": 1000, "maxOnGround": 4, "enemySize": 31,
+        "activeWaves": 1, "time": 1000, "maxOnGround": 4, "enemySize": 9,
         "data": [
             {
                 "types": ["coach", "fast","walkingBacks"],
                 "time": -1,
-                "size": 6,
+                "size": 3,
                 "stageDatas": [["coach", 2, 0],["walkingBacks",1,2000],["walkingBacks",1]]
             },
             {
@@ -484,7 +484,7 @@ LevelData[0] = {
         "bullhornSize": 0,
         "data": [
             {
-                "types": ["fast", "cleats", "tallstops", "walkingBacks","wideCenters","coach","helmet"], "time": -1, "size": 6,
+                "types": ["fast", "cleats", "tallstops", "walkingBacks","wideCenters","coach","helmet","bullhorn"], "time": -1, "size": 6,
                 "stageDatas": []
             }
 

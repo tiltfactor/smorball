@@ -74,7 +74,6 @@
             captcha._id = captchaData._id;
         }
 
-        captcha.y = captcha.maxHeight/2 - (captcha.getTransformedBounds().height/2) ;
         captcha.scaleX =captcha.scaleY = 0;
         createjs.Tween.get(captcha).to({scaleX:1,scaleY:1},1000,createjs.Ease.backOut);
         this.captchasOnScreen.push(captcha);

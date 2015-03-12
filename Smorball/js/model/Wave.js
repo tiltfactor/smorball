@@ -21,7 +21,7 @@
     var loadEnemiesOnSurvival = function(me){
         me.counter = 1;
         me.surivalTime = 6000;
-        var property = [EnemyData.enemy_regular.extras.id, 2, me.surivalTime];
+        var property = [EnemyData.wideCenters.extras.id, 2, me.surivalTime];
         me.config.data.stageDatas.push(property);
         me.timer = setInterval(function(){if(me.config.data.stageDatas.length < 50){ createData(me)}},1000);
     }
@@ -51,7 +51,7 @@
 
     }
     var getTypeForSurvival = function(me, type){
-        var enemyList = [EnemyData.boss,EnemyData.enemy_regular, EnemyData.weak,EnemyData.badGuy,EnemyData.fast,EnemyData.regular];
+        var enemyList = [EnemyData.wideCenters,EnemyData.coach, EnemyData.walkingBacks,EnemyData.tallstops,EnemyData.fast,EnemyData.winger];
         var powerupList = [PowerupsData.cleats,PowerupsData.cleats,PowerupsData.bullhorn];
         if(type == undefined){
             if(me.counter % 5 == 0){
