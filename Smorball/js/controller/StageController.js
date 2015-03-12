@@ -703,7 +703,7 @@ function StageController(config) {
                 $("#lostContainer .moneyMade").text(0);
                 $("#resultWrapper").css("display", "table");
             } else if (result == 1) {
-                var money = me.score.getMoneyForLevel(me.config.gameState.currentLevel - 2);
+                var money = me.score.getMoneyForLevel(me.config.life);
                 $("#victoryContainer .moneyMade").text(money);
                 $("#victoryContainer").show();
                 $("#resultWrapper").css("display", "table");

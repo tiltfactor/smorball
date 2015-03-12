@@ -388,13 +388,13 @@ LevelData[12] = {
             {
                 "types": ["bullhorn", "walkingBacks"],
                 "time": -1,
-                "size": 6,
+                "size": 4,
                 "stageDatas": [["bullhorn", 2, 30000, "And there’s a Bullhorn on the field!@@Use the Bullhorn to send all of your athletes down the field at once!", "powerup"] , ["walkingBacks", 1], ["walkingBacks", 2], ["walkingBacks", 3]]
             },
             {
                 "types": ["bullhorn", "tallstops"],
                 "time": -1,
-                "size": 6,
+                "size": 5,
                 "stageDatas": [["tallstops", 1, 2000] ,["bullhorn",2,"","powerup"],["bullhorn",2,"","powerup"],["tallstops", 3, 2000],["tallstops", 3, 2000]]
             }
 
@@ -411,14 +411,14 @@ LevelData[13] = {
                 "types": ["fast", "cleats", "bullhorn", "helmet","wideCenters"],
                 "time": -1,
                 "size": 12,
-                "stageDatas": [["bullhorn", 3, 30000,"","powerup"], ["fast", 1, 0],["fast", 2, 0], ["helmet", 3, 4000, "", "powerup"], ["fast", 1, 0], ["fast", 2, 0], ["fast", 3,2000],["cleats",1,0,"","powerup"],["fast",2,2000],["fast",2,2000],["fast",2,2000],["wideCenters",3]]
+                "stageDatas": [["bullhorn", 3, 30000,"","powerup"], ["fast", 1, 0],["fast", 2, 0], ["helmet", 3, 4000, "", "powerup"], ["fast", 1, 0], ["fast", 2, 0], ["fast", 3,2000],["cleats",2,0,"","powerup"],["fast",2,2000],["fast",2,2000],["fast",2,2000],["wideCenters",3]]
             }
 
         ]
     }
 };
 LevelData[14] = {
-    "level": 14, "lanes": 3, "pass": 2, "levelName": "NATIONAL QUALIFIER",
+    "level": 14, "lanes": 3, "pass": 2, "levelName": "NATIONAL QUALIFIERS",
     "waves": {
         "activeWaves": 1, "time": 1000, "maxOnGround": 4, "enemySize": 6,
         "data": [

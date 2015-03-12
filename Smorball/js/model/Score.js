@@ -60,8 +60,8 @@
 
 
   }
-  Score.prototype.getMoneyForLevel = function(level){
-    var points = level;//this.config.gameState.gs.gameLevelPoints[level];
+  Score.prototype.getMoneyForLevel = function(life){
+    var points = life;//this.config.gameState.gs.gameLevelPoints[level];
     if(points == 6){
       points = 8;
     }
