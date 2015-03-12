@@ -327,7 +327,7 @@ LevelData[8] = {
 LevelData[9] = {
     "level": 9, "lanes": 3, "pass": 2, "levelName": "STATE FINALS",
     "waves": {
-        "activeWaves": 1, "time": 1000, "maxOnGround": 4, "enemySize": 5,
+        "activeWaves": 1, "time": 1000, "maxOnGround": 4, "enemySize": 6,
         "data": [
             {
                 "types": ["tallstops", "walkingBacks"],
@@ -352,13 +352,13 @@ LevelData[10] = {
             {
                 "types": ["cleats", "winger", "walkingBacks","helmet"],
                 "time": -1,
-                "size": 5,
+                "size": 4,
                 "stageDatas": [["cleats", 3, 10000,"Winger can switch lanes.@@  Time your orders well, @@or else your athletes will miss him!","powerup"], ["winger", 1, 12000], ["helmet", 3, 0,"","powerup"], ["walkingBacks", 3]]
             },
             {
                 "types": ["cleats", "winger", "walkingBacks","helmet"],
                 "time": -1,
-                "size": 5,
+                "size": 7,
                 "stageDatas": [["helmet", 1, 10000,"","powerup"], ["winger", 3, 12000], ["walkingBacks", 2, 2000], ["walkingBacks", 2, 2000],["walkingBacks", 2, 2000],["cleats",2,15000,"","powerup"],["winger",1]]
             }
         ]

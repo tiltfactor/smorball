@@ -204,7 +204,14 @@ function StageController(config) {
     var setCaptchaIndex = function(me){
         var captchas = _.filter(me.config.stage.children,function(a){if(a.name =="captchaHolder")return a});
         var length = me.config.stage.children.length;
-        _.each(captchas,function(a){me.config.stage.setChildIndex(a,length-1)});
+
+        _.each(captchas,function(a){
+            var player = me.config.lanes[a.id -1].player;
+            if(player){
+                length = me.config.stage.getChildIndex(player);
+            }
+            me.config.stage.setChildIndex(a,length-1)
+        });
     }
     var showGameMessage = function (me, msg) {
         var text = msg.target;
@@ -360,7 +367,7 @@ function StageController(config) {
                 var captchaHolder = me.captchaProcessor.getCaptchaPlaceHolder(lane.getMaxCaptchaWidth(), 60+lane.getHeight(), laneId);
                 captchaHolder.name = "captchaHolder";
                 captchaHolder.x = lane.getCaptchaX()+30;
-                captchaHolder.y = lane.y + 60;
+                captchaHolder.y = lane.y + 90;
                 me.config.stage.addChild(captchaHolder);
 
             }
@@ -768,8 +775,12 @@ function StageController(config) {
         var laneId =  enemy.getLaneId();
         if(laneId<3 && me.config.gameState.currentLevel!=1){
             var player = me.config.lanes[laneId].player;
-            var index = me.config.stage.getChildIndex(player) ;
-            me.config.stage.addChildAt(enemy,index);
+            var index = me.config.stage.getChildIndex(player);
+            if(index>0)
+                me.config.stage.addChildAt(enemy,index);
+            else{
+                me.config.stage.addChild(enemy);
+            }
         }else{
             me.config.stage.addChild(enemy)
         }
