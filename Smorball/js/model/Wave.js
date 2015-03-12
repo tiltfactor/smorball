@@ -3,7 +3,6 @@
  */
 (function () {
     var Wave = function(config){
-        // var config = {"level": 2, "waves": 5, "enemyPerWave" : 2, "lanes" : 2, "life" : 1, "types" : ["boss"]}
         this.config = config;
         this.currentIndex = 0;
         this.activeIndex = 0;

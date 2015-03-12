@@ -9,7 +9,6 @@
         this.config = config || {};
         this.lifes = [];
         this.speed = config.speed || 1;
-        //this.lifeRectSize = 5;
         this.hit = false;
         this.initialize();
 
@@ -39,12 +38,12 @@
         }
     }
 
-    var drawBorder = function(me){
+    /*var drawBorder = function(me){
         var shape = new createjs.Shape();
         shape.graphics.beginStroke("#000").setStrokeStyle(0.1).drawRect(0,0,me.getWidth(),me.getHeight());
         me.addChild(shape);
 
-    }
+    }*/
 
     window.sprites.Enemy = Enemy;
     Enemy.prototype.run  = function(){
@@ -122,7 +121,6 @@
     }
     Enemy.prototype.removeLife = function(){
         var life = this.lifes.pop();
-        //this.removeChild(life);
         life.image = this.config.loader.getResult("heart_empty");
         updateLifePos(this);
     }
@@ -135,7 +133,6 @@
 
     Enemy.prototype.setScale = function(sx,sy){
         this.sprite.setTransform(0,6,sx,sy);
-        //drawBorder(this);
         updateLifePos(this);
     }
     Enemy.prototype.setEffects = function(){

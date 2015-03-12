@@ -21,15 +21,15 @@
         rightBlock.x = this.config.width-this.blockWidth;
         return rightBlock;
     };
-    Blocks.prototype.getLeftBlockPosition = function(){
+    /*Blocks.prototype.getLeftBlockPosition = function(){
       return {"x":0,"y":0}
-    };
-    Blocks.prototype.getRightBlockPosition = function(){
+    };*/
+    /*Blocks.prototype.getRightBlockPosition = function(){
         return {"x":this.config.width-this.blockWidth,"y":0}
-    };
-    Blocks.prototype.getFreePosition = function(){
+    };*/
+    /*Blocks.prototype.getFreePosition = function(){
         return {"x":this.blockWidth,"y":0}
-    };
+    };*/
     var drawChairs = function(me,blockId){
         var container = new createjs.Container();
         var blockId = blockId;

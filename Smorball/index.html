@@ -40,7 +40,6 @@
     <script src="js/controller/GameLevelController.js"></script>
     <script src="js/controller/SoundController.js"></script>
     <script src="js/EventBus.js"></script>
-    <script src="js/model/Life.js"></script>
     <script src="js/model/SpriteMan.js"></script>
     <script src="js/model/Enemy.js"></script>
     <script src="js/model/Powerups.js"></script>
@@ -51,11 +50,6 @@
     <link rel="stylesheet" href="css/jquery.mCustomScrollbar.css">
     <script>
         function init() {
-
-//            var popupCanvas = document.getElementById("loaderCanvas");
-//            popupCanvas.width = window.innerWidth;
-//            popupCanvas.height = window.innerHeight;
-
             gc = new GameController();
             gc.init();
         }
@@ -87,16 +81,9 @@
     <img class="sb_logo" src="shapes/SB_logo.png">
     <div class="menu-button-container">
         <div class="menu-buttons">
-           <!--  <button onClick="EventBus.dispatch(&quot;exitMenu&quot;);EventBus.dispatch(&quot;resetAll&quot;)">New Game
-            </button>
-            <button id="resumeButton" onClick="EventBus.dispatch(&quot;resumeGame&quot;)">Resume Game</button>
-            <button onClick="EventBus.dispatch(&quot;exitMenu&quot;);EventBus.dispatch(&quot;showMap&quot;)">Map
-            </button> -->
             <button onmouseover="EventBus.dispatch('playSound','mouseover');" onClick="EventBus.dispatch(&quot;play&quot;);">Play</button>
             <button onmouseover="EventBus.dispatch('playSound','mouseover');" onClick="EventBus.dispatch(&quot;showOptions&quot;);">Options</button>
             <button onmouseover="EventBus.dispatch('playSound','mouseover');" onClick="EventBus.dispatch(&quot;showHelp&quot;);">Help</button>
-           
-            <!-- <button onClick="EventBus.dispatch(&quot;exitMenu&quot;)">Exit</button> -->
         </div>
     </div>
 </div>
@@ -114,12 +101,6 @@
         </div>
     </div>
 </div>
-<!--<div id="dialog-level" style="display:none; text-align:center">-->
-<!--<p>-->
-<!--<input id="levelButton" type="button" onclick="EventBus.dispatch(&quot;exitMenu&quot;);EventBus.dispatch(&quot;hideMap&quot;);EventBus.dispatch(&quot;newGame&quot;)"></input>-->
-<!--</p>-->
-<!--</div>-->
-
 <div id="canvasHolder">
     <input id="passButton" type="button" value="Pass" onmouseover="EventBus.dispatch('playSound','mouseover');" onclick="EventBus.dispatch(&quot;passText&quot;)"></input>
     <input id="inputText" type="text" placeholder="Type Phrase"
@@ -295,10 +276,8 @@
       </div>
         <div class="optionBackBtn">
             <button class="backButton optionsBackButton" onmouseover="EventBus.dispatch('playSound','mouseover');" onclick="EventBus.dispatch('hideOptions');"></button>
-
         </div>
     </div>
 </div>
-
 </body>
 </html>

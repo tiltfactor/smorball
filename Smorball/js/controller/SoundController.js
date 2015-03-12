@@ -66,7 +66,7 @@ function SoundController(config){
         for(var i=0; i< me.config.gameState.audioList.length; i++){
             var removeSound = me.config.gameState.audioList[i];
             if(!removeSound.config.isMain){
-                if(removeSound.config.file == "stadiumAmbience"){
+                if(removeSound.config.file == "stadiumAmbience" || removeSound.config.file == "crowdCheering"){
                     continue;
                 }
                 removeSound.mySound.pause();

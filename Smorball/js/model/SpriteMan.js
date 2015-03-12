@@ -31,28 +31,12 @@
         this.singleHit = false;
         this.hitEnemies = [];
         this.speed = this.config.speed || 6;
-
-
-
         this.bounds = this.getBounds();
-        //this.setTransform(0,0,0.5,0.5);
     }
     var getRandomType = function(me){
         var type = Math.floor(Math.random() * me.playerTypes.length);
         return me.playerTypes[type];
     };
-
-    var drawBorder = function(me){
-        if(me.shape != undefined){
-            me.removeChild(me.shape);
-        }
-
-        me.shape = new createjs.Shape();
-        me.shape.graphics.beginStroke("#000").setStrokeStyle(0.5).drawRect(0,0,me.getWidth(), me.getHeight());
-        me.addChild(me.shape);
-
-    }
-
     SpriteMan.prototype.setDefaultSpriteSheet = function(){
         var id = this.type+"_normal";
         this.spriteData = new SpriteSheet({"id" : id, "data": PlayerData[id].data, "loader" : this.config.loader});
@@ -98,7 +82,7 @@
         this.x  = x;
         this.y = y;
         this.regX = 0;
-        this.regY = this.getHeight();///2;
+        this.regY = this.getHeight();
 
     }
     SpriteMan.prototype.setSpeed = function(speed){

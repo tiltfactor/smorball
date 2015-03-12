@@ -243,16 +243,6 @@
         return myCords;
     }
 
-    var matchText = function(textArray, input){
-        for(var i = 0 ; i< textArray.length; i++){
-            var text = textArray[i];
-            if(text == input){
-                return true;
-            }
-        }
-        return false;
-    }
-
     CaptchaProcessor.prototype.callCaptchaFromServer = function(){
         var me = this;
         var url = "http://tiltfactor1.dartmouth.edu:8080/api/page";
@@ -305,7 +295,6 @@
         }
         return null;
     }
-
 
     var assistText = function(me,laneId){
         for(var i=0;i<me.captchasOnScreen.length;i++){

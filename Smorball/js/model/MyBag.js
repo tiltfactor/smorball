@@ -43,10 +43,6 @@
     }
 
     MyBag.prototype.unselectAll = function(){
-        //for(var i=0;i<this.myBag.length;i++){
-        //    var myPowerup = this.myBag[i];
-        //    myPowerup.unselect();
-        //}
         var myPowerup= _.findWhere(this.myBag,{selected:true});
         if(myPowerup)
             myPowerup.unselect();
@@ -72,9 +68,6 @@
                 return;
             }
         }while(me.myBag[me.selectedId].getSum() <= 0)
-    }
-    var showMyPowerup = function(){
-        //show
     }
     MyBag.prototype.addToBagFromField = function(powerup){
         var myPowerup = getMyPowerupByType(powerup.getType(),this);
@@ -124,9 +117,6 @@
         this.myBag = [];
         loadBag(this);
     }
-
-
-
     window.MyBag = MyBag;
 
 }());

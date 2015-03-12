@@ -88,11 +88,6 @@
         }
 
     }
-
-
-    var setupPower = function(){
-
-    };
     var drawPowerup = function(me){
         var image = PowerupsData[me.config.type].data.images[0];
         me.powerup = new createjs.Bitmap(me.config.loader.getResult(image));
@@ -106,25 +101,19 @@
         me.number.x = me.powerup.getTransformedBounds().width-me.number.getMeasuredWidth();
         me.number.y = me.powerup.getTransformedBounds().height-me.number.getMeasuredHeight();
         me.addChild(me.number);
-
     }
-
     var setText = function(me,text){
         me.number.text = text;
     }
     MyPowerup.prototype.getWidth = function(){
         return this.getTransformedBounds().width;
     }
-
-
     MyPowerup.prototype.removeFromField = function(){
         if(this.fromField){
             this.fromField--
         }else{
             this.fromShop--
         }
-
-
         var sum = this.fromField + this.fromShop;
         checkCount(this,sum);
         setText(this,sum);

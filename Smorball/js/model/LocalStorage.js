@@ -5,7 +5,6 @@
     var LocalStorage = function(config){
         this.config = config;
         this.key = "Smorball";
-        //loadMyPowerup(this);
     }
     LocalStorage.prototype.saveToStore = function(data){
         localStorage.setItem(this.key, data);
@@ -18,8 +17,6 @@
     LocalStorage.prototype.reset = function(){
         this.saveToStore(null);
     }
-
-
     window.LocalStorage = LocalStorage;
 
 }());

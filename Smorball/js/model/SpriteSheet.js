@@ -20,14 +20,6 @@
             me.data.images[i] = me.config.loader.getResult(me.data.images[i]);
         }
     }
-
-//    SpriteSheet.prototype.getFrameWidth = function(){
-//        return this._frameWidth;
-//    }
-//    SpriteSheet.prototype.getFrameHeight = function(){
-//        return this._frameHeight;
-//    }
-
     window.SpriteSheet = SpriteSheet;
 
 }());

@@ -47,8 +47,6 @@
             drawTeams(this,gameLevel);
 
         }
-
-        //this.regX = this.getTransformedBounds().width/2;
     };
     LoaderClass.prototype.updateLoader = function(perc){
         this.preloader.update(perc)
@@ -150,11 +148,6 @@
     };
     var drawSBlogo = function(me){
         var sb = new createjs.Bitmap(me.config.loader.getResult("smorball_logo"));
-
-        //if(sb.getBounds()){
-        //    me.preloader.y = 1300;
-        //    sb.setTransform(359,370);
-        //}
         me.addChild(sb);
     }
     window.ui.LoaderClass = LoaderClass

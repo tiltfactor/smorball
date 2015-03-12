@@ -110,49 +110,15 @@ function ShopController(config) {
     };
     var getPrice = function(id){
         var price = _.pick(_.where(shopData,{"id":id})[0],"price");
-        //for(var i=0;i<shopData.length;i++){
-        //    if(id==shopData[i].id){
-                return price.price;
-        //    }
-        //}
+        return price.price;
     };
     var getUnlockStatus =function(id){
         var json = _.where(shopData,{"id":id});
         return json[0].unlocksAt;
     }
-    var drawExit = function(me){
-        var label = new createjs.Text();
-        label.text = "exit";
-        label.font = "bold 30px Arial";
-        label. color = "red";
-        label.x = 300;
-        label.y = 300;
-        label.addEventListener("click",showMap);
-        me.config.stage.addChild(label);
-        me.config.stage.update();
-    }
     var showMap = function(){
         EventBus.dispatch("exitShop")
     };
-
-    var displayShopProducts = function(me){
-        loadProducts(me);
-        updateProductLocations(me);
-
-        me.config.stage.update();
-    }
-
-    var updateProductLocations = function(me){
-        var x= 0; var y = 0;
-        for(var i = 0 ; i< me.config.products.length; i++){
-            var product = me.config.products[i];
-            product.homeX = x;
-            product.homeY = y;
-            product.setPosition(x,y);
-            x = x + 120;
-        }
-    }
-
     var addToBag = function(me,ob){
         var btn = $(ob).find(".upgrade");
         var id = ob.id;
@@ -209,17 +175,6 @@ function ShopController(config) {
         setUpgradeStatus(me);
 
     };
-
-    var updateCart = function(me){
-        var x = 0;  var y = 300;
-        for(var i = 0 ; i< me.config.bag.length ; i++){
-            var product = me.config.bag[i];
-            product.setPosition(x,y);
-            x += 120;
-        }
-        me.config.stage.update();
-    }
-
     ShopController.prototype.hideShop = function () {
         EventBus.dispatch("hideAll");
         EventBus.dispatch("showMap");

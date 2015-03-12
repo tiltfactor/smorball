@@ -161,8 +161,8 @@ function MenuController(config) {
         var state = me.config.gameState.states;
         switch(me.config.gameState.currentState){
             case state.MAIN_MENU:{break;}
-            case state.RUN:{/*$("#resumeButton").show()*/;break;}
-            case state.GAME_OVER: {/*$("#resumeButton").hide();*/break;}
+            case state.RUN:{;break;}
+            case state.GAME_OVER: {break;}
             case state.SHOP:break;
         }
     };

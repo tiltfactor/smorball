@@ -21,11 +21,7 @@ function GameController(config) {
             var fileId = "click";
             EventBus.dispatch("playSound",fileId);
         };
-    }    
-    var loadFromStore = function(me){
-        var ls = new LocalStorage({"gameState":me.config.gameState});
     }
-
     var loadImages = function (me) {
         var _doInit = function (me) {
             $("#mainSplashScreen").css("display", "table");
@@ -92,8 +88,6 @@ function GameController(config) {
         me.config.gameLeveController.init();
         hideAll();
         EventBus.dispatch("showMenu");
-        //EventBus.dispatch("exitShop");
-        // EventBus.dispatch("exitMenu");
     }
 
     var loadEvents = function(me){
@@ -123,12 +117,6 @@ function GameController(config) {
         stage.removeAllChildren();
     }
 
-
-    const ARROW_KEY_LEFT = 37;
-    const ARROW_KEY_UP = 38;
-    const ARROW_KEY_RIGHT = 39;
-    const ARROW_KEY_DOWN = 40;
-    const SPACE_KEY_DOWN = 32;
     const ESC_KEY = 27;
     const SHIFT_KEY = 16;
     const ONE = 49;
@@ -139,17 +127,6 @@ function GameController(config) {
 
     var onKeyBoardEvents = function (e) {
         switch (e.keyCode) {
-
-            case ARROW_KEY_LEFT:
-                break;
-            case ARROW_KEY_UP:
-                break;
-            case ARROW_KEY_RIGHT:
-                break;
-            case ARROW_KEY_DOWN:
-                break;
-            case SPACE_KEY_DOWN:
-                break;
             case ESC_KEY:
                 EventBus.dispatch("showTimeoutScreen");
                 break;

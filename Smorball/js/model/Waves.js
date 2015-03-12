@@ -35,7 +35,6 @@
        if(this.config.gameState.currentLevel == this.config.gameState.survivalLevel){
            return 0;
        }
-
         return --this.totalOpponents;
     }
 

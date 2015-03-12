@@ -23,15 +23,12 @@
    }
     var setVolumeValue = function(me){
         if(me.config.type == me.config.gameState.soundType.EFFECTS){
-            //var vol = me.config.gameState.config.store.soundEffects/100 || me.config.gameState.gs.soundEffects/100;
             var vol = me.config.gameState.config.store.soundEffects/100;
             if(!vol){
                 vol = me.config.gameState.gs.soundEffects/100;
             }
         }
         else if(me.config.type == me.config.gameState.soundType.MAIN){
-
-            //var vol = me.config.gameState.config.store.music/100 || me.config.gameState.gs.music/100;
             var vol = me.config.gameState.config.store.music/100;
             if(!vol){
                 vol = me.config.gameState.gs.music/100;
@@ -48,13 +45,7 @@
    }
    Sound.prototype.pause = function(){
        this.mySound.pause();
-   } 
-    Sound.prototype.getType = function(){
-        this.config.type;
-    }
-    Sound.prototype.isMain = function(){
-        this.config.isMain;
-    }
+   }
     Sound.prototype.setVolume = function(volume){
       this.mySound.volume = volume;
     }
