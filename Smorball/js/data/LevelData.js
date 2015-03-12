@@ -420,7 +420,7 @@ LevelData[13] = {
 LevelData[14] = {
     "level": 14, "lanes": 3, "pass": 2, "levelName": "NATIONAL QUALIFIERS",
     "waves": {
-        "activeWaves": 1, "time": 1000, "maxOnGround": 4, "enemySize": 6,
+        "activeWaves": 1, "time": 1000, "maxOnGround": 4, "enemySize": 7,
         "data": [
             {
                 "types": ["winger","bullhorn", "cleats", "walkingBacks"],
@@ -466,7 +466,7 @@ LevelData[16] = {
                 "types": ["coach", "fast", "walkingBacks"],
                 "time": -1,
                 "size": 5,
-                "stageDatas": [["walkingbacks", 1,0],["walkingbacks", 3, 3000], ["coach", 2, 2000], ["fast", 2, 0], ["fast", 2]]
+                "stageDatas": [["walkingBacks", 1,0],["walkingBacks", 3, 3000], ["coach", 2, 2000], ["fast", 2, 0], ["fast", 2]]
             }
         ]
     }
