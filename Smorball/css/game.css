@@ -351,6 +351,7 @@ canvas {
     height: 100%;
     background-size: 100% 100%;
     padding: .5% 2% 2% 6%;
+    text-align: center;
 }
 
 .shopBackBtn {
