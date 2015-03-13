@@ -17,19 +17,6 @@ Manifest.game = [
     {src:"shapes/btn1_down.png",id:"btn_down"},
     {src: "audio/Click.mp3", id: "click"},
     {src: "audio/Mouse_Over_Button.mp3", id: "mouseover"}
-
-
-   // {src: "shapes/runningBoy.png",id: "man"},
-   // {src: "shapes/enemy.png", id: "enemy"},
-   // {src: "shapes/gem.png", id: "gem"},
-    //{src: "shapes/left.jpg", id: "left"},
-   // {src: "shapes/heart.png", id: "heart"},
-   //{src:"shapes/ruby_float.png",id:"ruby_float"},
-//    {src:"shapes/SB Level Assets/grass_tile1.png",id:"tile1"},
-//    {src:"shapes/SB Level Assets/grass_tile2.png",id:"tile2"},
-//    {src:"shapes/SB Level Assets/grass_tile3.png",id:"tile3"},
-   // {src:"shapes/SB_level_select.jpg",id:"levelmap"},//todo:remove
-
   ];
 
 Manifest.level = [
