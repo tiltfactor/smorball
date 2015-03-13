@@ -60,7 +60,8 @@ input[type=button] {
 #canvasHolder input[type=text] {
     background-image: url("../shapes/input_bg.png");
     color: black;
-    padding: .8% 3% 2.2% 3%
+    padding: .8% 1% 2.2% 1%;
+    width: 22%;
 }
 
 #canvasHolder input[type=button]:disabled {
@@ -996,14 +997,14 @@ screen and ( max-height: 500px ) {
         width: 90%;
         max-width: 600px;
     }
-}
+    }
 
 @media screen and (max-width: 650px) {
     .shadedContainer .details {
         font-size: 1.5em;
     }
     .moneyMade {
-        width: 120px;
+        width: 100px;
         padding: 2% 2% 5% 10%;
     }
 
@@ -1078,7 +1079,7 @@ screen and ( max-height: 400px ) {
     #resultWrapper button {
         font-size: .8em;
     }
-}
+    }
 
 @media screen and (max-width: 320px),
 screen and ( max-height: 350px ) {
@@ -1153,7 +1154,7 @@ screen and ( max-height: 560px )
 @media screen and (max-width: 768px) {
     .helpScreenContent {
         padding: 7% 2%;
-    } 
+    }
 }
 
 @media screen and (max-width: 480px),
@@ -1225,7 +1226,7 @@ screen and (max-height: 450px) and (min-width: 500px) {
     .helpScreenContent {
         max-width: 800px;
     }
-}
+    }
 
 @media screen and (min-height: 900px) { 
     .shopInnerBg {
@@ -1328,7 +1329,7 @@ screen and (max-height: 450px) and (min-width: 500px) {
     #canvasHolder input {
         font-size: 1.6em;
     }
-}
+    }
 
 @media screen and (min-width: 1501px) and (min-height: 1300px){
     .helpScreenContent {
