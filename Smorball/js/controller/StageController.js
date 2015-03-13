@@ -905,7 +905,7 @@ function StageController(config) {
     };
     var hideTimeOut = function (me) {
         //calculateTime(me);
-        window.onclick = prevent;
+        window.onmousedown = prevent;
         $("#inputText").focus();
         me.config.gameState.currentState = me.config.gameState.states.RUN;
         $('#timeout-container').css('display', 'none');
