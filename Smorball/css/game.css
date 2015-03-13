@@ -33,7 +33,6 @@ input[type=button] {
     border: none;
     outline: none;
     background-size: 100% 100%;
-    /*height: 55px;*/
     font-family: 'Boogaloo';
     font-size: 1em;
     padding: 1% 5% 3% 5%;
@@ -491,6 +490,7 @@ canvas {
     padding: 6% 2%;
     color: white;
     margin-bottom: 5%;
+    font-weight: bold;
 }
 
 .details b {
@@ -922,11 +922,15 @@ screen and ( max-height: 500px ) {
         font-size: 1.2em;    
     }
     .centerScreenContainer .title {
-        font-size: 2.5em;
+        font-size: 2em;
     }
     .shadedContainer .details {
-        font-size: 1.8em;
+        font-size: 1.2em;
     }
+    #resultWrapper .innerContainer {
+        max-width: 300px;
+    }
+
     .moneyMade {
         width: 170px;
     }
@@ -938,9 +942,11 @@ screen and ( max-height: 500px ) {
     .innerContainer {
         max-width: 450px;
     }
-
+    .timeout-buttons {
+        max-width: 200px;
+    }
     #timeout-close {
-        height: 33px;
+        height: 25px;
     }
     #timeout-btn-close {
         padding: 2% 5% 3% 4%;
@@ -961,6 +967,11 @@ screen and ( max-height: 500px ) {
     }
     .slider-text {
         font-size: .9em;
+    }
+    .slider .ui-slider-handle {
+        width: 1.4em;
+        height: 1.4em;
+        top: -.5em;
     }
     .menu-button-container {
         font-size: .8em;
@@ -997,7 +1008,10 @@ screen and ( max-height: 500px ) {
         width: 90%;
         max-width: 600px;
     }
+    #optionsScreen .innerContainer  {
+        max-width: 250px;
     }
+}
 
 @media screen and (max-width: 650px) {
     .shadedContainer .details {
@@ -1016,13 +1030,13 @@ screen and ( max-height: 500px ) {
 @media screen and (max-width: 480px),
 screen and ( max-height: 400px ) {
     #menu-confirm-popup .innerContainer{
-        max-width: 200px;
+        max-width: 150px;
         padding: 4% 3%;
     }
 
     .menu-popup button,
     #menu-confirm-popup .innerContainer p {
-        font-size: .8em;    
+        font-size: .7em;    
     }
     #canvasHolder input {
         font-size: .6em;
@@ -1031,7 +1045,7 @@ screen and ( max-height: 400px ) {
         height: 20px;
     }
     #timeout-btn-close {
-        padding: 2% 3% 3% 3%;
+        padding: 2% 4% 3% 4%;
     }
 
     #timeout-btn-close {
@@ -1050,8 +1064,8 @@ screen and ( max-height: 400px ) {
         font-size: .7em;
     }
     .timeout-buttons {
-        padding-bottom: 1%;
-        max-width: 250px;
+        padding-bottom: 2%;
+        max-width: 180px;
     }
     #timeout-container .slider {
         height: 4px;
@@ -1061,6 +1075,9 @@ screen and ( max-height: 400px ) {
         height: 1em;
         width: 1em;
         top: -.3em;
+    }
+    #timeout-container .slider, #optionsScreen .slider {
+        height: 4px;
     }
     .innerContainer {
         max-width: 300px;
@@ -1079,10 +1096,17 @@ screen and ( max-height: 400px ) {
     #resultWrapper button {
         font-size: .8em;
     }
+    #optionsScreen .innerContainer {
+        max-width: 200px;
     }
+}
 
 @media screen and (max-width: 320px),
 screen and ( max-height: 350px ) {
+    .menu-popup button,
+    #menu-confirm-popup .innerContainer p {
+        font-size: .5em;    
+    }
     #canvasHolder input {
         font-size: .6em;
     }
@@ -1226,7 +1250,10 @@ screen and (max-height: 450px) and (min-width: 500px) {
     .helpScreenContent {
         max-width: 800px;
     }
+    #optionsScreen .innerContainer {
+        max-width: 350px;
     }
+}
 
 @media screen and (min-height: 900px) { 
     .shopInnerBg {
@@ -1281,7 +1308,7 @@ screen and (max-height: 450px) and (min-width: 500px) {
         font-size: 4em;
     }
     .menu-popup button, #menu-confirm-popup .innerContainer p {
-        font-size: 2em;
+        font-size: 2.5em;
     }
     .lean-slider-slide p {
         font-size: 2em;
@@ -1329,7 +1356,22 @@ screen and (max-height: 450px) and (min-width: 500px) {
     #canvasHolder input {
         font-size: 1.6em;
     }
+    #menu-confirm-popup .innerContainer {
+        max-width: 600px;
     }
+    #resultWrapper .innerContainer {
+        max-width: 700px;
+    }
+    .shadedContainer .details {
+        font-size: 2.5em;
+    }
+    .moneyMade {
+        width: 260px;
+    }
+    #resultWrapper button {
+        font-size: 2em;
+    }
+}
 
 @media screen and (min-width: 1501px) and (min-height: 1300px){
     .helpScreenContent {
@@ -1337,6 +1379,31 @@ screen and (max-height: 450px) and (min-width: 500px) {
     }
     #canvasHolder input {
         font-size: 2em;
+    }
+}
+
+@media screen and (min-width: 1801px) and (min-height: 1300px){
+    .helpScreenContent {
+        max-width: 1200px;
+    }
+    .lean-slider-slide p {
+        font-size: 2.5em;
+    }
+    .timeout-buttons {
+        max-width: 600px;
+    }
+    #timeout-btn-close,
+    .slider-text,
+    #timout-text {
+        font-size: 2.5em;
+    }
+    .slider .ui-slider-handle {
+        height: 3em;
+        width: 3em;
+        top: -1.4em;
+    }
+    .timeout-content button {
+        font-size: 3em;
     }
 }
 
