@@ -35,7 +35,6 @@ input[type=button] {
     background-size: 100% 100%;
     font-family: 'Boogaloo';
     font-size: 1em;
-    padding: 1% 5% 3% 5%;
 }
 
 #canvasHolder input[type=button],
@@ -56,11 +55,16 @@ input[type=button] {
     background-position: 0 0%;
 }
 
+#canvasHolder input[type=button] {
+    padding: .5% 3.5% 2.7% 3%;
+}
+
 #canvasHolder input[type=text] {
     background-image: url("../shapes/input_bg.png");
     color: black;
-    padding: .8% 1% 2.2% 1%;
+    padding: .4% 1% 1.5% 1%;
     width: 22%;
+    margin: 0 .7%;
 }
 
 #canvasHolder input[type=button]:disabled {
@@ -949,7 +953,7 @@ screen and ( max-height: 500px ) {
         height: 25px;
     }
     #timeout-btn-close {
-        padding: 2% 5% 3% 4%;
+        padding: 2% 5% 4% 5%;
     }
 
     #timeout-btn-close {
@@ -977,7 +981,7 @@ screen and ( max-height: 500px ) {
         font-size: .8em;
     }
     #canvasHolder input {
-        font-size: .8em;
+        font-size: .7em;
     }
     .titleBar {
         font-size: 1.5em;
@@ -1045,7 +1049,7 @@ screen and ( max-height: 400px ) {
         height: 20px;
     }
     #timeout-btn-close {
-        padding: 2% 4% 3% 4%;
+        padding: 2% 5% 3% 5%;
     }
 
     #timeout-btn-close {
@@ -1108,7 +1112,7 @@ screen and ( max-height: 350px ) {
         font-size: .5em;    
     }
     #canvasHolder input {
-        font-size: .6em;
+        font-size: .4em;
     }
 }
 
