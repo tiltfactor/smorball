@@ -221,6 +221,8 @@ function StageController(config) {
     var showMessage = function (me, text) {
         me.message.image = me.config.loader.getResult(text);
         me.message.x = 800 - me.message.getBounds().width / 2;
+        var index  = me.config.stage.children.length-1;
+        me.config.stage.setChildIndex(me.message,index);
         createjs.Tween.get(me.message).to({alpha: 1}, 100).wait(500).to({alpha: 0}, 1000);
     };
 
@@ -609,6 +611,7 @@ function StageController(config) {
             if (output.pass) {
                 if(me.config.activePowerup != null){
                     EventBus.dispatch("playSound","correctPowerup");
+                    me.config.myBag.selectedId = -1;
                 }
                 else{
                     EventBus.dispatch("playSound","correctSound");

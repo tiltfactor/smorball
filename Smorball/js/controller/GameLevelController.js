@@ -110,9 +110,14 @@ function GameLevelController(config) {
         drawCashBar(me);
         drawSurvival(me);
         drawLevelInfoBar(me);
-        drawFaceBookButton(me);
-        drawTwitterButton(me);
+
+        if(me.config.gameState.gs.maxLevel>1){
+            drawFaceBookButton(me);
+            drawTwitterButton(me);
+
+        }
         drawStatusText(me);
+
 
         me.config.stage.update();
     }
