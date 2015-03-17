@@ -3,11 +3,13 @@ obj/
 *.pidb
 *.csproj
 *.unityproj
-*.sln
 *.userprefs
 [Bb]uilds/
 Smorball.sln.ide/
 web*.config
+
+node_modules/
+bower_components/
  
 #######
 # Git
@@ -51,10 +53,6 @@ web*.config
 *.vspscc
 .builds
 *.dotCover
-
- 
-## TODO: If you have NuGet Package Restore enabled, uncomment this
-#packages/
  
 # Visual C++ cache files
 ipch/

@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.22310.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{7612E425-4EFA-4CCE-9CAC-D4458164915D}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Smorball", "src\Smorball\Smorball.kproj", "{75CBE5C7-E0DD-4784-B913-5DA1A65C77D4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{20D7604D-21D8-4021-A576-0E2D8523EDE2}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{75CBE5C7-E0DD-4784-B913-5DA1A65C77D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75CBE5C7-E0DD-4784-B913-5DA1A65C77D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75CBE5C7-E0DD-4784-B913-5DA1A65C77D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75CBE5C7-E0DD-4784-B913-5DA1A65C77D4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{75CBE5C7-E0DD-4784-B913-5DA1A65C77D4} = {7612E425-4EFA-4CCE-9CAC-D4458164915D}
+	EndGlobalSection
+EndGlobal
