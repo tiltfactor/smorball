@@ -3,6 +3,9 @@
     "name": "Smorball",
     "devDependencies": {
         "grunt": "^0.4.5",
-        "grunt-bower-task": "^0.4.0"
+        "grunt-bower-task": "^0.4.0",
+        "grunt-typescript": "0.6.1",
+        "grunt-http-server": "1.2.0",
+        "grunt-asset-injector": "0.1.0"
     }
 }

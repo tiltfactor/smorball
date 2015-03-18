@@ -1,8 +1,26 @@
-<html>
+﻿<html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-    <script src="js/lib.min.js"></script>
+
+    <!-- injector:css -->
+    <link rel="stylesheet" href="css/game.css">
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    <link rel="stylesheet" href="css/jquery.mCustomScrollbar.css">
+    <link rel="stylesheet" href="css/site.css">
+    <!-- endinjector -->
+
+    <!-- injector:js -->
+    <script src="lib/jquery/jquery.js"></script>
+    <script src="lib/EaselJS/easeljs-0.8.0.combined.js"></script>
+    <script src="lib/TweenJS/tweenjs-0.6.0.combined.js"></script>
+    <script src="lib/jqueri-ui/jquery-ui.js"></script>
+    <script src="lib/jquery-deparam/jquery-deparam.js"></script>
+    <script src="lib/lib.min.js"></script>
+    <script src="lib/underscore/underscore.js"></script>
+    <!-- endinjector -->
+
+    <script src="js/utils/Deparam.js"></script>
     <script src="js/data/Manifest.js"></script>
     <script src="js/model/Spawning.js"></script>
     <script src="js/model/GameState.js"></script>
@@ -44,12 +62,14 @@
     <script src="js/model/Enemy.js"></script>
     <script src="js/model/Powerups.js"></script>
     <script src="js/model/Score.js"></script>
+
     <link rel="stylesheet" href="css/jquery-ui.css">
     <link rel="stylesheet" href="css/game.css">
     <link rel="stylesheet" href="css/jquery.mCustomScrollbar.css">
+
     <script>
         function init() {
-            gc = new GameController();
+            gc = new GameController({});
             gc.init();
         }
 
@@ -80,9 +100,9 @@
     <img class="sb_logo" src="shapes/SB_logo.png">
     <div class="menu-button-container">
         <div class="menu-buttons">
-            <button onmouseover="EventBus.dispatch('playSound','mouseover');" onClick="EventBus.dispatch(&quot;play&quot;);">Play</button>
-            <button onmouseover="EventBus.dispatch('playSound','mouseover');" onClick="EventBus.dispatch(&quot;showOptions&quot;);">Options</button>
-            <button onmouseover="EventBus.dispatch('playSound','mouseover');" onClick="EventBus.dispatch(&quot;showHelp&quot;);">Help</button>
+            <button onmouseover="EventBus.dispatch('playSound','mouseover');" onClick="EventBus.dispatch('play');">Play</button>
+            <button onmouseover="EventBus.dispatch('playSound','mouseover');" onClick="EventBus.dispatch('showOptions');">Options</button>
+            <button onmouseover="EventBus.dispatch('playSound','mouseover');" onClick="EventBus.dispatch('showHelp');">Help</button>
         </div>
     </div>
 </div>
@@ -90,22 +110,22 @@
 <div id="menu-confirm-popup" class="shadedContainer fullWidthcontainer menu-popup">
    <div class="centerScreenContainer middleContainer">
         <div id="game-popup" class="innerContainer">
-            <button  onmouseover="EventBus.dispatch('playSound','mouseover');" onClick="EventBus.dispatch(&quot;hideAll&quot;); EventBus.dispatch(&quot;showMenu&quot;); $('#confirm-popup, #menu-confirm-popup').show();">new game</button>
-            <button  onmouseover="EventBus.dispatch('playSound','mouseover');" onClick="EventBus.dispatch(&quot;showMap&quot;)">Continue</button>
+            <button  onmouseover="EventBus.dispatch('playSound','mouseover');" onClick="EventBus.dispatch('hideAll'); EventBus.dispatch('showMenu'); $('#confirm-popup, #menu-confirm-popup').show();">new game</button>
+            <button  onmouseover="EventBus.dispatch('playSound','mouseover');" onClick="EventBus.dispatch('showMap')">Continue</button>
         </div>
         <div id="confirm-popup" class="innerContainer">
             <p><b>ARE YOU SURE YOU WANT TO ERASE YOUR CURRENT GAME</b></p>
-            <button onmouseover="EventBus.dispatch('playSound','mouseover');" onClick="EventBus.dispatch(&quot;hideAll&quot;); EventBus.dispatch(&quot;exitMenu&quot;);EventBus.dispatch(&quot;resetAll&quot;)">YES</button>
-            <button onmouseover="EventBus.dispatch('playSound','mouseover');" onClick="EventBus.dispatch(&quot;hideAll&quot;); EventBus.dispatch(&quot;showMenu&quot;);">NO</button>
+            <button onmouseover="EventBus.dispatch('playSound','mouseover');" onClick="EventBus.dispatch('hideAll'); EventBus.dispatch('exitMenu');EventBus.dispatch('resetAll')">YES</button>
+            <button onmouseover="EventBus.dispatch('playSound','mouseover');" onClick="EventBus.dispatch('hideAll'); EventBus.dispatch('showMenu');">NO</button>
         </div>
     </div>
 </div>
 <div id="canvasHolder">
-    <input id="passButton" type="button" value="Pass" onmouseover="EventBus.dispatch('playSound','mouseover');" onclick="EventBus.dispatch(&quot;passText&quot;)"></input>
+    <input id="passButton" type="button" value="Pass" onmouseover="EventBus.dispatch('playSound','mouseover');" onclick="EventBus.dispatch('passText')"></input>
     <input id="inputText" type="text" placeholder="Type Phrase"
-           onkeydown="if(event.keyCode == 13){EventBus.dispatch(&quot;compareCaptcha&quot;)}" autocomplete="off"></input>
+           onkeydown="if(event.keyCode == 13){EventBus.dispatch('compareCaptcha')}" autocomplete="off"></input>
     <input id="submitButton" type="button" value="Submit"
-           onmouseover="EventBus.dispatch('playSound','mouseover');" onclick="EventBus.dispatch(&quot;compareCaptcha&quot;)"></input>
+           onmouseover="EventBus.dispatch('playSound','mouseover');" onclick="EventBus.dispatch('compareCaptcha')"></input>
 </div>
 
 <div id="timeout-container" class="fullWidthcontainer">
@@ -122,7 +142,7 @@
                 <p class="slider-text"><b>SOUND EFFECTS</b></p>
 
                 <div class="effects-slider slider"></div>
-                <button onmouseover="EventBus.dispatch('playSound','mouseover');" onclick="EventBus.dispatch(&quot;showHelp&quot;);" >HELP</button><br/>
+                <button onmouseover="EventBus.dispatch('playSound','mouseover');" onclick="EventBus.dispatch('showHelp');" >HELP</button><br/>
                 <button onmouseover="EventBus.dispatch('playSound','mouseover');" onClick="EventBus.dispatch('quitTimeout');">QUIT</button>
             </div>
         </div>
@@ -167,7 +187,7 @@
                 </div>
             </div>
             <div class="shopBackBtn">
-                <input class="backButton" type="button" onmouseover="EventBus.dispatch('playSound','mouseover');" onclick="EventBus.dispatch(&quot;showMap&quot;)"/>
+                <input class="backButton" type="button" onmouseover="EventBus.dispatch('playSound','mouseover');" onclick="EventBus.dispatch('showMap')"/>
             </div>
         </div>
     </div>
@@ -186,19 +206,18 @@
                         <div class="clear"></div>
                     </div>
                     <button onmouseover="EventBus.dispatch('playSound','mouseover');" onclick="EventBus.dispatch('showMap')"><b>LEVEL SELECT</b></button>
-                    <button onmouseover="EventBus.dispatch('playSound','mouseover');" onclick="EventBus.dispatch(&quot;hideAll&quot;);EventBus.dispatch('newGame')"><b>TRY AGAIN</b></button>
+                    <button onmouseover="EventBus.dispatch('playSound','mouseover');" onclick="EventBus.dispatch('hideAll');EventBus.dispatch('newGame')"><b>TRY AGAIN</b></button>
                 </div>
                 <div id="survivalEndContainer" class="resultContainer">
-                     <div class="title"><b>SURVIVAL END</b></div>
+                     <div class="title"><b>TIME TRIAL RESULTS</b></div>
                     <div class="details">
                          <div>
                              <div class="timeDetails"><p>TIME SURVIVED:</p><p class="time"><span id="minutes">686</span>:<span id="seconds">18</span></p> </div>
                              <div class="timeDetails"><p>HIGH SCORE:</p><p class="time"><span id="highMinutes">88</span>:<span id="highSeconds">878</span></p> </div>
                         </div> 
                         <div class="clear"></div>
-                    </div>
-                     <button onmouseover="EventBus.dispatch('playSound','mouseover');" onclick="EventBus.dispatch('showMap')"><b>LEVEL SELECT</b></button>
-                     <button onmouseover="EventBus.dispatch('playSound','mouseover');" onclick="EventBus.dispatch(&quot;hideAll&quot;);EventBus.dispatch('newGame')"><b>CONTINUE</b></button>
+                    </div>                     
+                    <button onmouseover="EventBus.dispatch('playSound','mouseover');" onclick="EventBus.dispatch('showMap');"><b>CONTINUE</b></button>
                 </div> 
                 <div id="victoryContainer" class="resultContainer">
                     <div class="title"><b>VICTORY</b></div>
@@ -228,7 +247,7 @@
             </div>
             <div id="slider-control-nav"></div>
          <div class="helpBackBtn">
-             <input class="backButton helpBackButton" type="button" onmouseover="EventBus.dispatch('playSound','mouseover');" onClick="EventBus.dispatch(&quot;hideHelp&quot;);"/>
+             <input class="backButton helpBackButton" type="button" onmouseover="EventBus.dispatch('playSound','mouseover');" onClick="EventBus.dispatch('hideHelp');"/>
          </div>
     </div>
 </div>

@@ -1,55 +1,53 @@
-/**
- * Created by user on 30/1/15.
- */
-(function () {
-   var Sound = function(config){
-       this.config = config;
-       initialize(this);
-   }
-
-   var initialize = function(me){
-        me.mySound = me.config.loader.getResult(me.config.file);
-        if(me.mySound != null){
-          me.mySound.loop = me.config.loop; 
-          var vol = setVolumeValue(me);
-          me.setVolume(vol);
-          if(!me.config.loop){
-            me.mySound.onended=function(){EventBus.dispatch("removeAudioFromList",me.mySound)};
-          }
-            else{
-              me.mySound.onended=function(){me.play()};
-          }
-        }
-   }
-    var setVolumeValue = function(me){
-        if(me.config.type == me.config.gameState.soundType.EFFECTS){
-            var vol = me.config.gameState.config.store.soundEffects/100;
-            if(!vol){
-                vol = me.config.gameState.gs.soundEffects/100;
+var Sound = (function () {
+    function Sound(config) {
+        this.config = config;
+        this.initialize();
+    }
+    Sound.prototype.initialize = function () {
+        var _this = this;
+        this.mySound = this.config.loader.getResult(this.config.file);
+        if (this.mySound != null) {
+            this.mySound.loop = this.config.loop;
+            var vol = this.setVolumeValue();
+            this.setVolume(vol);
+            if (!this.config.loop) {
+                this.mySound.onended = function () {
+                    EventBus.dispatch("removeAudioFromList", _this.mySound);
+                };
+            }
+            else {
+                this.mySound.onended = function () {
+                    _this.play();
+                };
             }
         }
-        else if(me.config.type == me.config.gameState.soundType.MAIN){
-            var vol = me.config.gameState.config.store.music/100;
-            if(!vol){
-                vol = me.config.gameState.gs.music/100;
+    };
+    Sound.prototype.setVolumeValue = function () {
+        if (this.config.type == this.config.gameState.soundType.EFFECTS) {
+            var vol = this.config.gameState.config.store.soundEffects / 100;
+            if (!vol) {
+                vol = this.config.gameState.gs.soundEffects / 100;
+            }
+        }
+        else if (this.config.type == this.config.gameState.soundType.MAIN) {
+            var vol = this.config.gameState.config.store.music / 100;
+            if (!vol) {
+                vol = this.config.gameState.gs.music / 100;
             }
         }
         return vol;
-    }
-
-   Sound.prototype.play = function(){
-       /*if(this.loop){
-           this.mySound.loop = true;
-       }*/
-       this.mySound.play();
-   }
-   Sound.prototype.pause = function(){
-       this.mySound.pause();
-   }
-    Sound.prototype.setVolume = function(volume){
-      this.mySound.volume = volume;
-    }
-
-   window.Sound = Sound;
-
-}());
+    };
+    Sound.prototype.play = function () {
+        /*if(this.loop){
+            this.mySound.loop = true;
+        }*/
+        this.mySound.play();
+    };
+    Sound.prototype.pause = function () {
+        this.mySound.pause();
+    };
+    Sound.prototype.setVolume = function (volume) {
+        this.mySound.volume = volume;
+    };
+    return Sound;
+})();

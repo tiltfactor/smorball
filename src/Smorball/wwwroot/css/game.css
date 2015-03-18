@@ -469,7 +469,7 @@ canvas {
     text-align: left;
 }
 
-#victoryContainer {
+#victoryContainer, #survivalEndContainer {
     text-align: center;
 }
 
