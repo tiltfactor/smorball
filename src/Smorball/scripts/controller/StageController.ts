@@ -1,7 +1,10 @@
+/// <reference path="../model/waves.ts" />
+/// <reference path="../model/commentarybox.ts" />
 /// <reference path="../data/manifest.ts" />
 /// <reference path="../data/leveldata.ts" />
 /// <reference path="../../typings/tsd.d.ts" />
 /// <reference path="../../typings/smorball/smorball.d.ts" />
+
 class StageController {
 
 	config: any;
@@ -76,7 +79,7 @@ class StageController {
 		EventBus.addEventListener("onImagesLoad",() => this.onImagesLoad());
 		EventBus.addEventListener("resetAll",() => this.resetAll());
 		EventBus.addEventListener("hideTimeOut",() => this.hideTimeOut());
-		EventBus.addEventListener("stopCheering",() => { console.log("stop cheering does not exit?!"); /*this.stopCheering()*/ });
+		EventBus.addEventListener("stopCheering",() => { console.log("MIKEC ==> stop cheering does not exit?!"); /*this.stopCheering()*/ });
 		EventBus.addEventListener("removeFromStage",(o) => this.removeFromStage(o.target));
 	}
 

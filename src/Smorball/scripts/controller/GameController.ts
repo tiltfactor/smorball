@@ -42,9 +42,9 @@ class GameController {
 
         // If the param is supplied disable the timeout when the window isnt focued (annoying when developing)
         if (deparam(window.location.href).disableTimeout != "true")
-            window.onblur = function () { EventBus.dispatch("showTimeoutScreen") };
+            window.onblur = () => { EventBus.dispatch("showTimeoutScreen") };
 
-        window.onclick = function () {
+        window.onclick = () => {
             var fileId = "click";
             EventBus.dispatch("playSound", fileId);
         };

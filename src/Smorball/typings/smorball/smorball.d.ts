@@ -1,4 +1,7 @@
-﻿declare var EventBus: any;
+﻿/// <reference path="../tsd.d.ts" />
+
+declare var EventBus: any;
+declare var PowerupsData: any;
 
 declare class LocalStorage { 
     constructor(config?:any);
@@ -34,22 +37,8 @@ declare class Blocks {
 	drawRightChairBlock();
 }
 
-declare class CommentaryBox extends createjs.Container {
-    constructor(config?: any);
-	getTransformedBounds(): any;
-}
-
 declare class Gem {
     constructor(config?: any);
-}
-
-declare class Waves {
-    constructor(config?: any);
-	clearAll();
-	getPendingEnemies(): any;
-	getStatus(): any;
-	init();
-	update(a: any, b: any, c: any);
 }
 
 declare class Lane extends createjs.Container {

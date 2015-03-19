@@ -1,3 +1,5 @@
+/// <reference path="../model/waves.ts" />
+/// <reference path="../model/commentarybox.ts" />
 /// <reference path="../data/manifest.ts" />
 /// <reference path="../data/leveldata.ts" />
 /// <reference path="../../typings/tsd.d.ts" />
@@ -42,7 +44,7 @@ var StageController = (function () {
         EventBus.addEventListener("resetAll", function () { return _this.resetAll(); });
         EventBus.addEventListener("hideTimeOut", function () { return _this.hideTimeOut(); });
         EventBus.addEventListener("stopCheering", function () {
-            console.log("stop cheering does not exit?!"); /*this.stopCheering()*/
+            console.log("MIKEC ==> stop cheering does not exit?!"); /*this.stopCheering()*/
         });
         EventBus.addEventListener("removeFromStage", function (o) { return _this.removeFromStage(o.target); });
     };

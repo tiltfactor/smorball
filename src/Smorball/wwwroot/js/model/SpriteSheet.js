@@ -1,25 +1,22 @@
-/**
- * Created by Nidhin C G on 1/12/14.
- */
-(function () {
-
-    var SpriteSheet =  function(config) {
+/// <reference path="../../typings/tsd.d.ts" />
+var __extends = this.__extends || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    __.prototype = b.prototype;
+    d.prototype = new __();
+};
+var SpriteSheet = (function (_super) {
+    __extends(SpriteSheet, _super);
+    function SpriteSheet(config) {
         this.config = config;
-        this.initialize();
-    };
-    SpriteSheet.prototype  = new createjs.SpriteSheet;
-    SpriteSheet.prototype._initialize = SpriteSheet.prototype.initialize;
-    SpriteSheet.prototype.initialize = function(){
         this.data = JSON.parse(JSON.stringify(this.config.data));
-        setImages(this);
-        this._initialize(this.data);
-    };
-
-    var setImages = function(me){
-        for(var i = 0 ; i< me.data.images.length; i++){
-            me.data.images[i] = me.config.loader.getResult(me.data.images[i]);
-        }
+        this.setImages();
+        _super.call(this, this.data);
     }
-    window.SpriteSheet = SpriteSheet;
-
-}());
+    SpriteSheet.prototype.setImages = function () {
+        for (var i = 0; i < this.data.images.length; i++) {
+            this.data.images[i] = this.config.loader.getResult(this.data.images[i]);
+        }
+    };
+    return SpriteSheet;
+})(createjs.SpriteSheet);

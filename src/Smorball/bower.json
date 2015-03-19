@@ -5,9 +5,12 @@
         "jquery": "2.1.3",
         "EaselJS": "0.8.0",
         "TweenJS": "0.6.0",
+		"SoundJS": "0.6.0",
+		"PreloadJS": "0.6.0",
         "jquery-deparam": "0.2.0",
         "jqueri-ui": "1.11.4",
-        "underscore": "1.8.2"
+		"underscore": "1.8.2",
+		"lean-slider": "1.0.1"
     },
     "exportsOverride": {       
     
