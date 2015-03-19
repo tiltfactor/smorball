@@ -1,541 +1,420 @@
-function StageController(config) {
-    this.config = config || {};
-    this.events = {};
+/// <reference path="../data/manifest.ts" />
+/// <reference path="../data/leveldata.ts" />
+/// <reference path="../../typings/tsd.d.ts" />
+/// <reference path="../../typings/smorball/smorball.d.ts" />
+var StageController = (function () {
+    function StageController(config) {
+        this.events = {};
+        this.config = config;
+    }
     StageController.prototype.init = function () {
-        var me = this;
+        var _this = this;
         this.config.stage = new createjs.Stage("myCanvas");
         this.config.stage.enableMouseOver(10);
-        setCanvasAttributes(this);
+        this.setCanvasAttributes();
         createjs.Ticker.setFPS(20);
-
-        sc = this;
-        this.events.tick = function () {
-            tick(me);
-        };
+        this.events.tick = function () { return _this.tick(); };
         createjs.Ticker.addEventListener("tick", this.events.tick);
         createjs.Ticker.setPaused(true);
-
-        loadEvents(this);
+        this.loadEvents();
         this.currentIndex = 0;
         this.default_player = "player_normal";
         this.powerup_player = "player_helmet";
-
     };
-
-
-    var loadEvents = function (me) {
-
-        var ng = function () {
-            newGame(me)
-        };
-        EventBus.addEventListener("newGame", ng);
-
-        var rg = function () {
-            resumeGame(me)
-        };
-        EventBus.addEventListener("resumeGame", rg);
-
-        var pg = function () {
-            pauseGame(me)
-        };
-        EventBus.addEventListener("pauseGame", pg);
-
-        var km = function (ob) {
-            killMe(me, ob)
-        };
-        EventBus.addEventListener("killme", km);
-
-        var kl = function () {
-            killLife(me)
-        };
-        EventBus.addEventListener("killLife", kl);
-
-        var pe = function (object) {
-            pushEnemy(me, object.target)
-        };
-        EventBus.addEventListener("pushEnemy", pe);
-
-        var pp = function (object) {
-            pushPowerup(me, object.target)
-        };
-        EventBus.addEventListener("pushPowerup", pp);
-
-        var so = function () {
-            showTimeoutScreen(me)
-        };
-        EventBus.addEventListener("showTimeoutScreen", so);
-
-        var sm = function (text) {
-            showGameMessage(me, text)
-        };
-        EventBus.addEventListener("showMessage", sm);
-
-
-        var cc = function () {
-            compareCaptcha(me)
-        };
-        EventBus.addEventListener("compareCaptcha", cc);
-
-        var st = function () {
-            setTickerStatus()
-        };
-        EventBus.addEventListener("setTickerStatus", st);
-
-        var us = function () {
-            unselectAllInBag(me)
-        };
-        EventBus.addEventListener("unselectAllInBag", us);
-
-        var su = function (powerup) {
-            selectPowerUp(me, powerup.target)
-        };
-        EventBus.addEventListener("selectPowerUp", su);
-
-        var cl = function (ob) {
-            changeLane(me, ob.target)
-        };
-        EventBus.addEventListener("changeLane", cl);
-
-        var sh = function () {
-            me.captchaProcessor.showCaptchas()
-        };
-        EventBus.addEventListener("showCaptchas", sh);
-
-        var ol = function () {
-            onImagesLoad(me)
-        };
-        EventBus.addEventListener("onImagesLoad", ol);
-
-        var ra = function () {
-            resetAll(me)
-        };
-        EventBus.addEventListener("resetAll", ra);
-
-        var ht = function () {
-            hideTimeOut(me)
-        };
-        EventBus.addEventListener("hideTimeOut", ht);
-
-        var ch = function () {
-            stopCheering(me);
-        };
-        EventBus.addEventListener("stopCheering", ch);
-
-        var rs = function(object){
-            removeFromStage(me,object.target);
+    StageController.prototype.loadEvents = function () {
+        var _this = this;
+        EventBus.addEventListener("newGame", function () { return _this.newGame(); });
+        EventBus.addEventListener("resumeGame", function () { return _this.resumeGame(); });
+        EventBus.addEventListener("pauseGame", function () { return _this.pauseGame(); });
+        EventBus.addEventListener("killme", function (o) { return _this.killMe(o); });
+        EventBus.addEventListener("killLife", function () { return _this.killLife(); });
+        EventBus.addEventListener("pushEnemy", function (o) { return _this.pushEnemy(o.target); });
+        EventBus.addEventListener("pushPowerup", function (o) { return _this.pushPowerup(o.target); });
+        EventBus.addEventListener("showTimeoutScreen", function () { return _this.showTimeoutScreen(); });
+        EventBus.addEventListener("showMessage", function (text) { return _this.showGameMessage(text); });
+        EventBus.addEventListener("compareCaptcha", function () { return _this.compareCaptcha(); });
+        EventBus.addEventListener("setTickerStatus", function () { return _this.setTickerStatus(); });
+        EventBus.addEventListener("unselectAllInBag", function () { return _this.unselectAllInBag(); });
+        EventBus.addEventListener("selectPowerUp", function (powerup) { return _this.selectPowerUp(powerup.target); });
+        EventBus.addEventListener("changeLane", function (obj) { return _this.changeLane(obj.target); });
+        EventBus.addEventListener("showCaptchas", function () { return _this.captchaProcessor.showCaptchas(); });
+        EventBus.addEventListener("onImagesLoad", function () { return _this.onImagesLoad(); });
+        EventBus.addEventListener("resetAll", function () { return _this.resetAll(); });
+        EventBus.addEventListener("hideTimeOut", function () { return _this.hideTimeOut(); });
+        EventBus.addEventListener("stopCheering", function () {
+            console.log("stop cheering does not exit?!"); /*this.stopCheering()*/
+        });
+        EventBus.addEventListener("removeFromStage", function (o) { return _this.removeFromStage(o.target); });
+    };
+    StageController.prototype.newGame = function () {
+        if (this.config.gameState.inputTextArr.length != 0) {
+            this.saveInputTexts();
         }
-        EventBus.addEventListener("removeFromStage",rs);
-    }
-
-    var newGame = function (me) {
-        if(me.config.gameState.inputTextArr.length != 0){
-            saveInputTexts(me);
-        }
-       me.config.myBag.newGame();
-        me.timeSpend = 0;
-        me.currentTime = createjs.Ticker.getTime(true);
+        this.config.myBag.newGame();
+        this.timeSpend = 0;
+        this.currentTime = createjs.Ticker.getTime(true);
         $("#inputText").val("");
-        resetGame(me);
-        me.config.gameState.currentState = me.config.gameState.states.RUN;
-        me.levelConfig = LevelData[me.config.gameState.currentLevel];
-
-        me.spawning = new Spawning({"gameState": me.config.gameState});
-        me.captchaProcessor = new CaptchaProcessor({
-            "loader": me.config.loader,
-            "canvasWidth": me.canvasWidth,
-            "canvasHeight": me.canvasHeight,
-            "gameState": me.config.gameState
+        this.resetGame();
+        this.config.gameState.currentState = this.config.gameState.states.RUN;
+        this.levelConfig = LevelData[this.config.gameState.currentLevel];
+        this.spawning = new Spawning({ "gameState": this.config.gameState });
+        this.captchaProcessor = new CaptchaProcessor({
+            "loader": this.config.loader,
+            "canvasWidth": this.canvasWidth,
+            "canvasHeight": this.canvasHeight,
+            "gameState": this.config.gameState
         });
         $("#loaderDiv").show();
-        loadImages(me);
+        this.loadImages();
         $("#myCanvas").show();
         EventBus.dispatch("setMute");
-
-        var config = {"gameState": me.config.gameState};
-        me.score = new Score(config);
-
+        var config = { "gameState": this.config.gameState };
+        this.score = new Score(config);
     };
-    var loadImages = function (me) {
-        var _onImagesLoad = function (me) {
-            onImagesLoad(me)
+    StageController.prototype.loadImages = function () {
+        var _this = this;
+        var _onImagesLoad = function () {
+            _this.onImagesLoad();
         };
         var manifest = [];
-
-        if (!me.config.gameState.level) {
-            me.config.gameState.level = true;
-            var manifest = Manifest.level;
-            me.config.loader.loadLevelQueue(manifest, me.config.gameState.currentLevel);
-        } else {
-            me.config.loader.loadLevelQueue(manifest, me.config.gameState.currentLevel);
+        if (!this.config.gameState.level) {
+            this.config.gameState.level = true;
+            this.config.loader.loadLevelQueue(Manifest.level, this.config.gameState.currentLevel);
         }
-
-
+        else {
+            this.config.loader.loadLevelQueue(manifest, this.config.gameState.currentLevel);
+        }
     };
-    var onImagesLoad = function (me) {
-        $("#canvasHolder input").prop("disabled",false);
-        window.onmousedown = prevent;
+    StageController.prototype.onImagesLoad = function () {
+        var _this = this;
+        $("#canvasHolder input").prop("disabled", false);
+        window.onmousedown = function () { return _this.prevent(); };
         $("#inputText").focus();
-        onResize(me);
+        this.onResize();
         window.onresize = function () {
-            onResize(me)
+            _this.onResize();
         };
-        drawBackGround(me);
-        drawLane(me);
-        drawStadium(me);
-        drawLogo(me);
-        EventBus.dispatch("showCommentary", me.levelConfig.waves.message);
-        EventBus.dispatch("setScore", me.config.life);
-
-        initShowMessage(me);
-        generateWaves(me);
-        showPowerup(me);
-        setCaptchaIndex(me);
+        this.drawBackGround();
+        this.drawLane();
+        this.drawStadium();
+        this.drawLogo();
+        EventBus.dispatch("showCommentary", this.levelConfig.waves.message);
+        EventBus.dispatch("setScore", this.config.life);
+        this.initShowMessage();
+        this.generateWaves();
+        this.showPowerup();
+        this.setCaptchaIndex();
         EventBus.dispatch("setTickerStatus");
-
     };
-
-    var initShowMessage = function (me) {
-        me.message = new createjs.Bitmap();
-        me.message.x = 800;
-        me.message.y = 1000;
-        me.message.alpha = 0;
-        me.config.stage.addChild(me.message);
+    StageController.prototype.initShowMessage = function () {
+        this.message = new createjs.Bitmap(null);
+        this.message.x = 800;
+        this.message.y = 1000;
+        this.message.alpha = 0;
+        this.config.stage.addChild(this.message);
     };
-    var setCaptchaIndex = function(me){
-        var captchas = _.filter(me.config.stage.children,function(a){if(a.name =="captchaHolder")return a});
-        var length = me.config.stage.children.length;
-
-        _.each(captchas,function(a){
-            var player = me.config.lanes[a.id -1].player;
-            if(player){
-                length = me.config.stage.getChildIndex(player);
-            }
-            me.config.stage.setChildIndex(a,length-1)
+    StageController.prototype.setCaptchaIndex = function () {
+        var _this = this;
+        var captchas = _.filter(this.config.stage.children, function (a) {
+            if (a.name == "captchaHolder")
+                return a;
         });
-    }
-    var showGameMessage = function (me, msg) {
+        var length = this.config.stage.children.length;
+        _.each(captchas, function (a) {
+            var player = _this.config.lanes[a.id - 1].player;
+            if (player) {
+                length = _this.config.stage.getChildIndex(player);
+            }
+            _this.config.stage.setChildIndex(a, length - 1);
+        });
+    };
+    StageController.prototype.showGameMessage = function (msg) {
         var text = msg.target;
-        showMessage(me, text);
+        this.showMessage(text);
     };
-
-    var showMessage = function (me, text) {
-        me.message.image = me.config.loader.getResult(text);
-        me.message.x = 800 - me.message.getBounds().width / 2;
-        var index  = me.config.stage.children.length-1;
-        me.config.stage.setChildIndex(me.message,index);
-        createjs.Tween.get(me.message).to({alpha: 1}, 100).wait(500).to({alpha: 0}, 1000);
+    StageController.prototype.showMessage = function (text) {
+        this.message.image = this.config.loader.getResult(text);
+        this.message.x = 800 - this.message.getBounds().width / 2;
+        var index = this.config.stage.children.length - 1;
+        this.config.stage.setChildIndex(this.message, index);
+        createjs.Tween.get(this.message).to({ alpha: 1 }, 100).wait(500).to({ alpha: 0 }, 1000);
     };
-
-    var setCanvasAttributes = function (me) {
-        me.freeBottomAreaY = 70;
-        me.freeLeftAreaX = 0;
-        onResize(me);
-        me.width = 1600;
-        me.height = 1200;
-        me.freeTopAreaY = me.height / 2;
+    StageController.prototype.setCanvasAttributes = function () {
+        this.freeBottomAreaY = 70;
+        this.freeLeftAreaX = 0;
+        this.onResize();
+        this.width = 1600;
+        this.height = 1200;
+        this.freeTopAreaY = this.height / 2;
     };
-
-    var onResize = function (me) {
-        var canvas = me.config.stage.canvas;
-        me.canvasWidth = canvas.width = window.innerHeight * 4 / 3 > window.innerWidth ? window.innerWidth : window.innerHeight * 4 / 3;
-        me.canvasHeight = canvas.height = me.canvasWidth * 3 / 4 > window.innerHeight ? window.innerHeight : me.canvasWidth * 3 / 4;
-        me.config.stage.scaleX = me.canvasWidth / 1600;
-        me.config.stage.scaleY = me.canvasHeight / 1200;
-        me.config.stage.update();
-        var paddingTop = (window.innerHeight - me.canvasHeight) / 2 > 0 ? (window.innerHeight - me.canvasHeight) / 2 : 0;
-        $("#myCanvas").css({top: paddingTop});
-        $("#canvasHolder").css({height:me.canvasHeight*.07});
-        $("#canvasHolder").css({width: me.canvasWidth, left: (window.innerWidth-me.canvasWidth)/2, top: me.canvasHeight + paddingTop - $("#canvasHolder").height(), position: 'absolute'});
+    StageController.prototype.onResize = function () {
+        var canvas = this.config.stage.canvas;
+        this.canvasWidth = canvas.width = window.innerHeight * 4 / 3 > window.innerWidth ? window.innerWidth : window.innerHeight * 4 / 3;
+        this.canvasHeight = canvas.height = this.canvasWidth * 3 / 4 > window.innerHeight ? window.innerHeight : this.canvasWidth * 3 / 4;
+        this.config.stage.scaleX = this.canvasWidth / 1600;
+        this.config.stage.scaleY = this.canvasHeight / 1200;
+        this.config.stage.update();
+        var paddingTop = (window.innerHeight - this.canvasHeight) / 2 > 0 ? (window.innerHeight - this.canvasHeight) / 2 : 0;
+        $("#myCanvas").css({ top: paddingTop });
+        $("#canvasHolder").css({ height: this.canvasHeight * .07 });
+        $("#canvasHolder").css({ width: this.canvasWidth, left: (window.innerWidth - this.canvasWidth) / 2, top: this.canvasHeight + paddingTop - $("#canvasHolder").height(), position: 'absolute' });
     };
-
-
-    var drawStadium = function (me) {
+    StageController.prototype.drawStadium = function () {
         var width = 1600;
-        me.stadium = new createjs.Container();
-        me.seatContainer = new Blocks({"loader": me.config.loader, "width": width});
-        var lc = me.seatContainer.drawLeftChairBlock();
-        var rc = me.seatContainer.drawRightChairBlock();
-        me.cbBox = new CommentaryBox({"loader": me.config.loader, "width": width});
-        me.adBoard = new AdBoard({"loader": me.config.loader});
-        me.adBoard.y = me.cbBox.getTransformedBounds().height - me.adBoard.getTransformedBounds().height / 2 - me.adBoard.getTransformedBounds().height / 6;
-        me.stadium.addChild(lc, rc, me.cbBox, me.adBoard);
-        me.config.stage.addChild(me.stadium);
-        drawTimeOut(me);
-
+        this.stadium = new createjs.Container();
+        this.seatContainer = new Blocks({ "loader": this.config.loader, "width": width });
+        var lc = this.seatContainer.drawLeftChairBlock();
+        var rc = this.seatContainer.drawRightChairBlock();
+        this.cbBox = new CommentaryBox({ "loader": this.config.loader, "width": width });
+        this.adBoard = new AdBoard({ "loader": this.config.loader });
+        this.adBoard.y = this.cbBox.getTransformedBounds().height - this.adBoard.getTransformedBounds().height / 2 - this.adBoard.getTransformedBounds().height / 6;
+        this.stadium.addChild(lc, rc, this.cbBox, this.adBoard);
+        this.config.stage.addChild(this.stadium);
+        this.drawTimeOut();
     };
-    var drawBackGround = function (me) {
-        me.bgContainer = new createjs.Container();
-        me.config.stage.addChild(me.bgContainer);
+    StageController.prototype.drawBackGround = function () {
+        this.bgContainer = new createjs.Container();
+        this.config.stage.addChild(this.bgContainer);
         var shape = new createjs.Shape();
-        shape.graphics.beginBitmapFill(me.config.loader.getResult("background"))
-            .drawRect(0, 0, me.width, me.height);
-        me.bgContainer.addChild(shape);
+        shape.graphics.beginBitmapFill(this.config.loader.getResult("background")).drawRect(0, 0, this.width, this.height);
+        this.bgContainer.addChild(shape);
     };
-    var drawTimeOut = function (me) {
-        var mbtn = new createjs.Bitmap(me.config.loader.getResult("menu_btn_idle"));
+    StageController.prototype.drawTimeOut = function () {
+        var _this = this;
+        var mbtn = new createjs.Bitmap(this.config.loader.getResult("menu_btn_idle"));
         mbtn.x = mbtn.getTransformedBounds().width / 4;
         mbtn.y = mbtn.getTransformedBounds().height / 4;
         mbtn.addEventListener("mousedown", function (evt) {
-            evt.target.image = me.config.loader.getResult("menu_btn_click");
+            evt.target.image = _this.config.loader.getResult("menu_btn_click");
             evt.target.cursor = "pointer";
             EventBus.dispatch("showTimeoutScreen");
         });
         mbtn.addEventListener("mouseover", function (evt) {
-            evt.target.image = me.config.loader.getResult("menu_btn_over");
+            evt.target.image = _this.config.loader.getResult("menu_btn_over");
             evt.target.cursor = "pointer";
-            me.config.stage.update();
-
+            _this.config.stage.update();
         });
         mbtn.addEventListener("pressup", function (evt) {
-            evt.target.image = me.config.loader.getResult("menu_btn_idle");
+            evt.target.image = _this.config.loader.getResult("menu_btn_idle");
             evt.target.cursor = "pointer";
-
         });
         mbtn.addEventListener("mouseout", function (evt) {
-            evt.target.image = me.config.loader.getResult("menu_btn_idle");
+            evt.target.image = _this.config.loader.getResult("menu_btn_idle");
             evt.target.cursor = "pointer";
-
         });
-        me.stadium.addChild(mbtn);
-
+        this.stadium.addChild(mbtn);
     };
-
-    var drawLogo = function (me) {
-        var logo = new createjs.Bitmap();
-        logo.image = me.config.loader.getResult("splash" + me.config.gameState.currentLevel);
+    StageController.prototype.drawLogo = function () {
+        var logo = new createjs.Bitmap(null);
+        logo.image = this.config.loader.getResult("splash" + this.config.gameState.currentLevel);
         logo.x = 800 - logo.getTransformedBounds().width / 2;
         logo.y = 600;
         logo.alpha = 0.25;
-        me.config.stage.addChildAt(logo,6);
+        this.config.stage.addChildAt(logo, 6);
     };
-
-    var showScore = function (me) {
-        me.scoreText = new createjs.Text("Total Score :" + me.score.getTotalScore(), "20px Arial", "#000000");
-        me.scoreText.setTransform(me.width - 300, 10, 1, 1);
-        me.config.stage.addChild(me.scoreText);
+    StageController.prototype.showScore = function () {
+        this.scoreText = new createjs.Text("Total Score :" + this.score.getTotalScore(), "20px Arial", "#000000");
+        this.scoreText.setTransform(this.width - 300, 10, 1, 1);
+        this.config.stage.addChild(this.scoreText);
     };
-    var updateScore = function (me) {
-        me.scoreText.text = "Total Score :" + score.getTotalScore();
+    StageController.prototype.updateScore = function () {
+        this.scoreText.text = "Total Score :" + this.score.getTotalScore();
     };
-
-
-    var getTime = function (me) {
-        var width = me.width - me.freeLeftAreaX - 300; //left lane area
-        me.timeDelay = ((width / createjs.Ticker.getFPS() * 1) - me.levelConfig.time) * 1000;
-        return me.timeDelay;
+    StageController.prototype.getTime = function () {
+        var width = this.width - this.freeLeftAreaX - 300; //left lane area
+        this.timeDelay = ((width / createjs.Ticker.getFPS() * 1) - this.levelConfig.time) * 1000;
+        return this.timeDelay;
     };
-
-    var generateWaves = function (me) {
-        me.waves = new Waves({
-            "waves": me.levelConfig.waves,
-            "lanesObj": me.config.lanes,
-            "lanes": me.levelConfig.lanes,
-            "loader": me.config.loader,
-            "gameState": me.config.gameState
+    StageController.prototype.generateWaves = function () {
+        this.waves = new Waves({
+            "waves": this.levelConfig.waves,
+            "lanesObj": this.config.lanes,
+            "lanes": this.levelConfig.lanes,
+            "loader": this.config.loader,
+            "gameState": this.config.gameState
         });
-        me.waves.init();
-        EventBus.dispatch("showPendingEnemies", me.waves.getPendingEnemies());
+        this.waves.init();
+        EventBus.dispatch("showPendingEnemies", this.waves.getPendingEnemies());
     };
-
-    var killLife = function (me) {
-        me.config.life--;
-        EventBus.dispatch("setScore", me.config.life);
-        if (me.config.life == 0) {
-            gameOver(me);
+    StageController.prototype.killLife = function () {
+        this.config.life--;
+        EventBus.dispatch("setScore", this.config.life);
+        if (this.config.life == 0) {
+            this.gameOver();
         }
     };
-
-
-    var drawLane = function (me) {
-        var width = (me.width - me.freeLeftAreaX);
-        var height = (me.height - me.freeTopAreaY - me.freeBottomAreaY);
-        var totalLanes = 3;//me.levelConfig.lanes;
+    StageController.prototype.drawLane = function () {
+        var width = (this.width - this.freeLeftAreaX);
+        var height = (this.height - this.freeTopAreaY - this.freeBottomAreaY);
+        var totalLanes = 3; //this.levelConfig.lanes;
         var laneHeight = height / totalLanes;
-
         for (var i = 0; i < totalLanes; i++) {
             var laneId = i + 1;
             var config = {
-                "x": me.freeLeftAreaX,
-                "y": (laneHeight * i) + me.freeTopAreaY,
+                "x": this.freeLeftAreaX,
+                "y": (laneHeight * i) + this.freeTopAreaY,
                 "width": width,
                 "height": laneHeight,
                 "id": laneId,
-                "loader": me.config.loader
+                "loader": this.config.loader
             };
             var lane = new Lane(config);
-            me.config.stage.addChild(lane);
-            me.config.lanes.push(lane);
-
-            if (!(me.levelConfig.lanes == 1 && (laneId == 1 || laneId == 3))) {
-                var captchaHolder = me.captchaProcessor.getCaptchaPlaceHolder(lane.getMaxCaptchaWidth(), 60+lane.getHeight(), laneId);
+            this.config.stage.addChild(lane);
+            this.config.lanes.push(lane);
+            if (!(this.levelConfig.lanes == 1 && (laneId == 1 || laneId == 3))) {
+                var captchaHolder = this.captchaProcessor.getCaptchaPlaceHolder(lane.getMaxCaptchaWidth(), 60 + lane.getHeight(), laneId);
                 captchaHolder.name = "captchaHolder";
-                captchaHolder.x = lane.getCaptchaX()+30;
+                captchaHolder.x = lane.getCaptchaX() + 30;
                 captchaHolder.y = lane.y + 90;
-                me.config.stage.addChild(captchaHolder);
-
+                this.config.stage.addChild(captchaHolder);
             }
         }
-        resetPlayers(me);
-
+        this.resetPlayers();
         var config = {
-            "x": me.freeLeftAreaX,
-            "y": me.height - me.freeBottomAreaY,
+            "x": this.freeLeftAreaX,
+            "y": this.height - this.freeBottomAreaY,
             "width": width,
-            "height": me.freeBottomAreaY,
+            "height": this.freeBottomAreaY,
             "id": 4,
-            "loader": me.config.loader
+            "loader": this.config.loader
         };
         var lane = new Lane(config);
-        me.config.stage.addChild(lane);
-
-
+        this.config.stage.addChild(lane);
     };
-
-
-    var resumeGame = function (me) {
-        me.captchaProcessor.showCaptchas();
+    StageController.prototype.resumeGame = function () {
+        this.captchaProcessor.showCaptchas();
         EventBus.dispatch("exitMenu");
         $("#canvasHolder").show();
         $("#myCanvas").show();
         EventBus.dispatch("setTickerStatus");
-        createjs.Ticker.addEventListener("tick", me.events.tick);
+        createjs.Ticker.addEventListener("tick", this.events.tick);
     };
-
-    var pauseGame = function (me) {
+    StageController.prototype.pauseGame = function () {
         if (!createjs.Ticker.getPaused()) {
-            //me.captchaProcessor.hideCaptchas();
+            //this.captchaProcessor.hideCaptchas();
             EventBus.dispatch("setTickerStatus");
             EventBus.dispatch("showMenu");
         }
     };
-
-
-    var showTimeoutScreen = function (me) {
-        if (!createjs.Ticker.getPaused() && me.config.gameState.currentState==me.config.gameState.states.RUN) {
-            me.config.gameState.currentState = me.config.gameState.states.MAIN_MENU;
-            me.captchaProcessor.hideCaptchas();
-            me.config.stage.update();
+    StageController.prototype.showTimeoutScreen = function () {
+        if (!createjs.Ticker.getPaused() && this.config.gameState.currentState == this.config.gameState.states.RUN) {
+            this.config.gameState.currentState = this.config.gameState.states.MAIN_MENU;
+            this.captchaProcessor.hideCaptchas();
+            this.config.stage.update();
             EventBus.dispatch("setTickerStatus");
             EventBus.dispatch("showTimeout");
             EventBus.dispatch("setMute");
             EventBus.dispatch('pauseWaves', true);
         }
     };
-
-    var killMe = function (me, actor) {
+    StageController.prototype.killMe = function (actor) {
         var object = actor.target;
-        me.config.stage.removeChild(object);
-        if (object instanceof  sprites.Enemy) {
-            var index = me.config.enemies.indexOf(object);
-            me.config.enemies.splice(index, 1);
-            me.spawning.onEnemyKilled(object.getMaxLife());
-            updateLevelStatus(me, object);
-        } else if (object instanceof sprites.SpriteMan) {
-            var index = me.config.players.indexOf(object);
-            me.config.players.splice(index, 1);
-        } else if (object instanceof Gem) {
-            var index = me.config.gems.indexOf(object);
-            me.config.gems.splice(index, 1);
+        this.config.stage.removeChild(object);
+        if (object instanceof sprites.Enemy) {
+            var index = this.config.enemies.indexOf(object);
+            this.config.enemies.splice(index, 1);
+            this.spawning.onEnemyKilled(object.getMaxLife());
+            this.updateLevelStatus(object);
+        }
+        else if (object instanceof sprites.SpriteMan) {
+            var index = this.config.players.indexOf(object);
+            this.config.players.splice(index, 1);
+        }
+        else if (object instanceof Gem) {
+            var index = this.config.gems.indexOf(object);
+            this.config.gems.splice(index, 1);
         }
     };
-
-    var resetPlayers = function (me) {
-        for (var i = 0; i < me.config.lanes.length; i++) {
-            var lane = me.config.lanes[i];
+    StageController.prototype.resetPlayers = function () {
+        for (var i = 0; i < this.config.lanes.length; i++) {
+            var lane = this.config.lanes[i];
             if (lane.player == undefined) {
-                setTimeout(addPlayer, 1000, lane, me);
-            } else {
+                setTimeout(this.makeTimeoutLaneFunction(lane), 1000);
+            }
+            else {
                 lane.player.setDefaultSpriteSheet();
             }
-
         }
     };
-
-    var addPlayer = function (lane, me) {
-        if (!(me.config.gameState.currentLevel == 1 && (lane.getLaneId() == 1 || lane.getLaneId() == 3))) {
+    StageController.prototype.makeTimeoutLaneFunction = function (lane) {
+        return this.addPlayer(lane);
+    };
+    StageController.prototype.addPlayer = function (lane) {
+        var _this = this;
+        if (!(this.config.gameState.currentLevel == 1 && (lane.getLaneId() == 1 || lane.getLaneId() == 3))) {
             var config = {
-                "loader": me.config.loader,
+                "loader": this.config.loader,
                 "laneId": lane.getLaneId(),
-                "gameState": me.config.gameState
+                "gameState": this.config.gameState
             };
             if (lane.player == undefined) {
                 var player = new sprites.SpriteMan(config);
                 lane.setPlayer(player);
                 var laneId = lane.getLaneId();
-                me.config.stage.addChild(player);
-                var setPlayerIndex = function(){
-                    var index0 = me.config.stage.getChildIndex(me.config.lanes[0].player);
-                    var index1 = me.config.stage.getChildIndex(me.config.lanes[1].player);
-                    var index2 = me.config.stage.getChildIndex(me.config.lanes[2].player);
-                    if (index0 > index1 && index1 >= 0){
-                        me.config.stage.swapChildren(me.config.lanes[0].player,me.config.lanes[1].player);
-                        setPlayerIndex();
-                    } else if (index1 > index2 && index2 >= 0){
-                        me.config.stage.swapChildren(me.config.lanes[1].player,me.config.lanes[2].player);
+                this.config.stage.addChild(player);
+                var setPlayerIndex = function () {
+                    var index0 = _this.config.stage.getChildIndex(_this.config.lanes[0].player);
+                    var index1 = _this.config.stage.getChildIndex(_this.config.lanes[1].player);
+                    var index2 = _this.config.stage.getChildIndex(_this.config.lanes[2].player);
+                    if (index0 > index1 && index1 >= 0) {
+                        _this.config.stage.swapChildren(_this.config.lanes[0].player, _this.config.lanes[1].player);
                         setPlayerIndex();
                     }
-                }
+                    else if (index1 > index2 && index2 >= 0) {
+                        _this.config.stage.swapChildren(_this.config.lanes[1].player, _this.config.lanes[2].player);
+                        setPlayerIndex();
+                    }
+                };
                 setPlayerIndex();
-                setCaptchaIndex(me);
-
-
+                this.setCaptchaIndex();
             }
         }
     };
-
-    var activatePlayer = function (player, me) {
-        var powerup = me.config.activePowerup;
+    StageController.prototype.activatePlayer = function (player) {
+        var powerup = this.config.activePowerup;
         if (powerup && player != undefined) {
-            player.addPowerups(me.config.activePowerup.getPower());
-            me.config.activePowerup = undefined;
+            player.addPowerups(this.config.activePowerup.getPower());
+            this.config.activePowerup = undefined;
         }
         if (player != undefined) {
-            me.config.players.push(player);
+            this.config.players.push(player);
             player.run();
         }
     };
-
-    var resetGame = function (me) {
-
-        removeAllEvents(me);
-        removeAllChildren(me);
-
-        me.config.players = [];
-        me.config.enemies = [];
-        me.config.gems = [];
-        me.config.powerups = [];
-        me.config.lanes = [];
-        me.config.waves = [];
-        me.config.activePowerup = undefined;
-        me.passCount = 0;
-        me.config.life = me.config.gameState.maxLife;
+    StageController.prototype.resetGame = function () {
+        this.removeAllEvents();
+        this.removeAllChildren();
+        this.config.players = [];
+        this.config.enemies = [];
+        this.config.gems = [];
+        this.config.powerups = [];
+        this.config.lanes = [];
+        this.config.waves = [];
+        this.config.activePowerup = undefined;
+        this.passCount = 0;
+        this.config.life = this.config.gameState.maxLife;
     };
-
-    var removeAllChildren = function (me) {
-        me.config.stage.removeAllChildren();
-        me.config.stage.update();
+    StageController.prototype.removeAllChildren = function () {
+        this.config.stage.removeAllChildren();
+        this.config.stage.update();
     };
-
-    var removeAllEvents = function (me) {
-
+    StageController.prototype.removeAllEvents = function () {
     };
-
-    var tick = function (me) {
+    StageController.prototype.tick = function () {
         if (!createjs.Ticker.getPaused()) {
-            me.config.stage.update();
-            hitTest(me);
+            this.config.stage.update();
+            this.hitTest();
         }
     };
-
-    var hitTest = function (me) {
-        if (me.config.players != undefined && me.config.players.length != 0) {
-            for (var i = 0; i < me.config.players.length; i++) {
-                var player = me.config.players[i];
-                if (player.hit == true) continue;
-                var enemy = hitTestEnemies(player, me);
-                var powerup = hitTestPowerups(player, me);
+    StageController.prototype.hitTest = function () {
+        if (this.config.players != undefined && this.config.players.length != 0) {
+            for (var i = 0; i < this.config.players.length; i++) {
+                var player = this.config.players[i];
+                if (player.hit == true)
+                    continue;
+                var enemy = this.hitTestEnemies(player);
+                var powerup = this.hitTestPowerups(player);
                 if (enemy != null && player.hit == false && enemy.hit == false) {
-
                     if (player.singleHit) {
                         var hitList = player.hitEnemies;
                         if (hitList.indexOf(enemy.id) == -1) {
@@ -543,177 +422,166 @@ function StageController(config) {
                             player.hitEnemies.push(enemy.id);
                             enemy.kill(player.getLife());
                         }
-                    } else {
+                    }
+                    else {
                         var enemyLife = enemy.getLife();
                         var fileId = player.config.playerSound.tackle;
-                        EventBus.dispatch("playSound",fileId);
+                        EventBus.dispatch("playSound", fileId);
                         enemy.kill(player.getLife());
                         player.kill(enemyLife);
                     }
                 }
                 if (powerup != null && player.hitPowerup == false && powerup.hit == false) {
-                    addToMyBag(me, powerup);
+                    this.addToMyBag(powerup);
                     player.hitPowerup = false;
-                    updateLevelStatus(me, powerup);
+                    this.updateLevelStatus(powerup);
                 }
             }
         }
-
     };
-
-    var hitTestEnemies = function (player, me) {
-        if (me.config.enemies.length != 0) {
-            for (var i = 0; i < me.config.enemies.length; i++) {
-                var enemy = me.config.enemies[i];
-                if (enemy.hit == true || player.getLaneId() != enemy.getLaneId()) continue;
+    StageController.prototype.hitTestEnemies = function (player) {
+        if (this.config.enemies.length != 0) {
+            for (var i = 0; i < this.config.enemies.length; i++) {
+                var enemy = this.config.enemies[i];
+                if (enemy.hit == true || player.getLaneId() != enemy.getLaneId())
+                    continue;
                 //if(enemy.hit == true) continue;
-                var hit = isCollision(player, enemy);
+                var hit = this.isCollision(player, enemy);
                 if (hit) {
                     return enemy;
                 }
             }
         }
     };
-    var hitTestPowerups = function (player, me) {
-        if (me.config.powerups.length != 0) {
-            for (var i = 0; i < me.config.powerups.length; i++) {
-                var powerup = me.config.powerups[i];
-                if (powerup.getLaneId() != player.getLaneId()) continue;
-                var hit = isCollisionPowerup(player, powerup);
+    StageController.prototype.hitTestPowerups = function (player) {
+        if (this.config.powerups.length != 0) {
+            for (var i = 0; i < this.config.powerups.length; i++) {
+                var powerup = this.config.powerups[i];
+                if (powerup.getLaneId() != player.getLaneId())
+                    continue;
+                var hit = this.isCollisionPowerup(player, powerup);
                 if (hit) {
                     return powerup;
                 }
             }
         }
     };
-    var isCollisionPowerup = function (player, object) {
-        return (object.x <= player.x + player.getWidth() &&
-        player.x <= object.x + object.getWidth());
+    StageController.prototype.isCollisionPowerup = function (player, object) {
+        return (object.x <= player.x + player.getWidth() && player.x <= object.x + object.getWidth());
     };
-
-
-    var isCollision = function (player, object) {
-        return (object.x <= player.x + player.getWidth() &&
-        player.x <= object.x + object.getWidth() )
+    StageController.prototype.isCollision = function (player, object) {
+        return (object.x <= player.x + player.getWidth() && player.x <= object.x + object.getWidth());
     };
-
-    var compareCaptcha = function (me) {
-
-        EventBus.dispatch("playSound","textEntry1");
-        var output = me.captchaProcessor.compare();
-        if(output.cheated){
+    StageController.prototype.compareCaptcha = function () {
+        EventBus.dispatch("playSound", "textEntry1");
+        var output = this.captchaProcessor.compare();
+        if (output.cheated) {
             EventBus.dispatch("showCommentary", output.message);
-            showResultScreen(me, 2);
-
-        } else {
-            showMessage(me, output.message);
-            removeActivePowerup(me);
+            this.showResultScreen(2);
+        }
+        else {
+            this.showMessage(output.message);
+            this.removeActivePowerup();
             if (output.pass) {
-                if(me.config.activePowerup != null){
-                    EventBus.dispatch("playSound","correctPowerup");
-                    me.config.myBag.selectedId = -1;
+                if (this.config.activePowerup != null) {
+                    EventBus.dispatch("playSound", "correctPowerup");
+                    this.config.myBag.selectedId = -1;
                 }
-                else{
-                    EventBus.dispatch("playSound","correctSound");
+                else {
+                    EventBus.dispatch("playSound", "correctSound");
                 }
-                if (me.config.activePowerup != null && me.config.activePowerup.getId() == "bullhorn") {
-                    startPlayersFromAllLanes(me);
-                } else {
-                    var lane = getLaneById(output.laneId, me);
-                    activatePlayer(lane.player, me);
+                if (this.config.activePowerup != null && this.config.activePowerup.getId() == "bullhorn") {
+                    this.startPlayersFromAllLanes();
+                }
+                else {
+                    var lane = this.getLaneById(output.laneId);
+                    this.activatePlayer(lane.player);
                     if (output.extraDamage && lane.player != undefined && lane.player.getLife() == 1) {
-                        lane.player.setLife(me.config.gameState.gs.extraDamage);
+                        lane.player.setLife(this.config.gameState.gs.extraDamage);
                     }
                     lane.player = undefined;
                 }
-                resetPlayers(me);
-            } else {
-                EventBus.dispatch("playSound","incorrectSound");
-                updatePlayerOnDefault(me);
-                playConfusedAnimation(me);
-                me.config.activePowerup = undefined;
-
-
+                this.resetPlayers();
+            }
+            else {
+                EventBus.dispatch("playSound", "incorrectSound");
+                this.updatePlayerOnDefault();
+                this.playConfusedAnimation();
+                this.config.activePowerup = undefined;
             }
         }
-
     };
-    var playConfusedAnimation = function (me) {
-        for (var i = 0; i < me.config.lanes.length; i++) {
-            var lane = me.config.lanes[i];
+    StageController.prototype.playConfusedAnimation = function () {
+        for (var i = 0; i < this.config.lanes.length; i++) {
+            var lane = this.config.lanes[i];
             if (lane.player) {
                 lane.player.x = lane.player.x + 70;
-                lane.player.sprite.addEventListener("animationend",function(e){
+                lane.player.sprite.addEventListener("animationend", function (e) {
                     e.target.removeEventListener("animationend", e.target._listeners.animationend[0]);
-                    e.target.parent.x = e.target.parent.x-70;
+                    e.target.parent.x = e.target.parent.x - 70;
                 });
                 lane.player.confused();
             }
-
         }
     };
-    var removeActivePowerup = function (me) {
-        if (me.config.activePowerup) {
-            me.config.myBag.removeFromBag(me.config.activePowerup);
-
+    StageController.prototype.removeActivePowerup = function () {
+        if (this.config.activePowerup) {
+            this.config.myBag.removeFromBag(this.config.activePowerup);
         }
     };
-    var startPlayersFromAllLanes = function (me) {
-        for (var i = 0; i < me.config.lanes.length; i++) {
-            var lane = me.config.lanes[i];
-            activatePlayer(lane.player, me);
+    StageController.prototype.startPlayersFromAllLanes = function () {
+        for (var i = 0; i < this.config.lanes.length; i++) {
+            var lane = this.config.lanes[i];
+            this.activatePlayer(lane.player);
             lane.player = undefined;
         }
     };
-    var setTickerStatus = function () {
+    StageController.prototype.setTickerStatus = function () {
         createjs.Ticker.setPaused(!createjs.Ticker.getPaused());
     };
-
-    var updateLevelStatus = function (me, object) {
+    StageController.prototype.updateLevelStatus = function (object) {
         var type = "";
-        if (object instanceof sprites.Enemy) type = "enemy";
-        me.waves.update(object.getWaveId(), object.onKillPush(), type);
-        var enemyCount = me.config.enemies.length;
-        var powerupCount = me.config.powerups.length;
+        if (object instanceof sprites.Enemy)
+            type = "enemy";
+        this.waves.update(object.getWaveId(), object.onKillPush(), type);
+        var enemyCount = this.config.enemies.length;
+        var powerupCount = this.config.powerups.length;
         if (enemyCount == 0 && powerupCount == 0) {
-            waitForForcePush(me, object.getWaveId());
+            this.waitForForcePush(object.getWaveId());
         }
-        if(me.waves.getStatus() && enemyCount == 0){
-            EventBus.dispatch("playSound","crowdCheering");
-            updateLevel(me);
+        if (this.waves.getStatus() && enemyCount == 0) {
+            EventBus.dispatch("playSound", "crowdCheering");
+            this.updateLevel();
         }
     };
-    var waitForForcePush = function (me, waveId) {
+    StageController.prototype.waitForForcePush = function (waveId) {
+        var _this = this;
         setTimeout(function () {
-            if (me.config.enemies.length == 0) {
+            if (_this.config.enemies.length == 0) {
                 EventBus.dispatch("forcePush", waveId);
             }
         }, 2000);
     };
-    var updateLevel = function (me) {
-
-        me.score.addGameLevelPoints(me.config.life);
-
-        if(me.config.gameState.currentLevel == 1){
-            calculateTime(me);
-            calculateDifficulty(me);
+    StageController.prototype.updateLevel = function () {
+        this.score.addGameLevelPoints(this.config.life);
+        if (this.config.gameState.currentLevel == 1) {
+            this.calculateTime();
+            this.calculateDifficulty();
         }
-
-        me.config.gameState.currentLevel++;
-        if (me.config.gameState.currentLevel > me.config.gameState.gs.maxLevel && me.config.gameState.currentLevel < 8) {
-            me.config.gameState.gs.maxLevel = me.config.gameState.currentLevel;
+        this.config.gameState.currentLevel++;
+        if (this.config.gameState.currentLevel > this.config.gameState.gs.maxLevel && this.config.gameState.currentLevel < 8) {
+            this.config.gameState.gs.maxLevel = this.config.gameState.currentLevel;
         }
-        me.config.gameState.currentState = me.config.gameState.states.GAME_OVER;
-        showResultScreen(me, 1);
-        saveInputTexts(me);
-
+        this.config.gameState.currentState = this.config.gameState.states.GAME_OVER;
+        this.showResultScreen(1);
+        this.saveInputTexts();
     };
-
-    var showResultScreen = function (me, result) {
-        $("#canvasHolder input").prop("disabled",true);
-        me.waves.clearAll();
-        me.waves = null;
-        EventBus.dispatch("stopSound","stadiumAmbience");
+    StageController.prototype.showResultScreen = function (result) {
+        var _this = this;
+        $("#canvasHolder input").prop("disabled", true);
+        this.waves.clearAll();
+        this.waves = null;
+        EventBus.dispatch("stopSound", "stadiumAmbience");
         setTimeout(function () {
             EventBus.dispatch("setTickerStatus");
             EventBus.dispatch("setMute");
@@ -722,22 +590,24 @@ function StageController(config) {
                 $("#lostContainer").show();
                 $("#lostContainer .moneyMade").text(0);
                 $("#resultWrapper").css("display", "table");
-            } else if (result == 1) {
-                var money = me.score.getMoneyForLevel(me.config.life);
+            }
+            else if (result == 1) {
+                var money = _this.score.getMoneyForLevel(_this.config.life);
                 $("#victoryContainer .moneyMade").text(money);
                 $("#victoryContainer").show();
                 $("#resultWrapper").css("display", "table");
-            } else if (result == 2) {
+            }
+            else if (result == 2) {
                 EventBus.dispatch("showMap", true);
-            } else if (result == 3) {
-                var time = timeConvert(me.timeSpend);
-                var highScore = me.config.gameState.gs.highScore;
-                if(highScore.min<=time.min){
-                    if(highScore.sec<=time.sec){
-                        me.config.gameState.gs.highScore = time;
-                        highScore = me.config.gameState.gs.highScore;
+            }
+            else if (result == 3) {
+                var time = _this.timeConvert(_this.timeSpend);
+                var highScore = _this.config.gameState.gs.highScore;
+                if (highScore.min <= time.min) {
+                    if (highScore.sec <= time.sec) {
+                        _this.config.gameState.gs.highScore = time;
+                        highScore = _this.config.gameState.gs.highScore;
                     }
-
                 }
                 $("#minutes").text(time.min);
                 $("#seconds").text(time.sec);
@@ -746,177 +616,157 @@ function StageController(config) {
                 $("#canvasHolder").hide();
                 $("#survivalEndContainer").show();
                 $("#resultWrapper").css("display", "table");
-
             }
         }, 2000);
     };
-    var gameOver = function (me) {
-
-        calculateTime(me);
-        me.config.gameState.currentState = me.config.gameState.states.GAME_OVER;
-
+    StageController.prototype.gameOver = function () {
+        this.calculateTime();
+        this.config.gameState.currentState = this.config.gameState.states.GAME_OVER;
         EventBus.dispatch("showCommentary", "Game Over");
-        if (me.config.gameState.currentLevel == me.config.gameState.survivalLevel) {
-            showResultScreen(me, 3);
-        } else {
-            showResultScreen(me, 0);
+        if (this.config.gameState.currentLevel == this.config.gameState.survivalLevel) {
+            this.showResultScreen(3);
         }
-
-
+        else {
+            this.showResultScreen(0);
+        }
     };
-    var resetAll = function (me) {
+    StageController.prototype.resetAll = function () {
         var store = new LocalStorage();
-       // store.reset();
-        me.config.gameState.reset();
-        me.config.myBag.reset();
+        // store.reset();
+        this.config.gameState.reset();
+        this.config.myBag.reset();
         EventBus.dispatch("showMap");
-
-    }
-
-    var pushEnemy = function (me, enemy) {
-        EventBus.dispatch("showPendingEnemies", me.waves.getPendingEnemies());
-        setEnemyProperties(me, enemy);
-        var laneId =  enemy.getLaneId();
-        if(laneId<3 && me.config.gameState.currentLevel!=1){
-            var player = me.config.lanes[laneId].player;
-            var index = me.config.stage.getChildIndex(player);
-            if(index>0)
-                me.config.stage.addChildAt(enemy,index);
-            else{
-                me.config.stage.addChild(enemy);
-            }
-        }else{
-            me.config.stage.addChild(enemy)
-        }
-
-
-        me.config.enemies.push(enemy);
     };
-
-    var setEnemyProperties = function (me, enemy) {
-        var lane = getLaneById(enemy.getLaneId(), me); //enemy.getLaneId();
+    StageController.prototype.pushEnemy = function (enemy) {
+        EventBus.dispatch("showPendingEnemies", this.waves.getPendingEnemies());
+        this.setEnemyProperties(enemy);
+        var laneId = enemy.getLaneId();
+        if (laneId < 3 && this.config.gameState.currentLevel != 1) {
+            var player = this.config.lanes[laneId].player;
+            var index = this.config.stage.getChildIndex(player);
+            if (index > 0)
+                this.config.stage.addChildAt(enemy, index);
+            else {
+                this.config.stage.addChild(enemy);
+            }
+        }
+        else {
+            this.config.stage.addChild(enemy);
+        }
+        this.config.enemies.push(enemy);
+    };
+    StageController.prototype.setEnemyProperties = function (enemy) {
+        var lane = this.getLaneById(enemy.getLaneId()); //enemy.getLaneId();
         var start = lane.getEndPoint();
         var end = lane.getEnemyEndPoint();
         enemy.setStartPoint(start.x, start.y);
         enemy.setEndPoint(end.x);
         enemy.run();
-
     };
-    var getLaneById = function (id, me) {
-        for (var i = 0; i < me.config.lanes.length; i++) {
-            var lane = me.config.lanes[i];
+    StageController.prototype.getLaneById = function (id) {
+        for (var i = 0; i < this.config.lanes.length; i++) {
+            var lane = this.config.lanes[i];
             if (lane.getLaneId() == id) {
                 return lane;
             }
         }
         return null;
     };
-    var pushPowerup = function (me, powerup) {
-        setPowerupProperties(me, powerup);
-        me.spawning.onPowerupSpawned();
-        me.config.stage.addChildAt(powerup,8);
-        me.config.powerups.push(powerup);
+    StageController.prototype.pushPowerup = function (powerup) {
+        this.setPowerupProperties(powerup);
+        this.spawning.onPowerupSpawned();
+        this.config.stage.addChildAt(powerup, 8);
+        this.config.powerups.push(powerup);
     };
-
-    var setPowerupProperties = function (me, powerup) {
-        var lane = getLaneById(powerup.getLaneId(), me); //enemy.getLaneId();
+    StageController.prototype.setPowerupProperties = function (powerup) {
+        var lane = this.getLaneById(powerup.getLaneId()); //enemy.getLaneId();
         var powerupPos = lane.getPowerupPosition();
         powerup.setPosition(powerupPos.x, powerupPos.y);
         powerup.run();
-
     };
-
-    var showPowerup = function (me) {
+    StageController.prototype.showPowerup = function () {
         var powerupContainer = new createjs.Container();
         var x = 10;
         var y = 10;
         var padding = 5;
-        for (var i = 0; i < me.config.myBag.myBag.length; i++) {
-            var powerup = me.config.myBag.myBag[i];
+        for (var i = 0; i < this.config.myBag.myBag.length; i++) {
+            var powerup = this.config.myBag.myBag[i];
             powerupContainer.addChild(powerup);
             powerup.reset();
             x = x + powerup.getWidth() + padding;
             powerup.setPosition(x, y);
         }
-        powerupContainer.x = me.cbBox.x + powerupContainer.getTransformedBounds().width / 2;
-        me.stadium.addChild(powerupContainer);
-
+        powerupContainer.x = this.cbBox.x + powerupContainer.getTransformedBounds().width / 2;
+        this.stadium.addChild(powerupContainer);
     };
-    var addToMyBag = function (me, powerup) {
-        var index = me.config.powerups.indexOf(powerup);
-        me.config.powerups.splice(index, 1);
-        me.config.myBag.addToBagFromField(powerup);
-        me.config.stage.removeChild(powerup);
+    StageController.prototype.addToMyBag = function (powerup) {
+        var index = this.config.powerups.indexOf(powerup);
+        this.config.powerups.splice(index, 1);
+        this.config.myBag.addToBagFromField(powerup);
+        this.config.stage.removeChild(powerup);
     };
-
-    var unselectAllInBag = function (me) {
-        me.config.myBag.unselectAll();
-        me.config.activePowerup = undefined;
-        updatePlayerOnDefault(me, me.default_player);
+    StageController.prototype.unselectAllInBag = function () {
+        this.config.myBag.unselectAll();
+        this.config.activePowerup = undefined;
+        this.updatePlayerOnDefault(this.default_player);
     };
-    var selectPowerUp = function (me, mypowerup) {
-        me.config.activePowerup = mypowerup;
+    StageController.prototype.selectPowerUp = function (mypowerup) {
+        this.config.activePowerup = mypowerup;
         var type = mypowerup.getType();
-        if(type!="bullhorn")
-            me.powerup_player = "player_"+type;
-        updatePlayerOnPowerup(me,type);
+        if (type != "bullhorn")
+            this.powerup_player = "player_" + type;
+        this.updatePlayerOnPowerup(type);
     };
-
-    var updatePlayerOnPowerup = function (me, type) {
-        if(type=="bullhorn"){
-            type = "normal"
+    StageController.prototype.updatePlayerOnPowerup = function (type) {
+        if (type == "bullhorn") {
+            type = "normal";
         }
-        for (var i = 0; i < me.config.lanes.length; i++) {
-            var lane = me.config.lanes[i];
+        for (var i = 0; i < this.config.lanes.length; i++) {
+            var lane = this.config.lanes[i];
             var player = lane.player;
             if (player != undefined) {
                 player.setPowerupSpriteSheet(type);
-
             }
         }
-
     };
-    var updatePlayerOnDefault = function (me, playerId) {
-        for (var i = 0; i < me.config.lanes.length; i++) {
-            var lane = me.config.lanes[i];
+    StageController.prototype.updatePlayerOnDefault = function (playerId) {
+        for (var i = 0; i < this.config.lanes.length; i++) {
+            var lane = this.config.lanes[i];
             var player = lane.player;
             if (player != undefined) {
                 player.setDefaultSpriteSheet();
-
             }
         }
-    }
-
-    var changeLane = function (me, enemy) {
-        var laneId = newLaneId(enemy.getLaneId(), me);
-        var lane = getLaneById(laneId, me);
+    };
+    StageController.prototype.changeLane = function (enemy) {
+        var laneId = this.newLaneId(enemy.getLaneId());
+        var lane = this.getLaneById(laneId);
         var endPoint = lane.getEnemyEndPoint();
         enemy.setLaneId(laneId);
-        createjs.Tween.get(enemy).to({y: endPoint.y}, 2000);
-
+        createjs.Tween.get(enemy).to({ y: endPoint.y }, 2000);
     };
-
-    var newLaneId = function (currentLaneId, me) {
+    StageController.prototype.newLaneId = function (currentLaneId) {
         var laneId;
         do {
-            laneId = Math.floor(Math.random() * 3) + 1
+            laneId = Math.floor(Math.random() * 3) + 1;
         } while (laneId == currentLaneId);
         return laneId;
     };
-    var hideTimeOut = function (me) {
+    StageController.prototype.hideTimeOut = function () {
+        var _this = this;
         //calculateTime(me);
-        window.onmousedown = prevent;
+        window.onmousedown = function () { return _this.prevent(); };
         $("#inputText").focus();
-        me.config.gameState.currentState = me.config.gameState.states.RUN;
+        this.config.gameState.currentState = this.config.gameState.states.RUN;
         $('#timeout-container').css('display', 'none');
         EventBus.dispatch('showCaptchas');
         EventBus.dispatch('setTickerStatus');
         EventBus.dispatch('setMute');
         //Play Stadium Ambience
-        var audioList = me.config.gameState.audioList;
-        for(var i=0; i<audioList.length; i++){
+        var audioList = this.config.gameState.audioList;
+        for (var i = 0; i < audioList.length; i++) {
             var main = audioList[i].config.type;
-            if(audioList[i].config.loop && main == me.config.gameState.soundType.EFFECTS ) {
+            if (audioList[i].config.loop && main == this.config.gameState.soundType.EFFECTS) {
                 if (audioList[i].mySound.paused) {
                     audioList[i].play();
                 }
@@ -927,72 +777,71 @@ function StageController(config) {
         }
         EventBus.dispatch('pauseWaves', false);
     };
-    var prevent = function(event){
-        if(event){
+    StageController.prototype.prevent = function (event) {
+        if (event) {
             event.preventDefault();
         }
-    }
-    var calculateTime = function (me) {
-        me.timeSpend = createjs.Ticker.getTime(true) - me.currentTime;
-        me.currentTime = createjs.Ticker.getTime(true);
     };
-    var timeConvert = function (milliSeconds) {
-        var min = Math.floor((milliSeconds/1000/60));
-        var sec = Math.floor((milliSeconds/1000) % 60);
-        return {"min":min,"sec":sec}
+    StageController.prototype.calculateTime = function () {
+        this.timeSpend = createjs.Ticker.getTime(true) - this.currentTime;
+        this.currentTime = createjs.Ticker.getTime(true);
     };
-    var calculateDifficulty = function(me){
-        var wordCount = me.captchaProcessor.getWordCount();
-        var time = timeConvert(me.timeSpend);
-        time = time.min+"."+time.sec;
-        time = parseFloat(time);
-        var wpm = wordCount/time;
-
-        if(wpm<=10){
-            me.config.gameState.gs.difficulty = 2.33;
-        }else if(wpm<=15){
-            me.config.gameState.gs.difficulty = 2;
-        }else if(wpm<=20){
-            me.config.gameState.gs.difficulty = 1.67;
-        }else if(wpm<=30){
-            me.config.gameState.gs.difficulty = 1.33;
-        }else if(wpm>30){
-            me.config.gameState.gs.difficulty = 1;
+    StageController.prototype.timeConvert = function (milliSeconds) {
+        var min = Math.floor((milliSeconds / 1000 / 60));
+        var sec = Math.floor((milliSeconds / 1000) % 60);
+        return { "min": min, "sec": sec };
+    };
+    StageController.prototype.calculateDifficulty = function () {
+        var wordCount = this.captchaProcessor.getWordCount();
+        var time = this.timeConvert(this.timeSpend);
+        var timestr = time.min + "." + time.sec;
+        var timef = parseFloat(timestr);
+        var wpm = wordCount / timef;
+        if (wpm <= 10) {
+            this.config.gameState.gs.difficulty = 2.33;
         }
-
+        else if (wpm <= 15) {
+            this.config.gameState.gs.difficulty = 2;
+        }
+        else if (wpm <= 20) {
+            this.config.gameState.gs.difficulty = 1.67;
+        }
+        else if (wpm <= 30) {
+            this.config.gameState.gs.difficulty = 1.33;
+        }
+        else if (wpm > 30) {
+            this.config.gameState.gs.difficulty = 1;
+        }
     };
-    var saveInputTexts = function(me){
-         var arr = me.config.gameState.inputTextArr;
-         $.ajax({
-             url: 'http://tiltfactor1.dartmouth.edu:8080/api/difference',
-             type: 'PUT',
-             dataType: 'json',
-             headers: {"x-access-token": 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJHYW1lIiwiaWF0IjoxNDE1MzQxNjMxMjY4LCJpc3MiOiJCSExTZXJ2ZXIifQ.bwRps5G6lAd8tGZKK7nExzhxFrZmAwud0C2RW26sdRM'},
-             processData: false,
-             contentType: 'application/json',
-             timeout: 10000,
-             data:JSON.stringify(arr), //this data will be in the format of a json object of user inputs and database IDs of the word they were going for (provided in the json that GET returns)
-             crossDomain: true,
-             error: function(err)
-             {
-                 var errorText = JSON.parse(err.responseText);
-                 console.log(errorText);
-                 me.config.gameState.inputTextArr = [];
-             },
-             success: function(data)
-             {
-                 me.config.gameState.inputTextArr = [];
-                 console.log(data);
-             }
-         });
-     }
-    var removeFromStage = function(me,object){
-        var child = me.config.stage.getChildIndex(object);
-        me.config.stage.removeChildAt(child);
-    }
-    var persist = function (me) {
-
-    }
-
-
-}
+    StageController.prototype.saveInputTexts = function () {
+        var _this = this;
+        var arr = this.config.gameState.inputTextArr;
+        $.ajax({
+            url: 'http://tiltfactor1.dartmouth.edu:8080/api/difference',
+            type: 'PUT',
+            dataType: 'json',
+            headers: { "x-access-token": 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJHYW1lIiwiaWF0IjoxNDE1MzQxNjMxMjY4LCJpc3MiOiJCSExTZXJ2ZXIifQ.bwRps5G6lAd8tGZKK7nExzhxFrZmAwud0C2RW26sdRM' },
+            processData: false,
+            contentType: 'application/json',
+            timeout: 10000,
+            data: JSON.stringify(arr),
+            crossDomain: true,
+            error: function (err) {
+                var errorText = JSON.parse(err.responseText);
+                console.log(errorText);
+                _this.config.gameState.inputTextArr = [];
+            },
+            success: function (data) {
+                _this.config.gameState.inputTextArr = [];
+                console.log(data);
+            }
+        });
+    };
+    StageController.prototype.removeFromStage = function (object) {
+        var child = this.config.stage.getChildIndex(object);
+        this.config.stage.removeChildAt(child);
+    };
+    StageController.prototype.persist = function () {
+    };
+    return StageController;
+})();

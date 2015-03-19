@@ -6,11 +6,11 @@ var MenuController = (function () {
         this.config = config;
     }
     MenuController.prototype.init = function () {
-        this.createDialog(this);
-        this.loadEvents(this);
+        this.createDialog();
+        this.loadEvents();
         $("#resumeButton").hide();
     };
-    MenuController.prototype.loadEvents = function (me) {
+    MenuController.prototype.loadEvents = function () {
         var _this = this;
         EventBus.addEventListener("exitMenu", function () { return _this.hideMenu(); });
         EventBus.addEventListener("showMenu", function () { return _this.showMenu(); });
@@ -62,7 +62,7 @@ var MenuController = (function () {
         $("#optionsScreen").css("display", "table");
         this.setSliderValue();
     };
-    MenuController.prototype.createDialog = function (me) {
+    MenuController.prototype.createDialog = function () {
         $("#menu-container").css("display", "block");
         $(".selectDifficulty").selectmenu({
             appendTo: "#selectBox",
@@ -84,25 +84,26 @@ var MenuController = (function () {
         });
     };
     MenuController.prototype.setSliderValue = function () {
+        var _this = this;
         $(".music-slider").slider({
             value: this.config.gameState.config.store.music = this.config.gameState.config.store.music == undefined ? this.config.gameState.gs.music : this.config.gameState.config.store.music,
             range: "min",
             slide: function (event, ui) {
-                this.config.gameState.gs.music = ui.value;
-                this.config.gameState.config.store.music = ui.value;
+                _this.config.gameState.gs.music = ui.value;
+                _this.config.gameState.config.store.music = ui.value;
                 EventBus.dispatch("saveToStore");
-                EventBus.dispatch("changeSoundVolume", this.config.gameState.soundType.MAIN);
+                EventBus.dispatch("changeSoundVolume", _this.config.gameState.soundType.MAIN);
             }
         });
         $(".effects-slider").slider({
             value: this.config.gameState.config.store.soundEffects = this.config.gameState.config.store.soundEffects == undefined ? this.config.gameState.gs.soundEffects : this.config.gameState.config.store.soundEffects,
             range: "min",
             slide: function (event, ui) {
-                this.config.gameState.gs.soundEffects = ui.value;
-                this.config.gameState.config.store.soundEffects = ui.value;
+                _this.config.gameState.gs.soundEffects = ui.value;
+                _this.config.gameState.config.store.soundEffects = ui.value;
                 EventBus.dispatch("saveToStore");
-                this.config.gameState.gs.soundEffects = this.config.gameState.config.store.soundEffects;
-                EventBus.dispatch("changeSoundVolume", this.config.gameState.soundType.EFFECTS);
+                _this.config.gameState.gs.soundEffects = _this.config.gameState.config.store.soundEffects;
+                EventBus.dispatch("changeSoundVolume", _this.config.gameState.soundType.EFFECTS);
             }
         });
     };

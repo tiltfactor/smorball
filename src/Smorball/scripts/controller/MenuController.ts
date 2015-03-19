@@ -11,12 +11,12 @@ class MenuController {
     }
 
     init() {
-        this.createDialog(this);
-        this.loadEvents(this);
+        this.createDialog();
+        this.loadEvents();
         $("#resumeButton").hide();
     }
 
-    private loadEvents(me) {
+    private loadEvents() {
         EventBus.addEventListener("exitMenu", () => this.hideMenu() );
         EventBus.addEventListener("showMenu", () => this.showMenu());
         EventBus.addEventListener("play", () => this.play());
@@ -73,12 +73,12 @@ class MenuController {
         this.setSliderValue();
     }
 
-    private createDialog(me) {
+    private createDialog() {
         $("#menu-container").css("display", "block");
         $(".selectDifficulty").selectmenu({
             appendTo: "#selectBox",
             width: '70%',
-            change: function (event, ui) {
+            change: (event, ui) => {
                 EventBus.dispatch('setDifficulty', ui.item.value);
             }
         });
@@ -100,7 +100,7 @@ class MenuController {
         $(".music-slider").slider({
             value: this.config.gameState.config.store.music = this.config.gameState.config.store.music == undefined ? this.config.gameState.gs.music : this.config.gameState.config.store.music,
             range: "min",
-            slide: function (event, ui) {
+            slide: (event, ui) => {
                 this.config.gameState.gs.music = ui.value;
                 this.config.gameState.config.store.music = ui.value;
                 EventBus.dispatch("saveToStore");
@@ -111,7 +111,7 @@ class MenuController {
         $(".effects-slider").slider({
             value: this.config.gameState.config.store.soundEffects = this.config.gameState.config.store.soundEffects == undefined ? this.config.gameState.gs.soundEffects : this.config.gameState.config.store.soundEffects,
             range: "min",
-            slide: function (event, ui) {
+            slide: (event, ui) => {
                 this.config.gameState.gs.soundEffects = ui.value;
                 this.config.gameState.config.store.soundEffects = ui.value;
                 EventBus.dispatch("saveToStore");

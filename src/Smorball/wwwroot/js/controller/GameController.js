@@ -1,3 +1,4 @@
+/// <reference path="stagecontroller.ts" />
 /// <reference path="../utils/deparam.ts" />
 /// <reference path="../../typings/tsd.d.ts" />
 /// <reference path="../data/manifest.ts" />

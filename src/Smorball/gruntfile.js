@@ -1,4 +1,4 @@
-/// <binding AfterBuild='default' ProjectOpened='bower, typescript, http-server' />
+/// <binding AfterBuild='default' ProjectOpened='bower, typescript' />
 // This file in the main entry point for defining grunt tasks and using grunt plugins.
 // Click here to learn more. http://go.microsoft.com/fwlink/?LinkID=513275&clcid=0x409
 
@@ -60,7 +60,7 @@ module.exports = function (grunt) {
     // This line needs to be at the end of this this file.
     grunt.loadNpmTasks("grunt-bower-task");
     grunt.loadNpmTasks('grunt-typescript');
-    grunt.loadNpmTasks('grunt-http-server');
+    //grunt.loadNpmTasks('grunt-http-server');
     grunt.loadNpmTasks('grunt-asset-injector');
 
 };
