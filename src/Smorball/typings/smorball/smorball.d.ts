@@ -27,10 +27,6 @@ declare class Spawning {
 	onPowerupSpawned();
 }
 
-declare class AdBoard extends createjs.Container {
-    constructor(config?: any);
-}
-
 declare class Blocks {
     constructor(config?: any);
 	drawLeftChairBlock();

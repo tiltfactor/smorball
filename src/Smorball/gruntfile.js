@@ -14,27 +14,28 @@ module.exports = function (grunt) {
             }
         },
         typescript: {
-            base: {
+
+        	options: {
+        		module: 'amd', //or commonjs 
+        		target: 'es5', //or es3 
+        		basePath: 'scripts',
+        		sourceMap: false,
+        		declaration: false,
+        		watch: 'scripts',
+        		noEmitOnError: false
+        	},
+        	build: {
+        		src: ['scripts/**/*.ts', 'typings/**/*.ts'],
+        		dest: 'wwwroot/js',
+        		options: {
+					watch: false
+        		}
+        	},
+            watch: {
                 src: ['scripts/**/*.ts', 'typings/**/*.ts'],
-                dest: 'wwwroot/js',
-                options: {
-                    module: 'amd', //or commonjs 
-                    target: 'es5', //or es3 
-                    basePath: 'scripts',
-                    sourceMap: false,
-                    declaration: false,
-                    watch: 'scripts',
-                    noEmitOnError: false
-                }
+                dest: 'wwwroot/js'                
             }
-        },
-        "http-server": {
-            dev: {
-                root: "wwwroot",
-                port: 8888,
-                host: "localhost"
-            }
-        },
+        },       
         injector: {
             options: {
                 ignorePath: 'wwwroot/',
@@ -54,7 +55,8 @@ module.exports = function (grunt) {
     });
 
     // This command registers the default task which will install bower packages into wwwroot/lib
-    grunt.registerTask("default", ["bower:install", "injector"]);
+    grunt.registerTask("default", ["bower:install", "typescript:build", "injector"]);
+    grunt.registerTask("watch", ["typescript:watch"]);
 
     // The following line loads the grunt plugins.
     // This line needs to be at the end of this this file.

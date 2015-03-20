@@ -1,3 +1,4 @@
+/// <reference path="../model/spriteman.ts" />
 /// <reference path="../model/waves.ts" />
 /// <reference path="../model/commentarybox.ts" />
 /// <reference path="../data/manifest.ts" />
@@ -312,20 +313,20 @@ var StageController = (function () {
     StageController.prototype.killMe = function (actor) {
         var object = actor.target;
         this.config.stage.removeChild(object);
-        if (object instanceof sprites.Enemy) {
+        if (object instanceof Enemy) {
             var index = this.config.enemies.indexOf(object);
             this.config.enemies.splice(index, 1);
             this.spawning.onEnemyKilled(object.getMaxLife());
             this.updateLevelStatus(object);
         }
-        else if (object instanceof sprites.SpriteMan) {
+        else if (object instanceof SpriteMan) {
             var index = this.config.players.indexOf(object);
             this.config.players.splice(index, 1);
         }
-        else if (object instanceof Gem) {
-            var index = this.config.gems.indexOf(object);
-            this.config.gems.splice(index, 1);
-        }
+        //else if (object instanceof Gem) {
+        //	var index = this.config.gems.indexOf(object);
+        //	this.config.gems.splice(index, 1);
+        //}
     };
     StageController.prototype.resetPlayers = function () {
         for (var i = 0; i < this.config.lanes.length; i++) {
@@ -350,7 +351,7 @@ var StageController = (function () {
                 "gameState": this.config.gameState
             };
             if (lane.player == undefined) {
-                var player = new sprites.SpriteMan(config);
+                var player = new SpriteMan(config);
                 lane.setPlayer(player);
                 var laneId = lane.getLaneId();
                 this.config.stage.addChild(player);
@@ -543,7 +544,7 @@ var StageController = (function () {
     };
     StageController.prototype.updateLevelStatus = function (object) {
         var type = "";
-        if (object instanceof sprites.Enemy)
+        if (object instanceof Enemy)
             type = "enemy";
         this.waves.update(object.getWaveId(), object.onKillPush(), type);
         var enemyCount = this.config.enemies.length;

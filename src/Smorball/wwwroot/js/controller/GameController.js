@@ -55,9 +55,9 @@ var GameController = (function () {
             $("#mainSplashScreen").css("display", "table");
             $("#MBGLogo").delay(2000).fadeOut(1000, function () {
                 $("#BHLlogo").fadeIn(1000).delay(2000).fadeOut(1000, function () {
-                    $("#tiltfactorLogo").delay(2000).fadeOut(1000, function () {
-                        $("#mainSplashScreen").fadeOut(1000, function () {
-                            _this.doInit();
+                    $("#tiltfactorLogo").fadeIn(1000).delay(2000).fadeOut(1000, function () {
+                        _this.doInit();
+                        $("#mainSplashScreen").fadeOut(500, function () {
                         });
                     });
                 });

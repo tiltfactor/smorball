@@ -71,10 +71,9 @@ class GameController {
             $("#mainSplashScreen").css("display", "table");
             $("#MBGLogo").delay(2000).fadeOut(1000, () => {
                 $("#BHLlogo").fadeIn(1000).delay(2000).fadeOut(1000, () => {
-                    $("#tiltfactorLogo").delay(2000).fadeOut(1000, () => {
-                        $("#mainSplashScreen").fadeOut(1000, () => {
-                            this.doInit();
-                        })
+                    $("#tiltfactorLogo").fadeIn(1000).delay(2000).fadeOut(1000,() => {		
+						this.doInit();				
+                        $("#mainSplashScreen").fadeOut(500,() => { });
                     });
                 });
             });

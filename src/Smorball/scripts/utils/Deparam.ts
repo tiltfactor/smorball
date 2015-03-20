@@ -1,4 +1,4 @@
-﻿function deparam(qs:string) : any {
+﻿function deparam(qs: string): any {
 
     // remove any preceding url and split
     var parts = qs.substring(qs.indexOf('?') + 1).split('&');

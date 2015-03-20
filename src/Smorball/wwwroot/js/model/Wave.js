@@ -151,7 +151,7 @@ var Wave = (function () {
         lane = this.config.lanes == 1 ? 2 : lane;
         var onKill = (time == undefined || time == -1) ? true : false;
         var config = { "id": type, "lanesObj": lanesObj, "laneId": lane, "waveId": this.config.id, "onKill": onKill, "loader": this.config.loader, "gameState": this.config.gameState };
-        var enemy = new sprites.Enemy(config);
+        var enemy = new Enemy(config);
         if (!(msg == "" || msg == undefined)) {
             EventBus.dispatch("showCommentary", msg);
         }
