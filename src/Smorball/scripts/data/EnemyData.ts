@@ -4,7 +4,8 @@
         "data": {
             "images": ["boss_walk", "boss_die"],
             "frames": { "regX": 0, "height": 114, "count": 70, "regY": 0, "width": 104 },
-            "animations": { "run": [0, 15, "run", 0.2], "die": [15, 70, 0.2], "stand": [12, 12] }
+            "animations": { "run": [0, 15, "run", 0.2], "die": [15, 70, 0.2], "stand": [12, 12] },
+			"path": "shapes/enemy characters/Coach Enemy C{0}"
         },
         "extras": {
             "id": "coach",
@@ -19,7 +20,8 @@
         "data": {
             "images": ["fast_walk", "fast_die"],
             "frames": { "regX": 0, "height": 254, "count": 64, "regY": 0, "width": 240 },
-            "animations": { "run": [0, 15, "run", 1.5], "die": [16, 40], "stand": [15] }
+            "animations": { "run": [0, 15, "run", 1.5], "die": [16, 40], "stand": [15] },
+			"path": "shapes/enemy characters/Skater Enemy S{0}"
         },
         "extras": {
             "id": "fast",
@@ -34,7 +36,8 @@
         "data": {
             "images": ["badGuy_walk", "badGuy_die"],
             "frames": { "regX": 0, "height": 152, "count": 40, "regY": 0, "width": 120 },
-            "animations": { "run": [0, 15, "run", 0.2], "die": [16, 70], "stand": [15] }
+            "animations": { "run": [0, 15, "run", 0.2], "die": [16, 70], "stand": [15] },
+			"path": "shapes/enemy characters/Tennis Enemy T{0}"
         },
         "extras": {
             "id": "tallstops",
@@ -44,12 +47,12 @@
         }
     },
 
-
     walkingBacks: {
         "data": {
             "images": ["weak_walk", "weak_die"],
             "frames": { "regX": 0, "height": 152, "count": 70, "regY": 0, "width": 120 },
-            "animations": { "run": [0, 15, "run", 0.2], "die": [15, 70, 0.2], "stand": [12, 12] }
+            "animations": { "run": [0, 15, "run", 0.2], "die": [15, 70, 0.2], "stand": [12, 12] },
+			"path": "shapes/enemy characters/Grand Mother Enemy GB{0}"
         },
         "extras": {
             "id": "walkingBacks",
@@ -64,7 +67,8 @@
         "data": {
             "images": ["moving_walk", "moving_die"],
             "frames": { "regX": 0, "height": 254, "count": 70, "regY": 0, "width": 240 },
-            "animations": { "run": [0, 15, "run", 0.2], "die": [15, 70, 0.2], "stand": [12, 12] }
+            "animations": { "run": [0, 15, "run", 0.2], "die": [15, 70, 0.2], "stand": [12, 12] },
+			"path": "shapes/enemy characters/Hooligan Enemy H0{0}"
         },
         "extras": {
             "changeLane": true,
@@ -80,7 +84,8 @@
         "data": {
             "images": ["enemy_regular"],
             "frames": { "regX": 0, "height": 513, "count": 1, "regY": 0, "width": 493 },
-            "animations": { "run": [0, 0, "run", 0.2], "die": [0, 0, 0.2], "stand": [0, 0] }
+            "animations": { "run": [0, 0, "run", 0.2], "die": [0, 0, 0.2], "stand": [0, 0] },
+			"path": "shapes/enemy characters/Weightlifter Enemy W{0}"
         },
         "extras": {
             "id": "wideCenters",
