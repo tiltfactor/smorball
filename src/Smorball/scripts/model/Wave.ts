@@ -103,7 +103,7 @@ class Wave {
 	private setNext(time) {
 		this.time = time;
 		this.startTimer = true;
-		this.timer = setTimeout(function () {
+		this.timer = setTimeout(() => {
 			if (!this.pause) {
 				this.push();
 				this.startTimer = false;

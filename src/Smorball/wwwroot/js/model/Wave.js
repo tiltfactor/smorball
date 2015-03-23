@@ -83,12 +83,13 @@ var Wave = (function () {
         }
     };
     Wave.prototype.setNext = function (time) {
+        var _this = this;
         this.time = time;
         this.startTimer = true;
         this.timer = setTimeout(function () {
-            if (!this.pause) {
-                this.push();
-                this.startTimer = false;
+            if (!_this.pause) {
+                _this.push();
+                _this.startTimer = false;
             }
         }, time);
     };

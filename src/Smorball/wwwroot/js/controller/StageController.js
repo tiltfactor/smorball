@@ -1,3 +1,4 @@
+/// <reference path="../model/mybag.ts" />
 /// <reference path="../model/spriteman.ts" />
 /// <reference path="../model/waves.ts" />
 /// <reference path="../model/commentarybox.ts" />
@@ -8,12 +9,13 @@
 var StageController = (function () {
     function StageController(config) {
         this.events = {};
+        this.activePowerup = undefined;
         this.config = config;
     }
     StageController.prototype.init = function () {
         var _this = this;
-        this.config.stage = new createjs.Stage("myCanvas");
-        this.config.stage.enableMouseOver(10);
+        this.stage = new createjs.Stage("myCanvas");
+        this.stage.enableMouseOver(10);
         this.setCanvasAttributes();
         createjs.Ticker.setFPS(20);
         this.events.tick = function () { return _this.tick(); };
@@ -84,6 +86,9 @@ var StageController = (function () {
             this.config.loader.loadLevelQueue(manifest, this.config.gameState.currentLevel);
         }
     };
+    StageController.prototype.constructLevelManifest = function (level) {
+        return Manifest.level;
+    };
     StageController.prototype.onImagesLoad = function () {
         var _this = this;
         $("#canvasHolder input").prop("disabled", false);
@@ -98,7 +103,7 @@ var StageController = (function () {
         this.drawStadium();
         this.drawLogo();
         EventBus.dispatch("showCommentary", this.levelConfig.waves.message);
-        EventBus.dispatch("setScore", this.config.life);
+        EventBus.dispatch("setScore", this.life);
         this.initShowMessage();
         this.generateWaves();
         this.showPowerup();
@@ -110,21 +115,21 @@ var StageController = (function () {
         this.message.x = 800;
         this.message.y = 1000;
         this.message.alpha = 0;
-        this.config.stage.addChild(this.message);
+        this.stage.addChild(this.message);
     };
     StageController.prototype.setCaptchaIndex = function () {
         var _this = this;
-        var captchas = _.filter(this.config.stage.children, function (a) {
+        var captchas = _.filter(this.stage.children, function (a) {
             if (a.name == "captchaHolder")
                 return a;
         });
-        var length = this.config.stage.children.length;
+        var length = this.stage.children.length;
         _.each(captchas, function (a) {
-            var player = _this.config.lanes[a.id - 1].player;
+            var player = _this.lanes[a.id - 1].player;
             if (player) {
-                length = _this.config.stage.getChildIndex(player);
+                length = _this.stage.getChildIndex(player);
             }
-            _this.config.stage.setChildIndex(a, length - 1);
+            _this.stage.setChildIndex(a, length - 1);
         });
     };
     StageController.prototype.showGameMessage = function (msg) {
@@ -134,8 +139,8 @@ var StageController = (function () {
     StageController.prototype.showMessage = function (text) {
         this.message.image = this.config.loader.getResult(text);
         this.message.x = 800 - this.message.getBounds().width / 2;
-        var index = this.config.stage.children.length - 1;
-        this.config.stage.setChildIndex(this.message, index);
+        var index = this.stage.children.length - 1;
+        this.stage.setChildIndex(this.message, index);
         createjs.Tween.get(this.message).to({ alpha: 1 }, 100).wait(500).to({ alpha: 0 }, 1000);
     };
     StageController.prototype.setCanvasAttributes = function () {
@@ -147,12 +152,12 @@ var StageController = (function () {
         this.freeTopAreaY = this.height / 2;
     };
     StageController.prototype.onResize = function () {
-        var canvas = this.config.stage.canvas;
+        var canvas = this.stage.canvas;
         this.canvasWidth = canvas.width = window.innerHeight * 4 / 3 > window.innerWidth ? window.innerWidth : window.innerHeight * 4 / 3;
         this.canvasHeight = canvas.height = this.canvasWidth * 3 / 4 > window.innerHeight ? window.innerHeight : this.canvasWidth * 3 / 4;
-        this.config.stage.scaleX = this.canvasWidth / 1600;
-        this.config.stage.scaleY = this.canvasHeight / 1200;
-        this.config.stage.update();
+        this.stage.scaleX = this.canvasWidth / 1600;
+        this.stage.scaleY = this.canvasHeight / 1200;
+        this.stage.update();
         var paddingTop = (window.innerHeight - this.canvasHeight) / 2 > 0 ? (window.innerHeight - this.canvasHeight) / 2 : 0;
         $("#myCanvas").css({ top: paddingTop });
         $("#canvasHolder").css({ height: this.canvasHeight * .07 });
@@ -168,12 +173,12 @@ var StageController = (function () {
         this.adBoard = new AdBoard({ "loader": this.config.loader });
         this.adBoard.y = this.cbBox.getTransformedBounds().height - this.adBoard.getTransformedBounds().height / 2 - this.adBoard.getTransformedBounds().height / 6;
         this.stadium.addChild(lc, rc, this.cbBox, this.adBoard);
-        this.config.stage.addChild(this.stadium);
+        this.stage.addChild(this.stadium);
         this.drawTimeOut();
     };
     StageController.prototype.drawBackGround = function () {
         this.bgContainer = new createjs.Container();
-        this.config.stage.addChild(this.bgContainer);
+        this.stage.addChild(this.bgContainer);
         var shape = new createjs.Shape();
         shape.graphics.beginBitmapFill(this.config.loader.getResult("background")).drawRect(0, 0, this.width, this.height);
         this.bgContainer.addChild(shape);
@@ -191,7 +196,7 @@ var StageController = (function () {
         mbtn.addEventListener("mouseover", function (evt) {
             evt.target.image = _this.config.loader.getResult("menu_btn_over");
             evt.target.cursor = "pointer";
-            _this.config.stage.update();
+            _this.stage.update();
         });
         mbtn.addEventListener("pressup", function (evt) {
             evt.target.image = _this.config.loader.getResult("menu_btn_idle");
@@ -209,12 +214,12 @@ var StageController = (function () {
         logo.x = 800 - logo.getTransformedBounds().width / 2;
         logo.y = 600;
         logo.alpha = 0.25;
-        this.config.stage.addChildAt(logo, 6);
+        this.stage.addChildAt(logo, 6);
     };
     StageController.prototype.showScore = function () {
         this.scoreText = new createjs.Text("Total Score :" + this.score.getTotalScore(), "20px Arial", "#000000");
         this.scoreText.setTransform(this.width - 300, 10, 1, 1);
-        this.config.stage.addChild(this.scoreText);
+        this.stage.addChild(this.scoreText);
     };
     StageController.prototype.updateScore = function () {
         this.scoreText.text = "Total Score :" + this.score.getTotalScore();
@@ -227,7 +232,7 @@ var StageController = (function () {
     StageController.prototype.generateWaves = function () {
         this.waves = new Waves({
             "waves": this.levelConfig.waves,
-            "lanesObj": this.config.lanes,
+            "lanesObj": this.lanes,
             "lanes": this.levelConfig.lanes,
             "loader": this.config.loader,
             "gameState": this.config.gameState
@@ -236,9 +241,9 @@ var StageController = (function () {
         EventBus.dispatch("showPendingEnemies", this.waves.getPendingEnemies());
     };
     StageController.prototype.killLife = function () {
-        this.config.life--;
-        EventBus.dispatch("setScore", this.config.life);
-        if (this.config.life == 0) {
+        this.life--;
+        EventBus.dispatch("setScore", this.life);
+        if (this.life == 0) {
             this.gameOver();
         }
     };
@@ -258,14 +263,14 @@ var StageController = (function () {
                 "loader": this.config.loader
             };
             var lane = new Lane(config);
-            this.config.stage.addChild(lane);
-            this.config.lanes.push(lane);
+            this.stage.addChild(lane);
+            this.lanes.push(lane);
             if (!(this.levelConfig.lanes == 1 && (laneId == 1 || laneId == 3))) {
                 var captchaHolder = this.captchaProcessor.getCaptchaPlaceHolder(lane.getMaxCaptchaWidth(), 60 + lane.getHeight(), laneId);
                 captchaHolder.name = "captchaHolder";
                 captchaHolder.x = lane.getCaptchaX() + 30;
                 captchaHolder.y = lane.y + 90;
-                this.config.stage.addChild(captchaHolder);
+                this.stage.addChild(captchaHolder);
             }
         }
         this.resetPlayers();
@@ -278,7 +283,7 @@ var StageController = (function () {
             "loader": this.config.loader
         };
         var lane = new Lane(config);
-        this.config.stage.addChild(lane);
+        this.stage.addChild(lane);
     };
     StageController.prototype.resumeGame = function () {
         this.captchaProcessor.showCaptchas();
@@ -299,7 +304,7 @@ var StageController = (function () {
         if (!createjs.Ticker.getPaused() && this.config.gameState.currentState == this.config.gameState.states.RUN) {
             this.config.gameState.currentState = this.config.gameState.states.MAIN_MENU;
             this.captchaProcessor.hideCaptchas();
-            this.config.stage.update();
+            this.stage.update();
             EventBus.dispatch("setTickerStatus");
             EventBus.dispatch("showTimeout");
             EventBus.dispatch("setMute");
@@ -308,16 +313,16 @@ var StageController = (function () {
     };
     StageController.prototype.killMe = function (actor) {
         var object = actor.target;
-        this.config.stage.removeChild(object);
+        this.stage.removeChild(object);
         if (object instanceof Enemy) {
-            var index = this.config.enemies.indexOf(object);
-            this.config.enemies.splice(index, 1);
+            var index = this.enemies.indexOf(object);
+            this.enemies.splice(index, 1);
             this.spawning.onEnemyKilled(object.getMaxLife());
             this.updateLevelStatus(object);
         }
         else if (object instanceof SpriteMan) {
-            var index = this.config.players.indexOf(object);
-            this.config.players.splice(index, 1);
+            var index = this.players.indexOf(object);
+            this.players.splice(index, 1);
         }
         //else if (object instanceof Gem) {
         //	var index = this.config.gems.indexOf(object);
@@ -325,8 +330,8 @@ var StageController = (function () {
         //}
     };
     StageController.prototype.resetPlayers = function () {
-        for (var i = 0; i < this.config.lanes.length; i++) {
-            var lane = this.config.lanes[i];
+        for (var i = 0; i < this.lanes.length; i++) {
+            var lane = this.lanes[i];
             if (lane.player == undefined) {
                 setTimeout(this.makeTimeoutLaneFunction(lane), 1000);
             }
@@ -350,17 +355,17 @@ var StageController = (function () {
                 var player = new SpriteMan(config);
                 lane.setPlayer(player);
                 var laneId = lane.getLaneId();
-                this.config.stage.addChild(player);
+                this.stage.addChild(player);
                 var setPlayerIndex = function () {
-                    var index0 = _this.config.stage.getChildIndex(_this.config.lanes[0].player);
-                    var index1 = _this.config.stage.getChildIndex(_this.config.lanes[1].player);
-                    var index2 = _this.config.stage.getChildIndex(_this.config.lanes[2].player);
+                    var index0 = _this.stage.getChildIndex(_this.lanes[0].player);
+                    var index1 = _this.stage.getChildIndex(_this.lanes[1].player);
+                    var index2 = _this.stage.getChildIndex(_this.lanes[2].player);
                     if (index0 > index1 && index1 >= 0) {
-                        _this.config.stage.swapChildren(_this.config.lanes[0].player, _this.config.lanes[1].player);
+                        _this.stage.swapChildren(_this.lanes[0].player, _this.lanes[1].player);
                         setPlayerIndex();
                     }
                     else if (index1 > index2 && index2 >= 0) {
-                        _this.config.stage.swapChildren(_this.config.lanes[1].player, _this.config.lanes[2].player);
+                        _this.stage.swapChildren(_this.lanes[1].player, _this.lanes[2].player);
                         setPlayerIndex();
                     }
                 };
@@ -370,45 +375,45 @@ var StageController = (function () {
         }
     };
     StageController.prototype.activatePlayer = function (player) {
-        var powerup = this.config.activePowerup;
+        var powerup = this.activePowerup;
         if (powerup && player != undefined) {
-            player.addPowerups(this.config.activePowerup.getPower());
-            this.config.activePowerup = undefined;
+            player.addPowerups(this.activePowerup.getPower());
+            this.activePowerup = undefined;
         }
         if (player != undefined) {
-            this.config.players.push(player);
+            this.players.push(player);
             player.run();
         }
     };
     StageController.prototype.resetGame = function () {
         this.removeAllEvents();
         this.removeAllChildren();
-        this.config.players = [];
-        this.config.enemies = [];
-        this.config.gems = [];
-        this.config.powerups = [];
-        this.config.lanes = [];
-        this.config.waves = [];
-        this.config.activePowerup = undefined;
+        this.players = [];
+        this.enemies = [];
+        this.gems = [];
+        this.powerups = [];
+        this.lanes = [];
+        this.wavesc = [];
+        this.activePowerup = undefined;
         this.passCount = 0;
-        this.config.life = this.config.gameState.maxLife;
+        this.life = this.config.gameState.maxLife;
     };
     StageController.prototype.removeAllChildren = function () {
-        this.config.stage.removeAllChildren();
-        this.config.stage.update();
+        this.stage.removeAllChildren();
+        this.stage.update();
     };
     StageController.prototype.removeAllEvents = function () {
     };
     StageController.prototype.tick = function () {
         if (!createjs.Ticker.getPaused()) {
-            this.config.stage.update();
+            this.stage.update();
             this.hitTest();
         }
     };
     StageController.prototype.hitTest = function () {
-        if (this.config.players != undefined && this.config.players.length != 0) {
-            for (var i = 0; i < this.config.players.length; i++) {
-                var player = this.config.players[i];
+        if (this.players != undefined && this.players.length != 0) {
+            for (var i = 0; i < this.players.length; i++) {
+                var player = this.players[i];
                 if (player.hit == true)
                     continue;
                 var enemy = this.hitTestEnemies(player);
@@ -439,9 +444,9 @@ var StageController = (function () {
         }
     };
     StageController.prototype.hitTestEnemies = function (player) {
-        if (this.config.enemies.length != 0) {
-            for (var i = 0; i < this.config.enemies.length; i++) {
-                var enemy = this.config.enemies[i];
+        if (this.enemies.length != 0) {
+            for (var i = 0; i < this.enemies.length; i++) {
+                var enemy = this.enemies[i];
                 if (enemy.hit == true || player.getLaneId() != enemy.getLaneId())
                     continue;
                 //if(enemy.hit == true) continue;
@@ -453,9 +458,9 @@ var StageController = (function () {
         }
     };
     StageController.prototype.hitTestPowerups = function (player) {
-        if (this.config.powerups.length != 0) {
-            for (var i = 0; i < this.config.powerups.length; i++) {
-                var powerup = this.config.powerups[i];
+        if (this.powerups.length != 0) {
+            for (var i = 0; i < this.powerups.length; i++) {
+                var powerup = this.powerups[i];
                 if (powerup.getLaneId() != player.getLaneId())
                     continue;
                 var hit = this.isCollisionPowerup(player, powerup);
@@ -482,14 +487,14 @@ var StageController = (function () {
             this.showMessage(output.message);
             this.removeActivePowerup();
             if (output.pass) {
-                if (this.config.activePowerup != null) {
+                if (this.activePowerup != null) {
                     EventBus.dispatch("playSound", "correctPowerup");
                     this.config.myBag.selectedId = -1;
                 }
                 else {
                     EventBus.dispatch("playSound", "correctSound");
                 }
-                if (this.config.activePowerup != null && this.config.activePowerup.getId() == "bullhorn") {
+                if (this.activePowerup != null && this.activePowerup.getId() == "bullhorn") {
                     this.startPlayersFromAllLanes();
                 }
                 else {
@@ -506,13 +511,13 @@ var StageController = (function () {
                 EventBus.dispatch("playSound", "incorrectSound");
                 this.updatePlayerOnDefault();
                 this.playConfusedAnimation();
-                this.config.activePowerup = undefined;
+                this.activePowerup = undefined;
             }
         }
     };
     StageController.prototype.playConfusedAnimation = function () {
-        for (var i = 0; i < this.config.lanes.length; i++) {
-            var lane = this.config.lanes[i];
+        for (var i = 0; i < this.lanes.length; i++) {
+            var lane = this.lanes[i];
             if (lane.player) {
                 lane.player.x = lane.player.x + 70;
                 lane.player.sprite.addEventListener("animationend", function (e) {
@@ -524,13 +529,13 @@ var StageController = (function () {
         }
     };
     StageController.prototype.removeActivePowerup = function () {
-        if (this.config.activePowerup) {
-            this.config.myBag.removeFromBag(this.config.activePowerup);
+        if (this.activePowerup) {
+            this.config.myBag.removeFromBag(this.activePowerup);
         }
     };
     StageController.prototype.startPlayersFromAllLanes = function () {
-        for (var i = 0; i < this.config.lanes.length; i++) {
-            var lane = this.config.lanes[i];
+        for (var i = 0; i < this.lanes.length; i++) {
+            var lane = this.lanes[i];
             this.activatePlayer(lane.player);
             lane.player = undefined;
         }
@@ -543,8 +548,8 @@ var StageController = (function () {
         if (object instanceof Enemy)
             type = "enemy";
         this.waves.update(object.getWaveId(), object.onKillPush(), type);
-        var enemyCount = this.config.enemies.length;
-        var powerupCount = this.config.powerups.length;
+        var enemyCount = this.enemies.length;
+        var powerupCount = this.powerups.length;
         if (enemyCount == 0 && powerupCount == 0) {
             this.waitForForcePush(object.getWaveId());
         }
@@ -556,13 +561,13 @@ var StageController = (function () {
     StageController.prototype.waitForForcePush = function (waveId) {
         var _this = this;
         setTimeout(function () {
-            if (_this.config.enemies.length == 0) {
+            if (_this.enemies.length == 0) {
                 EventBus.dispatch("forcePush", waveId);
             }
         }, 2000);
     };
     StageController.prototype.updateLevel = function () {
-        this.score.addGameLevelPoints(this.config.life);
+        this.score.addGameLevelPoints(this.life);
         if (this.config.gameState.currentLevel == 1) {
             this.calculateTime();
             this.calculateDifficulty();
@@ -591,7 +596,7 @@ var StageController = (function () {
                 $("#resultWrapper").css("display", "table");
             }
             else if (result == 1) {
-                var money = _this.score.getMoneyForLevel(_this.config.life);
+                var money = _this.score.getMoneyForLevel(_this.life);
                 $("#victoryContainer .moneyMade").text(money);
                 $("#victoryContainer").show();
                 $("#resultWrapper").css("display", "table");
@@ -641,18 +646,18 @@ var StageController = (function () {
         this.setEnemyProperties(enemy);
         var laneId = enemy.getLaneId();
         if (laneId < 3 && this.config.gameState.currentLevel != 1) {
-            var player = this.config.lanes[laneId].player;
-            var index = this.config.stage.getChildIndex(player);
+            var player = this.lanes[laneId].player;
+            var index = this.stage.getChildIndex(player);
             if (index > 0)
-                this.config.stage.addChildAt(enemy, index);
+                this.stage.addChildAt(enemy, index);
             else {
-                this.config.stage.addChild(enemy);
+                this.stage.addChild(enemy);
             }
         }
         else {
-            this.config.stage.addChild(enemy);
+            this.stage.addChild(enemy);
         }
-        this.config.enemies.push(enemy);
+        this.enemies.push(enemy);
     };
     StageController.prototype.setEnemyProperties = function (enemy) {
         var lane = this.getLaneById(enemy.getLaneId()); //enemy.getLaneId();
@@ -663,8 +668,8 @@ var StageController = (function () {
         enemy.run();
     };
     StageController.prototype.getLaneById = function (id) {
-        for (var i = 0; i < this.config.lanes.length; i++) {
-            var lane = this.config.lanes[i];
+        for (var i = 0; i < this.lanes.length; i++) {
+            var lane = this.lanes[i];
             if (lane.getLaneId() == id) {
                 return lane;
             }
@@ -674,8 +679,8 @@ var StageController = (function () {
     StageController.prototype.pushPowerup = function (powerup) {
         this.setPowerupProperties(powerup);
         this.spawning.onPowerupSpawned();
-        this.config.stage.addChildAt(powerup, 8);
-        this.config.powerups.push(powerup);
+        this.stage.addChildAt(powerup, 8);
+        this.powerups.push(powerup);
     };
     StageController.prototype.setPowerupProperties = function (powerup) {
         var lane = this.getLaneById(powerup.getLaneId()); //enemy.getLaneId();
@@ -699,18 +704,18 @@ var StageController = (function () {
         this.stadium.addChild(powerupContainer);
     };
     StageController.prototype.addToMyBag = function (powerup) {
-        var index = this.config.powerups.indexOf(powerup);
-        this.config.powerups.splice(index, 1);
+        var index = this.powerups.indexOf(powerup);
+        this.powerups.splice(index, 1);
         this.config.myBag.addToBagFromField(powerup);
-        this.config.stage.removeChild(powerup);
+        this.stage.removeChild(powerup);
     };
     StageController.prototype.unselectAllInBag = function () {
         this.config.myBag.unselectAll();
-        this.config.activePowerup = undefined;
+        this.activePowerup = undefined;
         this.updatePlayerOnDefault(this.default_player);
     };
     StageController.prototype.selectPowerUp = function (mypowerup) {
-        this.config.activePowerup = mypowerup;
+        this.activePowerup = mypowerup;
         var type = mypowerup.getType();
         if (type != "bullhorn")
             this.powerup_player = "player_" + type;
@@ -720,8 +725,8 @@ var StageController = (function () {
         if (type == "bullhorn") {
             type = "normal";
         }
-        for (var i = 0; i < this.config.lanes.length; i++) {
-            var lane = this.config.lanes[i];
+        for (var i = 0; i < this.lanes.length; i++) {
+            var lane = this.lanes[i];
             var player = lane.player;
             if (player != undefined) {
                 player.setPowerupSpriteSheet(type);
@@ -729,8 +734,8 @@ var StageController = (function () {
         }
     };
     StageController.prototype.updatePlayerOnDefault = function (playerId) {
-        for (var i = 0; i < this.config.lanes.length; i++) {
-            var lane = this.config.lanes[i];
+        for (var i = 0; i < this.lanes.length; i++) {
+            var lane = this.lanes[i];
             var player = lane.player;
             if (player != undefined) {
                 player.setDefaultSpriteSheet();
@@ -837,8 +842,8 @@ var StageController = (function () {
         });
     };
     StageController.prototype.removeFromStage = function (object) {
-        var child = this.config.stage.getChildIndex(object);
-        this.config.stage.removeChildAt(child);
+        var child = this.stage.getChildIndex(object);
+        this.stage.removeChildAt(child);
     };
     StageController.prototype.persist = function () {
     };

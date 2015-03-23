@@ -1,122 +1,116 @@
-/**
- * Created by user on 3/2/15.
- */
-(function () {
-    var MyBag = function(config){
+/// <reference path="mypowerup.ts" />
+/// <reference path="../../typings/smorball/smorball.d.ts" />
+/// <reference path="../../typings/tsd.d.ts" />
+var MyBag = (function () {
+    function MyBag(config) {
         this.config = config;
         this.myBag = [];
         this.selectedId = -1;
-        initialize(this);
-        mybg = this;
+        this.initialize();
     }
-    var initialize = function(me){
-        loadEvents(me);
-        loadBag(me);
-    }
-    var loadBag = function(me){
+    MyBag.prototype.initialize = function () {
+        this.loadEvents();
+        this.loadBag();
+    };
+    MyBag.prototype.loadBag = function () {
         var store = new LocalStorage();
         var data = store.getFromStore();
-        var inbag = data.myBag||loadInitBag(me);
-        createMyPowerup(me, inbag);
-    }
-    var createMyPowerup = function(me, inbag){
-        for(var i = 0 ; i< inbag.length; i++){
+        var inbag = data.myBag || this.loadInitBag();
+        this.createMyPowerup(inbag);
+    };
+    MyBag.prototype.createMyPowerup = function (inbag) {
+        for (var i = 0; i < inbag.length; i++) {
             var p = inbag[i];
-            var config = {"type" : p.type, "shopped" : p.shopped, "loader" : me.config.loader};
+            var config = { "type": p.type, "shopped": p.shopped, "loader": this.config.loader };
             var myPowerup = new MyPowerup(config);
-            me.myBag.push(myPowerup);
+            this.myBag.push(myPowerup);
         }
-    }
-    var loadInitBag = function(me){
+    };
+    MyBag.prototype.loadInitBag = function () {
         var arr = [];
         for (var key in PowerupsData) {
-            if (PowerupsData.hasOwnProperty(key)){
-                var data = {"type" : key};
+            if (PowerupsData.hasOwnProperty(key)) {
+                var data = { "type": key };
                 arr.push(data);
             }
         }
         return arr;
-    }
-    var loadEvents = function(me){
-        var st = function(){selectOnTab(me)};
-        EventBus.addEventListener("selectOnTab",st);
-    }
-
-    MyBag.prototype.unselectAll = function(){
-        var myPowerup= _.findWhere(this.myBag,{selected:true});
-        if(myPowerup)
-            myPowerup.unselect();
-
     };
-    var selectOnTab = function(me){
+    MyBag.prototype.loadEvents = function () {
+        var _this = this;
+        var st = function () {
+            _this.selectOnTab();
+        };
+        EventBus.addEventListener("selectOnTab", st);
+    };
+    MyBag.prototype.unselectAll = function () {
+        var myPowerup = _.findWhere(this.myBag, { selected: true });
+        if (myPowerup)
+            myPowerup.unselect();
+    };
+    MyBag.prototype.selectOnTab = function () {
         EventBus.dispatch("unselectAllInBag");
         var mp;
-        selectedPowerupOnTab(me);
-        if(me.myBag[me.selectedId] != undefined){
-            me.myBag[me.selectedId].select();
-        }else{
-            me.selectedId = -1;
+        this.selectedPowerupOnTab();
+        if (this.myBag[this.selectedId] != undefined) {
+            this.myBag[this.selectedId].select();
         }
-
-    }
-    var selectedPowerupOnTab = function(me){
-
-        do{
-            ++me.selectedId;
-            if(me.selectedId >= me.myBag.length){
-                me.selectedId = -1;
+        else {
+            this.selectedId = -1;
+        }
+    };
+    MyBag.prototype.selectedPowerupOnTab = function () {
+        do {
+            ++this.selectedId;
+            if (this.selectedId >= this.myBag.length) {
+                this.selectedId = -1;
                 return;
             }
-        }while(me.myBag[me.selectedId].getSum() <= 0)
-    }
-    MyBag.prototype.addToBagFromField = function(powerup){
-        var myPowerup = getMyPowerupByType(powerup.getType(),this);
+        } while (this.myBag[this.selectedId].getSum() <= 0);
+    };
+    MyBag.prototype.addToBagFromField = function (powerup) {
+        var myPowerup = this.getMyPowerupByType(powerup.getType());
         myPowerup.addFieldPowerup();
-    }
-
-    MyBag.prototype.addToBagFromShop = function(powerupId){
-        var myPowerup = getMyPowerupByType(powerupId,this);
+    };
+    MyBag.prototype.addToBagFromShop = function (powerupId) {
+        var myPowerup = this.getMyPowerupByType(powerupId);
         myPowerup.addShopPowerup();
-    }
-    MyBag.prototype.removeFromBag = function(powerup){
-        var myPowerup = getMyPowerupByType(powerup.getType(),this);
+    };
+    MyBag.prototype.removeFromBag = function (powerup) {
+        var myPowerup = this.getMyPowerupByType(powerup.getType());
         myPowerup.unselect();
         myPowerup.removeFromField();
-    }
-    MyBag.prototype.removeFromBagToShop = function(powerupId){
-        var myPowerup = getMyPowerupByType(powerupId,this);
+    };
+    MyBag.prototype.removeFromBagToShop = function (powerupId) {
+        var myPowerup = this.getMyPowerupByType(powerupId);
         myPowerup.removeShopPowerup();
-    }
-
-    var getMyPowerupByType = function(type,me){
-        for(var i= 0 ; i< me.myBag.length; i++){
-            var myPowerup = me.myBag[i];
-            if(myPowerup.getType() == type){
+    };
+    MyBag.prototype.getMyPowerupByType = function (type) {
+        for (var i = 0; i < this.myBag.length; i++) {
+            var myPowerup = this.myBag[i];
+            if (myPowerup.getType() == type) {
                 return myPowerup;
             }
         }
         return null;
-    }
-
-   MyBag.prototype.persist = function(){
-        var myBag= [];
-        for(var i= 0; i< this.myBag.length; i++){
-            var mp = this.myBag[i];
-             myBag.push(mp.persist());
-        }
-       return myBag;
-    }
-
-    MyBag.prototype.reset = function(){
-        this.myBag = [];
-        var inbag = loadInitBag(this);
-        createMyPowerup(this, inbag);
     };
-    MyBag.prototype.newGame = function(){
+    MyBag.prototype.persist = function () {
+        var myBag = [];
+        for (var i = 0; i < this.myBag.length; i++) {
+            var mp = this.myBag[i];
+            myBag.push(mp.persist());
+        }
+        return myBag;
+    };
+    MyBag.prototype.reset = function () {
+        this.myBag = [];
+        var inbag = this.loadInitBag();
+        this.createMyPowerup(inbag);
+    };
+    MyBag.prototype.newGame = function () {
         this.selectedId = -1;
         this.myBag = [];
-        loadBag(this);
-    }
-    window.MyBag = MyBag;
-
-}());
+        this.loadBag();
+    };
+    return MyBag;
+})();

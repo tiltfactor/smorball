@@ -40,11 +40,6 @@ declare class Lane extends createjs.Container {
 
 }
 
-declare class MyBag {
-    constructor(config?: any);
-    persist();
-}
-
 declare class Level {
     constructor(config?: any);
 }

@@ -98,7 +98,7 @@ class SmbLoadQueue {
 		return this.fg_loader;
 	}
 
-	getResult(imgID) {
+	getResult(imgID) : any {
 		var url = this.fg_loader.getResult(imgID);
 		if (!url) {
 			url = this.bg_loader.getResult(imgID);
