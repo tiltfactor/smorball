@@ -75,10 +75,6 @@ var StageController = (function () {
         this.score = new Score(config);
     };
     StageController.prototype.loadImages = function () {
-        var _this = this;
-        var _onImagesLoad = function () {
-            _this.onImagesLoad();
-        };
         var manifest = [];
         if (!this.config.gameState.level) {
             this.config.gameState.level = true;

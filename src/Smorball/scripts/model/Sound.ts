@@ -1,10 +1,21 @@
+
+interface SoundConfig {
+	file: string;
+	gameState: GameState;
+	type: any;
+	isMain: boolean;
+	loader: SmbLoadQueue;
+	loop: boolean;
+}
+
 class Sound {
 
-    config: any;
     mySound: any;
 
-    constructor(config: any) {
-        this.config = config;
+	config: SoundConfig;
+
+    constructor(config: SoundConfig) {
+		this.config = config;
         this.initialize();
     }
 

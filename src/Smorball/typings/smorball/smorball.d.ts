@@ -1,7 +1,9 @@
-﻿/// <reference path="../tsd.d.ts" />
+﻿///// <reference path="../../scripts/model/gamestate.ts" />
+/// <reference path="../tsd.d.ts" />
 
 declare var EventBus: any;
 declare var PowerupsData: any;
+declare var localData: any;
 
 declare class LocalStorage { 
     constructor(config?:any);
@@ -9,16 +11,9 @@ declare class LocalStorage {
     saveToStore(obj: any);
 }
 
-declare class GameState {
-    constructor(config?: any);
-}
-
-declare class SmbLoadQueue {
-    constructor(config?: any);
-}
-
 declare class ShopController {
     constructor(config?: any);
+	init();
 }
 
 declare class Spawning {
@@ -74,3 +69,10 @@ interface JQuery {
 }
 
 declare var sprites: any;
+
+interface SmorballConfig {
+	stage?: createjs.Stage;
+	gameState?: GameState;
+	store?: any;
+
+}

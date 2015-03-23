@@ -1,3 +1,4 @@
+/// <reference path="../model/gamestate.ts" />
 /// <reference path="stagecontroller.ts" />
 /// <reference path="../utils/deparam.ts" />
 /// <reference path="../../typings/tsd.d.ts" />
@@ -12,17 +13,17 @@ var GameController = (function () {
         this.TWO = 50;
         this.THREE = 51;
         this.TAB_KEY = 9;
-        this.config = config;
+        //this.config = config;
     }
     GameController.prototype.init = function () {
-        this.config.stage = new createjs.Stage("loaderCanvas");
-        this.config.popupStage = new createjs.Stage("popupCanvas");
-        this.config.utilityStage = new createjs.Stage("utilityCanvas");
-        this.config.stage.canvas.width = window.innerWidth; //TODO make this better
-        this.config.stage.canvas.height = window.innerHeight; //TODO make this better
+        this.stage = new createjs.Stage("loaderCanvas");
+        this.popupStage = new createjs.Stage("popupCanvas");
+        this.utilityStage = new createjs.Stage("utilityCanvas");
+        this.stage.canvas.width = window.innerWidth; //TODO make this better
+        this.stage.canvas.height = window.innerHeight; //TODO make this better
         this.store = new LocalStorage();
-        this.config.gameState = new GameState({ "store": this.store.getFromStore().gameState });
-        this.config.gameState.init();
+        this.gameState = new GameState({ "store": this.store.getFromStore().gameState });
+        this.gameState.init();
         this.loadEvents();
         this.loadImages();
         window.onkeydown = this.onKeyBoardEvents;
@@ -41,9 +42,9 @@ var GameController = (function () {
         var manifest = Manifest.game;
         var splash = LoaderData[1];
         manifest.push({ "src": splash.image, "id": splash.id });
-        this.config.smbLoadQueue = new SmbLoadQueue({ "stage": this.config.stage, "gameState": this.config.gameState });
-        this.config.smbLoadQueue.initialLoad(Manifest.initial, function () {
-            _this.config.smbLoadQueue.loadQueue(manifest, function () { return _this.showSplashScreens(); });
+        this.smbLoadQueue = new SmbLoadQueue({ "stage": this.stage, "gameState": this.gameState });
+        this.smbLoadQueue.initialLoad(Manifest.initial, function () {
+            _this.smbLoadQueue.loadQueue(manifest, function () { return _this.showSplashScreens(); });
         });
     };
     GameController.prototype.showSplashScreens = function () {
@@ -65,37 +66,37 @@ var GameController = (function () {
         }
     };
     GameController.prototype.doInit = function () {
-        var config = { "loader": this.config.smbLoadQueue, "gameState": this.config.gameState };
+        var config = { "loader": this.smbLoadQueue, "gameState": this.gameState };
         this.myBag = new MyBag(config);
-        this.config.menuController = new MenuController({
-            "gameState": this.config.gameState,
-            "loader": this.config.smbLoadQueue
+        this.menuController = new MenuController({
+            "gameState": this.gameState,
+            "loader": this.smbLoadQueue
         });
-        this.config.menuController.init();
-        this.config.soundController = new SoundController({
-            "gameState": this.config.gameState,
-            "loader": this.config.smbLoadQueue
+        this.menuController.init();
+        this.soundController = new SoundController({
+            "gameState": this.gameState,
+            "loader": this.smbLoadQueue
         });
-        this.config.soundController.init();
-        this.config.stageController = new StageController({
-            "gameState": this.config.gameState,
-            "loader": this.config.smbLoadQueue,
+        this.soundController.init();
+        this.stageController = new StageController({
+            "gameState": this.gameState,
+            "loader": this.smbLoadQueue,
             "myBag": this.myBag
         });
-        this.config.stageController.init();
-        this.config.shopController = new ShopController({
-            "gameState": this.config.gameState,
-            "loader": this.config.smbLoadQueue,
-            "stage": this.config.popupStage,
+        this.stageController.init();
+        this.shopController = new ShopController({
+            "gameState": this.gameState,
+            "loader": this.smbLoadQueue,
+            "stage": this.popupStage,
             "myBag": this.myBag
         });
-        this.config.shopController.init();
-        this.config.gameLeveController = new GameLevelController({
-            "gameState": this.config.gameState,
-            "loader": this.config.smbLoadQueue,
-            "stage": this.config.utilityStage
+        this.shopController.init();
+        this.gameLeveController = new GameLevelController({
+            "gameState": this.gameState,
+            "loader": this.smbLoadQueue,
+            "stage": this.utilityStage
         });
-        this.config.gameLeveController.init();
+        this.gameLeveController.init();
         this.hideAll();
         EventBus.dispatch("showMenu");
     };
@@ -152,7 +153,7 @@ var GameController = (function () {
     GameController.prototype.persist = function () {
         var json = JSON.stringify({
             myBag: this.myBag.persist(),
-            gameState: this.config.gameState.persist()
+            gameState: this.gameState.persist()
         });
         return json;
     };

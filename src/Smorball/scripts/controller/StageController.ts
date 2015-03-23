@@ -6,6 +6,9 @@
 /// <reference path="../../typings/tsd.d.ts" />
 /// <reference path="../../typings/smorball/smorball.d.ts" />
 
+interface StageControllerConfig  {
+}
+
 class StageController {
 
 	config: any;
@@ -113,14 +116,12 @@ class StageController {
 
 	}
 
-	private loadImages() {
-		var _onImagesLoad = () => {
-			this.onImagesLoad()
-		};
+	private loadImages() {		
 		var manifest = [];
-
 		if (!this.config.gameState.level) {
 			this.config.gameState.level = true;
+
+
 			this.config.loader.loadLevelQueue(Manifest.level, this.config.gameState.currentLevel);
 		} else {
 			this.config.loader.loadLevelQueue(manifest, this.config.gameState.currentLevel);
