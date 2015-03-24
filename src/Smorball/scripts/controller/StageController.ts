@@ -1,3 +1,4 @@
+/// <reference path="../model/lane.ts" />
 /// <reference path="../model/mybag.ts" />
 /// <reference path="../model/spriteman.ts" />
 /// <reference path="../model/waves.ts" />
@@ -49,13 +50,15 @@ class StageController {
 
 	stage: createjs.Stage;
 
+	fieldActorsContainer: createjs.Container;
+
 	life: number;
 
 	players: any[];
 	enemies: Enemy[];
 	gems: any[];
 	powerups: any[];
-	lanes: any[];
+	lanes: Lane[];
 	wavesc: any[];
 	activePowerup = undefined;
 
@@ -70,14 +73,13 @@ class StageController {
         createjs.Ticker.setFPS(20);
 
         this.events.tick = () => this.tick();
-        createjs.Ticker.addEventListener("tick", this.events.tick);
+        createjs.Ticker.addEventListener("tick",() => this.tick());
         createjs.Ticker.setPaused(true);
 
         this.loadEvents();
         this.currentIndex = 0;
         this.default_player = "player_normal";
-        this.powerup_player = "player_helmet";
-
+        this.powerup_player = "player_helmet";		
     }
 
     private loadEvents() {
@@ -86,12 +88,12 @@ class StageController {
 		EventBus.addEventListener("pauseGame",() => this.pauseGame());
 		EventBus.addEventListener("killme",(o) => this.killMe(o));
 		EventBus.addEventListener("killLife",() => this.killLife());
-		EventBus.addEventListener("pushEnemy",(o:any) => this.pushEnemy(o.target));
+		//EventBus.addEventListener("pushEnemy",(o:any) => this.pushEnemy(o.target));
 		EventBus.addEventListener("pushPowerup",(o) => this.pushPowerup(o.target));
 		EventBus.addEventListener("showTimeoutScreen",() => this.showTimeoutScreen());
 		EventBus.addEventListener("showMessage",(text) => this.showGameMessage(text));
 		EventBus.addEventListener("compareCaptcha",() => this.compareCaptcha());
-		EventBus.addEventListener("setTickerStatus",() => this.setTickerStatus());
+		EventBus.addEventListener("toggleTickerStatus",() => this.toggleTickerStatus());
 		EventBus.addEventListener("unselectAllInBag",() => this.unselectAllInBag());
 		EventBus.addEventListener("selectPowerUp",(powerup) => this.selectPowerUp(powerup.target));
 		EventBus.addEventListener("changeLane",(obj) => this.changeLane(obj.target));
@@ -137,15 +139,29 @@ class StageController {
 		if (!this.config.gameState.level) {
 			this.config.gameState.level = true;
 
-
-			this.config.loader.loadLevelQueue(Manifest.level, this.config.gameState.currentLevel);
+			console.log("Loading images from manifest for level", this.config.gameState.currentLevel);
+			this.config.loader.loadLevelQueue(this.constructLevelManifest(this.config.gameState.currentLevel), this.config.gameState.currentLevel);
 		} else {
 			this.config.loader.loadLevelQueue(manifest, this.config.gameState.currentLevel);
 		}
 	}
 
-	private constructLevelManifest(level:number): any {
-		return Manifest.level;
+	private constructLevelManifest(level: number): any {
+
+		// HAAAAACK! Settings level to always be 1 for now so we use the same sprites
+		level = 1;
+
+		// We take the standard level elements then we need to add level specific assets such as the enemy variations
+		var assets = Manifest.level.slice();
+
+		_.each(EnemyData, enemy => {
+			var path = Utils.format(enemy.spritesPathTemplate, Utils.zeroPad(level, 2));
+			assets.push({ src: path + ".json", id: "enemy_json_" + enemy.id + "_" + Utils.zeroPad(level, 2) });
+			assets.push({ src: path + ".png", id: "enemy_png_" + enemy.id + "_" + Utils.zeroPad(level, 2) });
+			//console.log("enemy", enemy, path, asset);
+		});
+
+		return assets;
 	}
 
 	private onImagesLoad() {
@@ -160,15 +176,24 @@ class StageController {
 		this.drawLane();
 		this.drawStadium();
 		this.drawLogo();
+
+
+		this.fieldActorsContainer = new createjs.Container();
+		this.stage.addChild(this.fieldActorsContainer);
+
+
 		EventBus.dispatch("showCommentary", this.levelConfig.waves.message);
 		EventBus.dispatch("setScore", this.life);
+
 
 		this.initShowMessage();
 		this.generateWaves();
 		this.showPowerup();
 		this.setCaptchaIndex();
-		EventBus.dispatch("setTickerStatus");
 
+		
+
+		EventBus.dispatch("toggleTickerStatus");
 	}
 
 	private initShowMessage() {
@@ -373,14 +398,14 @@ class StageController {
 		EventBus.dispatch("exitMenu");
 		$("#canvasHolder").show();
 		$("#myCanvas").show();
-		EventBus.dispatch("setTickerStatus");
+		EventBus.dispatch("toggleTickerStatus");
 		createjs.Ticker.addEventListener("tick", this.events.tick);
 	}
 
 	private pauseGame() {
 		if (!createjs.Ticker.getPaused()) {
 			//this.captchaProcessor.hideCaptchas();
-			EventBus.dispatch("setTickerStatus");
+			EventBus.dispatch("toggleTickerStatus");
 			EventBus.dispatch("showMenu");
 		}
 	}
@@ -390,7 +415,7 @@ class StageController {
 			this.config.gameState.currentState = this.config.gameState.states.MAIN_MENU;
 			this.captchaProcessor.hideCaptchas();
 			this.stage.update();
-			EventBus.dispatch("setTickerStatus");
+			EventBus.dispatch("toggleTickerStatus");
 			EventBus.dispatch("showTimeout");
 			EventBus.dispatch("setMute");
 			EventBus.dispatch('pauseWaves', true);
@@ -501,6 +526,7 @@ class StageController {
 	private tick() {
 		if (!createjs.Ticker.getPaused()) {
 			this.stage.update();
+
 			this.hitTest();
 		}
 	}
@@ -647,7 +673,7 @@ class StageController {
 		}
 	}
 
-	private setTickerStatus() {
+	private toggleTickerStatus() {
 		createjs.Ticker.setPaused(!createjs.Ticker.getPaused());
 	}
 
@@ -699,7 +725,7 @@ class StageController {
 		this.waves = null;
 		EventBus.dispatch("stopSound", "stadiumAmbience");
 		setTimeout(() => {
-			EventBus.dispatch("setTickerStatus");
+			EventBus.dispatch("toggleTickerStatus");
 			EventBus.dispatch("setMute");
 			if (result == 0) {
 				$("#canvasHolder").hide();
@@ -757,27 +783,29 @@ class StageController {
 
 	}
 
-	private pushEnemy(enemy) {
+	addEnemy(enemy: Enemy) {
 		EventBus.dispatch("showPendingEnemies", this.waves.getPendingEnemies());
 		this.setEnemyProperties(enemy);
-		var laneId = enemy.getLaneId();
-		if (laneId < 3 && this.config.gameState.currentLevel != 1) {
-			var player = this.lanes[laneId].player;
-			var index = this.stage.getChildIndex(player);
-			if (index > 0)
-				this.stage.addChildAt(enemy, index);
-			else {
-				this.stage.addChild(enemy);
-			}
-		} else {
-			this.stage.addChild(enemy)
-		}
 
 
+		//var laneId = enemy.getLaneId();
+		//if (laneId < 3 && this.config.gameState.currentLevel != 1) {
+		//	var player = this.lanes[laneId].player;
+		//	var index = this.stage.getChildIndex(player);
+		//	if (index > 0)
+		//		this.stage.addChildAt(enemy, index);
+		//	else {
+		//		this.stage.addChild(enemy);
+		//	}
+		//} else {
+		//	this.stage.addChild(enemy)
+		//}
+
+		this.fieldActorsContainer.addChild(enemy);
 		this.enemies.push(enemy);
 	}
 
-	private setEnemyProperties(enemy) {
+	private setEnemyProperties(enemy: Enemy) {
 		var lane = this.getLaneById(enemy.getLaneId()); //enemy.getLaneId();
 		var start = lane.getEndPoint();
 		var end = lane.getEnemyEndPoint();
@@ -900,7 +928,7 @@ class StageController {
 		this.config.gameState.currentState = this.config.gameState.states.RUN;
 		$('#timeout-container').css('display', 'none');
 		EventBus.dispatch('showCaptchas');
-		EventBus.dispatch('setTickerStatus');
+		EventBus.dispatch('toggleTickerStatus');
 		EventBus.dispatch('setMute');
 		//Play Stadium Ambience
 		var audioList = this.config.gameState.audioList;

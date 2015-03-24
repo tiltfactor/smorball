@@ -1,6 +1,5 @@
 /// <reference path="../model/gamestate.ts" />
 /// <reference path="stagecontroller.ts" />
-/// <reference path="../utils/deparam.ts" />
 /// <reference path="../../typings/tsd.d.ts" />
 /// <reference path="../data/manifest.ts" />
 /// <reference path="../data/loaderdata.ts" />
@@ -16,6 +15,8 @@ var GameController = (function () {
         //this.config = config;
     }
     GameController.prototype.init = function () {
+        // Declaring a single global model
+        smorball = this;
         this.stage = new createjs.Stage("loaderCanvas");
         this.popupStage = new createjs.Stage("popupCanvas");
         this.utilityStage = new createjs.Stage("utilityCanvas");
@@ -28,7 +29,7 @@ var GameController = (function () {
         this.loadImages();
         window.onkeydown = this.onKeyBoardEvents;
         // If the param is supplied disable the timeout when the window isnt focued (annoying when developing)
-        if (deparam(window.location.href).disableTimeout != "true")
+        if (Utils.deparam(window.location.href).disableTimeout != "true")
             window.onblur = function () {
                 EventBus.dispatch("showTimeoutScreen");
             };
@@ -49,7 +50,7 @@ var GameController = (function () {
     };
     GameController.prototype.showSplashScreens = function () {
         var _this = this;
-        if (deparam(window.location.href).skipIntro == "true") {
+        if (Utils.deparam(window.location.href).skipIntro == "true") {
             this.doInit();
         }
         else {

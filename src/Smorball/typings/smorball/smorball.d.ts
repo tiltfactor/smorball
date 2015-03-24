@@ -5,6 +5,8 @@ declare var EventBus: any;
 declare var PowerupsData: any;
 declare var localData: any;
 
+declare var smorball: GameController;
+
 declare class LocalStorage { 
     constructor(config?:any);
     getFromStore(): any;
@@ -30,14 +32,6 @@ declare class Blocks {
 
 declare class Gem {
     constructor(config?: any);
-}
-
-declare class Lane extends createjs.Container {
-    constructor(config?: any);
-	getMaxCaptchaWidth(): number;
-	getHeight(): number;
-	getCaptchaX(): number;
-
 }
 
 declare class Level {

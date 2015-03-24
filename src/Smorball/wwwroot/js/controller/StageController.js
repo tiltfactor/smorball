@@ -1,3 +1,4 @@
+/// <reference path="../model/lane.ts" />
 /// <reference path="../model/mybag.ts" />
 /// <reference path="../model/spriteman.ts" />
 /// <reference path="../model/waves.ts" />
@@ -19,7 +20,7 @@ var StageController = (function () {
         this.setCanvasAttributes();
         createjs.Ticker.setFPS(20);
         this.events.tick = function () { return _this.tick(); };
-        createjs.Ticker.addEventListener("tick", this.events.tick);
+        createjs.Ticker.addEventListener("tick", function () { return _this.tick(); });
         createjs.Ticker.setPaused(true);
         this.loadEvents();
         this.currentIndex = 0;
@@ -33,12 +34,12 @@ var StageController = (function () {
         EventBus.addEventListener("pauseGame", function () { return _this.pauseGame(); });
         EventBus.addEventListener("killme", function (o) { return _this.killMe(o); });
         EventBus.addEventListener("killLife", function () { return _this.killLife(); });
-        EventBus.addEventListener("pushEnemy", function (o) { return _this.pushEnemy(o.target); });
+        //EventBus.addEventListener("pushEnemy",(o:any) => this.pushEnemy(o.target));
         EventBus.addEventListener("pushPowerup", function (o) { return _this.pushPowerup(o.target); });
         EventBus.addEventListener("showTimeoutScreen", function () { return _this.showTimeoutScreen(); });
         EventBus.addEventListener("showMessage", function (text) { return _this.showGameMessage(text); });
         EventBus.addEventListener("compareCaptcha", function () { return _this.compareCaptcha(); });
-        EventBus.addEventListener("setTickerStatus", function () { return _this.setTickerStatus(); });
+        EventBus.addEventListener("toggleTickerStatus", function () { return _this.toggleTickerStatus(); });
         EventBus.addEventListener("unselectAllInBag", function () { return _this.unselectAllInBag(); });
         EventBus.addEventListener("selectPowerUp", function (powerup) { return _this.selectPowerUp(powerup.target); });
         EventBus.addEventListener("changeLane", function (obj) { return _this.changeLane(obj.target); });
@@ -80,14 +81,25 @@ var StageController = (function () {
         var manifest = [];
         if (!this.config.gameState.level) {
             this.config.gameState.level = true;
-            this.config.loader.loadLevelQueue(Manifest.level, this.config.gameState.currentLevel);
+            console.log("Loading images from manifest for level", this.config.gameState.currentLevel);
+            this.config.loader.loadLevelQueue(this.constructLevelManifest(this.config.gameState.currentLevel), this.config.gameState.currentLevel);
         }
         else {
             this.config.loader.loadLevelQueue(manifest, this.config.gameState.currentLevel);
         }
     };
     StageController.prototype.constructLevelManifest = function (level) {
-        return Manifest.level;
+        // HAAAAACK! Settings level to always be 1 for now so we use the same sprites
+        level = 1;
+        // We take the standard level elements then we need to add level specific assets such as the enemy variations
+        var assets = Manifest.level.slice();
+        _.each(EnemyData, function (enemy) {
+            var path = Utils.format(enemy.spritesPathTemplate, Utils.zeroPad(level, 2));
+            assets.push({ src: path + ".json", id: "enemy_json_" + enemy.id + "_" + Utils.zeroPad(level, 2) });
+            assets.push({ src: path + ".png", id: "enemy_png_" + enemy.id + "_" + Utils.zeroPad(level, 2) });
+            //console.log("enemy", enemy, path, asset);
+        });
+        return assets;
     };
     StageController.prototype.onImagesLoad = function () {
         var _this = this;
@@ -102,13 +114,15 @@ var StageController = (function () {
         this.drawLane();
         this.drawStadium();
         this.drawLogo();
+        this.fieldActorsContainer = new createjs.Container();
+        this.stage.addChild(this.fieldActorsContainer);
         EventBus.dispatch("showCommentary", this.levelConfig.waves.message);
         EventBus.dispatch("setScore", this.life);
         this.initShowMessage();
         this.generateWaves();
         this.showPowerup();
         this.setCaptchaIndex();
-        EventBus.dispatch("setTickerStatus");
+        EventBus.dispatch("toggleTickerStatus");
     };
     StageController.prototype.initShowMessage = function () {
         this.message = new createjs.Bitmap(null);
@@ -290,13 +304,13 @@ var StageController = (function () {
         EventBus.dispatch("exitMenu");
         $("#canvasHolder").show();
         $("#myCanvas").show();
-        EventBus.dispatch("setTickerStatus");
+        EventBus.dispatch("toggleTickerStatus");
         createjs.Ticker.addEventListener("tick", this.events.tick);
     };
     StageController.prototype.pauseGame = function () {
         if (!createjs.Ticker.getPaused()) {
             //this.captchaProcessor.hideCaptchas();
-            EventBus.dispatch("setTickerStatus");
+            EventBus.dispatch("toggleTickerStatus");
             EventBus.dispatch("showMenu");
         }
     };
@@ -305,7 +319,7 @@ var StageController = (function () {
             this.config.gameState.currentState = this.config.gameState.states.MAIN_MENU;
             this.captchaProcessor.hideCaptchas();
             this.stage.update();
-            EventBus.dispatch("setTickerStatus");
+            EventBus.dispatch("toggleTickerStatus");
             EventBus.dispatch("showTimeout");
             EventBus.dispatch("setMute");
             EventBus.dispatch('pauseWaves', true);
@@ -540,7 +554,7 @@ var StageController = (function () {
             lane.player = undefined;
         }
     };
-    StageController.prototype.setTickerStatus = function () {
+    StageController.prototype.toggleTickerStatus = function () {
         createjs.Ticker.setPaused(!createjs.Ticker.getPaused());
     };
     StageController.prototype.updateLevelStatus = function (object) {
@@ -587,7 +601,7 @@ var StageController = (function () {
         this.waves = null;
         EventBus.dispatch("stopSound", "stadiumAmbience");
         setTimeout(function () {
-            EventBus.dispatch("setTickerStatus");
+            EventBus.dispatch("toggleTickerStatus");
             EventBus.dispatch("setMute");
             if (result == 0) {
                 $("#canvasHolder").hide();
@@ -641,22 +655,22 @@ var StageController = (function () {
         this.config.myBag.reset();
         EventBus.dispatch("showMap");
     };
-    StageController.prototype.pushEnemy = function (enemy) {
+    StageController.prototype.addEnemy = function (enemy) {
         EventBus.dispatch("showPendingEnemies", this.waves.getPendingEnemies());
         this.setEnemyProperties(enemy);
-        var laneId = enemy.getLaneId();
-        if (laneId < 3 && this.config.gameState.currentLevel != 1) {
-            var player = this.lanes[laneId].player;
-            var index = this.stage.getChildIndex(player);
-            if (index > 0)
-                this.stage.addChildAt(enemy, index);
-            else {
-                this.stage.addChild(enemy);
-            }
-        }
-        else {
-            this.stage.addChild(enemy);
-        }
+        //var laneId = enemy.getLaneId();
+        //if (laneId < 3 && this.config.gameState.currentLevel != 1) {
+        //	var player = this.lanes[laneId].player;
+        //	var index = this.stage.getChildIndex(player);
+        //	if (index > 0)
+        //		this.stage.addChildAt(enemy, index);
+        //	else {
+        //		this.stage.addChild(enemy);
+        //	}
+        //} else {
+        //	this.stage.addChild(enemy)
+        //}
+        this.fieldActorsContainer.addChild(enemy);
         this.enemies.push(enemy);
     };
     StageController.prototype.setEnemyProperties = function (enemy) {
@@ -764,7 +778,7 @@ var StageController = (function () {
         this.config.gameState.currentState = this.config.gameState.states.RUN;
         $('#timeout-container').css('display', 'none');
         EventBus.dispatch('showCaptchas');
-        EventBus.dispatch('setTickerStatus');
+        EventBus.dispatch('toggleTickerStatus');
         EventBus.dispatch('setMute');
         //Play Stadium Ambience
         var audioList = this.config.gameState.audioList;

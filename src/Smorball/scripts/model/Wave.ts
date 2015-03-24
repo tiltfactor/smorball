@@ -32,7 +32,7 @@ class Wave {
 	private loadEnemiesOnSurvival() {
 		this.counter = 1;
 		this.surivalTime = 6000;
-		var property = [EnemyData.wideCenters.extras.id, 2, this.surivalTime];
+		var property = [EnemyData.wideCenters.id, 2, this.surivalTime];
 		this.config.data.stageDatas.push(property);
 		this.timer = setInterval(() => { if (this.config.data.stageDatas.length < 50) { this.createData() } }, 1000);
 	}
@@ -46,7 +46,6 @@ class Wave {
 		var time = this.getTimeForSurvival(mainType, type);
 		var property = [type.extras.id, lane, time, "", mainType];
 		this.config.data.stageDatas.push(property);
-
 	}
 
 	private getTimeForSurvival(mainType, type) {
@@ -56,7 +55,6 @@ class Wave {
 			if (this.counter % 8 == 0) {
 				this.surivalTime = (this.surivalTime - Math.ceil(this.surivalTime * .2)) < 500 ? 500 : (this.surivalTime - Math.ceil(this.surivalTime * .2));
 			}
-
 
 			return this.surivalTime + type.extras.life * .4 * 1000;
 		}
@@ -175,12 +173,15 @@ class Wave {
 		var msg = enemyProperties[3];
 		lane = this.config.lanes == 1 ? 2 : lane;
 		var onKill = (time == undefined || time == -1) ? true : false;
-		var config = { "id": type, "lanesObj": lanesObj, "laneId": lane, "waveId": this.config.id, "onKill": onKill, "loader": this.config.loader, "gameState": this.config.gameState };
+		var config = <EnemyConfig>{ "id": type, "lanesObj": lanesObj, "laneId": lane, "waveId": this.config.id, "onKill": onKill, "loader": this.config.loader, "gameState": this.config.gameState };
 		var enemy = new Enemy(config);
 		if (!(msg == "" || msg == undefined)) {
 			EventBus.dispatch("showCommentary", msg);
 		}
-		EventBus.dispatch("pushEnemy", enemy);
+
+		// Add an enemy to the stage
+		smorball.stageController.addEnemy(enemy);
+
 		if (!onKill) {
 			this.setNext(time);
 		}

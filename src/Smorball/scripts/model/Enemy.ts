@@ -3,15 +3,28 @@
 /// <reference path="spritesheet.ts" />
 /// <reference path="../data/enemydata.ts" />
 
+interface EnemyConfig {
+	id: string;
+	speed: number;
+	life: number;
+	enemySound: any;
+	lanesObj: any;
+	gameState: GameState;
+	laneId: number;
+	loader: SmbLoadQueue;
+	waveId: number;
+	onKill: any;
+}
+
 class Enemy extends createjs.Container {
 
-	config: any;
+	config: EnemyConfig;
+	typeData: EnemyTypeData;
 	lifes: any[]
 	speed: number;
 	hit: boolean;
-	spriteData: SpriteSheet;
+	spritesheet: createjs.SpriteSheet;
 	sprite: createjs.Sprite;
-	extras: any;
 	life: any;
 	endPoint: number;
 	bounds: createjs.Rectangle;
@@ -21,32 +34,62 @@ class Enemy extends createjs.Container {
 	startY: number;
 	lifeRectSize: number;
 
-	constructor(config: any) {
-		this.config = config || {};
+	constructor(config: EnemyConfig) {
+		super();
+
+
+		this.config = config;
         this.lifes = [];
         this.speed = config.speed || 1;
         this.hit = false;
+        this.typeData = EnemyData[this.config.id];
+
+		
         
-		this.spriteData = new SpriteSheet({ "id": this.config.id, "data": EnemyData[this.config.id].data, "loader": this.config.loader });
-        this.sprite = new createjs.Sprite(this.spriteData, "stand");
-        this.extras = EnemyData[this.config.id].extras;
-        this.setScale(this.extras.sX, this.extras.sY);
+		this.spritesheet = new createjs.SpriteSheet(this.getSpritesheetData());
+        this.sprite = new createjs.Sprite(this.spritesheet, "run");
+
+
+		
+
+		this.sprite.x = -this.typeData.offsetX;
+		this.sprite.y = -this.typeData.offsetY;
+		 
+
+        //this.setScale(this.typeData.sX, this.typeData.sY);
         this.setEffects();
 
-		super();
+		
 
 		this.addChild(this.sprite);
-        this.life = this.config.life || EnemyData[this.config.id].extras.life;
+        this.life = this.config.life || EnemyData[this.config.id].life;
         this.generateLife();
         this.setExtras();
         this.bounds = this.getBounds();
+
+		var circle = new createjs.Shape();
+		circle.graphics.beginFill("red");
+		circle.graphics.drawCircle(0, 0, 10);
+		this.addChild(circle);
+
+	}
+
+	getSpritesheetData(): any {
+		var level = 1; // this.config.gameState.currentLevel;
+		var jsonName = "enemy_json_" + this.config.id + "_" + Utils.zeroPad(level, 2);
+		var pngName = "enemy_png_" + this.config.id + "_" + Utils.zeroPad(level, 2);
+		var data = this.config.loader.getResult(jsonName);
+		var sprite = this.config.loader.getResult(pngName);
+		data.images = [sprite];
+		console.log("creating enemy", this.config.id, data, sprite);
+		return data;
 	}
 
 	private setExtras() {
-		this.extras = EnemyData[this.config.id].extras;
-		this.life = this.extras.life || 1;
-		this.speed = this.extras.speed || 1;
-		if (this.extras.changeLane) {
+		this.typeData = EnemyData[this.config.id];
+		this.life = this.typeData.life || 1;
+		this.speed = this.typeData.speed || 1;
+		if (this.typeData.changeLane) {
 			setTimeout(() => { EventBus.dispatch("changeLane") }, 2000);
 		}
 	}
@@ -67,11 +110,11 @@ class Enemy extends createjs.Container {
 
 	pause() {
 		this.removeEventListener("tick", this.myTick);
-		this.sprite.gotoAndPlay("stand");
+		this.sprite.gotoAndPlay("run");
 	}
 
 	die() {
-		this.sprite.gotoAndPlay("die");
+		this.sprite.gotoAndPlay("dead");
 	}
 
 	kill(life) {
@@ -94,7 +137,7 @@ class Enemy extends createjs.Container {
 			this.hit = true;
 			var fileId = this.config.enemySound.die;
 			EventBus.dispatch("playSound", fileId);
-			this.sprite.gotoAndPlay("die");
+			this.sprite.gotoAndPlay("dead");
 			this.removeEventListener("tick", this.myTick);
 			this.myAnimationEnd = () => { this.removeFallingAnimation() };
 			this.sprite.addEventListener("animationend", this.myAnimationEnd);
@@ -156,11 +199,11 @@ class Enemy extends createjs.Container {
 	}
 
 	setEffects() {
-		this.config.enemySound = EnemyData[this.config.id].extras.sound;
+		this.config.enemySound = EnemyData[this.config.id].sound;
 	}
 
 	getMaxLife() {
-		return EnemyData[this.config.id].extras.life
+		return EnemyData[this.config.id].life
 	}
 
 	getLife() {

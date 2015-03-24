@@ -20,7 +20,7 @@ var Wave = (function () {
         var _this = this;
         this.counter = 1;
         this.surivalTime = 6000;
-        var property = [EnemyData.wideCenters.extras.id, 2, this.surivalTime];
+        var property = [EnemyData.wideCenters.id, 2, this.surivalTime];
         this.config.data.stageDatas.push(property);
         this.timer = setInterval(function () {
             if (_this.config.data.stageDatas.length < 50) {
@@ -156,7 +156,8 @@ var Wave = (function () {
         if (!(msg == "" || msg == undefined)) {
             EventBus.dispatch("showCommentary", msg);
         }
-        EventBus.dispatch("pushEnemy", enemy);
+        // Add an enemy to the stage
+        smorball.stageController.addEnemy(enemy);
         if (!onKill) {
             this.setNext(time);
         }
