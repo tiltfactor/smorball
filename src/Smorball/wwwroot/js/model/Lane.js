@@ -1,5 +1,6 @@
 /// <reference path="../../typings/tsd.d.ts" />
 /// <reference path="../../typings/smorball/smorball.d.ts" />
+/// <reference path="../data/gameconfig.ts" />
 var __extends = this.__extends || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -33,7 +34,7 @@ var Lane = (function (_super) {
         this.player.y = (this.config.y - this.config.height * 0.75);
         this.player.setEndPoint(this.config.x + this.config.width);
     };
-    Lane.prototype.getPowerupPosition = function (me) {
+    Lane.prototype.getPowerupPosition = function () {
         var limit = (this.config.width - this.leftArea) * 3 / 4;
         return {
             x: (Math.random() * limit) + this.leftArea + this.config.x,
@@ -53,10 +54,11 @@ var Lane = (function (_super) {
         };
     };
     Lane.prototype.getEndPoint = function () {
-        return {
-            x: this.config.x + this.config.width,
-            y: this.config.y + this.config.height * 0.75 //this.config.y + (this.config.height/7);
-        };
+        return gameConfig.enemySpawnPositions[this.config.id];
+        //      return {
+        //	x: this.config.x + this.config.width,
+        //	y: this.config.y + this.config.height * 0.75 //this.config.y + (this.config.height/7);
+        //};
     };
     Lane.prototype.getHeight = function () {
         return this.config.height;

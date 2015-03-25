@@ -6,61 +6,65 @@ var localData = {
             "image": "000.png",
             "ocr1": "2)retty",
             "ocr2": "pretty",
-            "message": "Type the word to tackle your opponent.                       "
+            "message" : "Type the word to tackle your opponent.                       "
         },
         {
             "image": "001.png",
             "ocr1": "thraugliout,",
             "ocr2": "throughout,",
-            "message": "Careful, because punctuation matters.                        "
+            "message" : "Careful, because punctuation matters.                        "
+
         },
         {
             "image": "002.png",
             "ocr1": "ToTT.",
             "ocr2": "Torr.",
-            "message": "Capitalization doesn't matter, though.                        "
+            "message" : "Capitalization doesn't matter, though.                        "
         },
         {
             "image": "003.png",
             "ocr1": "EosA",
             "ocr2": "ROSA",
-            "message": ""
+            "message" :""
+
         },
         {
             "image": "004.png",
             "ocr1": "Gray'sFlora^",
             "ocr2": "Gray's Flora,",
-            "message": "Use space to separate multiple words!                       "
+            "message" : "Use space to separate multiple words!                       "
         },
         {
             "image": "005.png",
             "ocr1": "ROSACEiE.",
             "ocr2": "ROSACEJE.",
-            "message": "Type Æ as AE..                                             "
+            "message" : "Type Æ as AE..                                             "
         },
         {
             "image": "006.png",
             "ocr1": "l-l|",
             "ocr2": "1-1j",
-            "message": "...and use / for fractions                           "
+            "message" : "...and use / for fractions                           "
         },
         {
             "image": "073.png",
             "ocr1": "bracte^",
             "ocr2": "bracted",
-            "message": "You dont need to type accents.                        "
+            "message" : "You dont need to type accents.                        "
         },
         {
             "image": "007.png",
             "ocr1": "m dvu",
             "ocr2": "Â«Em",
-            "message": "If you can't type it, click 'pass'                       "
+            "message" : "If you can't type it, click 'pass'                       "
+
         },
         {
             "image": "008.png",
             "ocr1": "decumhens",
             "ocr2": "decumbens",
-            "message": "Good luck, coach!                       "
+            "message" : "Good luck, coach!                       "
+
         },
         {
             "image": "009.png",
@@ -111,6 +115,7 @@ var localData = {
             "image": "018.png",
             "ocr1": "hranchlets",
             "ocr2": "branchlets",
+
         },
         {
             "image": "019.png",
@@ -131,6 +136,7 @@ var localData = {
             "image": "022.png",
             "ocr1": "umhellose,",
             "ocr2": "umbellose,",
+
         },
         {
             "image": "023.png",
@@ -261,6 +267,7 @@ var localData = {
             "image": "048.png",
             "ocr1": "subflexuous^",
             "ocr2": "subflexuous,"
+
         },
         {
             "image": "049.png",
@@ -477,6 +484,7 @@ var localData = {
             "ocr1": "IIosACKTA",
             "ocr2": "HIOSACKIA",
         },
+        /* BAD OCR STARTS HERE */
         {
             "image": "093.png",
             "ocr1": "diflimilis planta",

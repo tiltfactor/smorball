@@ -3,13 +3,14 @@
 /// <reference path="../../typings/tsd.d.ts" />
 /// <reference path="spritesheet.ts" />
 
-class SpriteMan extends createjs.Container {
+class PlayerAthlete extends createjs.Container {
 
-	config: any;
-	playerTypes: string[];
 	type: string;
-	spriteData: SpriteSheet;
-	extras: any;
+	laneId: number;
+	typeData: PlayerTypeData;
+	powerup: string;
+
+	playerSound: any;
 	sprite: createjs.Sprite;
 	hit: boolean;
 	hitPowerup: boolean;
@@ -20,75 +21,68 @@ class SpriteMan extends createjs.Container {
 	bounds: createjs.Rectangle;
 	myTick: any;
 	endPoint: number;
-	//myAnimationEnd: any;
 	toRun: any;
 
-	constructor(config: any) {
+	constructor(laneId: number, type:string) {
 
-		this.config = config;
-        this.playerTypes = ["player", "hockey", "football"];
+		this.laneId = laneId;
+		this.type = type;
+		this.powerup = "normal";
 
+		this.typeData = playerData[this.type];
+        this.sprite = new createjs.Sprite(this.constructSpritesheet(), "idle");
 
-        this.type = this.getRandomType();
-        var id = this.type + "_normal";
-        this.spriteData = new SpriteSheet({ "id": id, "data": PlayerData[id].data, "loader": this.config.loader, "gameState": this.config.gameState });
-        this.sprite = new createjs.Sprite(this.spriteData, "idle");
-        this.extras = PlayerData[id].extras;
-        this.setScale(this.extras.sX, this.extras.sY);
-        this.setEffects(id);
+		this.sprite.x = -this.typeData.offsetX;
+		this.sprite.y = -this.typeData.offsetY;
+
+        this.setEffects(this.type);
         
 		super();
-
-
+		
         this.addChild(this.sprite);
         this.hit = false;
         this.hitPowerup = false;
         this.life = 1;
         this.singleHit = false;
         this.hitEnemies = [];
-        this.speed = this.config.speed || 12;
+        this.speed = 12;
         this.bounds = this.getBounds();
+
+		if (location.hostname == "localhost") {
+			var circle = new createjs.Shape();
+			circle.graphics.beginFill("red");
+			circle.graphics.drawCircle(0, 0, 10);
+			this.addChild(circle);
+		}
 	}
 
-	private getRandomType() {
-		var type = Math.floor(Math.random() * this.playerTypes.length);
-		return this.playerTypes[type];
+	updateSpriteSheet() {
+		this.sprite.spriteSheet = this.constructSpritesheet();
 	}
 
-	setDefaultSpriteSheet() {
-		var id = this.type + "_normal";
-		this.spriteData = new SpriteSheet({ "id": id, "data": PlayerData[id].data, "loader": this.config.loader });
-		this.sprite.spriteSheet = this.spriteData;
-		this.extras = PlayerData[id].extras;
-		this.setScale(this.extras.sX, this.extras.sY);
-		this.sprite.gotoAndPlay("idle");
-
+	private constructSpritesheet(): createjs.SpriteSheet {
+		var data = smorball.loader.getResult(this.type + "_" + this.powerup+"_json");
+		var sprite = smorball.loader.getResult(this.type + "_" + this.powerup+"_png");
+		data.images = [sprite];
+		return new createjs.SpriteSheet(data);
 	}
-
-	setPowerupSpriteSheet(powerupType) {
-		var id = this.type + "_" + powerupType;
-		this.spriteData = new SpriteSheet({ "id": id, "data": PlayerData[id].data, "loader": this.config.loader });
-		this.sprite.spriteSheet = this.spriteData;
-		this.extras = PlayerData[id].extras;
-		this.setScale(this.extras.sX, this.extras.sY);
-		this.sprite.gotoAndPlay("idle");
-
-	}
-
-
+	
 	setEffects(id) {
-		this.config.playerSound = PlayerData[id].extras.sound;
+		this.playerSound = playerData[id].sound;
 	}
+
 	run() {
 		var me = this;
 		this.sprite.gotoAndPlay("run");
 		this.myTick = () => { this.tick() };
 		this.addEventListener("tick", this.myTick);
 	}
+
 	addPowerups(power) {
 		this.life = power.life;
 		this.singleHit = power.singleHit;
 	}
+
 	pause() {
 		this.removeEventListener("tick", this.myTick);
 		this.sprite.gotoAndPlay("idle");
@@ -98,20 +92,15 @@ class SpriteMan extends createjs.Container {
 		this.sprite.gotoAndPlay("confused");
 	}
 
-	setPosition(x, y) {
-		this.x = x;
-		this.y = y;
-		this.regX = 0;
-		this.regY = this.getHeight();
-
-	}
-
 	setSpeed(speed) {
 		this.speed = speed;
 		(<any>this.sprite)._animation.speed = speed;
 	}
 
 	kill(enemyLife) {
+
+		console.log("kill?!");
+
 
 		for (var i = 0; i < enemyLife; i++) {
 			if (this.life != 0) {
@@ -127,11 +116,8 @@ class SpriteMan extends createjs.Container {
 			this.sprite.gotoAndPlay("tackle");
 	
 			this.removeEventListener("tick", this.myTick);
-		
-			this.sprite.on("animationend",() => {
-				EventBus.dispatch("killme", this);				
-				EventBus.addEventListener("removeFromStage", this);
-			}, this, true);
+
+			this.sprite.on("animationend",() => smorball.stageController.removeAthlete(this), this, true);
 
 			return 0;
 		}
@@ -157,14 +143,6 @@ class SpriteMan extends createjs.Container {
 
 	getWidth() {
 		return (<any>this.sprite)._rectangle.width;
-	}
-
-	setScale(sx, sy) {
-		this.sprite.setTransform(0, 6, sx, sy);
-	}
-
-	getLaneId() {
-		return this.config.laneId;
 	}
 
 	getLife() {

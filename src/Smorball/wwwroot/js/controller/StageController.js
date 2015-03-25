@@ -1,6 +1,5 @@
 /// <reference path="../model/lane.ts" />
 /// <reference path="../model/mybag.ts" />
-/// <reference path="../model/spriteman.ts" />
 /// <reference path="../model/waves.ts" />
 /// <reference path="../model/commentarybox.ts" />
 /// <reference path="../data/manifest.ts" />
@@ -8,10 +7,9 @@
 /// <reference path="../../typings/tsd.d.ts" />
 /// <reference path="../../typings/smorball/smorball.d.ts" />
 var StageController = (function () {
-    function StageController(config) {
+    function StageController() {
         this.events = {};
         this.activePowerup = undefined;
-        this.config = config;
     }
     StageController.prototype.init = function () {
         var _this = this;
@@ -32,7 +30,7 @@ var StageController = (function () {
         EventBus.addEventListener("newGame", function () { return _this.newGame(); });
         EventBus.addEventListener("resumeGame", function () { return _this.resumeGame(); });
         EventBus.addEventListener("pauseGame", function () { return _this.pauseGame(); });
-        EventBus.addEventListener("killme", function (o) { return _this.killMe(o); });
+        //EventBus.addEventListener("killme",(o) => this.killMe(o));
         EventBus.addEventListener("killLife", function () { return _this.killLife(); });
         //EventBus.addEventListener("pushEnemy",(o:any) => this.pushEnemy(o.target));
         EventBus.addEventListener("pushPowerup", function (o) { return _this.pushPowerup(o.target); });
@@ -53,39 +51,39 @@ var StageController = (function () {
         EventBus.addEventListener("removeFromStage", function (o) { return _this.removeFromStage(o.target); });
     };
     StageController.prototype.newGame = function () {
-        if (this.config.gameState.inputTextArr.length != 0) {
+        if (smorball.gameState.inputTextArr.length != 0) {
             this.saveInputTexts();
         }
-        this.config.myBag.newGame();
+        smorball.myBag.newGame();
         this.timeSpend = 0;
         this.currentTime = createjs.Ticker.getTime(true);
         $("#inputText").val("");
         this.resetGame();
-        this.config.gameState.currentState = this.config.gameState.states.RUN;
-        this.levelConfig = LevelData[this.config.gameState.currentLevel];
-        this.spawning = new Spawning({ "gameState": this.config.gameState });
+        smorball.gameState.currentState = smorball.gameState.states.RUN;
+        this.levelConfig = LevelData[smorball.gameState.currentLevel];
+        this.spawning = new Spawning({ "gameState": smorball.gameState });
         this.captchaProcessor = new CaptchaProcessor({
-            "loader": this.config.loader,
+            "loader": smorball.loader,
             "canvasWidth": this.canvasWidth,
             "canvasHeight": this.canvasHeight,
-            "gameState": this.config.gameState
+            "gameState": smorball.gameState
         });
         $("#loaderDiv").show();
         this.loadImages();
         $("#myCanvas").show();
         EventBus.dispatch("setMute");
-        var config = { "gameState": this.config.gameState };
+        var config = { "gameState": smorball.gameState };
         this.score = new Score(config);
     };
     StageController.prototype.loadImages = function () {
         var manifest = [];
-        if (!this.config.gameState.level) {
-            this.config.gameState.level = true;
-            console.log("Loading images from manifest for level", this.config.gameState.currentLevel);
-            this.config.loader.loadLevelQueue(this.constructLevelManifest(this.config.gameState.currentLevel), this.config.gameState.currentLevel);
+        if (!smorball.gameState.level) {
+            smorball.gameState.level = true;
+            console.log("Loading images from manifest for level", smorball.gameState.currentLevel);
+            smorball.loader.loadLevelQueue(this.constructLevelManifest(smorball.gameState.currentLevel), smorball.gameState.currentLevel);
         }
         else {
-            this.config.loader.loadLevelQueue(manifest, this.config.gameState.currentLevel);
+            smorball.loader.loadLevelQueue(manifest, smorball.gameState.currentLevel);
         }
     };
     StageController.prototype.constructLevelManifest = function (level) {
@@ -114,8 +112,8 @@ var StageController = (function () {
         this.drawLane();
         this.drawStadium();
         this.drawLogo();
-        this.fieldActorsContainer = new createjs.Container();
-        this.stage.addChild(this.fieldActorsContainer);
+        this.actorsContainer = new createjs.Container();
+        this.stage.addChild(this.actorsContainer);
         EventBus.dispatch("showCommentary", this.levelConfig.waves.message);
         EventBus.dispatch("setScore", this.life);
         this.initShowMessage();
@@ -151,7 +149,7 @@ var StageController = (function () {
         this.showMessage(text);
     };
     StageController.prototype.showMessage = function (text) {
-        this.message.image = this.config.loader.getResult(text);
+        this.message.image = smorball.loader.getResult(text);
         this.message.x = 800 - this.message.getBounds().width / 2;
         var index = this.stage.children.length - 1;
         this.stage.setChildIndex(this.message, index);
@@ -180,11 +178,11 @@ var StageController = (function () {
     StageController.prototype.drawStadium = function () {
         var width = 1600;
         this.stadium = new createjs.Container();
-        this.seatContainer = new Blocks({ "loader": this.config.loader, "width": width });
+        this.seatContainer = new Blocks({ "loader": smorball.loader, "width": width });
         var lc = this.seatContainer.drawLeftChairBlock();
         var rc = this.seatContainer.drawRightChairBlock();
-        this.cbBox = new CommentaryBox({ "loader": this.config.loader, "width": width });
-        this.adBoard = new AdBoard({ "loader": this.config.loader });
+        this.cbBox = new CommentaryBox({ "loader": smorball.loader, "width": width });
+        this.adBoard = new AdBoard({ "loader": smorball.loader });
         this.adBoard.y = this.cbBox.getTransformedBounds().height - this.adBoard.getTransformedBounds().height / 2 - this.adBoard.getTransformedBounds().height / 6;
         this.stadium.addChild(lc, rc, this.cbBox, this.adBoard);
         this.stage.addChild(this.stadium);
@@ -194,37 +192,37 @@ var StageController = (function () {
         this.bgContainer = new createjs.Container();
         this.stage.addChild(this.bgContainer);
         var shape = new createjs.Shape();
-        shape.graphics.beginBitmapFill(this.config.loader.getResult("background")).drawRect(0, 0, this.width, this.height);
+        shape.graphics.beginBitmapFill(smorball.loader.getResult("background")).drawRect(0, 0, this.width, this.height);
         this.bgContainer.addChild(shape);
     };
     StageController.prototype.drawTimeOut = function () {
         var _this = this;
-        var mbtn = new createjs.Bitmap(this.config.loader.getResult("menu_btn_idle"));
+        var mbtn = new createjs.Bitmap(smorball.loader.getResult("menu_btn_idle"));
         mbtn.x = mbtn.getTransformedBounds().width / 4;
         mbtn.y = mbtn.getTransformedBounds().height / 4;
         mbtn.addEventListener("mousedown", function (evt) {
-            evt.target.image = _this.config.loader.getResult("menu_btn_click");
+            evt.target.image = smorball.loader.getResult("menu_btn_click");
             evt.target.cursor = "pointer";
             EventBus.dispatch("showTimeoutScreen");
         });
         mbtn.addEventListener("mouseover", function (evt) {
-            evt.target.image = _this.config.loader.getResult("menu_btn_over");
+            evt.target.image = smorball.loader.getResult("menu_btn_over");
             evt.target.cursor = "pointer";
             _this.stage.update();
         });
         mbtn.addEventListener("pressup", function (evt) {
-            evt.target.image = _this.config.loader.getResult("menu_btn_idle");
+            evt.target.image = smorball.loader.getResult("menu_btn_idle");
             evt.target.cursor = "pointer";
         });
         mbtn.addEventListener("mouseout", function (evt) {
-            evt.target.image = _this.config.loader.getResult("menu_btn_idle");
+            evt.target.image = smorball.loader.getResult("menu_btn_idle");
             evt.target.cursor = "pointer";
         });
         this.stadium.addChild(mbtn);
     };
     StageController.prototype.drawLogo = function () {
         var logo = new createjs.Bitmap(null);
-        logo.image = this.config.loader.getResult("splash" + this.config.gameState.currentLevel);
+        logo.image = smorball.loader.getResult("splash" + smorball.gameState.currentLevel);
         logo.x = 800 - logo.getTransformedBounds().width / 2;
         logo.y = 600;
         logo.alpha = 0.25;
@@ -248,8 +246,8 @@ var StageController = (function () {
             "waves": this.levelConfig.waves,
             "lanesObj": this.lanes,
             "lanes": this.levelConfig.lanes,
-            "loader": this.config.loader,
-            "gameState": this.config.gameState
+            "loader": smorball.loader,
+            "gameState": smorball.gameState
         });
         this.waves.init();
         EventBus.dispatch("showPendingEnemies", this.waves.getPendingEnemies());
@@ -274,7 +272,7 @@ var StageController = (function () {
                 "width": width,
                 "height": laneHeight,
                 "id": laneId,
-                "loader": this.config.loader
+                "loader": smorball.loader
             };
             var lane = new Lane(config);
             this.stage.addChild(lane);
@@ -294,7 +292,7 @@ var StageController = (function () {
             "width": width,
             "height": this.freeBottomAreaY,
             "id": 4,
-            "loader": this.config.loader
+            "loader": smorball.loader
         };
         var lane = new Lane(config);
         this.stage.addChild(lane);
@@ -315,8 +313,8 @@ var StageController = (function () {
         }
     };
     StageController.prototype.showTimeoutScreen = function () {
-        if (!createjs.Ticker.getPaused() && this.config.gameState.currentState == this.config.gameState.states.RUN) {
-            this.config.gameState.currentState = this.config.gameState.states.MAIN_MENU;
+        if (!createjs.Ticker.getPaused() && smorball.gameState.currentState == smorball.gameState.states.RUN) {
+            smorball.gameState.currentState = smorball.gameState.states.MAIN_MENU;
             this.captchaProcessor.hideCaptchas();
             this.stage.update();
             EventBus.dispatch("toggleTickerStatus");
@@ -325,23 +323,13 @@ var StageController = (function () {
             EventBus.dispatch('pauseWaves', true);
         }
     };
-    StageController.prototype.killMe = function (actor) {
-        var object = actor.target;
-        this.stage.removeChild(object);
-        if (object instanceof Enemy) {
-            var index = this.enemies.indexOf(object);
-            this.enemies.splice(index, 1);
-            this.spawning.onEnemyKilled(object.getMaxLife());
-            this.updateLevelStatus(object);
-        }
-        else if (object instanceof SpriteMan) {
-            var index = this.players.indexOf(object);
-            this.players.splice(index, 1);
-        }
-        //else if (object instanceof Gem) {
-        //	var index = this.config.gems.indexOf(object);
-        //	this.config.gems.splice(index, 1);
-        //}
+    StageController.prototype.removeAthlete = function (athlete) {
+        this.players = _.without(this.players, athlete);
+        this.actorsContainer.removeChild(athlete);
+    };
+    StageController.prototype.removeEnemy = function (enemy) {
+        this.enemies = _.without(this.enemies, enemy);
+        this.actorsContainer.removeChild(enemy);
     };
     StageController.prototype.resetPlayers = function () {
         for (var i = 0; i < this.lanes.length; i++) {
@@ -350,40 +338,43 @@ var StageController = (function () {
                 setTimeout(this.makeTimeoutLaneFunction(lane), 1000);
             }
             else {
-                lane.player.setDefaultSpriteSheet();
+                lane.player.updateSpriteSheet();
             }
         }
     };
     StageController.prototype.makeTimeoutLaneFunction = function (lane) {
-        return this.addPlayer(lane);
+        var _this = this;
+        return function () { return _this.addPlayer(lane); };
     };
     StageController.prototype.addPlayer = function (lane) {
-        var _this = this;
-        if (!(this.config.gameState.currentLevel == 1 && (lane.getLaneId() == 1 || lane.getLaneId() == 3))) {
+        if (!(smorball.gameState.currentLevel == 1 && (lane.getLaneId() == 1 || lane.getLaneId() == 3))) {
             var config = {
-                "loader": this.config.loader,
+                "loader": smorball.loader,
                 "laneId": lane.getLaneId(),
-                "gameState": this.config.gameState
+                "gameState": smorball.gameState
             };
             if (lane.player == undefined) {
-                var player = new SpriteMan(config);
+                var type = Utils.randomOne(_.keys(playerData));
+                var player = new PlayerAthlete(lane.getLaneId(), type);
                 lane.setPlayer(player);
-                var laneId = lane.getLaneId();
-                this.stage.addChild(player);
-                var setPlayerIndex = function () {
-                    var index0 = _this.stage.getChildIndex(_this.lanes[0].player);
-                    var index1 = _this.stage.getChildIndex(_this.lanes[1].player);
-                    var index2 = _this.stage.getChildIndex(_this.lanes[2].player);
-                    if (index0 > index1 && index1 >= 0) {
-                        _this.stage.swapChildren(_this.lanes[0].player, _this.lanes[1].player);
-                        setPlayerIndex();
-                    }
-                    else if (index1 > index2 && index2 >= 0) {
-                        _this.stage.swapChildren(_this.lanes[1].player, _this.lanes[2].player);
-                        setPlayerIndex();
-                    }
-                };
-                setPlayerIndex();
+                var spawnPos = gameConfig.friendlySpawnPositions[lane.getLaneId() - 1];
+                player.x = spawnPos.x;
+                player.y = spawnPos.y;
+                this.actorsContainer.addChild(player);
+                //this.stage.addChild(player);
+                //var setPlayerIndex = () => {
+                //	var index0 = this.stage.getChildIndex(this.lanes[0].player);
+                //	var index1 = this.stage.getChildIndex(this.lanes[1].player);
+                //	var index2 = this.stage.getChildIndex(this.lanes[2].player);
+                //	if (index0 > index1 && index1 >= 0) {
+                //		this.stage.swapChildren(this.lanes[0].player, this.lanes[1].player);
+                //		setPlayerIndex();
+                //	} else if (index1 > index2 && index2 >= 0) {
+                //		this.stage.swapChildren(this.lanes[1].player, this.lanes[2].player);
+                //		setPlayerIndex();
+                //	}
+                //}
+                //setPlayerIndex();
                 this.setCaptchaIndex();
             }
         }
@@ -410,7 +401,7 @@ var StageController = (function () {
         this.wavesc = [];
         this.activePowerup = undefined;
         this.passCount = 0;
-        this.life = this.config.gameState.maxLife;
+        this.life = smorball.gameState.maxLife;
     };
     StageController.prototype.removeAllChildren = function () {
         this.stage.removeAllChildren();
@@ -443,7 +434,7 @@ var StageController = (function () {
                     }
                     else {
                         var enemyLife = enemy.getLife();
-                        var fileId = player.config.playerSound.tackle;
+                        var fileId = player.playerSound.tackle;
                         EventBus.dispatch("playSound", fileId);
                         enemy.kill(player.getLife());
                         player.kill(enemyLife);
@@ -461,7 +452,7 @@ var StageController = (function () {
         if (this.enemies.length != 0) {
             for (var i = 0; i < this.enemies.length; i++) {
                 var enemy = this.enemies[i];
-                if (enemy.hit == true || player.getLaneId() != enemy.getLaneId())
+                if (enemy.hit == true || player.laneId != enemy.getLaneId())
                     continue;
                 //if(enemy.hit == true) continue;
                 var hit = this.isCollision(player, enemy);
@@ -475,7 +466,7 @@ var StageController = (function () {
         if (this.powerups.length != 0) {
             for (var i = 0; i < this.powerups.length; i++) {
                 var powerup = this.powerups[i];
-                if (powerup.getLaneId() != player.getLaneId())
+                if (powerup.getLaneId() != player.laneId)
                     continue;
                 var hit = this.isCollisionPowerup(player, powerup);
                 if (hit) {
@@ -503,7 +494,7 @@ var StageController = (function () {
             if (output.pass) {
                 if (this.activePowerup != null) {
                     EventBus.dispatch("playSound", "correctPowerup");
-                    this.config.myBag.selectedId = -1;
+                    smorball.myBag.selectedId = -1;
                 }
                 else {
                     EventBus.dispatch("playSound", "correctSound");
@@ -515,7 +506,7 @@ var StageController = (function () {
                     var lane = this.getLaneById(output.laneId);
                     this.activatePlayer(lane.player);
                     if (output.extraDamage && lane.player != undefined && lane.player.getLife() == 1) {
-                        lane.player.setLife(this.config.gameState.gs.extraDamage);
+                        lane.player.setLife(smorball.gameState.gs.extraDamage);
                     }
                     lane.player = undefined;
                 }
@@ -544,7 +535,7 @@ var StageController = (function () {
     };
     StageController.prototype.removeActivePowerup = function () {
         if (this.activePowerup) {
-            this.config.myBag.removeFromBag(this.activePowerup);
+            smorball.myBag.removeFromBag(this.activePowerup);
         }
     };
     StageController.prototype.startPlayersFromAllLanes = function () {
@@ -582,15 +573,15 @@ var StageController = (function () {
     };
     StageController.prototype.updateLevel = function () {
         this.score.addGameLevelPoints(this.life);
-        if (this.config.gameState.currentLevel == 1) {
+        if (smorball.gameState.currentLevel == 1) {
             this.calculateTime();
             this.calculateDifficulty();
         }
-        this.config.gameState.currentLevel++;
-        if (this.config.gameState.currentLevel > this.config.gameState.gs.maxLevel && this.config.gameState.currentLevel < 8) {
-            this.config.gameState.gs.maxLevel = this.config.gameState.currentLevel;
+        smorball.gameState.currentLevel++;
+        if (smorball.gameState.currentLevel > smorball.gameState.gs.maxLevel && smorball.gameState.currentLevel < 8) {
+            smorball.gameState.gs.maxLevel = smorball.gameState.currentLevel;
         }
-        this.config.gameState.currentState = this.config.gameState.states.GAME_OVER;
+        smorball.gameState.currentState = smorball.gameState.states.GAME_OVER;
         this.showResultScreen(1);
         this.saveInputTexts();
     };
@@ -620,11 +611,11 @@ var StageController = (function () {
             }
             else if (result == 3) {
                 var time = _this.timeConvert(_this.timeSpend);
-                var highScore = _this.config.gameState.gs.highScore;
+                var highScore = smorball.gameState.gs.highScore;
                 if (highScore.min <= time.min) {
                     if (highScore.sec <= time.sec) {
-                        _this.config.gameState.gs.highScore = time;
-                        highScore = _this.config.gameState.gs.highScore;
+                        smorball.gameState.gs.highScore = time;
+                        highScore = smorball.gameState.gs.highScore;
                     }
                 }
                 $("#minutes").text(time.min);
@@ -639,9 +630,9 @@ var StageController = (function () {
     };
     StageController.prototype.gameOver = function () {
         this.calculateTime();
-        this.config.gameState.currentState = this.config.gameState.states.GAME_OVER;
+        smorball.gameState.currentState = smorball.gameState.states.GAME_OVER;
         EventBus.dispatch("showCommentary", "Game Over");
-        if (this.config.gameState.currentLevel == this.config.gameState.survivalLevel) {
+        if (smorball.gameState.currentLevel == smorball.gameState.survivalLevel) {
             this.showResultScreen(3);
         }
         else {
@@ -651,15 +642,14 @@ var StageController = (function () {
     StageController.prototype.resetAll = function () {
         var store = new LocalStorage();
         // store.reset();
-        this.config.gameState.reset();
-        this.config.myBag.reset();
+        smorball.gameState.reset();
+        smorball.myBag.reset();
         EventBus.dispatch("showMap");
     };
     StageController.prototype.addEnemy = function (enemy) {
         EventBus.dispatch("showPendingEnemies", this.waves.getPendingEnemies());
-        this.setEnemyProperties(enemy);
         //var laneId = enemy.getLaneId();
-        //if (laneId < 3 && this.config.gameState.currentLevel != 1) {
+        //if (laneId < 3 && smorball.gameState.currentLevel != 1) {
         //	var player = this.lanes[laneId].player;
         //	var index = this.stage.getChildIndex(player);
         //	if (index > 0)
@@ -670,16 +660,16 @@ var StageController = (function () {
         //} else {
         //	this.stage.addChild(enemy)
         //}
-        this.fieldActorsContainer.addChild(enemy);
+        this.actorsContainer.addChild(enemy);
         this.enemies.push(enemy);
-    };
-    StageController.prototype.setEnemyProperties = function (enemy) {
         var lane = this.getLaneById(enemy.getLaneId()); //enemy.getLaneId();
         var start = lane.getEndPoint();
         var end = lane.getEnemyEndPoint();
-        enemy.setStartPoint(start.x, start.y);
+        var spawnPoint = gameConfig.enemySpawnPositions[enemy.getLaneId() - 1];
+        enemy.setStartPoint(spawnPoint.x, spawnPoint.y);
         enemy.setEndPoint(end.x);
         enemy.run();
+        console.log("New enemy added to stage", { laneid: enemy.getLaneId() });
     };
     StageController.prototype.getLaneById = function (id) {
         for (var i = 0; i < this.lanes.length; i++) {
@@ -707,8 +697,8 @@ var StageController = (function () {
         var x = 10;
         var y = 10;
         var padding = 5;
-        for (var i = 0; i < this.config.myBag.myBag.length; i++) {
-            var powerup = this.config.myBag.myBag[i];
+        for (var i = 0; i < smorball.myBag.myBag.length; i++) {
+            var powerup = smorball.myBag.myBag[i];
             powerupContainer.addChild(powerup);
             powerup.reset();
             x = x + powerup.getWidth() + padding;
@@ -720,11 +710,11 @@ var StageController = (function () {
     StageController.prototype.addToMyBag = function (powerup) {
         var index = this.powerups.indexOf(powerup);
         this.powerups.splice(index, 1);
-        this.config.myBag.addToBagFromField(powerup);
+        smorball.myBag.addToBagFromField(powerup);
         this.stage.removeChild(powerup);
     };
     StageController.prototype.unselectAllInBag = function () {
-        this.config.myBag.unselectAll();
+        smorball.myBag.unselectAll();
         this.activePowerup = undefined;
         this.updatePlayerOnDefault(this.default_player);
     };
@@ -743,7 +733,8 @@ var StageController = (function () {
             var lane = this.lanes[i];
             var player = lane.player;
             if (player != undefined) {
-                player.setPowerupSpriteSheet(type);
+                player.powerup = type;
+                player.updateSpriteSheet();
             }
         }
     };
@@ -752,7 +743,8 @@ var StageController = (function () {
             var lane = this.lanes[i];
             var player = lane.player;
             if (player != undefined) {
-                player.setDefaultSpriteSheet();
+                player.powerup = "normal";
+                player.updateSpriteSheet();
             }
         }
     };
@@ -775,16 +767,16 @@ var StageController = (function () {
         //calculateTime(me);
         window.onmousedown = function () { return _this.prevent(); };
         $("#inputText").focus();
-        this.config.gameState.currentState = this.config.gameState.states.RUN;
+        smorball.gameState.currentState = smorball.gameState.states.RUN;
         $('#timeout-container').css('display', 'none');
         EventBus.dispatch('showCaptchas');
         EventBus.dispatch('toggleTickerStatus');
         EventBus.dispatch('setMute');
         //Play Stadium Ambience
-        var audioList = this.config.gameState.audioList;
+        var audioList = smorball.gameState.audioList;
         for (var i = 0; i < audioList.length; i++) {
             var main = audioList[i].config.type;
-            if (audioList[i].config.loop && main == this.config.gameState.soundType.EFFECTS) {
+            if (audioList[i].config.loop && main == smorball.gameState.soundType.EFFECTS) {
                 if (audioList[i].mySound.paused) {
                     audioList[i].play();
                 }
@@ -816,24 +808,23 @@ var StageController = (function () {
         var timef = parseFloat(timestr);
         var wpm = wordCount / timef;
         if (wpm <= 10) {
-            this.config.gameState.gs.difficulty = 2.33;
+            smorball.gameState.gs.difficulty = 2.33;
         }
         else if (wpm <= 15) {
-            this.config.gameState.gs.difficulty = 2;
+            smorball.gameState.gs.difficulty = 2;
         }
         else if (wpm <= 20) {
-            this.config.gameState.gs.difficulty = 1.67;
+            smorball.gameState.gs.difficulty = 1.67;
         }
         else if (wpm <= 30) {
-            this.config.gameState.gs.difficulty = 1.33;
+            smorball.gameState.gs.difficulty = 1.33;
         }
         else if (wpm > 30) {
-            this.config.gameState.gs.difficulty = 1;
+            smorball.gameState.gs.difficulty = 1;
         }
     };
     StageController.prototype.saveInputTexts = function () {
-        var _this = this;
-        var arr = this.config.gameState.inputTextArr;
+        var arr = smorball.gameState.inputTextArr;
         $.ajax({
             url: 'http://tiltfactor1.dartmouth.edu:8080/api/difference',
             type: 'PUT',
@@ -847,10 +838,10 @@ var StageController = (function () {
             error: function (err) {
                 var errorText = JSON.parse(err.responseText);
                 console.log(errorText);
-                _this.config.gameState.inputTextArr = [];
+                smorball.gameState.inputTextArr = [];
             },
             success: function (data) {
-                _this.config.gameState.inputTextArr = [];
+                smorball.gameState.inputTextArr = [];
                 console.log(data);
             }
         });

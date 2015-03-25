@@ -20,7 +20,10 @@ class Enemy extends createjs.Container {
 
 	config: EnemyConfig;
 	typeData: EnemyTypeData;
-	lifes: any[]
+	lifes: createjs.Bitmap[];
+
+	heartsContainer: createjs.Container;
+
 	speed: number;
 	hit: boolean;
 	spritesheet: createjs.SpriteSheet;
@@ -29,7 +32,6 @@ class Enemy extends createjs.Container {
 	endPoint: number;
 	bounds: createjs.Rectangle;
 	myTick: any;
-	myAnimationEnd: any;
 	startX: number;
 	startY: number;
 	lifeRectSize: number;
@@ -43,23 +45,18 @@ class Enemy extends createjs.Container {
         this.speed = config.speed || 1;
         this.hit = false;
         this.typeData = EnemyData[this.config.id];
-
-		
-        
 		this.spritesheet = new createjs.SpriteSheet(this.getSpritesheetData());
         this.sprite = new createjs.Sprite(this.spritesheet, "run");
 
-
-		
-
 		this.sprite.x = -this.typeData.offsetX;
 		this.sprite.y = -this.typeData.offsetY;
-		 
+
+		this.heartsContainer = new createjs.Container();
+		this.heartsContainer.y = -(this.sprite.getBounds().height + 50);
+		this.addChild(this.heartsContainer);
 
         //this.setScale(this.typeData.sX, this.typeData.sY);
         this.setEffects();
-
-		
 
 		this.addChild(this.sprite);
         this.life = this.config.life || EnemyData[this.config.id].life;
@@ -67,14 +64,17 @@ class Enemy extends createjs.Container {
         this.setExtras();
         this.bounds = this.getBounds();
 
-		var circle = new createjs.Shape();
-		circle.graphics.beginFill("red");
-		circle.graphics.drawCircle(0, 0, 10);
-		this.addChild(circle);
+		console.log(location.hostname);
 
+		if (location.hostname == "localhost") {
+			var circle = new createjs.Shape();
+			circle.graphics.beginFill("red");
+			circle.graphics.drawCircle(0, 0, 10);
+			this.addChild(circle);
+		}
 	}
 
-	getSpritesheetData(): any {
+	private getSpritesheetData(): any {
 		var level = 1; // this.config.gameState.currentLevel;
 		var jsonName = "enemy_json_" + this.config.id + "_" + Utils.zeroPad(level, 2);
 		var pngName = "enemy_png_" + this.config.id + "_" + Utils.zeroPad(level, 2);
@@ -139,8 +139,7 @@ class Enemy extends createjs.Container {
 			EventBus.dispatch("playSound", fileId);
 			this.sprite.gotoAndPlay("dead");
 			this.removeEventListener("tick", this.myTick);
-			this.myAnimationEnd = () => { this.removeFallingAnimation() };
-			this.sprite.addEventListener("animationend", this.myAnimationEnd);
+			this.sprite.on("animationend",() => smorball.stageController.removeEnemy(this), this, true);
 		}
 		else {
 			var knockBack = this.x + this.config.gameState.gs.knockBack * currentLaneObj.config.width
@@ -160,29 +159,26 @@ class Enemy extends createjs.Container {
 		this.setPosition(x, y);
 	}
 
-	setPosition(x, y) {
+	setPosition(x: number, y: number) {
+
 		this.x = x;
 		this.y = y;
-		this.regX = 0;
-		this.regY = this.getHeight();
-		this.updateLifePos();
+
+		//this.regX = 0;
+		//this.regY = this.getHeight();
 	}
 
 	addLife(start) {
 		var life = new createjs.Bitmap(this.config.loader.getResult("heart_full"));
-		//life.graphics.beginFill("#123").drawRect(0,0,this.lifeRectSize,this.lifeRectSize);
 		this.lifeRectSize = life.getBounds().width;
-		this.addChild(life);
+		this.heartsContainer.addChild(life);
 		this.lifes.push(life);
-		if (!start) {
-			this.updateLifePos();
-		}
+		this.heartsContainer.x = - this.heartsContainer.getBounds().width / 2;
 	}
 
 	removeLife() {
 		var life = this.lifes.pop();
 		life.image = this.config.loader.getResult("heart_empty");
-		this.updateLifePos();
 	}
 
 	getHeight() {
@@ -195,7 +191,6 @@ class Enemy extends createjs.Container {
 
 	setScale(sx, sy) {
 		this.sprite.setTransform(0, 6, sx, sy);
-		this.updateLifePos();
 	}
 
 	setEffects() {
@@ -214,20 +209,6 @@ class Enemy extends createjs.Container {
 		for (var i = 0; i < this.life; i++) {
 			this.addLife(false);
 		}
-		this.updateLifePos();
-	}
-
-	private updateLifePos() {
-
-		var sx = (this.getWidth() / 2) - (this.life * (this.lifeRectSize)) / 2;
-		var sy = -10;
-
-		for (var i = 0; i < this.lifes.length; i++) {
-			var life = this.lifes[i];
-			life.x = sx;
-			sx = sx + (this.lifeRectSize + 1);
-			life.y = sy;
-		}
 	}
 
 	setEndPoint(endPointX) {
@@ -241,15 +222,7 @@ class Enemy extends createjs.Container {
 			this.lifes.length = 0;
 			this.kill(0);
 			EventBus.dispatch("killLife");
-
-
 		}
-	}
-
-	private removeFallingAnimation() {
-		this.sprite.removeEventListener("animationend", this.myAnimationEnd);
-		EventBus.dispatch("killme", this);
-		EventBus.dispatch("resetTimer");
 	}
 
 	getWaveId() {

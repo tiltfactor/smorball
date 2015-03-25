@@ -8,9 +8,9 @@ var __extends = this.__extends || function (d, b) {
     __.prototype = b.prototype;
     d.prototype = new __();
 };
-var SpriteMan = (function (_super) {
-    __extends(SpriteMan, _super);
-    function SpriteMan(laneId, type) {
+var PlayerAthlete = (function (_super) {
+    __extends(PlayerAthlete, _super);
+    function PlayerAthlete(laneId, type) {
         this.laneId = laneId;
         this.type = type;
         this.powerup = "normal";
@@ -35,35 +35,19 @@ var SpriteMan = (function (_super) {
             this.addChild(circle);
         }
     }
-    SpriteMan.prototype.updateSpriteSheet = function () {
+    PlayerAthlete.prototype.updateSpriteSheet = function () {
         this.sprite.spriteSheet = this.constructSpritesheet();
     };
-    SpriteMan.prototype.constructSpritesheet = function () {
-        var data = smorball.smbLoadQueue.getResult(this.type + "_" + this.powerup + "_json");
-        var sprite = smorball.smbLoadQueue.getResult(this.type + "_" + this.powerup + "_png");
+    PlayerAthlete.prototype.constructSpritesheet = function () {
+        var data = smorball.loader.getResult(this.type + "_" + this.powerup + "_json");
+        var sprite = smorball.loader.getResult(this.type + "_" + this.powerup + "_png");
         data.images = [sprite];
         return new createjs.SpriteSheet(data);
     };
-    //setDefaultSpriteSheet() {
-    //	var id = this.type + "_normal";
-    //	this.spriteData = new SpriteSheet({ "id": id, "data": PlayerData[id].data, "loader": this.config.loader });
-    //	this.sprite.spriteSheet = this.spriteData;
-    //	this.extras = PlayerData[id].extras;
-    //	this.setScale(this.extras.sX, this.extras.sY);
-    //	this.sprite.gotoAndPlay("idle");
-    //}
-    //setPowerupSpriteSheet(powerupType) {
-    //	var id = this.type + "_" + powerupType;
-    //	this.spriteData = new SpriteSheet({ "id": id, "data": PlayerData[id].data, "loader": this.config.loader });
-    //	this.sprite.spriteSheet = this.spriteData;
-    //	this.extras = PlayerData[id].extras;
-    //	this.setScale(this.extras.sX, this.extras.sY);
-    //	this.sprite.gotoAndPlay("idle");
-    //}
-    SpriteMan.prototype.setEffects = function (id) {
+    PlayerAthlete.prototype.setEffects = function (id) {
         this.playerSound = playerData[id].sound;
     };
-    SpriteMan.prototype.run = function () {
+    PlayerAthlete.prototype.run = function () {
         var _this = this;
         var me = this;
         this.sprite.gotoAndPlay("run");
@@ -72,23 +56,24 @@ var SpriteMan = (function (_super) {
         };
         this.addEventListener("tick", this.myTick);
     };
-    SpriteMan.prototype.addPowerups = function (power) {
+    PlayerAthlete.prototype.addPowerups = function (power) {
         this.life = power.life;
         this.singleHit = power.singleHit;
     };
-    SpriteMan.prototype.pause = function () {
+    PlayerAthlete.prototype.pause = function () {
         this.removeEventListener("tick", this.myTick);
         this.sprite.gotoAndPlay("idle");
     };
-    SpriteMan.prototype.confused = function () {
+    PlayerAthlete.prototype.confused = function () {
         this.sprite.gotoAndPlay("confused");
     };
-    SpriteMan.prototype.setSpeed = function (speed) {
+    PlayerAthlete.prototype.setSpeed = function (speed) {
         this.speed = speed;
         this.sprite._animation.speed = speed;
     };
-    SpriteMan.prototype.kill = function (enemyLife) {
+    PlayerAthlete.prototype.kill = function (enemyLife) {
         var _this = this;
+        console.log("kill?!");
         for (var i = 0; i < enemyLife; i++) {
             if (this.life != 0) {
                 this.life -= 1;
@@ -101,14 +86,11 @@ var SpriteMan = (function (_super) {
             this.hit = true;
             this.sprite.gotoAndPlay("tackle");
             this.removeEventListener("tick", this.myTick);
-            this.sprite.on("animationend", function () {
-                EventBus.dispatch("killme", _this);
-                EventBus.addEventListener("removeFromStage", _this);
-            }, this, true);
+            this.sprite.on("animationend", function () { return smorball.stageController.removeAthlete(_this); }, this, true);
             return 0;
         }
     };
-    SpriteMan.prototype.tackle = function () {
+    PlayerAthlete.prototype.tackle = function () {
         var _this = this;
         var me = this;
         this.sprite.gotoAndPlay("tackle");
@@ -118,27 +100,27 @@ var SpriteMan = (function (_super) {
         };
         this.sprite.addEventListener("animationend", this.toRun);
     };
-    SpriteMan.prototype.setEndPoint = function (endPointX) {
+    PlayerAthlete.prototype.setEndPoint = function (endPointX) {
         this.endPoint = endPointX;
     };
-    SpriteMan.prototype.getHeight = function () {
+    PlayerAthlete.prototype.getHeight = function () {
         return this.sprite._rectangle.height;
     };
-    SpriteMan.prototype.getWidth = function () {
+    PlayerAthlete.prototype.getWidth = function () {
         return this.sprite._rectangle.width;
     };
-    SpriteMan.prototype.getLife = function () {
+    PlayerAthlete.prototype.getLife = function () {
         return this.life;
     };
-    SpriteMan.prototype.setLife = function (life) {
+    PlayerAthlete.prototype.setLife = function (life) {
         this.life = life;
     };
-    SpriteMan.prototype.tick = function () {
+    PlayerAthlete.prototype.tick = function () {
         this.x = this.x + this.speed;
         if (this.endPoint != null && this.hit == false && this.x > this.endPoint - this.getWidth()) {
             this.hit = true;
             this.kill(1);
         }
     };
-    return SpriteMan;
+    return PlayerAthlete;
 })(createjs.Container);

@@ -29,5 +29,9 @@
 		return Array(+(zero > 0 && zero)).join("0") + num;
 	}
 
-}
+	static randomOne<T>(array: T[]) : T
+	{
+		return array[Math.floor(Math.random() * array.length)];
+	}
 
+}

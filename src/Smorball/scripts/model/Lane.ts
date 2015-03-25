@@ -1,15 +1,26 @@
 /// <reference path="../../typings/tsd.d.ts" />
 /// <reference path="../../typings/smorball/smorball.d.ts" />
+/// <reference path="../data/gameconfig.ts" />
+
+interface LaneConfig {
+	id: number;
+	x: number;
+	y: number;
+	width: number;
+	height: number;
+	loader: SmbLoadQueue;
+}
 
 class Lane extends createjs.Container {
 
-	config: any;
+
+	config: LaneConfig;
 
 	laneId: number;
 	leftArea: number;
-	player: any;
+	player: PlayerAthlete;
 
-	constructor(config: any) {
+	constructor(config: LaneConfig) {
 		this.config = config;
         this.laneId = config.id;
         this.leftArea = config.width / 6; //300;
@@ -39,7 +50,7 @@ class Lane extends createjs.Container {
         this.player.setEndPoint(this.config.x + this.config.width);
     }
 
-    getPowerupPosition(me) {
+    getPowerupPosition() {
 		var limit = (this.config.width - this.leftArea) * 3 / 4;
         return {
 			x: (Math.random() * limit) + this.leftArea + this.config.x,
@@ -62,10 +73,12 @@ class Lane extends createjs.Container {
     }
 
     getEndPoint() {
-        return {
-			x: this.config.x + this.config.width,
-			y: this.config.y + this.config.height * 0.75 //this.config.y + (this.config.height/7);
-		};
+		return gameConfig.enemySpawnPositions[this.config.id];
+
+  //      return {
+		//	x: this.config.x + this.config.width,
+		//	y: this.config.y + this.config.height * 0.75 //this.config.y + (this.config.height/7);
+		//};
     }
 
     getHeight() {

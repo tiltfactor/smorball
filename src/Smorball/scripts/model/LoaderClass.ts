@@ -34,7 +34,7 @@ class LoaderClass extends createjs.Container {
 			var sb = new createjs.Bitmap(this.config.loader.getResult("smorball_logo"));
 			if (sb.image != null) {
 				this.addChild(sb);
-				sb.setTransform(500, 0, 1, 1);
+				sb.setTransform(500, 0, 1, 1);			
 				this.preloader.x = 500;
 				this.preloader.y = 800;
 			} else {

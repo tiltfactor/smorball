@@ -1,6 +1,5 @@
 /// <reference path="../model/lane.ts" />
 /// <reference path="../model/mybag.ts" />
-/// <reference path="../model/spriteman.ts" />
 /// <reference path="../model/waves.ts" />
 /// <reference path="../model/commentarybox.ts" />
 /// <reference path="../data/manifest.ts" />
@@ -8,15 +7,8 @@
 /// <reference path="../../typings/tsd.d.ts" />
 /// <reference path="../../typings/smorball/smorball.d.ts" />
 
-interface StageControllerConfig  {
-	gameState: GameState;
-	myBag: MyBag;
-	loader: SmbLoadQueue;
-}
-
 class StageController {
 
-	config: StageControllerConfig;
 	events: any = {};
 	captchaProcessor: CaptchaProcessor;
 	currentIndex: number;
@@ -50,11 +42,11 @@ class StageController {
 
 	stage: createjs.Stage;
 
-	fieldActorsContainer: createjs.Container;
+	actorsContainer: createjs.Container;
 
 	life: number;
 
-	players: any[];
+	players: PlayerAthlete[];
 	enemies: Enemy[];
 	gems: any[];
 	powerups: any[];
@@ -62,8 +54,7 @@ class StageController {
 	wavesc: any[];
 	activePowerup = undefined;
 
-	constructor(config: StageControllerConfig) {
-		this.config = config;
+	constructor() {
 	}
 
 	init() {
@@ -86,7 +77,7 @@ class StageController {
 		EventBus.addEventListener("newGame",() => this.newGame());
 		EventBus.addEventListener("resumeGame",() => this.resumeGame());
 		EventBus.addEventListener("pauseGame",() => this.pauseGame());
-		EventBus.addEventListener("killme",(o) => this.killMe(o));
+		//EventBus.addEventListener("killme",(o) => this.killMe(o));
 		EventBus.addEventListener("killLife",() => this.killLife());
 		//EventBus.addEventListener("pushEnemy",(o:any) => this.pushEnemy(o.target));
 		EventBus.addEventListener("pushPowerup",(o) => this.pushPowerup(o.target));
@@ -106,43 +97,43 @@ class StageController {
 	}
 
 	private newGame() {
-		if (this.config.gameState.inputTextArr.length != 0) {
+		if (smorball.gameState.inputTextArr.length != 0) {
 			this.saveInputTexts();
 		}
-		this.config.myBag.newGame();
+		smorball.myBag.newGame();
 		this.timeSpend = 0;
 		this.currentTime = createjs.Ticker.getTime(true);
 		$("#inputText").val("");
 		this.resetGame();
-		this.config.gameState.currentState = this.config.gameState.states.RUN;
-		this.levelConfig = LevelData[this.config.gameState.currentLevel];
+		smorball.gameState.currentState = smorball.gameState.states.RUN;
+		this.levelConfig = LevelData[smorball.gameState.currentLevel];
 
-		this.spawning = new Spawning({ "gameState": this.config.gameState });
+		this.spawning = new Spawning({ "gameState": smorball.gameState });
 		this.captchaProcessor = new CaptchaProcessor({
-			"loader": this.config.loader,
+			"loader": smorball.loader,
 			"canvasWidth": this.canvasWidth,
 			"canvasHeight": this.canvasHeight,
-			"gameState": this.config.gameState
+			"gameState": smorball.gameState
 		});
 		$("#loaderDiv").show();
 		this.loadImages();
 		$("#myCanvas").show();
 		EventBus.dispatch("setMute");
 
-		var config = { "gameState": this.config.gameState };
+		var config = { "gameState": smorball.gameState };
 		this.score = new Score(config);
 
 	}
 
 	private loadImages() {		
 		var manifest = [];
-		if (!this.config.gameState.level) {
-			this.config.gameState.level = true;
+		if (!smorball.gameState.level) {
+			smorball.gameState.level = true;
 
-			console.log("Loading images from manifest for level", this.config.gameState.currentLevel);
-			this.config.loader.loadLevelQueue(this.constructLevelManifest(this.config.gameState.currentLevel), this.config.gameState.currentLevel);
+			console.log("Loading images from manifest for level", smorball.gameState.currentLevel);
+			smorball.loader.loadLevelQueue(this.constructLevelManifest(smorball.gameState.currentLevel), smorball.gameState.currentLevel);
 		} else {
-			this.config.loader.loadLevelQueue(manifest, this.config.gameState.currentLevel);
+			smorball.loader.loadLevelQueue(manifest, smorball.gameState.currentLevel);
 		}
 	}
 
@@ -178,8 +169,8 @@ class StageController {
 		this.drawLogo();
 
 
-		this.fieldActorsContainer = new createjs.Container();
-		this.stage.addChild(this.fieldActorsContainer);
+		this.actorsContainer = new createjs.Container();
+		this.stage.addChild(this.actorsContainer);
 
 
 		EventBus.dispatch("showCommentary", this.levelConfig.waves.message);
@@ -223,7 +214,7 @@ class StageController {
 	}
 
 	private showMessage(text) {
-		this.message.image = this.config.loader.getResult(text);
+		this.message.image = smorball.loader.getResult(text);
 		this.message.x = 800 - this.message.getBounds().width / 2;
 		var index = this.stage.children.length - 1;
 		this.stage.setChildIndex(this.message, index);
@@ -255,11 +246,11 @@ class StageController {
 	private drawStadium() {
 		var width = 1600;
 		this.stadium = new createjs.Container();
-		this.seatContainer = new Blocks({ "loader": this.config.loader, "width": width });
+		this.seatContainer = new Blocks({ "loader": smorball.loader, "width": width });
 		var lc = this.seatContainer.drawLeftChairBlock();
 		var rc = this.seatContainer.drawRightChairBlock();
-		this.cbBox = new CommentaryBox({ "loader": this.config.loader, "width": width });
-		this.adBoard = new AdBoard({ "loader": this.config.loader });
+		this.cbBox = new CommentaryBox({ "loader": smorball.loader, "width": width });
+		this.adBoard = new AdBoard({ "loader": smorball.loader });
 		this.adBoard.y = this.cbBox.getTransformedBounds().height - this.adBoard.getTransformedBounds().height / 2 - this.adBoard.getTransformedBounds().height / 6;
 		this.stadium.addChild(lc, rc, this.cbBox, this.adBoard);
 		this.stage.addChild(this.stadium);
@@ -270,33 +261,33 @@ class StageController {
 		this.bgContainer = new createjs.Container();
 		this.stage.addChild(this.bgContainer);
 		var shape = new createjs.Shape();
-		shape.graphics.beginBitmapFill(this.config.loader.getResult("background"))
+		shape.graphics.beginBitmapFill(smorball.loader.getResult("background"))
 			.drawRect(0, 0, this.width, this.height);
 		this.bgContainer.addChild(shape);
 	}
 
 	private drawTimeOut() {
-		var mbtn = new createjs.Bitmap(this.config.loader.getResult("menu_btn_idle"));
+		var mbtn = new createjs.Bitmap(smorball.loader.getResult("menu_btn_idle"));
 		mbtn.x = mbtn.getTransformedBounds().width / 4;
 		mbtn.y = mbtn.getTransformedBounds().height / 4;
 		mbtn.addEventListener("mousedown", (evt:any) => {
-			evt.target.image = this.config.loader.getResult("menu_btn_click");
+			evt.target.image = smorball.loader.getResult("menu_btn_click");
 			evt.target.cursor = "pointer";
 			EventBus.dispatch("showTimeoutScreen");
 		});
 		mbtn.addEventListener("mouseover",(evt: any) => {
-			evt.target.image = this.config.loader.getResult("menu_btn_over");
+			evt.target.image = smorball.loader.getResult("menu_btn_over");
 			evt.target.cursor = "pointer";
 			this.stage.update();
 
 		});
 		mbtn.addEventListener("pressup",(evt: any) => {
-			evt.target.image = this.config.loader.getResult("menu_btn_idle");
+			evt.target.image = smorball.loader.getResult("menu_btn_idle");
 			evt.target.cursor = "pointer";
 
 		});
 		mbtn.addEventListener("mouseout",(evt: any) => {
-			evt.target.image = this.config.loader.getResult("menu_btn_idle");
+			evt.target.image = smorball.loader.getResult("menu_btn_idle");
 			evt.target.cursor = "pointer";
 
 		});
@@ -305,7 +296,7 @@ class StageController {
 
 	private drawLogo() {
 		var logo = new createjs.Bitmap(null);
-		logo.image = this.config.loader.getResult("splash" + this.config.gameState.currentLevel);
+		logo.image = smorball.loader.getResult("splash" + smorball.gameState.currentLevel);
 		logo.x = 800 - logo.getTransformedBounds().width / 2;
 		logo.y = 600;
 		logo.alpha = 0.25;
@@ -333,8 +324,8 @@ class StageController {
 			"waves": this.levelConfig.waves,
 			"lanesObj": this.lanes,
 			"lanes": this.levelConfig.lanes,
-			"loader": this.config.loader,
-			"gameState": this.config.gameState
+			"loader": smorball.loader,
+			"gameState": smorball.gameState
 		});
 		this.waves.init();
 		EventBus.dispatch("showPendingEnemies", this.waves.getPendingEnemies());
@@ -362,7 +353,7 @@ class StageController {
 				"width": width,
 				"height": laneHeight,
 				"id": laneId,
-				"loader": this.config.loader
+				"loader": smorball.loader
 			};
 			var lane = new Lane(config);
 			this.stage.addChild(lane);
@@ -385,7 +376,7 @@ class StageController {
 			"width": width,
 			"height": this.freeBottomAreaY,
 			"id": 4,
-			"loader": this.config.loader
+			"loader": smorball.loader
 		};
 		var lane = new Lane(config);
 		this.stage.addChild(lane);
@@ -411,8 +402,8 @@ class StageController {
 	}
 
 	private showTimeoutScreen() {
-		if (!createjs.Ticker.getPaused() && this.config.gameState.currentState == this.config.gameState.states.RUN) {
-			this.config.gameState.currentState = this.config.gameState.states.MAIN_MENU;
+		if (!createjs.Ticker.getPaused() && smorball.gameState.currentState == smorball.gameState.states.RUN) {
+			smorball.gameState.currentState = smorball.gameState.states.MAIN_MENU;
 			this.captchaProcessor.hideCaptchas();
 			this.stage.update();
 			EventBus.dispatch("toggleTickerStatus");
@@ -422,22 +413,14 @@ class StageController {
 		}
 	}
 
-	private killMe(actor) {
-		var object = actor.target;
-		this.stage.removeChild(object);
-		if (object instanceof Enemy) {
-			var index = this.enemies.indexOf(object);
-			this.enemies.splice(index, 1);
-			this.spawning.onEnemyKilled(object.getMaxLife());
-			this.updateLevelStatus(object);
-		} else if (object instanceof SpriteMan) {
-			var index = this.players.indexOf(object);
-			this.players.splice(index, 1);
-		}
-		//else if (object instanceof Gem) {
-		//	var index = this.config.gems.indexOf(object);
-		//	this.config.gems.splice(index, 1);
-		//}
+	removeAthlete(athlete: PlayerAthlete) {
+		this.players = _.without(this.players, athlete);
+		this.actorsContainer.removeChild(athlete);
+	}
+
+	removeEnemy(enemy: Enemy) {
+		this.enemies = _.without(this.enemies, enemy);
+		this.actorsContainer.removeChild(enemy);
 	}
 
 	private resetPlayers() {
@@ -446,41 +429,48 @@ class StageController {
 			if (lane.player == undefined) {
 					setTimeout(this.makeTimeoutLaneFunction(lane), 1000);
 			} else {
-				lane.player.setDefaultSpriteSheet();
+				lane.player.updateSpriteSheet();
 			}
 
 		}
 	}
 
-	private makeTimeoutLaneFunction(lane) {
-		return this.addPlayer(lane);
+	private makeTimeoutLaneFunction(lane: Lane) {
+		return () => this.addPlayer(lane);
 	}
 
-	private addPlayer(lane) {
-		if (!(this.config.gameState.currentLevel == 1 && (lane.getLaneId() == 1 || lane.getLaneId() == 3))) {
+	private addPlayer(lane : Lane) {
+		if (!(smorball.gameState.currentLevel == 1 && (lane.getLaneId() == 1 || lane.getLaneId() == 3))) {
 			var config = {
-				"loader": this.config.loader,
+				"loader": smorball.loader,
 				"laneId": lane.getLaneId(),
-				"gameState": this.config.gameState
+				"gameState": smorball.gameState
 			};
 			if (lane.player == undefined) {
-				var player = new SpriteMan(config);
+
+				var type = Utils.randomOne(_.keys(playerData));
+				var player = new PlayerAthlete(lane.getLaneId(), type);
 				lane.setPlayer(player);
-				var laneId = lane.getLaneId();
-				this.stage.addChild(player);
-				var setPlayerIndex = () => {
-					var index0 = this.stage.getChildIndex(this.lanes[0].player);
-					var index1 = this.stage.getChildIndex(this.lanes[1].player);
-					var index2 = this.stage.getChildIndex(this.lanes[2].player);
-					if (index0 > index1 && index1 >= 0) {
-						this.stage.swapChildren(this.lanes[0].player, this.lanes[1].player);
-						setPlayerIndex();
-					} else if (index1 > index2 && index2 >= 0) {
-						this.stage.swapChildren(this.lanes[1].player, this.lanes[2].player);
-						setPlayerIndex();
-					}
-				}
-				setPlayerIndex();
+
+				var spawnPos = gameConfig.friendlySpawnPositions[lane.getLaneId()-1];
+				player.x = spawnPos.x;
+				player.y = spawnPos.y;
+				this.actorsContainer.addChild(player);			
+				
+				//this.stage.addChild(player);
+				//var setPlayerIndex = () => {
+				//	var index0 = this.stage.getChildIndex(this.lanes[0].player);
+				//	var index1 = this.stage.getChildIndex(this.lanes[1].player);
+				//	var index2 = this.stage.getChildIndex(this.lanes[2].player);
+				//	if (index0 > index1 && index1 >= 0) {
+				//		this.stage.swapChildren(this.lanes[0].player, this.lanes[1].player);
+				//		setPlayerIndex();
+				//	} else if (index1 > index2 && index2 >= 0) {
+				//		this.stage.swapChildren(this.lanes[1].player, this.lanes[2].player);
+				//		setPlayerIndex();
+				//	}
+				//}
+				//setPlayerIndex();
 				this.setCaptchaIndex();
 			}
 		}
@@ -511,7 +501,7 @@ class StageController {
 		this.wavesc = [];
 		this.activePowerup = undefined;
 		this.passCount = 0;
-		this.life = this.config.gameState.maxLife;
+		this.life = smorball.gameState.maxLife;
 	}
 
 	private removeAllChildren() {
@@ -549,7 +539,7 @@ class StageController {
 						}
 					} else {
 						var enemyLife = enemy.getLife();
-						var fileId = player.config.playerSound.tackle;
+						var fileId = player.playerSound.tackle;
 						EventBus.dispatch("playSound", fileId);
 						enemy.kill(player.getLife());
 						player.kill(enemyLife);
@@ -565,11 +555,11 @@ class StageController {
 
 	}
 
-	private hitTestEnemies(player) {
+	private hitTestEnemies(player: PlayerAthlete) {
 		if (this.enemies.length != 0) {
 			for (var i = 0; i < this.enemies.length; i++) {
 				var enemy = this.enemies[i];
-				if (enemy.hit == true || player.getLaneId() != enemy.getLaneId()) continue;
+				if (enemy.hit == true || player.laneId != enemy.getLaneId()) continue;
 				//if(enemy.hit == true) continue;
 				var hit = this.isCollision(player, enemy);
 				if (hit) {
@@ -579,11 +569,11 @@ class StageController {
 		}
 	}
 
-	private hitTestPowerups(player) {
+	private hitTestPowerups(player: PlayerAthlete) {
 		if (this.powerups.length != 0) {
 			for (var i = 0; i < this.powerups.length; i++) {
 				var powerup = this.powerups[i];
-				if (powerup.getLaneId() != player.getLaneId()) continue;
+				if (powerup.getLaneId() != player.laneId) continue;
 				var hit = this.isCollisionPowerup(player, powerup);
 				if (hit) {
 					return powerup;
@@ -592,12 +582,12 @@ class StageController {
 		}
 	}
 
-	private isCollisionPowerup(player, object) {
+	private isCollisionPowerup(player: PlayerAthlete, object) {
 		return (object.x <= player.x + player.getWidth() &&
 			player.x <= object.x + object.getWidth());
 	}
 
-	private isCollision(player, object) {
+	private isCollision(player: PlayerAthlete, object) {
 		return (object.x <= player.x + player.getWidth() &&
 			player.x <= object.x + object.getWidth())
 	}
@@ -616,7 +606,7 @@ class StageController {
 			if (output.pass) {
 				if (this.activePowerup != null) {
 					EventBus.dispatch("playSound", "correctPowerup");
-					this.config.myBag.selectedId = -1;
+					smorball.myBag.selectedId = -1;
 				}
 				else {
 					EventBus.dispatch("playSound", "correctSound");
@@ -627,7 +617,7 @@ class StageController {
 					var lane = this.getLaneById(output.laneId);
 					this.activatePlayer(lane.player);
 					if (output.extraDamage && lane.player != undefined && lane.player.getLife() == 1) {
-						lane.player.setLife(this.config.gameState.gs.extraDamage);
+						lane.player.setLife(smorball.gameState.gs.extraDamage);
 					}
 					lane.player = undefined;
 				}
@@ -648,7 +638,7 @@ class StageController {
 			var lane = this.lanes[i];
 			if (lane.player) {
 				lane.player.x = lane.player.x + 70;
-				lane.player.sprite.addEventListener("animationend", (e) => {
+				lane.player.sprite.addEventListener("animationend", (e:any) => {
 					e.target.removeEventListener("animationend", e.target._listeners.animationend[0]);
 					e.target.parent.x = e.target.parent.x - 70;
 				});
@@ -660,7 +650,7 @@ class StageController {
 
 	private removeActivePowerup() {
 		if (this.activePowerup) {
-			this.config.myBag.removeFromBag(this.activePowerup);
+			smorball.myBag.removeFromBag(this.activePowerup);
 
 		}
 	}
@@ -704,16 +694,16 @@ class StageController {
 
 		this.score.addGameLevelPoints(this.life);
 
-		if (this.config.gameState.currentLevel == 1) {
+		if (smorball.gameState.currentLevel == 1) {
 			this.calculateTime();
 			this.calculateDifficulty();
 		}
 
-		this.config.gameState.currentLevel++;
-		if (this.config.gameState.currentLevel > this.config.gameState.gs.maxLevel && this.config.gameState.currentLevel < 8) {
-			this.config.gameState.gs.maxLevel = this.config.gameState.currentLevel;
+		smorball.gameState.currentLevel++;
+		if (smorball.gameState.currentLevel > smorball.gameState.gs.maxLevel && smorball.gameState.currentLevel < 8) {
+			smorball.gameState.gs.maxLevel = smorball.gameState.currentLevel;
 		}
-		this.config.gameState.currentState = this.config.gameState.states.GAME_OVER;
+		smorball.gameState.currentState = smorball.gameState.states.GAME_OVER;
 		this.showResultScreen(1);
 		this.saveInputTexts();
 
@@ -741,11 +731,11 @@ class StageController {
 				EventBus.dispatch("showMap", true);
 			} else if (result == 3) {
 				var time = this.timeConvert(this.timeSpend);
-				var highScore = this.config.gameState.gs.highScore;
+				var highScore = smorball.gameState.gs.highScore;
 				if (highScore.min <= time.min) {
 					if (highScore.sec <= time.sec) {
-						this.config.gameState.gs.highScore = time;
-						highScore = this.config.gameState.gs.highScore;
+						smorball.gameState.gs.highScore = time;
+						highScore = smorball.gameState.gs.highScore;
 					}
 
 				}
@@ -764,10 +754,10 @@ class StageController {
 	private gameOver() {
 
 		this.calculateTime();
-		this.config.gameState.currentState = this.config.gameState.states.GAME_OVER;
+		smorball.gameState.currentState = smorball.gameState.states.GAME_OVER;
 
 		EventBus.dispatch("showCommentary", "Game Over");
-		if (this.config.gameState.currentLevel == this.config.gameState.survivalLevel) {
+		if (smorball.gameState.currentLevel == smorball.gameState.survivalLevel) {
 			this.showResultScreen(3);
 		} else {
 			this.showResultScreen(0);
@@ -777,19 +767,17 @@ class StageController {
 	private resetAll() {
 		var store = new LocalStorage();
 		// store.reset();
-		this.config.gameState.reset();
-		this.config.myBag.reset();
+		smorball.gameState.reset();
+		smorball.myBag.reset();
 		EventBus.dispatch("showMap");
 
 	}
 
 	addEnemy(enemy: Enemy) {
 		EventBus.dispatch("showPendingEnemies", this.waves.getPendingEnemies());
-		this.setEnemyProperties(enemy);
-
-
+	
 		//var laneId = enemy.getLaneId();
-		//if (laneId < 3 && this.config.gameState.currentLevel != 1) {
+		//if (laneId < 3 && smorball.gameState.currentLevel != 1) {
 		//	var player = this.lanes[laneId].player;
 		//	var index = this.stage.getChildIndex(player);
 		//	if (index > 0)
@@ -801,18 +789,20 @@ class StageController {
 		//	this.stage.addChild(enemy)
 		//}
 
-		this.fieldActorsContainer.addChild(enemy);
+		this.actorsContainer.addChild(enemy);
 		this.enemies.push(enemy);
-	}
 
-	private setEnemyProperties(enemy: Enemy) {
 		var lane = this.getLaneById(enemy.getLaneId()); //enemy.getLaneId();
 		var start = lane.getEndPoint();
 		var end = lane.getEnemyEndPoint();
-		enemy.setStartPoint(start.x, start.y);
+
+		var spawnPoint = gameConfig.enemySpawnPositions[enemy.getLaneId() - 1];
+
+		enemy.setStartPoint(spawnPoint.x, spawnPoint.y);
 		enemy.setEndPoint(end.x);
 		enemy.run();
 
+		console.log("New enemy added to stage", { laneid: enemy.getLaneId() });
 	}
 
 	private getLaneById(id) {
@@ -845,8 +835,8 @@ class StageController {
 		var x = 10;
 		var y = 10;
 		var padding = 5;
-		for (var i = 0; i < this.config.myBag.myBag.length; i++) {
-			var powerup = this.config.myBag.myBag[i];
+		for (var i = 0; i < smorball.myBag.myBag.length; i++) {
+			var powerup = smorball.myBag.myBag[i];
 			powerupContainer.addChild(powerup);
 			powerup.reset();
 			x = x + powerup.getWidth() + padding;
@@ -860,12 +850,12 @@ class StageController {
 	private addToMyBag(powerup) {
 		var index = this.powerups.indexOf(powerup);
 		this.powerups.splice(index, 1);
-		this.config.myBag.addToBagFromField(powerup);
+		smorball.myBag.addToBagFromField(powerup);
 		this.stage.removeChild(powerup);
 	}
 
 	private unselectAllInBag() {
-		this.config.myBag.unselectAll();
+		smorball.myBag.unselectAll();
 		this.activePowerup = undefined;
 		this.updatePlayerOnDefault(this.default_player);
 	}
@@ -886,7 +876,8 @@ class StageController {
 			var lane = this.lanes[i];
 			var player = lane.player;
 			if (player != undefined) {
-				player.setPowerupSpriteSheet(type);
+				player.powerup = type;
+				player.updateSpriteSheet();
 
 			}
 		}
@@ -898,7 +889,8 @@ class StageController {
 			var lane = this.lanes[i];
 			var player = lane.player;
 			if (player != undefined) {
-				player.setDefaultSpriteSheet();
+				player.powerup = "normal";
+				player.updateSpriteSheet();
 
 			}
 		}
@@ -925,16 +917,16 @@ class StageController {
 		//calculateTime(me);
 		window.onmousedown = () => this.prevent();
 		$("#inputText").focus();
-		this.config.gameState.currentState = this.config.gameState.states.RUN;
+		smorball.gameState.currentState = smorball.gameState.states.RUN;
 		$('#timeout-container').css('display', 'none');
 		EventBus.dispatch('showCaptchas');
 		EventBus.dispatch('toggleTickerStatus');
 		EventBus.dispatch('setMute');
 		//Play Stadium Ambience
-		var audioList = this.config.gameState.audioList;
+		var audioList = smorball.gameState.audioList;
 		for (var i = 0; i < audioList.length; i++) {
 			var main = audioList[i].config.type;
-			if (audioList[i].config.loop && main == this.config.gameState.soundType.EFFECTS) {
+			if (audioList[i].config.loop && main == smorball.gameState.soundType.EFFECTS) {
 				if (audioList[i].mySound.paused) {
 					audioList[i].play();
 				}
@@ -971,21 +963,21 @@ class StageController {
 		var wpm = wordCount / timef;
 
 		if (wpm <= 10) {
-			this.config.gameState.gs.difficulty = 2.33;
+			smorball.gameState.gs.difficulty = 2.33;
 		} else if (wpm <= 15) {
-			this.config.gameState.gs.difficulty = 2;
+			smorball.gameState.gs.difficulty = 2;
 		} else if (wpm <= 20) {
-			this.config.gameState.gs.difficulty = 1.67;
+			smorball.gameState.gs.difficulty = 1.67;
 		} else if (wpm <= 30) {
-			this.config.gameState.gs.difficulty = 1.33;
+			smorball.gameState.gs.difficulty = 1.33;
 		} else if (wpm > 30) {
-			this.config.gameState.gs.difficulty = 1;
+			smorball.gameState.gs.difficulty = 1;
 		}
 
 	}
 
 	private saveInputTexts() {
-		var arr = this.config.gameState.inputTextArr;
+		var arr = smorball.gameState.inputTextArr;
 		$.ajax({
 			url: 'http://tiltfactor1.dartmouth.edu:8080/api/difference',
 			type: 'PUT',
@@ -999,10 +991,10 @@ class StageController {
 			error: (err) => {
 				var errorText = JSON.parse(err.responseText);
 				console.log(errorText);
-				this.config.gameState.inputTextArr = [];
+				smorball.gameState.inputTextArr = [];
 			},
 			success: (data) => {
-				this.config.gameState.inputTextArr = [];
+				smorball.gameState.inputTextArr = [];
 				console.log(data);
 			}
 		});

@@ -22,7 +22,7 @@ class GameController {
 	utilityStage: createjs.Stage;
 	gameState: GameState;
 
-	smbLoadQueue: SmbLoadQueue;
+	loader: SmbLoadQueue;
 	menuController: MenuController;
 	soundController: SoundController;
 	stageController: StageController;
@@ -69,9 +69,9 @@ class GameController {
         var manifest = Manifest.game;
         var splash = LoaderData[1];
         manifest.push({ "src": splash.image, "id": splash.id });
-        this.smbLoadQueue = new SmbLoadQueue({ "stage": this.stage, "gameState": this.gameState });
-        this.smbLoadQueue.initialLoad(Manifest.initial, () => {
-            this.smbLoadQueue.loadQueue(manifest, () => this.showSplashScreens());
+        this.loader = new SmbLoadQueue({ "stage": this.stage, "gameState": this.gameState });
+        this.loader.initialLoad(Manifest.initial, () => {
+            this.loader.loadQueue(manifest, () => this.showSplashScreens());
         });
 
     }
@@ -96,31 +96,31 @@ class GameController {
 
     private doInit() 
     {
-        var config = { "loader": this.smbLoadQueue, "gameState": this.gameState };
+        var config = { "loader": this.loader, "gameState": this.gameState };
         this.myBag = new MyBag(config)
 
         this.menuController = new MenuController({
             "gameState": this.gameState,
-            "loader": this.smbLoadQueue
+            "loader": this.loader
         });
         this.menuController.init();
 
         this.soundController = new SoundController({
             "gameState": this.gameState,
-            "loader": this.smbLoadQueue
+            "loader": this.loader
         });
         this.soundController.init();
 
         this.stageController = new StageController({
             "gameState": this.gameState,
-            "loader": this.smbLoadQueue,
+            "loader": this.loader,
             "myBag": this.myBag
         })
         this.stageController.init();
 
         this.shopController = new ShopController({
             "gameState": this.gameState,
-            "loader": this.smbLoadQueue,
+            "loader": this.loader,
             "stage": this.popupStage
             , "myBag": this.myBag
         })
@@ -128,7 +128,7 @@ class GameController {
 
         this.gameLeveController = new GameLevelController({
             "gameState": this.gameState,
-            "loader": this.smbLoadQueue,
+            "loader": this.loader,
             "stage": this.utilityStage
         });
         this.gameLeveController.init();

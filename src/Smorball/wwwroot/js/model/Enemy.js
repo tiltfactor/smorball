@@ -21,6 +21,9 @@ var Enemy = (function (_super) {
         this.sprite = new createjs.Sprite(this.spritesheet, "run");
         this.sprite.x = -this.typeData.offsetX;
         this.sprite.y = -this.typeData.offsetY;
+        this.heartsContainer = new createjs.Container();
+        this.heartsContainer.y = -(this.sprite.getBounds().height + 50);
+        this.addChild(this.heartsContainer);
         //this.setScale(this.typeData.sX, this.typeData.sY);
         this.setEffects();
         this.addChild(this.sprite);
@@ -28,10 +31,13 @@ var Enemy = (function (_super) {
         this.generateLife();
         this.setExtras();
         this.bounds = this.getBounds();
-        var circle = new createjs.Shape();
-        circle.graphics.beginFill("red");
-        circle.graphics.drawCircle(0, 0, 10);
-        this.addChild(circle);
+        console.log(location.hostname);
+        if (location.hostname == "localhost") {
+            var circle = new createjs.Shape();
+            circle.graphics.beginFill("red");
+            circle.graphics.drawCircle(0, 0, 10);
+            this.addChild(circle);
+        }
     }
     Enemy.prototype.getSpritesheetData = function () {
         var level = 1; // this.config.gameState.currentLevel;
@@ -97,10 +103,7 @@ var Enemy = (function (_super) {
             EventBus.dispatch("playSound", fileId);
             this.sprite.gotoAndPlay("dead");
             this.removeEventListener("tick", this.myTick);
-            this.myAnimationEnd = function () {
-                _this.removeFallingAnimation();
-            };
-            this.sprite.addEventListener("animationend", this.myAnimationEnd);
+            this.sprite.on("animationend", function () { return smorball.stageController.removeEnemy(_this); }, this, true);
         }
         else {
             var knockBack = this.x + this.config.gameState.gs.knockBack * currentLaneObj.config.width;
@@ -120,24 +123,19 @@ var Enemy = (function (_super) {
     Enemy.prototype.setPosition = function (x, y) {
         this.x = x;
         this.y = y;
-        this.regX = 0;
-        this.regY = this.getHeight();
-        this.updateLifePos();
+        //this.regX = 0;
+        //this.regY = this.getHeight();
     };
     Enemy.prototype.addLife = function (start) {
         var life = new createjs.Bitmap(this.config.loader.getResult("heart_full"));
-        //life.graphics.beginFill("#123").drawRect(0,0,this.lifeRectSize,this.lifeRectSize);
         this.lifeRectSize = life.getBounds().width;
-        this.addChild(life);
+        this.heartsContainer.addChild(life);
         this.lifes.push(life);
-        if (!start) {
-            this.updateLifePos();
-        }
+        this.heartsContainer.x = -this.heartsContainer.getBounds().width / 2;
     };
     Enemy.prototype.removeLife = function () {
         var life = this.lifes.pop();
         life.image = this.config.loader.getResult("heart_empty");
-        this.updateLifePos();
     };
     Enemy.prototype.getHeight = function () {
         return this.sprite.getBounds().height + this.lifeRectSize + 1;
@@ -147,7 +145,6 @@ var Enemy = (function (_super) {
     };
     Enemy.prototype.setScale = function (sx, sy) {
         this.sprite.setTransform(0, 6, sx, sy);
-        this.updateLifePos();
     };
     Enemy.prototype.setEffects = function () {
         this.config.enemySound = EnemyData[this.config.id].sound;
@@ -162,17 +159,6 @@ var Enemy = (function (_super) {
         for (var i = 0; i < this.life; i++) {
             this.addLife(false);
         }
-        this.updateLifePos();
-    };
-    Enemy.prototype.updateLifePos = function () {
-        var sx = (this.getWidth() / 2) - (this.life * (this.lifeRectSize)) / 2;
-        var sy = -10;
-        for (var i = 0; i < this.lifes.length; i++) {
-            var life = this.lifes[i];
-            life.x = sx;
-            sx = sx + (this.lifeRectSize + 1);
-            life.y = sy;
-        }
     };
     Enemy.prototype.setEndPoint = function (endPointX) {
         this.endPoint = endPointX;
@@ -185,11 +171,6 @@ var Enemy = (function (_super) {
             this.kill(0);
             EventBus.dispatch("killLife");
         }
-    };
-    Enemy.prototype.removeFallingAnimation = function () {
-        this.sprite.removeEventListener("animationend", this.myAnimationEnd);
-        EventBus.dispatch("killme", this);
-        EventBus.dispatch("resetTimer");
     };
     Enemy.prototype.getWaveId = function () {
         return this.config.waveId;

@@ -16,20 +16,29 @@ var Manifest = {
         { src: "shapes/btn1_over.png", id: "btn_over" },
         { src: "shapes/btn1_down.png", id: "btn_down" },
         { src: "audio/Click.mp3", id: "click" },
-        { src: "audio/Mouse_Over_Button.mp3", id: "mouseover" }
+        { src: "audio/Mouse_Over_Button.mp3", id: "mouseover" },
+
+		{ src: "shapes/friendly characters/Friendly Baseball Normal.png", id: "baseball_normal_png" },
+		{ src: "shapes/friendly characters/Friendly Baseball Normal.json", id: "baseball_normal_json" },
+        { src: "shapes/friendly characters/Friendly Baseball Helmet.png", id: "baseball_helmet_png" },
+        { src: "shapes/friendly characters/Friendly Baseball Helmet.json", id: "baseball_helmet_json" },
+        { src: "shapes/friendly characters/Friendly Baseball Cleets.png", id: "baseball_cleats_png" },
+        { src: "shapes/friendly characters/Friendly Baseball Cleets.json", id: "baseball_cleats_json" },
+        { src: "shapes/friendly characters/Friendly Football Cleets.png", id: "football_cleats_png" },
+        { src: "shapes/friendly characters/Friendly Football Cleets.json", id: "football_cleats_json" },
+        { src: "shapes/friendly characters/Friendly Football Helmet.png", id: "football_helmet_png" },
+        { src: "shapes/friendly characters/Friendly Football Helmet.json", id: "football_helmet_json" },
+        { src: "shapes/friendly characters/Friendly Football Normal.png", id: "football_normal_png" },
+        { src: "shapes/friendly characters/Friendly Football Normal.json", id: "football_normal_json" },
+        { src: "shapes/friendly characters/Friendly Hockey Normal.png", id: "hockey_normal_png" },
+        { src: "shapes/friendly characters/Friendly Hockey Normal.json", id: "hockey_normal_json" },
+        { src: "shapes/friendly characters/Friendly Hockey Helmet.png", id: "hockey_helmet_png" },
+        { src: "shapes/friendly characters/Friendly Hockey Helmet.json", id: "hockey_helmet_json" },
+        { src: "shapes/friendly characters/Friendly Hockey Cleets.png", id: "hockey_cleats_png" },
+        { src: "shapes/friendly characters/Friendly Hockey Cleets.json", id: "hockey_cleats_json" }
+
     ],
     level: [
-
-
-        { src: "shapes/Friendly Baseball Normal.png", id: "baseball" },
-        { src: "shapes/Friendly Baseball Helmet.png", id: "player_helmet" },
-        { src: "shapes/Friendly Baseball Cleets.png", id: "player_cleats" },
-        { src: "shapes/Friendly Footballl Cleets.png", id: "football_cleats" },
-        { src: "shapes/Friendly Footballl Helmet.png", id: "football_helmet" },
-        { src: "shapes/Friendly Footballl Normal.png", id: "football_normal" },
-        { src: "shapes/Friendly Hockey Normal.png", id: "hockey_normal" },
-        { src: "shapes/Friendly Hockey Helmet.png", id: "hockey_helmet" },
-        { src: "shapes/Friendly Hockey Cleets.png", id: "hockey_cleats" },
 
         { src: "shapes/SB Level Assets/ad.png", id: "ad" },
         { src: "shapes/SB Level Assets/seat.png", id: "seat" },
@@ -43,18 +52,6 @@ var Manifest = {
         { src: "shapes/grass_tile2.png", id: "grassTile2" },
         { src: "shapes/grass_tile3.png", id: "grassTile3" },
         { src: "shapes/grass_tile4.png", id: "grassTile4" },
-
-        //{ src: "shapes/enemy_regular.png", id: "enemy_regular" },
-        //{ src: "shapes/boss_walk.png", id: "boss_walk" },
-        //{ src: "shapes/boss_die.png", id: "boss_die" },
-        //{ src: "shapes/badGuy_walk.png", id: "badGuy_walk" },
-        //{ src: "shapes/badGuy_die.png", id: "badGuy_die" },
-        //{ src: "shapes/fast_die.png", id: "fast_die" },
-        //{ src: "shapes/fast_walk.png", id: "fast_walk" },
-        //{ src: "shapes/weak_die.png", id: "weak_die" },
-        //{ src: "shapes/weak_walk.png", id: "weak_walk" },
-        //{ src: "shapes/moving_die.png", id: "moving_die" },
-        //{ src: "shapes/moving_walk.png", id: "moving_walk" },
 
         { src: "shapes/correct_text.png", id: "correct" },
         { src: "shapes/incorrect_text.png", id: "incorrect" },

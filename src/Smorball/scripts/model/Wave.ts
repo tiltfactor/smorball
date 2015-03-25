@@ -61,7 +61,7 @@ class Wave {
 
 	}
 
-	private getTypeForSurvival(type?) {
+	private getTypeForSurvival(type?) : any {
 		var enemyList = [EnemyData.wideCenters, EnemyData.coach, EnemyData.walkingBacks, EnemyData.tallstops, EnemyData.fast, EnemyData.winger];
 		var powerupList = [PowerupsData.cleats, PowerupsData.cleats, PowerupsData.bullhorn];
 		if (type == undefined) {
