@@ -1,11 +1,11 @@
-#canvasHolder {
+#captchaInputContainer {
     display: none;
     width: 100%;
     text-align: center;
     overflow: hidden;
 }
 
-#canvasHolder *,
+#captchaInputContainer *,
 .mainWndw *,
 .shadedContainer *{
     box-sizing: border-box;
@@ -28,7 +28,7 @@ input[type=button] {
 :focus {outline:none;}
 ::-moz-focus-inner {border:0;}
 
-#canvasHolder input {
+#captchaInputContainer input {
     background: none;
     border: none;
     outline: none;
@@ -37,7 +37,7 @@ input[type=button] {
     font-size: 1em;
 }
 
-#canvasHolder input[type=button],
+#captchaInputContainer input[type=button],
 .menu-popup button {
     background-image: url("../shapes/btn-sprite.png");
     background-size: 100% 300%;
@@ -45,21 +45,21 @@ input[type=button] {
     padding: 1% 5% 3.5% 5%
 }
 
-#canvasHolder input[type=button]:hover,
+#captchaInputContainer input[type=button]:hover,
 .menu-popup button:hover {
     background-position: 0 50%;
 }
 
-#canvasHolder input[type=button]:active,
+#captchaInputContainer input[type=button]:active,
 .menu-popup button:active {
     background-position: 0 0%;
 }
 
-#canvasHolder input[type=button] {
+#captchaInputContainer input[type=button] {
     padding: .5% 3.5% 2.7% 3%;
 }
 
-#canvasHolder input[type=text] {
+#captchaInputContainer input[type=text] {
     background-image: url("../shapes/input_bg.png");
     color: black;
     padding: .4% 1% 1.5% 1%;
@@ -67,7 +67,7 @@ input[type=button] {
     margin: 0 .7%;
 }
 
-#canvasHolder input[type=button]:disabled {
+#captchaInputContainer input[type=button]:disabled {
     background-image: url("../shapes/btn1_grey.png");
     background-size: 100% 89%;
     background-repeat: no-repeat;
@@ -75,7 +75,7 @@ input[type=button] {
     cursor: default;
 }
 
-#canvasHolder input[type=text]:disabled {
+#captchaInputContainer input[type=text]:disabled {
     background-image: url("../shapes/input_bg_disabled.png");
 }
 
@@ -829,7 +829,7 @@ canvas {
 
 @media screen and (max-width: 992px),
 screen and ( max-height: 600px ){
-    #canvasHolder input {
+    #captchaInputContainer input {
         font-size: .8em;
     }
     .menu-popup button,
@@ -980,7 +980,7 @@ screen and ( max-height: 500px ) {
     .menu-button-container {
         font-size: .8em;
     }
-    #canvasHolder input {
+    #captchaInputContainer input {
         font-size: .7em;
     }
     .titleBar {
@@ -1042,7 +1042,7 @@ screen and ( max-height: 400px ) {
     #menu-confirm-popup .innerContainer p {
         font-size: .7em;    
     }
-    #canvasHolder input {
+    #captchaInputContainer input {
         font-size: .6em;
     }
     #timeout-close {
@@ -1111,7 +1111,7 @@ screen and ( max-height: 350px ) {
     #menu-confirm-popup .innerContainer p {
         font-size: .5em;    
     }
-    #canvasHolder input {
+    #captchaInputContainer input {
         font-size: .4em;
     }
 }
@@ -1317,7 +1317,7 @@ screen and (max-height: 450px) and (min-width: 500px) {
     .lean-slider-slide p {
         font-size: 2em;
     }
-    #canvasHolder input {
+    #captchaInputContainer input {
         font-size: 1.3em;
     }
     .timeout-buttons {
@@ -1357,7 +1357,7 @@ screen and (max-height: 450px) and (min-width: 500px) {
     .helpScreenContent {
         max-width: 900px;
     }
-    #canvasHolder input {
+    #captchaInputContainer input {
         font-size: 1.6em;
     }
     #menu-confirm-popup .innerContainer {
@@ -1381,7 +1381,7 @@ screen and (max-height: 450px) and (min-width: 500px) {
     .helpScreenContent {
         max-width: 1000px;
     }
-    #canvasHolder input {
+    #captchaInputContainer input {
         font-size: 2em;
     }
 }

@@ -1,9 +1,5 @@
-/// <reference path="../data/leveldata.ts" />
-/// <reference path="../data/mapdata.ts" />
-/// <reference path="../data/loaderdata.ts" />
 /// <reference path="../../typings/tsd.d.ts" />
 /// <reference path="../../typings/smorball/smorball.d.ts" />
-/// <reference path="../data/manifest.ts" />
 var GameLevelController = (function () {
     function GameLevelController(config) {
         this.config = config;
@@ -30,7 +26,7 @@ var GameLevelController = (function () {
         this.config.stage.update();
         var paddingTop = (window.innerHeight - this.canvasHeight) / 2 > 0 ? (window.innerHeight - this.canvasHeight) / 2 : 0;
         $("#utilityCanvas").css({ top: paddingTop });
-        $("#canvasHolder").css({ top: this.canvasHeight + paddingTop - $("#canvasHolder").height(), position: 'absolute' });
+        //$("#captchaInputContainer").css({ top: this.canvasHeight + paddingTop - $("#captchaInputContainer").height(), position: 'absolute' });
     };
     GameLevelController.prototype.loadEvents = function () {
         var _this = this;
@@ -106,8 +102,8 @@ var GameLevelController = (function () {
         var totLevels = this.config.gameState.totalLevels;
         for (var i = 0; i < totLevels; i++) {
             var isLocked = this.config.gameState.gs.maxLevel <= i ? true : false;
-            var config = { "stadiumInfo": MapData[i], "locked": isLocked, "loader": this.config.loader, "id": i + 1 };
-            var level = new Level(config);
+            var config = { "stadiumInfo": MapData[i], "locked": isLocked, "loader": this.config.loader, "id": i };
+            var level = new Stadium(config);
             this.gameLevels.push(level);
             this.map.addChild(level);
         }
@@ -133,19 +129,14 @@ var GameLevelController = (function () {
     GameLevelController.prototype.drawStatusText = function () {
         var _this = this;
         var text = new createjs.Text("status", "bold 45px Boogaloo", "#000");
-        var level = _.pick(LevelData[this.config.gameState.gs.maxLevel], "extras");
-        if (level.extras != undefined) {
-            text.text = level.extras.message;
-            text.addEventListener("click", function (e) {
-                _this.map.removeChild(text);
-            });
-            text.maxWidth = 400;
-            text.x = 1110;
-            text.y = 750;
-        }
-        else {
-            text.text = "";
-        }
+        var level = levelsData[this.config.gameState.gs.maxLevel];
+        //text.text = level.name; // message?!
+        text.addEventListener("click", function (e) {
+            _this.map.removeChild(text);
+        });
+        text.maxWidth = 400;
+        text.x = 1110;
+        text.y = 750;
         this.map.addChild(text);
         createjs.Tween.get(text).to({ alpha: 0 }, 5000);
     };

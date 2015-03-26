@@ -3,24 +3,13 @@
 /// <reference path="spritesheet.ts" />
 /// <reference path="../data/enemydata.ts" />
 
-interface EnemyConfig {
-	id: string;
-	speed: number;
-	life: number;
-	enemySound: any;
-	lanesObj: any;
-	gameState: GameState;
-	laneId: number;
-	loader: SmbLoadQueue;
-	waveId: number;
-	onKill: any;
-}
-
 class Enemy extends createjs.Container {
 
-	config: EnemyConfig;
+	type: string;
 	typeData: EnemyTypeData;
 	lifes: createjs.Bitmap[];
+	startingLane: number;
+	currentLane: number;
 
 	heartsContainer: createjs.Container;
 
@@ -31,22 +20,31 @@ class Enemy extends createjs.Container {
 	life: any;
 	endPoint: number;
 	bounds: createjs.Rectangle;
-	myTick: any;
 	startX: number;
 	startY: number;
 	lifeRectSize: number;
 
-	constructor(config: EnemyConfig) {
+	constructor(type: string, startingLane: number) {
 		super();
 
+		// Save these
+		this.type = type;
+        this.typeData = enemyData[type];
+		this.startingLane = this.currentLane = startingLane;
 
-		this.config = config;
+		// Start at the correct position
+		var startPos = gameConfig.enemySpawnPositions[this.startingLane];
+		this.x = startPos.x;
+		this.y = startPos.y;
+
+
+
         this.lifes = [];
-        this.speed = config.speed || 1;
+        this.speed = this.typeData.speed;
         this.hit = false;
-        this.typeData = EnemyData[this.config.id];
 		this.spritesheet = new createjs.SpriteSheet(this.getSpritesheetData());
         this.sprite = new createjs.Sprite(this.spritesheet, "run");
+		this.sprite.framerate = 20;
 
 		this.sprite.x = -this.typeData.offsetX;
 		this.sprite.y = -this.typeData.offsetY;
@@ -59,7 +57,7 @@ class Enemy extends createjs.Container {
         this.setEffects();
 
 		this.addChild(this.sprite);
-        this.life = this.config.life || EnemyData[this.config.id].life;
+        this.life = this.typeData.life;
         this.generateLife();
         this.setExtras();
         this.bounds = this.getBounds();
@@ -76,17 +74,17 @@ class Enemy extends createjs.Container {
 
 	private getSpritesheetData(): any {
 		var level = 1; // this.config.gameState.currentLevel;
-		var jsonName = "enemy_json_" + this.config.id + "_" + Utils.zeroPad(level, 2);
-		var pngName = "enemy_png_" + this.config.id + "_" + Utils.zeroPad(level, 2);
-		var data = this.config.loader.getResult(jsonName);
-		var sprite = this.config.loader.getResult(pngName);
+		var jsonName = "enemy_json_" + this.type + "_" + Utils.zeroPad(level, 2);
+		var pngName = "enemy_png_" + this.type + "_" + Utils.zeroPad(level, 2);
+		var data = smorball.loader.getResult(jsonName);
+		var sprite = smorball.loader.getResult(pngName);
 		data.images = [sprite];
-		console.log("creating enemy", this.config.id, data, sprite);
+		console.log("creating enemy", this.type, data, sprite);
 		return data;
 	}
 
 	private setExtras() {
-		this.typeData = EnemyData[this.config.id];
+		this.typeData = enemyData[this.type];
 		this.life = this.typeData.life || 1;
 		this.speed = this.typeData.speed || 1;
 		if (this.typeData.changeLane) {
@@ -102,15 +100,17 @@ class Enemy extends createjs.Container {
 	}*/	
 
 	run() {
-		var me = this;
 		this.sprite.gotoAndPlay("run");
-		this.myTick = () => { this.tick() };
-		this.addEventListener("tick", this.myTick);
 	}
 
-	pause() {
-		this.removeEventListener("tick", this.myTick);
-		this.sprite.gotoAndPlay("run");
+	update(delta: number) {
+		this.x = this.x - this.speed * delta;
+		if (this.endPoint != null && this.hit == false && this.x < this.endPoint) {
+			this.hit = true;
+			this.lifes.length = 0;
+			this.kill(0);
+			EventBus.dispatch("killLife");
+		}
 	}
 
 	die() {
@@ -119,31 +119,31 @@ class Enemy extends createjs.Container {
 
 	kill(life) {
 		var me = this;
-		for (i = 0; i < life; i++) {
+		for (var i = 0; i < life; i++) {
 			if (this.lifes.length != 0) {
 				this.removeLife();
 			}
 		}
 
-		var fileId = this.config.enemySound.hit;
+		var fileId = this.typeData.sound.hit;
 		EventBus.dispatch("playSound", fileId);
-		var lanesObj = this.config.lanesObj;
-		for (var i = 0; i < lanesObj.length; i++) {
-			if (this.config.laneId == lanesObj[i].laneId) {
-				var currentLaneObj = lanesObj[i];
-			}
-		}
+
+		//var lanesObj = this.config.lanesObj;
+		//for (var i = 0; i < lanesObj.length; i++) {
+		//	if (this.startingLane == lanesObj[i].laneId) {
+		//		var currentLaneObj = lanesObj[i];
+		//	}
+		//}
 		if (this.lifes.length == 0) {
 			this.hit = true;
-			var fileId = this.config.enemySound.die;
+			var fileId = this.typeData.sound.die;
 			EventBus.dispatch("playSound", fileId);
 			this.sprite.gotoAndPlay("dead");
-			this.removeEventListener("tick", this.myTick);
-			this.sprite.on("animationend",() => smorball.stageController.removeEnemy(this), this, true);
+			this.sprite.on("animationend",() => smorball.levelController.removeEnemy(this), this, true);
 		}
 		else {
-			var knockBack = this.x + this.config.gameState.gs.knockBack * currentLaneObj.config.width
-			this.x = this.startX < knockBack ? this.startX : knockBack;
+			//var knockBack = this.x + smorball.gameState.gs.knockBack * currentLaneObj.config.width
+			//this.x = this.startX < knockBack ? this.startX : knockBack;
 		}
 		return this.lifes.length;
 	}
@@ -153,23 +153,8 @@ class Enemy extends createjs.Container {
 		(<any>this.sprite)._animation.speed = speed;
 	}
 
-	setStartPoint(x, y) {
-		this.startX = x;
-		this.startY = y;
-		this.setPosition(x, y);
-	}
-
-	setPosition(x: number, y: number) {
-
-		this.x = x;
-		this.y = y;
-
-		//this.regX = 0;
-		//this.regY = this.getHeight();
-	}
-
 	addLife(start) {
-		var life = new createjs.Bitmap(this.config.loader.getResult("heart_full"));
+		var life = new createjs.Bitmap(smorball.loader.getResult("heart_full"));
 		this.lifeRectSize = life.getBounds().width;
 		this.heartsContainer.addChild(life);
 		this.lifes.push(life);
@@ -178,7 +163,7 @@ class Enemy extends createjs.Container {
 
 	removeLife() {
 		var life = this.lifes.pop();
-		life.image = this.config.loader.getResult("heart_empty");
+		life.image = smorball.loader.getResult("heart_empty");
 	}
 
 	getHeight() {
@@ -194,11 +179,11 @@ class Enemy extends createjs.Container {
 	}
 
 	setEffects() {
-		this.config.enemySound = EnemyData[this.config.id].sound;
+		//this.config.enemySound = EnemyData[this.type].sound;
 	}
 
 	getMaxLife() {
-		return EnemyData[this.config.id].life
+		return enemyData[this.type].life
 	}
 
 	getLife() {
@@ -213,33 +198,5 @@ class Enemy extends createjs.Container {
 
 	setEndPoint(endPointX) {
 		this.endPoint = endPointX;
-	}
-
-	private tick() {
-		this.x = this.x - this.speed;
-		if (this.endPoint != null && this.hit == false && this.x < this.endPoint) {
-			this.hit = true;
-			this.lifes.length = 0;
-			this.kill(0);
-			EventBus.dispatch("killLife");
-		}
-	}
-
-	getWaveId() {
-		return this.config.waveId;
-	}
-
-	getLaneId() {
-		return this.config.laneId;
-	}
-
-	setLaneId(laneId) {
-		this.config.laneId = laneId;
-	}
-
-	onKillPush() {
-		return this.config.onKill;
-	}
-
-
+	}	
 }

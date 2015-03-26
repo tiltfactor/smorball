@@ -4,6 +4,7 @@ interface PlayerTypeData {
 	sound: { fall?: string; run?: string };
 	offsetX?: number;
 	offsetY?: number;
+	speed: number;
 }
 
 interface PlayerData extends _.Dictionary<PlayerTypeData> {
@@ -17,18 +18,21 @@ var playerData: PlayerData = {
 		id: "baseball",
 		offsetX: 263,
 		offsetY: 366,
+		speed: 120,
 		sound: {}
 	},
 	football: {
 		id: "football",
 		offsetX: 263,
 		offsetY: 366,
+		speed: 120,
 		sound: {}
 	},
 	hockey: {
 		id: "hockey",
 		offsetX: 263,
 		offsetY: 366,
+		speed: 120,
 		sound: {}
 	}
 }

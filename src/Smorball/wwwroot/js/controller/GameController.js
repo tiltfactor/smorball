@@ -23,8 +23,7 @@ var GameController = (function () {
         this.stage.canvas.width = window.innerWidth; //TODO make this better
         this.stage.canvas.height = window.innerHeight; //TODO make this better
         this.store = new LocalStorage();
-        this.gameState = new GameState({ "store": this.store.getFromStore().gameState });
-        this.gameState.init();
+        this.depersistGameState();
         this.loadEvents();
         this.loadImages();
         window.onkeydown = this.onKeyBoardEvents;
@@ -38,11 +37,21 @@ var GameController = (function () {
             EventBus.dispatch("playSound", fileId);
         };
     };
+    GameController.prototype.depersistGameState = function () {
+        this.gameState = this.store.getFromStore().gameState;
+        if (this.gameState == null)
+            this.gameState = {};
+    };
     GameController.prototype.loadImages = function () {
         var _this = this;
         var manifest = Manifest.game;
         var splash = LoaderData[1];
         manifest.push({ "src": splash.image, "id": splash.id });
+        // HAAAAACK! Adding all the captchas here for now, this should move after!
+        var captachas = _.map(localCaptchaData.entries, function (e) {
+            return { src: "shapes/captcha/" + e.image, id: "captcha_" + e.image.substr(0, 3) };
+        });
+        manifest = manifest.concat(captachas);
         this.loader = new SmbLoadQueue({ "stage": this.stage, "gameState": this.gameState });
         this.loader.initialLoad(Manifest.initial, function () {
             _this.loader.loadQueue(manifest, function () { return _this.showSplashScreens(); });
@@ -67,36 +76,30 @@ var GameController = (function () {
         }
     };
     GameController.prototype.doInit = function () {
-        var config = { "loader": this.loader, "gameState": this.gameState };
-        this.myBag = new MyBag(config);
+        this.myBag = new MyBag({ "loader": this.loader, "gameState": this.gameState });
         this.menuController = new MenuController({
             "gameState": this.gameState,
             "loader": this.loader
         });
-        this.menuController.init();
         this.soundController = new SoundController({
             "gameState": this.gameState,
             "loader": this.loader
         });
-        this.soundController.init();
-        this.stageController = new StageController({
-            "gameState": this.gameState,
-            "loader": this.loader,
-            "myBag": this.myBag
-        });
-        this.stageController.init();
+        this.stageController = new StageController();
         this.shopController = new ShopController({
             "gameState": this.gameState,
             "loader": this.loader,
             "stage": this.popupStage,
             "myBag": this.myBag
         });
-        this.shopController.init();
         this.gameLeveController = new GameLevelController({
             "gameState": this.gameState,
             "loader": this.loader,
             "stage": this.utilityStage
         });
+        this.menuController.init();
+        this.soundController.init();
+        this.shopController.init();
         this.gameLeveController.init();
         this.hideAll();
         EventBus.dispatch("showMenu");
@@ -113,7 +116,7 @@ var GameController = (function () {
         $("#dialog-utility").hide();
         $("#dialog-shop").hide();
         $("#myCanvas").hide();
-        $("#canvasHolder").hide();
+        $("#captchaInputContainer").hide();
         $("#menu-container").hide();
         $('#game-popup').hide();
         $('#confirm-popup').hide();
@@ -151,16 +154,11 @@ var GameController = (function () {
                 break;
         }
     };
-    GameController.prototype.persist = function () {
-        var json = JSON.stringify({
-            myBag: this.myBag.persist(),
-            gameState: this.gameState.persist()
-        });
-        return json;
-    };
     GameController.prototype.save = function () {
-        var object = this.persist();
-        this.store.saveToStore(object);
+        this.store.saveToStore({
+            myBag: this.myBag.persist(),
+            gameState: this.gameState
+        });
     };
     return GameController;
 })();

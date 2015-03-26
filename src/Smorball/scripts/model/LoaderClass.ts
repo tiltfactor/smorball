@@ -5,16 +5,13 @@
 
 class LoaderClass extends createjs.Container {
 
-	config: any;
-
 	canvasWidth: number;
 	canvasHeight: number;
 
 	preloader: Preloader;
 
-	constructor(config: any) {
+	constructor() {
 
-        this.config = config;
         this.onResize();
 		super();
         this.initialize();
@@ -26,6 +23,7 @@ class LoaderClass extends createjs.Container {
 	}
 
 	initialize() {
+
 		var gameLevel = this.config.currentLevel;
 		var config = { "currentLevel": gameLevel, "loader": this.config.loader, "type": this.config.type };
 		this.preloader = new Preloader(config);
@@ -42,8 +40,6 @@ class LoaderClass extends createjs.Container {
 				this.preloader.y = 0;
 			}
 
-
-
 		}
 		if (this.config.type == 1) {
 			this.preloader.x = 500;
@@ -56,9 +52,9 @@ class LoaderClass extends createjs.Container {
 	updateLoader(perc) {
 		this.preloader.update(perc)
 	}
-		
-	private drawText(gameLevel) {
-		var team = LevelData[gameLevel].levelName;
+
+	private drawText(gameLevel: number) {
+		var team = levelsData[gameLevel].name;
 		var text = new createjs.Text(team, "bold 120px Boogaloo", "#ffffff");
 		text.lineWidth = 630;
 		text.textAlign = "center";

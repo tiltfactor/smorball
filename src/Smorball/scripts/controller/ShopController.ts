@@ -4,21 +4,24 @@
 
 class ShopController {
 
-	config: any;
+	stage: createjs.Stage;
 
 	initial: boolean;
 	score: Score;
 	parentElement: any;
 
-	constructor(config: any) {
-		this.config = config;
+	bag: any;
+	products: any;
+
+	constructor(stage: createjs.Stage) {
+		this.stage = stage;
 	}
 
 	init() {
-		this.config.bag = [];
+		this.bag = [];
         this.initial = true;
         this.loadEvents();
-        this.config.products = [];
+        this.products = [];
         this.generateDiv()
 	}
 
@@ -29,11 +32,10 @@ class ShopController {
 
 	}
 	private resetAll() {
-		this.config.bag = [];
+		this.bag = [];
 		this.initial = true;
-		this.config.products = [];
+		this.products = [];
 	}
-
 
 	private loadEvents() {
 		EventBus.addEventListener("exitShop", this.hideShop);
@@ -43,7 +45,7 @@ class ShopController {
 	}
 
 	private showShop() {
-		this.score = new Score({ "gameState": this.config.gameState });
+		this.score = new Score();
 		var money = this.score.getMyMoney();
 		$(".wallet").text(money);
 		this.config.stage.removeAllChildren();

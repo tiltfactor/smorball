@@ -16,6 +16,7 @@
 /// <reference path="../../scripts/model/wave.ts" />
 /// <reference path="../../scripts/model/waves.ts" />
 /// <reference path="../../scripts/data/enemydata.ts" />
+/// <reference path="../../scripts/controller/levelcontroller.ts" />
 /// <reference path="../../scripts/data/instructionsdata.ts" />
 /// <reference path="../../scripts/data/leveldata.ts" />
 /// <reference path="../../scripts/data/loaderdata.ts" />
@@ -23,7 +24,6 @@
 /// <reference path="../../scripts/controller/gamelevelcontroller.ts" />
 /// <reference path="../../scripts/controller/menucontroller.ts" />
 /// <reference path="../../scripts/controller/soundcontroller.ts" />
-/// <reference path="../../scripts/controller/stagecontroller.ts" />
 /// <reference path="../../scripts/model/playerathlete.ts" />
 /// <reference path="../../scripts/controller/shopcontroller.ts" />
 /// <reference path="../../scripts/data/manifest.ts" />
@@ -34,6 +34,7 @@
 /// <reference path="../../scripts/data/captchajson.ts" />
 /// <reference path="../../scripts/data/gameconfig.ts" />
 /// <reference path="../../scripts/model/lane.ts" />
+/// <reference path="../../scripts/model/stadium.ts" />
 
 declare var EventBus: any;
 
@@ -61,22 +62,15 @@ declare class Gem {
     constructor(config?: any);
 }
 
-declare class Level {
-    constructor(config?: any);
-}
-
-declare class Score {
-    constructor(config?: any);
-	getMyMoney();
-	getMoneyForLevel(s: any);
-	getTotalScore();
-	addGameLevelPoints(a: any);
+interface CapatchaDifference {
+	texts: string[];
+	captcha: Captcha;
 }
 
 declare class closestWord {
     match: any;
-    closestOcr: any;
-    constructor(a: any, b: any);
+    closestOcr: CapatchaDifference;
+    constructor(intput: any, differences: CapatchaDifference[]);
 }
 
 interface JQuery {

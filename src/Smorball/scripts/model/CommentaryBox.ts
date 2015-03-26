@@ -35,8 +35,8 @@ class CommentaryBox extends createjs.Container {
 		}
 	}
 
-	private setOpponenets(opponents) {
-		this.opponents.text = opponents;
+	update(delta: number) {
+		this.opponents.text = smorball.levelController.getEnemiesRemaining() + "";
 	}
 
 	kill() {
@@ -45,7 +45,7 @@ class CommentaryBox extends createjs.Container {
 
 	private loadEvents() {
 		EventBus.addEventListener("showCommentary",(o) => this.showCommentary(o.target));
-		EventBus.addEventListener("showPendingEnemies",(o) => this.setOpponenets(o.target));
+		//EventBus.addEventListener("showPendingEnemies",(o) => this.setOpponenets(o.target));
 		EventBus.addEventListener("setScore",(score) => this.setScore(score.target));
 	}
 
@@ -98,10 +98,9 @@ class CommentaryBox extends createjs.Container {
 			speakerContainer.y = -20;
 			this.addChild(speakerContainer);
 		}
-
 	}
 
-	private showCommentary(text) {
+	showCommentary(text: string) {
 		if (text) {
 			this.formatText(text);
 			if (this.free) {

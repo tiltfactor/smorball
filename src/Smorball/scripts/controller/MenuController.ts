@@ -39,7 +39,7 @@ class MenuController {
 
     showMenu() {
         this.checkStatus();
-        $("#canvasHolder").hide();
+        $("#captchaInputContainer").hide();
         this.config.gameState.currentState = this.config.gameState.states.MAIN_MENU;
         this.onMenuResize()
         window.onresize = () => {

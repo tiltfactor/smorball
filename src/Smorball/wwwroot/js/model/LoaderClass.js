@@ -52,7 +52,7 @@ var LoaderClass = (function (_super) {
         this.preloader.update(perc);
     };
     LoaderClass.prototype.drawText = function (gameLevel) {
-        var team = LevelData[gameLevel].levelName;
+        var team = levelsData[gameLevel].name;
         var text = new createjs.Text(team, "bold 120px Boogaloo", "#ffffff");
         text.lineWidth = 630;
         text.textAlign = "center";

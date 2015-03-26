@@ -1,9 +1,12 @@
-/// <reference path="../model/gamestate.ts" />
-/// <reference path="stagecontroller.ts" />
 /// <reference path="../../typings/tsd.d.ts" />
-/// <reference path="../data/manifest.ts" />
-/// <reference path="../data/loaderdata.ts" />
-/// <reference path="soundcontroller.ts" />
+/// <reference path="../../typings/smorball/smorball.d.ts" />
+
+enum GameState {
+	Menus,
+	Playing,
+	GameOver,
+	Shop
+}
 
 class GameController {
 
@@ -20,14 +23,14 @@ class GameController {
 	stage: createjs.Stage;
 	popupStage: createjs.Stage;
 	utilityStage: createjs.Stage;
-	gameState: GameState;
+	state: GameState;
 
 	loader: SmbLoadQueue;
 	menuController: MenuController;
 	soundController: SoundController;
-	stageController: StageController;
+	levelController: LevelController;
 	shopController: ShopController;
-	gameLeveController: GameLevelController;
+	gameLeveController: GameLevelController;	
 
     constructor(config: any) {
         //this.config = config;
@@ -44,11 +47,8 @@ class GameController {
         this.stage.canvas.width = window.innerWidth;//TODO make this better
         this.stage.canvas.height = window.innerHeight;//TODO make this better
 
-
         this.store = new LocalStorage();
-
-        this.gameState = new GameState({ "store": this.store.getFromStore().gameState });
-        this.gameState.init();
+		this.depersist();
 
         this.loadEvents();
         this.loadImages();
@@ -64,12 +64,21 @@ class GameController {
         };
     }
 
+	
+
+
     private loadImages() 
     {
         var manifest = Manifest.game;
+
         var splash = LoaderData[1];
         manifest.push({ "src": splash.image, "id": splash.id });
-        this.loader = new SmbLoadQueue({ "stage": this.stage, "gameState": this.gameState });
+
+		// HAAAAACK! Adding all the captchas here for now, this should move after!
+		var captachas = _.map(localCaptchaData.entries, e => { return { src: "shapes/captcha/" + e.image, id: "captcha_" + e.image.substr(0, 3) } });
+		manifest = manifest.concat(captachas);
+
+        this.loader = new SmbLoadQueue();
         this.loader.initialLoad(Manifest.initial, () => {
             this.loader.loadQueue(manifest, () => this.showSplashScreens());
         });
@@ -96,41 +105,20 @@ class GameController {
 
     private doInit() 
     {
-        var config = { "loader": this.loader, "gameState": this.gameState };
-        this.myBag = new MyBag(config)
+        this.myBag = new MyBag({ "loader": this.loader, "gameState": this.gameState })
 
-        this.menuController = new MenuController({
-            "gameState": this.gameState,
-            "loader": this.loader
-        });
-        this.menuController.init();
+        this.menuController = new MenuController();		
 
-        this.soundController = new SoundController({
-            "gameState": this.gameState,
-            "loader": this.loader
-        });
-        this.soundController.init();
+        this.soundController = new SoundController(); 
 
-        this.stageController = new StageController({
-            "gameState": this.gameState,
-            "loader": this.loader,
-            "myBag": this.myBag
-        })
-        this.stageController.init();
+        this.levelController = new LevelController()
 
-        this.shopController = new ShopController({
-            "gameState": this.gameState,
-            "loader": this.loader,
-            "stage": this.popupStage
-            , "myBag": this.myBag
-        })
-        this.shopController.init();
+        this.shopController = new ShopController(this.popupStage)
+        this.gameLeveController = new GameLevelController(this.utilityStage);
 
-        this.gameLeveController = new GameLevelController({
-            "gameState": this.gameState,
-            "loader": this.loader,
-            "stage": this.utilityStage
-        });
+        this.menuController.init();		
+		this.soundController.init();
+		this.shopController.init();
         this.gameLeveController.init();
         this.hideAll();
         EventBus.dispatch("showMenu");
@@ -150,7 +138,7 @@ class GameController {
         $("#dialog-utility").hide();
         $("#dialog-shop").hide();
         $("#myCanvas").hide();
-        $("#canvasHolder").hide();
+        $("#captchaInputContainer").hide();
         $("#menu-container").hide();
         $('#game-popup').hide();
         $('#confirm-popup').hide();
@@ -195,18 +183,17 @@ class GameController {
         }
     }
 
-    persist() 
+    persist()
     {
-        var json = JSON.stringify({
-            myBag: this.myBag.persist(),
-            gameState: this.gameState.persist()
-        });
-        return json;
+        this.store.saveToStore({
+			myBag: this.myBag.persist()
+			//gameState: this.gameState
+		});
     }
+	
+	depersist()
+	{
 
-    save()
-    {
-        var object = this.persist();
-        this.store.saveToStore(object);
-    }
+	}
+
 }

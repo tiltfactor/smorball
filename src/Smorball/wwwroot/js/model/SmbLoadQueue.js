@@ -6,7 +6,6 @@ var SmbLoadQueue = (function () {
         this.initialize();
     }
     SmbLoadQueue.prototype.initialize = function () {
-        var _this = this;
         this.events = {};
         this.fg_loader = new createjs.LoadQueue(true, "", false);
         this.bg_loader = new createjs.LoadQueue(false, "", false);
@@ -14,9 +13,6 @@ var SmbLoadQueue = (function () {
         this.captchaLoad = false;
         this.localCapthcaSize = 8;
         var me = this;
-        setTimeout(function () {
-            _this.loadLocalImages();
-        }, 10000);
     };
     SmbLoadQueue.prototype.updateLoader = function (e) {
         this.loaderClass.updateLoader(e.progress);
@@ -122,30 +118,6 @@ var SmbLoadQueue = (function () {
         else {
             this.loaderClass.drawPlayButton();
             this.config.stage.update();
-        }
-    };
-    SmbLoadQueue.prototype.loadLocalImages = function () {
-        var _this = this;
-        var manifest = [];
-        if (this.localCapthcaSize + 10 <= localData.differences.length) {
-            if (!this.active && !this.captchaLoad) {
-                this.captchaLoad = true;
-                for (var i = this.localCapthcaSize; i <= this.localCapthcaSize + 10; i++) {
-                    var img = {};
-                    var name = this.zeroFill(i, 3);
-                    img.src = "shapes/captcha/" + name + ".png";
-                    img.id = name;
-                    manifest.push(img);
-                }
-                this.localCapthcaSize += 10;
-                this.fg_loader.loadManifest(manifest);
-                this.fg_loader.addEventListener("complete", function () {
-                    _this.captchaLoad = false;
-                });
-            }
-            setTimeout(function () {
-                _this.loadLocalImages();
-            }, 10000);
         }
     };
     // creates number in format 000

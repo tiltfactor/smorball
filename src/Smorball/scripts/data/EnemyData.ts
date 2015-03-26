@@ -16,17 +16,17 @@ interface EnemyData extends _.Dictionary<EnemyTypeData> {
 	coach: EnemyTypeData;
 	fast: EnemyTypeData;
 	tallstops: EnemyTypeData;
-	walkingBacks: EnemyTypeData;
+	weak: EnemyTypeData;
 	winger: EnemyTypeData;
 	wideCenters: EnemyTypeData;
 }
 
-var EnemyData: EnemyData = {
+var enemyData: EnemyData = {
 	coach:
 	{
 		id: "coach",
 		"changeLane": false,
-		"speed": 2,
+		"speed": 20,
 		"life": 6,
 		"sound": { "hit": "enemy1hit", "die": "enemy1die" },
 		spritesPathTemplate: "shapes/enemy characters/Coach Enemy C{0}"
@@ -35,7 +35,7 @@ var EnemyData: EnemyData = {
 	{
 		"id": "fast",
 		"changeLane": false,
-		"speed": 5,
+		"speed": 50,
 		"life": 1,
 		"sound": { "hit": "enemy2hit", "die": "enemy2die" },
 		"spritesPathTemplate": "shapes/enemy characters/Skater Enemy S{0}"
@@ -44,16 +44,16 @@ var EnemyData: EnemyData = {
 	{
 		"id": "tallstops",
 		"changeLane": false,
-		"speed": 1,
+		"speed": 10,
 		"life": 3,
 		"sound": { "hit": "enemy3hit", "die": "enemy3die" },
 		"spritesPathTemplate": "shapes/enemy characters/Tennis Enemy T{0}"
 	},
-	walkingBacks:
+	weak:
 	{
-		"id": "walkingBacks",
+		"id": "weak",
 		"changeLane": false,
-		"speed": 2,
+		"speed": 20,
 		"life": 1,
 		"offsetX": 265,
 		"offsetY": 369,
@@ -64,7 +64,7 @@ var EnemyData: EnemyData = {
 	{
 		"id": "winger",
 		"changeLane": true,
-		"speed": 3,
+		"speed": 30,
 		"life": 1,
 		"sound": { "hit": "enemy5hit", "die": "enemy5die" },
 		"spritesPathTemplate": "shapes/enemy characters/Hooligan Enemy H{0}"
@@ -73,7 +73,7 @@ var EnemyData: EnemyData = {
 	{
 		"id": "wideCenters",
 		"changeLane": false,
-		"speed": 2,
+		"speed": 20,
 		"life": 6,
 		"sound": { "hit": "enemy1hit", "die": "enemy1die" },
 		"sX": 0.5,

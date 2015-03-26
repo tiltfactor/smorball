@@ -23,8 +23,8 @@ var CommentaryBox = (function (_super) {
             this.score.text = score;
         }
     };
-    CommentaryBox.prototype.setOpponenets = function (opponents) {
-        this.opponents.text = opponents;
+    CommentaryBox.prototype.update = function (delta) {
+        this.opponents.text = smorball.stageController.getEnemiesRemaining() + "";
     };
     CommentaryBox.prototype.kill = function () {
         clearInterval(this.timer);
@@ -32,7 +32,7 @@ var CommentaryBox = (function (_super) {
     CommentaryBox.prototype.loadEvents = function () {
         var _this = this;
         EventBus.addEventListener("showCommentary", function (o) { return _this.showCommentary(o.target); });
-        EventBus.addEventListener("showPendingEnemies", function (o) { return _this.setOpponenets(o.target); });
+        //EventBus.addEventListener("showPendingEnemies",(o) => this.setOpponenets(o.target));
         EventBus.addEventListener("setScore", function (score) { return _this.setScore(score.target); });
     };
     CommentaryBox.prototype.drawScoreBoard = function () {

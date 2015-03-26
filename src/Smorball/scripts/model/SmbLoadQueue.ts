@@ -3,9 +3,6 @@
 
 class SmbLoadQueue {
 
-
-	config: any;
-
 	events: any;
 	fg_loader: createjs.LoadQueue;
 	bg_loader: createjs.LoadQueue;
@@ -14,8 +11,7 @@ class SmbLoadQueue {
 	localCapthcaSize: number;
 	loaderClass: LoaderClass;
 
-	constructor(config: any) {
-		this.config = config;
+	constructor() {
 		this.initialize();
 	}
 
@@ -27,12 +23,11 @@ class SmbLoadQueue {
 		this.captchaLoad = false;
 		this.localCapthcaSize = 8;
 		var me = this;
-		setTimeout(() => { this.loadLocalImages() }, 10000);
 	}
 
 	private updateLoader(e) {
 		this.loaderClass.updateLoader(e.progress);
-		this.config.stage.update();
+		smorball.stage.update();
 	}
 
 	private addEventsonLoad(manifest, callback?, ob?) {
@@ -45,12 +40,12 @@ class SmbLoadQueue {
 		this.fg_loader.addEventListener("error", this.events.error);
 	}
 
-	loadLevelQueue(manifest, level) {
+	loadLevelQueue(manifest, level:Level) {
 		$("#loaderDiv").show();
 		this.active = true;
-		var config = { "stage": this.config.stage, "gameState": this.config.gameState, "currentLevel": level, "loader": this.fg_loader, "type": 1 };
+		var config = { "stage": smorball.stage, "currentLevel": level, "loader": this.fg_loader, "type": 1 };
 		this.loaderClass = new LoaderClass(config);
-		this.config.stage.addChild(this.loaderClass);
+		smorball.stage.addChild(this.loaderClass);
 		if (manifest.length != 0) {
 			this.addEventsonLoad(manifest);
 		} else {
@@ -106,7 +101,7 @@ class SmbLoadQueue {
 		return url;
 	}
 
-	load(manifest, callback, ob) {
+	load(manifest, callback, ob?) {
 		if (manifest.length != 0) {
 			var me = this;
 			this.events.loadComplete = () => {
@@ -119,7 +114,6 @@ class SmbLoadQueue {
 		} else {
 			callback(ob);
 		}
-
 	}
 
 	private loadComplete(callback?, ob?) {
@@ -137,32 +131,7 @@ class SmbLoadQueue {
 		}
 
 	}
-
-	private loadLocalImages() {
-		var manifest = [];
-		if (this.localCapthcaSize + 10 <= localData.differences.length) {
-
-			if (!this.active && !this.captchaLoad) {
-				this.captchaLoad = true;
-				for (var i = this.localCapthcaSize; i <= this.localCapthcaSize + 10; i++) {
-					var img : any = {};
-					var name = this.zeroFill(i, 3);
-					img.src = "shapes/captcha/" + name + ".png";
-					img.id = name;
-					manifest.push(img);
-				}
-				this.localCapthcaSize += 10;
-				this.fg_loader.loadManifest(manifest);
-				this.fg_loader.addEventListener("complete", () => {
-					this.captchaLoad = false;
-				});
-			}
-
-
-			setTimeout(() => { this.loadLocalImages() }, 10000);
-		}
-	}
-
+	
 	// creates number in format 000
 	private zeroFill(number, width) {
 		width -= number.toString().length;

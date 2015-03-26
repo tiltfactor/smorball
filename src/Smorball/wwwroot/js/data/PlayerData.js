@@ -3,18 +3,21 @@ var playerData = {
         id: "baseball",
         offsetX: 263,
         offsetY: 366,
+        speed: 120,
         sound: {}
     },
     football: {
         id: "football",
         offsetX: 263,
         offsetY: 366,
+        speed: 120,
         sound: {}
     },
     hockey: {
         id: "hockey",
         offsetX: 263,
         offsetY: 366,
+        speed: 120,
         sound: {}
     }
 };

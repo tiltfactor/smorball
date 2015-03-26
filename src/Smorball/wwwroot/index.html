@@ -27,7 +27,8 @@
 	<script src="js/utils/Utils.js"></script>
     <script src="js/data/Manifest.js"></script>
     <script src="js/model/Spawning.js"></script>
-    <script src="js/model/GameState.js"></script>
+	<script src="js/model/GameState.js"></script>
+    <script src="js/model/Captcha.js"></script>
     <script src="js/model/LoaderClass.js"></script>
     <script src="js/data/PowerupsData.js"></script>
     <script src="js/model/LocalStorage.js"></script>
@@ -43,25 +44,25 @@
     <script src="js/data/LevelData.js"></script>
     <script src="js/data/InstructionsData.js"></script>
     <script src="js/data/CaptchaJson.js"></script>
-    <script src="js/model/Level.js"></script>
+    <script src="js/model/Stadium.js"></script>
     <script src="js/data/LoaderData.js"></script>
     <script src="js/model/MyPowerup.js"></script>
     <script src="js/model/SpriteSheet.js"></script>
     <script src="js/model/Lane.js"></script>
-    <script src="js/model/Wave.js"></script>
     <script src="js/model/AdBoard.js"></script>
     <script src="js/model/CommentaryBox.js"></script>
     <script src="js/model/Chair.js"></script>
     <script src="js/model/Blocks.js"></script>
-    <script src="js/model/Waves.js"></script>
     <script src="js/model/MyPowerup.js"></script>
     <script src="js/model/CaptchaProcessor.js"></script>
-    <script src="js/controller/MenuController.js"></script>
-    <script src="js/controller/StageController.js"></script>
+    <script src="js/controller/LevelSpawningController.js"></script>
+	<script src="js/controller/MenuController.js"></script>
+    <script src="js/controller/CaptchaController.js"></script>
+    <script src="js/controller/LevelController.js"></script>
     <script src="js/controller/GameController.js"></script>
     <script src="js/controller/ShopController.js"></script>
     <script src="js/controller/GameLevelController.js"></script>
-    <script src="js/controller/SoundController.js"></script>
+	<script src="js/controller/SoundController.js"></script>
     <script src="js/EventBus.js"></script>
     <script src="js/model/PlayerAthlete.js"></script>
     <script src="js/model/Enemy.js"></script>
@@ -126,12 +127,12 @@
         </div>
     </div>
 </div>
-<div id="canvasHolder">
-    <input id="passButton" type="button" value="Pass" onmouseover="EventBus.dispatch('playSound','mouseover');" onclick="EventBus.dispatch('passText')"></input>
+<div id="captchaInputContainer">
+    <input id="passButton" type="button" value="Pass" onmouseover="EventBus.dispatch('playSound','mouseover');" onclick="EventBus.dispatch('passText')" />
     <input id="inputText" type="text" placeholder="Type Phrase"
-           onkeydown="if(event.keyCode == 13){EventBus.dispatch('compareCaptcha')}" autocomplete="off"></input>
+           onkeydown="if(event.keyCode == 13){EventBus.dispatch('compareCaptcha')}" autocomplete="off" />
     <input id="submitButton" type="button" value="Submit"
-           onmouseover="EventBus.dispatch('playSound','mouseover');" onclick="EventBus.dispatch('compareCaptcha')"></input>
+           onmouseover="EventBus.dispatch('playSound','mouseover');" onclick="EventBus.dispatch('compareCaptcha')" />
 </div>
 
 <div id="timeout-container" class="fullWidthcontainer">

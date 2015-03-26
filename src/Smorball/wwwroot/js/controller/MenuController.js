@@ -33,7 +33,7 @@ var MenuController = (function () {
     MenuController.prototype.showMenu = function () {
         var _this = this;
         this.checkStatus();
-        $("#canvasHolder").hide();
+        $("#captchaInputContainer").hide();
         this.config.gameState.currentState = this.config.gameState.states.MAIN_MENU;
         this.onMenuResize();
         window.onresize = function () {
