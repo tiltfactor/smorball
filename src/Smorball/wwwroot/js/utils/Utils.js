@@ -27,5 +27,13 @@ var Utils = (function () {
     Utils.randomOne = function (array) {
         return array[Math.floor(Math.random() * array.length)];
     };
+    Utils.centre = function (obj, horizontally, vertically) {
+        if (horizontally === void 0) { horizontally = true; }
+        if (vertically === void 0) { vertically = true; }
+        if (horizontally)
+            obj.x = smorball.config.width / 2 - obj.getBounds().width / 2;
+        if (vertically)
+            obj.y = smorball.config.height / 2 - obj.getBounds().height / 2;
+    };
     return Utils;
 })();

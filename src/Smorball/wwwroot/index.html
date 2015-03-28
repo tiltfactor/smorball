@@ -4,10 +4,9 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
 
     <!-- injector:css -->
-    <link rel="stylesheet" href="css/game.css">
     <link rel="stylesheet" href="css/jquery-ui.css">
     <link rel="stylesheet" href="css/jquery.mCustomScrollbar.css">
-    <link rel="stylesheet" href="css/site.css">
+    <link rel="stylesheet" href="css/smorball.css">
     <!-- endinjector -->
 
     <!-- injector:js -->
@@ -22,287 +21,33 @@
     <script src="lib/levenshtein.js"></script>
     <script src="lib/underscore/underscore.js"></script>
     <script src="lib/wordCompare.js"></script>
+    <script src="js/actors/BackgroundStar.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/managers/LoadingScreenManager.js"></script>
+    <script src="js/managers/MainMenuManager.js"></script>
+    <script src="js/managers/ResourcesManager.js"></script>
+    <script src="js/managers/SmorballManager.js"></script>
+    <script src="js/managers/SplashScreensManager.js"></script>
+    <script src="js/utils/Utils.js"></script>
     <!-- endinjector -->
 
-	<script src="js/utils/Utils.js"></script>
-    <script src="js/data/Manifest.js"></script>
-    <script src="js/model/Spawning.js"></script>
-	<script src="js/model/GameState.js"></script>
-    <script src="js/model/Captcha.js"></script>
-    <script src="js/model/LoaderClass.js"></script>
-    <script src="js/data/PowerupsData.js"></script>
-    <script src="js/model/LocalStorage.js"></script>
-    <script src="js/model/MyBag.js"></script>
-    <script src="js/model/Preloader.js"></script>
-    <script src="js/model/SmbLoadQueue.js"></script>
-    <script src="js/model/Sound.js"></script>
-    <script src="js/data/PlayerData.js"></script>
-    <script src="js/data/ShopData.js"></script>
-    <script src="js/data/EnemyData.js"></script>
-	<script src="js/data/MapData.js"></script>
-    <script src="js/data/GameConfig.js"></script>
-    <script src="js/data/LevelData.js"></script>
-    <script src="js/data/InstructionsData.js"></script>
-    <script src="js/data/CaptchaJson.js"></script>
-    <script src="js/model/Stadium.js"></script>
-    <script src="js/data/LoaderData.js"></script>
-    <script src="js/model/MyPowerup.js"></script>
-    <script src="js/model/SpriteSheet.js"></script>
-    <script src="js/model/Lane.js"></script>
-    <script src="js/model/AdBoard.js"></script>
-    <script src="js/model/CommentaryBox.js"></script>
-    <script src="js/model/Chair.js"></script>
-    <script src="js/model/Blocks.js"></script>
-    <script src="js/model/MyPowerup.js"></script>
-    <script src="js/model/CaptchaProcessor.js"></script>
-    <script src="js/controller/LevelSpawningController.js"></script>
-	<script src="js/controller/MenuController.js"></script>
-    <script src="js/controller/CaptchaController.js"></script>
-    <script src="js/controller/LevelController.js"></script>
-    <script src="js/controller/GameController.js"></script>
-    <script src="js/controller/ShopController.js"></script>
-    <script src="js/controller/GameLevelController.js"></script>
-	<script src="js/controller/SoundController.js"></script>
-    <script src="js/EventBus.js"></script>
-    <script src="js/model/PlayerAthlete.js"></script>
-    <script src="js/model/Enemy.js"></script>
-    <script src="js/model/Powerups.js"></script>
-	<script src="js/model/Score.js"></script>
-
-
-    <link rel="stylesheet" href="css/jquery-ui.css">
-    <link rel="stylesheet" href="css/game.css">
-    <link rel="stylesheet" href="css/jquery.mCustomScrollbar.css">
-
-    <script>
-        function init() {
-            gc = new GameController();
-            gc.init();
-        }
-
-    </script>
 </head>
-<body onload="init()" style="background:#ccc;text-align: center">
-<canvas id="myCanvas"></canvas>
+<body>
 
-<div id="loaderDiv" style="position: absolute; top: 0%; left: 0%; width: 100%; height: 100%; display: none ">
-    <div id="loadOuterWrapper" class="blueBg fullWidthcontainer">
-        <div class="centerContainer starBg">
-            <canvas id="loaderCanvas"></canvas>
-        </div>
-    </div>
+	<div id="smorballContainer">
+		<div id="mainMenu">
+			<img src="images/Main Menu/menu_background.png" />
+			<img id="mainMenuButtonsBackground" src="images/Main Menu/menu_btn_back.png" />
+			<div id="mainMenuButton">
+				<button>PLAY</button>
+				<button>OPTIONS</button>
+				<button>HELP</button>
+			</div>
+		</div>
+		<canvas id="mainCanvas"></canvas>		
+	</div>
+	
 
-
-</div>
-
-<div id="dialog-shop" style="display: none;">
-    <canvas id="popupCanvas"></canvas>
-</div>
-
-<div id="dialog-utility" style="position: absolute; top: 0%; left: 0%; width: 100%; height: 100%; display: none ">
-    <canvas id="utilityCanvas"></canvas>
-</div>
-
-<div id="menu-container" class="menu-popup">
-    <img class="sb_logo" src="shapes/SB_logo.png">
-    <div class="menu-button-container">
-        <div class="menu-buttons">
-            <button onmouseover="EventBus.dispatch('playSound','mouseover');" onClick="EventBus.dispatch('play');">Play</button>
-            <button onmouseover="EventBus.dispatch('playSound','mouseover');" onClick="EventBus.dispatch('showOptions');">Options</button>
-            <button onmouseover="EventBus.dispatch('playSound','mouseover');" onClick="EventBus.dispatch('showHelp');">Help</button>
-        </div>
-    </div>
-</div>
-
-<div id="menu-confirm-popup" class="shadedContainer fullWidthcontainer menu-popup">
-   <div class="centerScreenContainer middleContainer">
-        <div id="game-popup" class="innerContainer">
-            <button  onmouseover="EventBus.dispatch('playSound','mouseover');" onClick="EventBus.dispatch('hideAll'); EventBus.dispatch('showMenu'); $('#confirm-popup, #menu-confirm-popup').show();">new game</button>
-            <button  onmouseover="EventBus.dispatch('playSound','mouseover');" onClick="EventBus.dispatch('showMap')">Continue</button>
-        </div>
-        <div id="confirm-popup" class="innerContainer">
-            <p><b>ARE YOU SURE YOU WANT TO ERASE YOUR CURRENT GAME</b></p>
-            <button onmouseover="EventBus.dispatch('playSound','mouseover');" onClick="EventBus.dispatch('hideAll'); EventBus.dispatch('exitMenu');EventBus.dispatch('resetAll')">YES</button>
-            <button onmouseover="EventBus.dispatch('playSound','mouseover');" onClick="EventBus.dispatch('hideAll'); EventBus.dispatch('showMenu');">NO</button>
-        </div>
-    </div>
-</div>
-<div id="captchaInputContainer">
-    <input id="passButton" type="button" value="Pass" onmouseover="EventBus.dispatch('playSound','mouseover');" onclick="EventBus.dispatch('passText')" />
-    <input id="inputText" type="text" placeholder="Type Phrase"
-           onkeydown="if(event.keyCode == 13){EventBus.dispatch('compareCaptcha')}" autocomplete="off" />
-    <input id="submitButton" type="button" value="Submit"
-           onmouseover="EventBus.dispatch('playSound','mouseover');" onclick="EventBus.dispatch('compareCaptcha')" />
-</div>
-
-<div id="timeout-container" class="fullWidthcontainer">
-    <div class="timeout-button-container middleContainer">
-        <div class="timeout-buttons">
-            <div id="timeout-close">
-                <button id="timeout-btn-close" onmouseover="EventBus.dispatch('playSound','mouseover');" onClick="EventBus.dispatch('hideTimeOut')">X</button>
-            </div>
-             <p id="timout-text"><b>TIMEOUT</b></p>
-            <div class="timeout-content">
-                <p class="slider-text"><b>MUSIC</b></p>
-
-                <div class="music-slider slider"></div>
-                <p class="slider-text"><b>SOUND EFFECTS</b></p>
-
-                <div class="effects-slider slider"></div>
-                <button onmouseover="EventBus.dispatch('playSound','mouseover');" onclick="EventBus.dispatch('showHelp');" >HELP</button><br/>
-                <button onmouseover="EventBus.dispatch('playSound','mouseover');" onClick="EventBus.dispatch('quitTimeout');">QUIT</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div id="shopOuterWrapper" class="blueBg fullWidthcontainer">
-    <div class="centerContainer starBg">
-        <div id="shop" class="mainWndw">
-            <div class="titleBar">
-                <span class="clubhouse"><b>Clubhouse</b></span>
-                <span class="wallet"></span>
-            </div>
-            <div class="shopInnerBg">
-                
-                <div class="scrollContainer">
-                    <div class="itemDiv">
-                        <script type="text/template" id="shopComponents">
-                            <% _.each(items, function(item) { %>
-                            <div class="innerItem">
-                                <table>
-                                    <tr>
-                                        <td width="25%">
-                                <img src=<%=item.src%> class="image"/>
-                                        </td>
-                                        <td class="innerDiv" width="63%" id=<%=item.id%>>
-                                    <div class="title" pType =<%=item.type%> ><%=item.name%></div>
-                                    <div class="caption"><%=item.description%></div>
-                                    <!--<div class="rate">&dollar;<%=item.price%></div>-->
-                                    <br>
-                            <button class="upgrade" type="button" onmouseover="EventBus.dispatch('playSound','mouseover');">$<%=item.price%>
-                                    </button>
-                                        </td>
-                                    </tr>
-                                </table>
-                                <div class="clear"></div>
-                            </div>
-                            <% }); %>
-
-                        </script>
-                    </div>
-                </div>
-            </div>
-            <div class="shopBackBtn">
-                <input class="backButton" type="button" onmouseover="EventBus.dispatch('playSound','mouseover');" onclick="EventBus.dispatch('showMap')"/>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div id="resultWrapper" class="shadedContainer fullWidthcontainer">
-    <div class="centerScreenContainer middleContainer">
-        <div class="innerContainer">
-            <div>
-                <div id="lostContainer" class="resultContainer">
-                    <div class="title"><b>LOST</b></div>
-                    <div class="details">
-                        <div>
-                            <p><b>MONEY MADE:</b></p><p class="moneyMade"><b>0</b></p>
-                        </div> 
-                        <div class="clear"></div>
-                    </div>
-                    <button onmouseover="EventBus.dispatch('playSound','mouseover');" onclick="EventBus.dispatch('showMap')"><b>LEVEL SELECT</b></button>
-                    <button onmouseover="EventBus.dispatch('playSound','mouseover');" onclick="EventBus.dispatch('hideAll');EventBus.dispatch('newGame')"><b>TRY AGAIN</b></button>
-                </div>
-                <div id="survivalEndContainer" class="resultContainer">
-                     <div class="title"><b>TIME TRIAL RESULTS</b></div>
-                    <div class="details">
-                         <div>
-                             <div class="timeDetails"><p>TIME SURVIVED:</p><p class="time"><span id="minutes">686</span>:<span id="seconds">18</span></p> </div>
-                             <div class="timeDetails"><p>HIGH SCORE:</p><p class="time"><span id="highMinutes">88</span>:<span id="highSeconds">878</span></p> </div>
-                        </div> 
-                        <div class="clear"></div>
-                    </div>                     
-                    <button onmouseover="EventBus.dispatch('playSound','mouseover');" onclick="EventBus.dispatch('showMap');"><b>CONTINUE</b></button>
-                </div> 
-                <div id="victoryContainer" class="resultContainer">
-                    <div class="title"><b>VICTORY</b></div>
-                    <div class="details">
-                        <div>
-                            <p><b>MONEY MADE:</b></p><p class="moneyMade"><b>0</b></p>
-                        </div> 
-                        <div class="clear"></div>
-                    </div>
-                    <button onmouseover="EventBus.dispatch('playSound','mouseover');" onclick="EventBus.dispatch('showMap')"><b>CONTINUE</b></button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div id="helpScreen" class="shadedContainer blueBg fullWidthcontainer">
-     <div class="centerScreenContainer starBg middleContainer">
-        <div>
-             <div class="title">INSTRUCTIONS</div>
-            <div class="helpScreenContent innerContainer">
-                <div class="sliderWrapper innerItem">
-                    <div id="slider">
-                    </div>
-                    <div id="sliderDirectionNav"></div>
-                </div>
-            </div>
-            <div id="slider-control-nav"></div>
-         <div class="helpBackBtn">
-             <input class="backButton helpBackButton" type="button" onmouseover="EventBus.dispatch('playSound','mouseover');" onClick="EventBus.dispatch('hideHelp');"/>
-         </div>
-    </div>
-</div>
-</div>
-<script type="text/template" id="sliderComponents">
-                            <% _.each(items, function(item, position) { %>
-                               <div class="slider<%= position+1 %>">  
-                                <div class="imageWrapper">
-                                <img src="shapes/<%= item.image %>.png">
-                                </div>
-                                <p><%=item.description%></p>
-                                </div>
-                           <% }); %>
-</script>
-
-<div id="mainSplashScreen" class="splashScreen fullWidthcontainer">
-    <div class="splashScreenContainer middleContainer">
-        <img id="MBGLogo" class="splashLogo" src="shapes/MBG-Logo.jpg"/>
-        <img id="BHLlogo" class="splashLogo" src="shapes/BHL_Logo.png"/>
-        <img id="tiltfactorLogo" class="splashLogo" src="shapes/Tiltfacor_on_White.png"/>
-    </div>
-</div>
-
-<div id="optionsScreen" class="fullWidthcontainer blueBg">
-    <div class="centerScreenContainer middleContainer starBg">
-        <div class="title">OPTIONS</div>
-        <div class="innerContainer">
-            <div class="slideContainer">                
-                    <p class="slider-text"><b>MUSIC</b></p>
-                    <div class="music-slider slider"></div>
-                    <p class="slider-text"><b>SOUND EFFECTS</b></p>
-                    <div class="effects-slider slider"></div>
-                     <p class="slider-text"><b>DIFFICULTY</b></p>
-                     <div id="selectBox">   
-                        <select class="selectDifficulty" onchange="EventBus.dispatch('setDifficulty',this.value)">
-                               <option value="veryeasy" >VERY EASY</option>
-                               <option value="easy" >EASY</option>
-                               <option value="medium">MEDIUM</option>
-                               <option value="hard">HARD</option>
-                               <option value="veryhard">VERY HARD</option>
-                         </select>
-                      </div>
-            </div>
-      </div>
-        <div class="optionBackBtn">
-            <button class="backButton optionsBackButton" onmouseover="EventBus.dispatch('playSound','mouseover');" onclick="EventBus.dispatch('hideOptions');"></button>
-        </div>
-    </div>
-</div>
 </body>
 </html>

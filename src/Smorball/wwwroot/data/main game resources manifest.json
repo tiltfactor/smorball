@@ -1,0 +1,7 @@
+﻿{
+	"manifest": [
+		{ "src": "images/Splash Screens/MBG-Logo.jpg", "id": "MBG_logo" },
+		{ "src": "images/Splash Screens/BHL Logo.png", "id": "BHL_logo" },
+		{ "src": "images/Splash Screens/Tiltfacor on White.png", "id": "TiltFactor_logo" }
+	]
+}

@@ -1,0 +1,9 @@
+﻿{
+	"manifest": [
+		{ "src": "images/UI/loading_bar_bottom.png", "id": "loading_bar_bottom" },
+		{ "src": "images/UI/loading_bar_top.png", "id": "loading_bar_top" },
+		{ "src": "images/Clubhouse/star_background.png", "id": "background_star" },
+		{ "src": "images/UI/SB_logo.png", "id": "smorball_logo" },
+		{ "src": "images/UI/loading_bar.png", "id": "loading_bar" }
+	]
+}

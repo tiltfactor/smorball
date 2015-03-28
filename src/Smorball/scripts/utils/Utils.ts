@@ -34,4 +34,14 @@
 		return array[Math.floor(Math.random() * array.length)];
 	}
 
+	static centre(obj: createjs.DisplayObject, horizontally: boolean = true, vertically: boolean = true) {
+
+		if (horizontally)
+			obj.x = smorball.config.width / 2 - obj.getBounds().width / 2;
+
+		if (vertically)
+			obj.y = smorball.config.height / 2 - obj.getBounds().height / 2;
+
+	}
+
 }

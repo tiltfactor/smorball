@@ -1,0 +1,39 @@
+﻿@font-face { font-family: 'Boogaloo'; src: url('fonts/Boogaloo-Regular.otf'); }
+@font-face { font-family: 'Scoreboard'; src: url('fonts/scoreboard.ttf'); }
+
+body {
+	text-align: center;
+	padding:0;
+	margin: 0;
+	width: 100%;
+}
+
+#smorballContainer {
+	background-color: red;
+	margin-left: auto;
+    margin-right: auto;
+}
+
+#mainCanvas {
+	z-index: 0;
+	position: relative;
+}
+
+#mainMenu {
+	z-index: 10;
+	position: relative;
+}
+
+#mainMenuButtonsBackground {
+	position: absolute;
+	z-index: 11;
+	left: 0;
+	bottom: 0;
+}
+
+#mainMenuButton {
+	position: absolute;
+	z-index: 12;
+	left: 900;
+	bottom: 100;
+}

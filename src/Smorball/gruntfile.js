@@ -43,7 +43,7 @@ module.exports = function (grunt) {
             },
             js_libs: {
                 files: {
-                    'wwwroot/index.html': ['wwwroot/lib/jquery/**/*.js', 'wwwroot/lib/**/*.js'],
+                	'wwwroot/index.html': ['wwwroot/lib/jquery/**/*.js', 'wwwroot/lib/**/*.js', 'wwwroot/js/**/*.js'],
                 }
             },
             css: {
