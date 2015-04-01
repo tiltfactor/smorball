@@ -1,0 +1,60 @@
+﻿{
+	"coach":
+	{
+		"id": "coach",
+		"changeLane": false,
+		"speed": 20,
+		"life": 6,
+		"sound": { "hit": "enemy1hit", "die": "enemy1die" },
+		"spritesPathTemplate": "images/Characters/enemy/Coach Enemy C{0}"
+	},
+	"fast":
+	{
+		"id": "fast",
+		"changeLane": false,
+		"speed": 50,
+		"life": 1,
+		"sound": { "hit": "enemy2hit", "die": "enemy2die" },
+		"spritesPathTemplate": "images/Characters/enemy/Skater Enemy S{0}"
+	},
+	"tallstop":
+	{
+		"id": "tallstop",
+		"changeLane": false,
+		"speed": 10,
+		"life": 3,
+		"sound": { "hit": "enemy3hit", "die": "enemy3die" },
+		"spritesPathTemplate": "images/Characters/enemy/Tennis Enemy T{0}"
+	},
+	"weak":
+	{
+		"id": "weak",
+		"changeLane": false,
+		"speed": 20,
+		"life": 1,
+		"offsetX": 265,
+		"offsetY": 369,
+		"sound": { "hit": "enemy4hit", "die": "enemy4die" },
+		"spritesPathTemplate": "images/Characters/enemy/Grand Mother Enemy GB{0}"
+	},
+	"winger":
+	{
+		"id": "winger",
+		"changeLane": true,
+		"speed": 30,
+		"life": 1,
+		"sound": { "hit": "enemy5hit", "die": "enemy5die" },
+		"spritesPathTemplate": "images/Characters/enemy/Hooligan Enemy H{0}"
+	},
+	"wideCenter":
+	{
+		"id": "wideCenter",
+		"changeLane": false,
+		"speed": 20,
+		"life": 6,
+		"sound": { "hit": "enemy1hit", "die": "enemy1die" },
+		"sX": 0.5,
+		"sY": 0.5,
+		"spritesPathTemplate": "images/Characters/enemy/Weightlifter Enemy W{0}"
+	}
+}

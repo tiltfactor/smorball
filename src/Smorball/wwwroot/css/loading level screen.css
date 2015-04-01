@@ -1,0 +1,29 @@
+﻿#loadingLevelScreen {
+	pointer-events: auto;
+}
+
+#loadingLevelScreen .vs {
+	font-size: 160px;
+	position: absolute;
+	top: 500px;
+	left: 750px;
+	text-shadow: 8px 8px 0 black;
+}
+
+#loadingLevelScreen h1 {
+	max-width: 800px;
+	margin-left: 430px;
+}
+
+#loadingLevelScreen img {
+	margin-top: -20px;
+	margin-left: 100px;
+	margin-right: 60px;
+	width: 600px;
+}
+
+#loadingLevelScreen .play-btn {
+	position: absolute;
+	bottom: 100px;
+	left: 670px;
+}

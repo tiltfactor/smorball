@@ -1,0 +1,85 @@
+﻿
+#mainMenu {
+	z-index: 100;
+	pointer-events: auto;
+}
+
+#mainMenuButtonsBackground {
+	position: absolute;
+	z-index: 101;
+	left: 0;
+	bottom: 0;
+}
+
+#mainMenuLogo {
+	position: absolute;
+	z-index: 101;
+	top: 0;
+	left: 450px;
+	width: 700px;
+}
+
+#mainMenuButtons {
+	position: absolute;
+	z-index: 102;
+	left: 0;
+	bottom: 20px;
+	width: 100%;
+}
+
+#mainMenuButtons button {
+	margin-right: 30px;
+	margin-left: 30px;
+}
+
+#newGameContinue {
+	z-index: 104;
+}
+
+#newGameContinue .smorball-bordered-container {
+	width: 600px;
+	height: 584px;
+	text-align: left;
+	margin:0;
+	padding: 100px 100px 100px 100px;
+	position: absolute;
+	opacity: 1;
+	z-index: 105;
+	top: 200px;
+	left: 500px;
+}
+
+#newGameContinue button {
+	margin-bottom: 30px;
+	margin-top: 20px;
+	margin-left: 20px;
+}
+
+#confirmEraseGame {
+	z-index: 104;
+	line-height: 50px;
+	text-align: center;
+}
+
+#confirmEraseGame .smorball-bordered-container {
+	width: 600px;
+	height: 684px;
+	margin:0;
+	padding: 80px 80px 80px 80px;
+	position: absolute;
+	opacity: 1;
+	z-index: 105;
+	top: 200px;
+	left: 500px;
+}
+
+#confirmEraseGame button {
+	margin-bottom: 10px;
+	margin-top: 20px;
+	margin-left: 20px;
+}
+
+
+
+
+

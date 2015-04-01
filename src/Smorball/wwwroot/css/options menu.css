@@ -1,0 +1,53 @@
+﻿#optionsMenu {
+	pointer-events: auto;
+}
+
+#optionsMenu .smorball-bordered-container {
+	width: 600px;
+	height: 900px;
+	text-align: left;
+	margin:0;
+	padding: 100px 100px 100px 100px;
+	position: absolute;
+	top: 200px;
+	left: 500px;
+}
+
+#optionsMenu button.back {
+	position: absolute;
+	bottom: 30px;
+	left: 30px;
+}
+
+#difficultyDropdown button {
+	color: white;
+	background: none;
+	border: 0;
+	background-image: url("../images/UI/difficulty_box1.png");
+	width: 355px;
+	height: 115px;
+	font-size: 36px;
+}
+
+#difficultyDropdown ul {
+	font-size: 36px;
+	width: 355px;
+	height: 203px;
+	border: 0;
+	background: none;
+	background-image: url("../images/UI/difficulty_box2.png");
+	box-shadow: none;
+}
+
+#difficultyDropdown a {
+	color: white;
+	cursor: pointer;
+}
+
+#difficultyDropdown a:hover {
+	color: black;
+}
+
+#difficultyDropdown button:active {
+	 outline: none;
+}

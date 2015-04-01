@@ -1,0 +1,91 @@
+﻿#mapMenu {
+	pointer-events: none;
+	color: white;
+}
+
+#mapMenu .selected-team {
+	position: absolute;
+	left: 40px;
+	bottom: 40px;
+	z-index: 101;
+	width: 770px;
+	height: 115px;
+	background-image: url("../images/Level Select Map/level_info_bar.png");
+}
+
+
+#mapMenu .selected-team .team-name {
+	padding-top: 10px;
+	margin-left: 170px;
+	float: left;
+	text-transform: none;
+	padding-top: 14px;
+}
+
+#mapMenu .selected-team .score {
+	float: right;
+	margin-right: 20px;
+	font-size: 86px;
+	margin-top: -15px
+}
+
+#mapMenu .selected-team .team-logo {
+	position: absolute;
+	z-index: 102;
+	top: -64px;
+	left: -40px;
+	width: 200px;
+	height: 200px;
+}
+
+#mapMenu .selected-team .lock-icon {
+	position: absolute;
+	z-index: 103;
+	top: -72px;
+	left: 20px;
+	width: 126px;	
+}
+
+#mapMenu .fb-share {
+	position: absolute;
+	z-index: 103;
+	bottom: 20px;
+	right: 390px;
+	width: 353px;
+	height: 146px;
+	pointer-events: auto;
+	background-image: url("../images/Level Select Map/fb_btn_up.png");
+}
+
+#mapMenu .fb-share:hover {
+	background-image: url("../images/Level Select Map/fb_btn_over.png");
+}
+
+#mapMenu .fb-share:active {
+	background-image: url("../images/Level Select Map/fb_btn_down.png");
+}
+
+#mapMenu .twitter-share {
+	position: absolute;
+	z-index: 103;
+	bottom: 20px;
+	right: 20px;
+	width: 353px;
+	height: 146px;
+	pointer-events: auto;
+	background-image: url("../images/Level Select Map/t_btn_up.png");
+}
+
+#mapMenu .twitter-share:hover {
+	background-image: url("../images/Level Select Map/t_btn_over.png");
+}
+
+#mapMenu .twitter-share:active {
+	background-image: url("../images/Level Select Map/t_btn_down.png");
+}
+
+#mapMenu .cashbar {
+	position: absolute;
+	top: 10px;
+	right: 20px;	
+}

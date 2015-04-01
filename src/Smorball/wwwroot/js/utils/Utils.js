@@ -35,5 +35,10 @@ var Utils = (function () {
         if (vertically)
             obj.y = smorball.config.height / 2 - obj.getBounds().height / 2;
     };
+    Utils.shake = function (jq) {
+        var l = 20;
+        for (var i = 0; i < 10; i++)
+            jq.animate({ 'margin-left': "+=" + (l = -l) + 'px' }, 50);
+    };
     return Utils;
 })();

@@ -1,0 +1,65 @@
+﻿#instructionsScreen {
+	pointer-events: auto;
+	text-transform: none;
+}
+
+
+#instructionsScreen .smorball-bordered-container {
+	width: 1070px;
+	height: 930px;
+	position:absolute;
+	background-image: url("../images/UI/instructions_box.png");
+	left: 270px;
+	top: 194px;
+	padding: 136px;
+	font-size: 35px;
+}
+
+#instructionsScreen .smorball-bordered-container img {
+	padding-bottom: 50px;
+}
+
+#instructionsScreen button.back {
+	position: absolute;
+	bottom: 30px;
+	left: 30px;
+}
+
+#instructionsScreen .well {
+	width: 100%;
+	height: 100%;
+}
+
+#instructionsScreen .img-border {
+	position: absolute;
+	background-image: url("../images/UI/instructions_border.png");
+	z-index: 105;
+	top: 127px;
+	left: 132px;
+	width: 809px;
+	height: 533px;
+}
+
+#instructionsScreen .left-arrow {
+	position: absolute;
+	top: 561px;
+	left: 145px;
+}
+
+#instructionsScreen .right-arrow {
+	position: absolute;
+	top: 554px;
+	left: 1362px;
+}
+
+#instructionsScreen .paging {
+	position:absolute;
+	top: 1120px;
+	width: 100%;
+}
+
+#instructionsScreen .paging img {
+	cursor: pointer;
+}
+
+

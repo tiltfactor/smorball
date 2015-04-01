@@ -1,0 +1,128 @@
+﻿#gameScreen .opponents {
+	font-family: "Scoreboard";
+	position: absolute;
+	top: 40px;
+	left: 580px;
+	font-size: 68px;
+}
+
+#gameScreen .score {
+	font-family: "Scoreboard";
+	position: absolute;
+	top: 40px;
+	left: 900px;
+	font-size: 68px;
+}
+
+#gameScreen .entry {
+	width: 100%;
+	position: absolute;
+	pointer-events: auto;
+	bottom: 10px;
+}
+
+#gameScreen .entry input {
+	background: none;
+	border: none;
+	background-image: url("../images/UI/input_bg.png");
+	width: 352px;
+	height: 72px;
+	transform: scale(1.2,1.2);
+	margin-top: 35px;
+	color: black;
+	font-size: 30px;
+	padding-left: 20px;
+	padding-bottom: 16px;
+}
+
+#gameScreen .entry input:focus  {
+	outline: 0;
+}
+
+#gameScreen .entry Button {
+	transform: scale(0.7,0.7);
+}
+
+#gameScreen .entry input:disabled  {
+	background-image: url("../images/UI/input_bg_disabled.png");
+}
+
+#gameScreen .timeout .smorball-bordered-container {
+	width: 860px;
+	height: 900px;
+	text-align: left;
+	margin:0;
+	padding: 90px 60px 80px 60px;
+	position: absolute;
+	opacity: 1;
+	z-index: 105;
+	top: 200px;
+	left: 360px;
+	pointer-events: auto;
+}
+
+#gameScreen .timeout .title {
+	background-image: url("../images/UI/timeout_text_bg.png");
+	width: 514px;
+	height: 148px;
+	text-align: center;
+	padding-top: 10px;
+	font-size: 80px;
+	margin-left: 100px;
+}
+
+#gameScreen .timeout button.close {
+	position: absolute;
+	z-index: 106;
+	top:-73px;
+	right:-12px;
+	transform: scale(1.5,1.5);
+}
+
+#gameScreen .timeout .options {
+	padding-top: 20px;
+	padding-left: 50px;
+	padding-right: 50px;
+}
+
+#gameScreen .timeout button {
+	transform: scale(0.8,0.8);
+	margin-top: 50px;
+	margin-left: -20px;
+	margin-right: -20px;
+}
+
+#gameScreen .smorball-bordered-container {
+	width: 1065px;
+	height: 780px;
+	text-align: center;
+	margin:0;
+	padding: 90px 100px 100px 100px;
+	position: absolute;
+	opacity: 1;
+	z-index: 105;
+	top: 200px;
+	left: 280px;
+	pointer-events: auto;
+}
+
+#gameScreen .well {
+	font-size: 80px;
+	padding: 50px;
+	margin-bottom: 40px;
+	height: 225px;
+	text-align: left;
+}
+
+/*#gameScreen .victory .well div {
+	text-align: left;
+}*/
+
+#gameScreen h1 {
+	margin-bottom: 40px;
+	margin-top: -10px;
+}
+
+#gameScreen .cashbar-small {
+	float: right;
+}

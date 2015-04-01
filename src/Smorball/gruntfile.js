@@ -43,12 +43,16 @@ module.exports = function (grunt) {
             },
             js_libs: {
                 files: {
-                	'wwwroot/index.html': ['wwwroot/lib/jquery/**/*.js', 'wwwroot/lib/**/*.js', 'wwwroot/js/**/*.js'],
+                	'wwwroot/index.html': ['wwwroot/lib/jquery/**/*.js',
+						'wwwroot/lib/**/*.js',
+						'wwwroot/js/screens/ScreenBase.js',
+						'wwwroot/js/**/*.js',
+                		"!wwwroot/lib/modernizr/**/*.*"],
                 }
             },
             css: {
                 files: {
-                    'wwwroot/index.html': ['wwwroot/css/**/*.css'],
+                	'wwwroot/index.html': ['wwwroot/lib/jquery/**/*.css', 'wwwroot/lib/**/*.css', 'wwwroot/css/**/*.css'],
                 }
             }
         }
@@ -57,6 +61,9 @@ module.exports = function (grunt) {
     // This command registers the default task which will install bower packages into wwwroot/lib
     grunt.registerTask("default", ["bower:install", "typescript:build", "injector"]);
     grunt.registerTask("watch", ["typescript:watch"]);
+
+	// Build the main game manifest
+    grunt.loadTasks("tasks");
 
     // The following line loads the grunt plugins.
     // This line needs to be at the end of this this file.

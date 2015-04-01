@@ -1,0 +1,105 @@
+﻿#shopScreen {
+	pointer-events: auto;
+	text-align: left;
+}
+
+#shopScreen h1 {
+	margin-left: 50px;
+}
+
+#shopScreen h2 {
+	margin-left: 50px;
+	text-align: left;
+}
+
+#shopScreen .cashbar {
+	position: absolute;
+	top: 10px;
+	right: 20px;	
+}
+
+#shopScreen button.back {
+	position: absolute;
+	bottom: 30px;
+	left: 30px;
+}
+
+#shopScreen .smorball-bordered-container {
+	width: 1060px;
+	height: 920px;
+	position:absolute;
+	background-image: url("../images/Clubhouse/clubhouse_bg.png");
+	left: 270px;
+	top: 194px;
+	padding: 80px;
+	font-size: 35px;
+	text-align: right;	
+}
+
+#shopScreen .smorball-bordered-container .items {
+	overflow-y: hidden;
+	width: 900px;
+	height: 760px;
+}
+
+#shopScreen .smorball-bordered-container img {
+	padding: 35px;
+	padding-top: 80px;	
+}
+
+#shopScreen .smorball-bordered-container .icon-container {
+	float:left;
+	height: 480px;
+}
+
+#shopScreen .description {
+	text-transform: none;
+	padding-bottom: 20px;
+	text-align: left;
+}
+
+#shopScreen .price {
+	text-transform: none;
+	padding-bottom: 20px;
+	text-align: left;
+	font-size: 60px;
+}
+
+#mCSB_1_scrollbar_vertical {
+	position: absolute;
+	top: 20px;
+	right: -260px;
+	width: 147px;
+	height: 745px;
+	background-image: url("../images/Clubhouse/scroller_back.png");
+	opacity: 1;
+}
+
+
+.mCS-smorball.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar
+{
+	 background: none;
+	 background-image: url("../images/Clubhouse/scroller_btn.png");
+	 width: 85px;
+	 height: 90px;
+	 margin-top: 31px;
+}
+
+.mCS-smorball.mCSB_scrollTools .mCSB_draggerRail
+{
+	 background: none;
+}
+
+#shopScreen .shop-item.locked button {
+	background-image: url("../images/UI/btn1_grey.png");
+	pointer-events: none;
+}
+
+#shopScreen .shop-item.too-expensive button {
+	background-image: url("../images/UI/btn1_grey.png");
+	pointer-events: none;
+}
+
+#shopScreen .shop-item.purchased button {
+	background-image: url("../images/UI/btn1_over.png");
+}

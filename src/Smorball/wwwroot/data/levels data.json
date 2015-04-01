@@ -1,0 +1,637 @@
+﻿[
+	{
+		"index": 0,
+		"lanes": [
+			1
+		],
+		"name": "Pre Season Scrimmage",
+		"team": {
+			"name": "Eugene Melonballers",
+			"id": "eugene_melonballers"
+		},
+		"waves": [
+			{
+				"actions": [
+					{
+						"enemy": "weak",
+						"type": "spawn"
+					},
+					{
+						"commentry": "Jujubes come from the right. Keep the Jujubes from getting to the grass. Type the word and press enter to stop the Jujube.",
+						"type": "commentate"
+					}
+				]
+			},
+			{
+				"actions": [
+					{
+						"enemy": "weak",
+						"type": "spawn"
+					},
+					{
+						"commentry": "Careful, because punctuation maters!",
+						"type": "commentate"
+					}
+				]
+			},
+			{
+				"actions": [
+					{
+						"enemy": "weak",
+						"type": "spawn"
+					}
+				]
+			},
+			{
+				"actions": [
+					{
+						"enemy": "weak",
+						"type": "spawn"
+					},
+					{
+						"commentry": "Capitalization matters too!",
+						"type": "commentate"
+					}
+				]
+			},
+			{
+				"actions": [
+					{
+						"enemy": "weak",
+						"type": "spawn"
+					},
+					{
+						"commentry": "Every letter in this word is capital!",
+						"type": "commentate"
+					}
+				]
+			},
+			{
+				"actions": [
+					{
+						"enemy": "weak",
+						"type": "spawn"
+					},
+					{
+						"commentry": "Use a space to separate multiple words.",
+						"type": "commentate"
+					}
+				]
+			},
+			{
+				"actions": [
+					{
+						"enemy": "weak",
+						"type": "spawn"
+					},
+					{
+						"commentry": "Type Æ as AE...",
+						"type": "commentate"
+					}
+				]
+			},
+			{
+				"actions": [
+					{
+						"enemy": "weak",
+						"type": "spawn"
+					},
+					{
+						"commentry": "... and use / for fractions.",
+						"type": "commentate"
+					}
+				]
+			},
+			{
+				"actions": [
+					{
+						"enemy": "weak",
+						"type": "spawn"
+					},
+					{
+						"commentry": "You don’t need to type accents.",
+						"type": "commentate"
+					}
+				]
+			},
+			{
+				"actions": [
+					{
+						"enemy": "weak",
+						"type": "spawn"
+					},
+					{
+						"commentry": "If you can’t type it, click ‘Pass’.",
+						"type": "commentate"
+					},
+					{
+						"enemy": "weak",
+						"type": "spawn"
+					}
+				]
+			},
+			{
+				"actions": [
+					{
+						"commentry": "Look out! Here they come!",
+						"type": "commentate"
+					},
+					{
+						"enemy": "fast",
+						"type": "spawn"
+					},
+					{
+						"time": 6,
+						"type": "delay"
+					},
+					{
+						"enemy": "weak",
+						"type": "spawn"
+					}
+				]
+			}
+		]
+	},
+	{
+		"index": 1,
+		"lanes": [
+			0,
+			1,
+			2
+		],
+		"name": "Local Qualifiers",
+		"team": {
+			"name": "Carson City Cardinals",
+			"id": "carson_city"
+		},
+		"waves": [
+			{
+				"actions": [
+					{
+						"enemy": "weak",
+						"type": "spawn"
+					},
+					{
+						"commentry": "Jujubes come in 3 different rows now. Type the word in the same row as the Jujube to hit that Jujube.",
+						"type": "commentate"
+					},
+					{
+						"time": 10,
+						"type": "delay"
+					},
+					{
+						"enemy": "weak",
+						"type": "spawn"
+					}
+				]
+			},
+			{
+				"actions": [
+					{
+						"enemy": "weak",
+						"type": "spawn"
+					}
+				]
+			},
+			{
+				"actions": [
+					{
+						"enemy": "weak",
+						"type": "spawn"
+					}
+				]
+			},
+			{
+				"actions": [
+					{
+						"enemy": "weak",
+						"type": "spawn"
+					},
+					{
+						"time": 4,
+						"type": "delay"
+					},
+					{
+						"enemy": "weak",
+						"type": "spawn",
+						"sameRow": true
+					},
+					{
+						"time": 15,
+						"type": "delay"
+					},
+					{
+						"enemy": "weak",
+						"type": "spawn"
+					}
+				]
+			},
+			{
+				"actions": [
+					{
+						"enemy": "weak",
+						"type": "spawn"
+					},
+					{
+						"time": 5,
+						"type": "delay"
+					},
+					{
+						"enemy": "weak",
+						"type": "spawn",
+						"sameRow": true
+					}
+				]
+			},
+			{
+				"actions": [
+					{
+						"enemy": "weak",
+						"type": "spawn"
+					},
+					{
+						"time": 4,
+						"type": "delay"
+					},
+					{
+						"enemy": "weak",
+						"type": "spawn",
+						"sameRow": true
+					},
+					{
+						"time": 10,
+						"type": "delay"
+					},
+					{
+						"enemy": "weak",
+						"type": "spawn"
+					},
+					{
+						"time": 2,
+						"type": "delay"
+					},
+					{
+						"enemy": "weak",
+						"type": "spawn",
+						"sameRow": true
+					}
+				]
+			},
+			{
+				"actions": [
+					{
+						"enemy": "tallstop",
+						"type": "spawn"
+					}
+				]
+			},
+			{
+				"actions": [
+					{
+						"enemy": "tallstop",
+						"type": "spawn"
+					}
+				]
+			},
+			{
+				"actions": [
+					{
+						"enemy": "tallstop",
+						"type": "spawn"
+					},
+					{
+						"time": 2,
+						"type": "delay"
+					},
+					{
+						"enemy": "weak",
+						"type": "spawn",
+						"sameRow": true
+					}
+				]
+			}
+		]
+	},
+	{
+		"index": 2,
+		"lanes": [
+			0,
+			1,
+			2
+		],
+		"name": "Local Quarterfinals",
+		"team": {
+			"name": "Los Angeles Beige",
+			"id": "beige"
+		},
+		"waves": [
+			{
+				"actions": [
+					{
+						"enemy": "weak",
+						"type": "spawn"
+					}
+				]
+			}
+		]
+	},
+	{
+		"index": 3,
+		"lanes": [
+			0,
+			1,
+			2
+		],
+		"name": "Local Semifinals",
+		"team": {
+			"name": "Tucson Walruses",
+			"id": "walruses"
+		},
+		"waves": [
+			{
+				"actions": [
+					{
+						"enemy": "weak",
+						"type": "spawn"
+					}
+				]
+			}
+		]
+	},	
+	{
+		"index": 4,
+		"lanes": [
+			0,
+			1,
+			2
+		],
+		"name": "Local Finals",
+		"team": {
+			"name": "Salt Lake City Diacritics",
+			"id": "diacritics"
+		},
+		"waves": [
+			{
+				"actions": [
+					{
+						"enemy": "weak",
+						"type": "spawn"
+					}
+				]
+			}
+		]
+	},
+	{
+		"index": 5,
+		"lanes": [
+			0,
+			1,
+			2
+		],
+		"name": "State Qualifiers",
+		"team": {
+			"name": "Billings Bronies",
+			"id": "bronies"
+		},
+		"waves": [
+			{
+				"actions": [
+					{
+						"enemy": "weak",
+						"type": "spawn"
+					}
+				]
+			}
+		]
+	},
+	{
+		"index": 6,
+		"lanes": [
+			0,
+			1,
+			2
+		],
+		"name": "State Quarterfinals",
+		"team": {
+			"name": "Fargo 4.9ers",
+			"id": "fargo"
+		},
+		"waves": [
+			{
+				"actions": [
+					{
+						"enemy": "weak",
+						"type": "spawn"
+					}
+				]
+			}
+		]
+	},
+	{
+		"index": 7,
+		"lanes": [
+			0,
+			1,
+			2
+		],
+		"name": "State Semifinals",
+		"team": {
+			"name": "Amarillo Pantyhose",
+			"id": "pantyhose"
+		},
+		"waves": [
+			{
+				"actions": [
+					{
+						"enemy": "weak",
+						"type": "spawn"
+					}
+				]
+			}
+		]
+	},
+	{
+		"index": 8,
+		"lanes": [
+			0,
+			1,
+			2
+		],
+		"name": "State Finals",
+		"team": {
+			"name": "Omaha Hoarders",
+			"id": "hoarders"
+		},
+		"waves": [
+			{
+				"actions": [
+					{
+						"enemy": "weak",
+						"type": "spawn"
+					}
+				]
+			}
+		]
+	},
+	{
+		"index": 9,
+		"lanes": [
+			0,
+			1,
+			2
+		],
+		"name": "Regional Qualifiers",
+		"team": {
+			"name": "Fort Worth",
+			"id": "ffd"
+		},
+		"waves": [
+			{
+				"actions": [
+					{
+						"enemy": "weak",
+						"type": "spawn"
+					}
+				]
+			}
+		]
+	},
+	{
+		"index": 10,
+		"lanes": [
+			0,
+			1,
+			2
+		],
+		"name": "Regional Quarterfinals",
+		"team": {
+			"name": "Kansas City Cupcakes",
+			"id": "cupcakes"
+		},
+		"waves": [
+			{
+				"actions": [
+					{
+						"enemy": "weak",
+						"type": "spawn"
+					}
+				]
+			}
+		]
+	},
+	{
+		"index": 11,
+		"lanes": [
+			0,
+			1,
+			2
+		],
+		"name": "Regional Semifinals",
+		"team": {
+			"name": "Chicago Chargers",
+			"id": "chargers"
+		},
+		"waves": [
+			{
+				"actions": [
+					{
+						"enemy": "weak",
+						"type": "spawn"
+					}
+				]
+			}
+		]
+	},
+	{
+		"index": 12,
+		"lanes": [
+			0,
+			1,
+			2
+		],
+		"name": "Regional Finals",
+		"team": {
+			"name": "Memphis Metaphors",
+			"id": "metaphors"
+		},
+		"waves": [
+			{
+				"actions": [
+					{
+						"enemy": "weak",
+						"type": "spawn"
+					}
+				]
+			}
+		]
+	},
+	{
+		"index": 13,
+		"lanes": [
+			0,
+			1,
+			2
+		],
+		"name": "National Qualifiers",
+		"team": {
+			"name": "Atlanta Portents",
+			"id": "portents"
+		},
+		"waves": [
+			{
+				"actions": [
+					{
+						"enemy": "weak",
+						"type": "spawn"
+					}
+				]
+			}
+		]
+	},
+	{
+		"index": 14,
+		"lanes": [
+			0,
+			1,
+			2
+		],
+		"name": "National Quarterfinals",
+		"team": {
+			"name": "Cincinnati Pharmacists",
+			"id": "pharmacists"
+		},
+		"waves": [
+			{
+				"actions": [
+					{
+						"enemy": "weak",
+						"type": "spawn"
+					}
+				]
+			}
+		]
+	},
+	{
+		"index": 15,
+		"lanes": [
+			0,
+			1,
+			2
+		],
+		"name": "National Semifinals",
+		"team": {
+			"name": "New England Nerds",
+			"id": "nerds"
+		},
+		"waves": [
+			{
+				"actions": [
+					{
+						"enemy": "weak",
+						"type": "spawn"
+					}
+				]
+			}
+		]
+	}	
+]

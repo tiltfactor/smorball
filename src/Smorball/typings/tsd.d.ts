@@ -8,5 +8,4 @@
 /// <reference path="soundjs/soundjs.d.ts" />
 /// <reference path="webaudioapi/waa.d.ts" />
 /// <reference path="webrtc/MediaStream.d.ts" />
-/// <reference path="jqueryui/jqueryui.d.ts" />
 /// <reference path="underscore/underscore.d.ts" />

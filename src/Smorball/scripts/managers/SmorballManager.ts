@@ -6,8 +6,16 @@ class SmorballManager {
 	stage: createjs.Stage;
 	resources: ResourcesManager;
 	splashScreens: SplashScreensManager;
-	loadingScreen: LoadingScreenManager;
-	mainMenu: MainMenuManager;
+	loadingScreen: LoadingScreen;
+	screens: ScreensManager;
+	audio: AudioManager;
+	difficulty: DifficultyManager;
+	persistance: PersistanceManager;
+	game: GameManager;
+	spawning: SpawningManager;
+	captchas: CaptchasManager;
+	user: UserManager;
+	upgrades: UpgradesManager;
 
 	init() {
 		console.log("starting up Smorball");
@@ -19,6 +27,12 @@ class SmorballManager {
 		this.stage = new createjs.Stage("mainCanvas");
 		this.stage.stage.canvas.width = this.config.width;
 		this.stage.stage.canvas.height = this.config.height;
+		this.stage.enableMouseOver(10);
+
+		for (var i = 0; i < this.stage.numChildren; i++) {
+			var obj = this.stage.getChildAt(i);
+			console.log(obj.name, obj.x, obj.y);
+		}
 		
 		// Setup the ticker which handles the main game update loop
 		createjs.Ticker.timingMode = createjs.Ticker.RAF_SYNCHED;
@@ -28,40 +42,68 @@ class SmorballManager {
 		// Create Managers
 		this.resources = new ResourcesManager();
 		this.splashScreens = new SplashScreensManager();
-		this.loadingScreen = new LoadingScreenManager();
-		this.mainMenu = new MainMenuManager();		
+		this.loadingScreen = new LoadingScreen();
+		this.screens = new ScreensManager();
+		this.audio = new AudioManager();
+		this.difficulty = new DifficultyManager();
+		this.persistance = new PersistanceManager();
+		this.game = new GameManager();
+		this.spawning = new SpawningManager();
+		this.captchas = new CaptchasManager();
+		this.user = new UserManager();
+		this.upgrades = new UpgradesManager();
+
+		// Start off things invisible
+		this.loadingScreen.visible = false;
+
+		// Load the last session (if there is one)
+		this.persistance.depersist();
 
 		// Add managers that are containers
 		this.stage.addChild(this.splashScreens);
 		this.stage.addChild(this.loadingScreen);
-		this.stage.addChild(this.mainMenu);
-
-		// Init managers
-		this.loadingScreen.init();
-		this.mainMenu.init();
-			
+		this.stage.addChild(this.screens);
+		this.stage.addChild(this.game);
+					
 		// Handle resizing so we can centre the canvas
 		window.onresize = () => this.onResize();
 		this.onResize();
 
 		// Start the game
-		this.startGame();
+		this.start();
 	}
 
-	startGame()	{
+	start()	{
 
 		this.resources.loadInitialResources(() => {
 			console.log("initial resources loaded, showing loading screen and loading main game resources");
 
-			this.loadingScreen.show();
+			// Now the initial resources have been loaded we can init the loading screen's bits and show it
+			this.loadingScreen.init();
+			this.loadingScreen.visible = true;
+
 			this.resources.loadMainGameResources(() => {
-
-				this.loadingScreen.hide();
 				console.log("main game resources loaded, showing splash screens.");
-				this.splashScreens.showSplashScreens(() => {
-					console.log("spash screens done, showing main menu.");
 
-				});
+				// Now the main resources have been loaded we can init a few things
+				this.upgrades.init();
+				this.game.init();
+				this.screens.init();
+				this.captchas.init();
+
+				// Dont need the loading screen any more
+				this.loadingScreen.visible = false;
+
+				// If we are using a skipIntro debug flag then skip it now
+				if (Utils.deparam(location.href).skipIntro == "true") {
+					this.screens.open(this.screens.main);
+				}
+				else {
+					this.splashScreens.showSplashScreens(() => {
+						console.log("spash screens done, showing main menu.");
+						this.screens.open(this.screens.main);
+					});
+				}		
 			});
 		});
 	}
@@ -77,6 +119,8 @@ class SmorballManager {
 
 		$("#smorballContainer").innerWidth(this.stage.canvas.width);
 		$("#smorballContainer").innerHeight(this.stage.canvas.height);
+
+		this.stage.update();
 	}
 	
 	update(e: createjs.TickerEvent) {
@@ -89,13 +133,10 @@ class SmorballManager {
 					
 		// Update all the bits
 		this.loadingScreen.update(delta);
-		//this.spawing.update(delta);
-		//_.each(this.enemies, e => e.update(delta));
-		//_.each(this.players, p => p.update(delta));
-		//this.capatchas.update(delta);
-
-		// Physics
-		//this.hitTest();
+		this.screens.update(delta);
+		this.game.update(delta);
+		this.spawning.update(delta);
+		this.captchas.update(delta);
 
 		// Finally render
 		this.stage.update(e);

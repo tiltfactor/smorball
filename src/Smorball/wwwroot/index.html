@@ -1,50 +1,88 @@
-﻿<html>
+<html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
 
     <!-- injector:css -->
+    <link rel="stylesheet" href="lib/bootstrap/bootstrap.css">
+    <link rel="stylesheet" href="lib/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.css">
+    <link rel="stylesheet" href="lib/modernizr/test/caniuse_files/style.css">
+    <link rel="stylesheet" href="lib/modernizr/test/qunit/qunit.css">
+    <link rel="stylesheet" href="lib/seiyria-bootstrap-slider/bootstrap-slider.css">
+    <link rel="stylesheet" href="css/game screen.css">
+    <link rel="stylesheet" href="css/instructions screen.css">
     <link rel="stylesheet" href="css/jquery-ui.css">
-    <link rel="stylesheet" href="css/jquery.mCustomScrollbar.css">
+    <link rel="stylesheet" href="css/loading level screen.css">
+    <link rel="stylesheet" href="css/main menu.css">
+    <link rel="stylesheet" href="css/map menu.css">
+    <link rel="stylesheet" href="css/options menu.css">
+    <link rel="stylesheet" href="css/shop screen.css">
     <link rel="stylesheet" href="css/smorball.css">
     <!-- endinjector -->
-
+		
     <!-- injector:js -->
     <script src="lib/jquery/jquery.js"></script>
     <script src="lib/EaselJS/easeljs-0.8.0.combined.js"></script>
     <script src="lib/PreloadJS/preloadjs-0.6.0.combined.js"></script>
     <script src="lib/SoundJS/soundjs-0.6.0.combined.js"></script>
     <script src="lib/TweenJS/tweenjs-0.6.0.combined.js"></script>
-    <script src="lib/jqueri-ui/jquery-ui.js"></script>
+    <script src="lib/bootstrap/bootstrap.js"></script>
+    <script src="lib/jquery-bridget/jquery.bridget.js"></script>
     <script src="lib/jquery-deparam/jquery-deparam.js"></script>
-    <script src="lib/lean-slider/lean-slider.js"></script>
+    <script src="lib/jquery-mousewheel/jquery.mousewheel.js"></script>
     <script src="lib/levenshtein.js"></script>
+    <script src="lib/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.js"></script>
+    <script src="lib/seiyria-bootstrap-slider/bootstrap-slider.js"></script>
     <script src="lib/underscore/underscore.js"></script>
     <script src="lib/wordCompare.js"></script>
-    <script src="js/actors/BackgroundStar.js"></script>
+    <script src="js/screens/ScreenBase.js"></script>
+    <script src="js/actors/Athlete.js"></script>
+    <script src="js/actors/Captcha.js"></script>
+    <script src="js/actors/CommentatorBubble.js"></script>
+    <script src="js/actors/Enemy.js"></script>
+    <script src="js/actors/LoadingBar.js"></script>
+    <script src="js/actors/MapLevel - Copy.js"></script>
+    <script src="js/actors/MapShop - Copy.js"></script>
+    <script src="js/actors/MapShop.js"></script>
+    <script src="js/actors/MapSurvival.js"></script>
+    <script src="js/actors/StarBackground - Copy.js"></script>
+    <script src="js/actors/StarBackground.js"></script>
+    <script src="js/actors/backgroundstar.js"></script>
+    <script src="js/actors/mapdot.js"></script>
+    <script src="js/actors/maplevel.js"></script>
+    <script src="js/actors/stadium.js"></script>
     <script src="js/config.js"></script>
     <script src="js/main.js"></script>
-    <script src="js/managers/LoadingScreenManager.js"></script>
-    <script src="js/managers/MainMenuManager.js"></script>
-    <script src="js/managers/ResourcesManager.js"></script>
-    <script src="js/managers/SmorballManager.js"></script>
-    <script src="js/managers/SplashScreensManager.js"></script>
-    <script src="js/utils/Utils.js"></script>
+    <script src="js/managers/CaptchasManager.js"></script>
+    <script src="js/managers/DifficultyManager.js"></script>
+    <script src="js/managers/UpgradesManager.js"></script>
+    <script src="js/managers/UserManager.js"></script>
+    <script src="js/managers/audiomanager.js"></script>
+    <script src="js/managers/gamemanager.js"></script>
+    <script src="js/managers/persistancemanager.js"></script>
+    <script src="js/managers/resourcesmanager.js"></script>
+    <script src="js/managers/screensmanager.js"></script>
+    <script src="js/managers/smorballmanager.js"></script>
+    <script src="js/managers/spawningmanager.js"></script>
+    <script src="js/managers/splashscreensmanager.js"></script>
+    <script src="js/screens/GameScreen.js"></script>
+    <script src="js/screens/InstructionScreen.js"></script>
+    <script src="js/screens/LoadingLevelScreen - Copy.js"></script>
+    <script src="js/screens/LoadingLevelScreen.js"></script>
+    <script src="js/screens/MapScreen - Copy.js"></script>
+    <script src="js/screens/MapScreen.js"></script>
+    <script src="js/screens/OptionsMenu.js"></script>
+    <script src="js/screens/ShopScreen.js"></script>
+    <script src="js/screens/initialloadingscreen.js"></script>
+    <script src="js/screens/mainmenu.js"></script>
+    <script src="js/utils/utils.js"></script>
     <!-- endinjector -->
 
 </head>
 <body>
 
-	<div id="smorballContainer">
-		<div id="mainMenu">
-			<img src="images/Main Menu/menu_background.png" />
-			<img id="mainMenuButtonsBackground" src="images/Main Menu/menu_btn_back.png" />
-			<div id="mainMenuButton">
-				<button>PLAY</button>
-				<button>OPTIONS</button>
-				<button>HELP</button>
-			</div>
-		</div>
+	<div id="smorballContainer" class="container">
+		<div id="menusContainer"></div>
 		<canvas id="mainCanvas"></canvas>		
 	</div>
 	

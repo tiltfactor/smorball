@@ -44,4 +44,10 @@
 
 	}
 
+	static shake(jq: JQuery) {
+		var l = 20;
+		for (var i = 0; i < 10; i++)
+			jq.animate({ 'margin-left': "+=" + (l = -l) + 'px' }, 50);
+	}
+
 }
