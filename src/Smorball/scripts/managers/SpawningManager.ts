@@ -8,6 +8,7 @@ class SpawningManager {
 
 	private waveTimer: number;
 	private actionTimer: number;
+	private lastEnemySpawnLane: number;
 
 	startNewLevel(level: Level) {
 		this.level = level;
@@ -16,6 +17,7 @@ class SpawningManager {
 		this.action = this.wave.actions[0];
 		this.logWave();
 		this.logAction();
+		this.lastEnemySpawnLane = 1;
 
 		// Spawn some starting athletes
 		_.each(this.level.lanes, i => smorball.spawning.spawnAthlete(i));
@@ -83,7 +85,11 @@ class SpawningManager {
 		// Switch over the type of action we are currently on
 		if (this.action.type == "spawn") {
 			if (this.action.enemy != undefined) {
-				this.spawnEnemy(this.action.enemy);
+				this.spawnEnemy(this.action.enemy, this.action.sameLane, this.action.lane);
+				this.action = this.getNextAction();
+			}
+			else if (this.action.powerup != undefined) {
+				this.spawnPowerup(this.action.powerup, this.action.quantity, this.action.lane);
 				this.action = this.getNextAction();
 			}
 		}
@@ -92,22 +98,43 @@ class SpawningManager {
 			this.action = this.getNextAction();
 		}
 		else if (this.action.type == "delay") {
-			if (this.actionTimer > this.action.time)
+			// If there are no more enemies then we dont need to delay, just send another enemy immediatately
+			if (!this.action.noSkip && smorball.game.enemies.length == 0)
+				this.action = this.getNextAction();
+
+			// Else wait until the delay has completed
+			else if (this.actionTimer > this.action.time * smorball.difficulty.current.multiplier)
 				this.action = this.getNextAction();
 		}
 	}
 
-	spawnEnemy(enemyType: string) {
+	spawnEnemy(enemyType: string, sameLane?: boolean, lane?:number) {
 				
-		// Spawn on a random lane
-		var lane = Utils.randomOne(smorball.game.level.lanes);
+		// If lane is not provided then spawn on a random one
+		if (lane == undefined) lane = Utils.randomOne(smorball.game.level.lanes);
+
+		// If we are to spawn on the same lane however, override the above
+		if (sameLane == true) lane = this.lastEnemySpawnLane;
 
 		// Create the enemy and start running
 		var enemy = new Enemy(smorball.game.enemyTypes[enemyType], lane);
 		smorball.game.enemies.push(enemy);
 		smorball.screens.game.actors.addChild(enemy);
 
+		this.lastEnemySpawnLane = lane;
 		console.log("Enemy spawned", enemyType);
+	}
+
+	spawnPowerup(powerupType: string, quantity?: number, lane?: number) {
+		if (quantity == undefined) quantity = 1;
+		for (var i = 0; i < quantity; i++) {
+
+			// If lane is not provided then spawn on a random one
+			if (lane == undefined) lane = Utils.randomOne(smorball.game.level.lanes);
+
+			smorball.powerups.spawnPowerup(powerupType, lane);
+			console.log("Powerup spawned", powerupType);
+		}
 	}
 
 	spawnAthlete(lane: number) {

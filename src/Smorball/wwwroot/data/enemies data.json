@@ -1,60 +1,121 @@
 ﻿{
-	"coach":
-	{
+	"coach": {
 		"id": "coach",
+		"audio": {
+			"id": "coach",
+			"die": {
+				"variations": 3
+			},
+			"hit": {
+				"variations": 3
+			}
+		},
 		"changeLane": false,
 		"speed": 20,
 		"life": 6,
-		"sound": { "hit": "enemy1hit", "die": "enemy1die" },
+		"offsetX": 265,
+		"offsetY": 369,
+		"scale": 1,
 		"spritesPathTemplate": "images/Characters/enemy/Coach Enemy C{0}"
 	},
 	"fast":
 	{
 		"id": "fast",
+		"audio": {
+			"id": "skater",
+			"die": {
+				"variations": 2
+			},
+			"hit": {
+				"variations": 3
+			}
+		},
 		"changeLane": false,
 		"speed": 50,
 		"life": 1,
-		"sound": { "hit": "enemy2hit", "die": "enemy2die" },
+		"offsetX": 265,
+		"offsetY": 369,
+		"scale":  1,
 		"spritesPathTemplate": "images/Characters/enemy/Skater Enemy S{0}"
 	},
-	"tallstop":
+	"regular":
 	{
-		"id": "tallstop",
+		"id": "regular",
+		"audio": {
+			"id": "tenniswoman",
+			"die": {
+				"variations": 1
+			},
+			"hit": {
+				"variations": 2
+			}
+		},
 		"changeLane": false,
 		"speed": 10,
 		"life": 3,
-		"sound": { "hit": "enemy3hit", "die": "enemy3die" },
+		"offsetX": 265,
+		"offsetY": 369,
+		"scale":  1,
 		"spritesPathTemplate": "images/Characters/enemy/Tennis Enemy T{0}"
 	},
 	"weak":
 	{
 		"id": "weak",
+		"audio": {
+			"id": "grandmother",
+			"die": {
+				"variations": 2
+			},
+			"hit": {
+				"variations": 2
+			}
+		},
 		"changeLane": false,
 		"speed": 20,
 		"life": 1,
 		"offsetX": 265,
 		"offsetY": 369,
-		"sound": { "hit": "enemy4hit", "die": "enemy4die" },
+		"scale":  1,
 		"spritesPathTemplate": "images/Characters/enemy/Grand Mother Enemy GB{0}"
 	},
-	"winger":
+	"lanechange":
 	{
-		"id": "winger",
+		"id": "lanechange",
+		"audio": {
+			"id": "hooligan",
+			"die": {
+				"variations": 3
+			},
+			"hit": {
+				"variations": 3
+			}
+		},
 		"changeLane": true,
 		"speed": 30,
 		"life": 1,
-		"sound": { "hit": "enemy5hit", "die": "enemy5die" },
+		"offsetX": 265,
+		"offsetY": 369,
+		"scale":  1,
 		"spritesPathTemplate": "images/Characters/enemy/Hooligan Enemy H{0}"
 	},
-	"wideCenter":
+	"boss":
 	{
-		"id": "wideCenter",
+		"id": "boss",
+		"audio": {
+			"id": "hooligan",
+			"die": {
+				"variations": 5
+			},
+			"hit": {
+				"variations": 3
+			}
+		},
 		"changeLane": false,
 		"speed": 20,
 		"life": 6,
-		"sound": { "hit": "enemy1hit", "die": "enemy1die" },
-		"sX": 0.5,
-		"sY": 0.5,
+		"offsetX": 129,
+		"offsetY": 182,
+		"scale":  1.7,
 		"spritesPathTemplate": "images/Characters/enemy/Weightlifter Enemy W{0}"
 	}
 }

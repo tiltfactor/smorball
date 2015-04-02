@@ -10,7 +10,7 @@ var AthleteState;
     AthleteState[AthleteState["Entering"] = 0] = "Entering";
     AthleteState[AthleteState["ReadyToRun"] = 1] = "ReadyToRun";
     AthleteState[AthleteState["Running"] = 2] = "Running";
-    AthleteState[AthleteState["Dieing"] = 3] = "Dieing";
+    AthleteState[AthleteState["Tackling"] = 3] = "Tackling";
 })(AthleteState || (AthleteState = {}));
 var Athlete = (function (_super) {
     __extends(Athlete, _super);
@@ -19,25 +19,29 @@ var Athlete = (function (_super) {
         this.state = 1 /* ReadyToRun */;
         this.lane = lane;
         this.type = type;
+        this.enemiesTackled = [];
+        // If a powerup is already selected then make sure we have it set
+        if (smorball.screens.game.selectedPowerup != null)
+            this.powerup = smorball.screens.game.selectedPowerup.type;
         // Start us off in the correct position
         var startPos = smorball.config.friendlySpawnPositions[this.lane];
         this.x = startPos.x;
         this.y = startPos.y;
         // Setup the spritesheet
-        var ss = new createjs.SpriteSheet(this.getSpritesheetData());
-        this.sprite = new createjs.Sprite(ss, "idle");
+        this.sprite = new createjs.Sprite(this.getSpritesheet(), "idle");
         this.sprite.framerate = 20;
         this.addChild(this.sprite);
         // Offset by the correct offset
         this.sprite.x = -this.type.offsetX;
         this.sprite.y = -this.type.offsetY;
+        this.sprite.scaleX = this.sprite.scaleY = this.type.scale;
         // Draw a debug circle
-        if (smorball.config.debug) {
-            var circle = new createjs.Shape();
-            circle.graphics.beginFill("red");
-            circle.graphics.drawCircle(0, 0, 10);
-            this.addChild(circle);
-        }
+        //if (smorball.config.debug) {
+        //	var circle = new createjs.Shape();
+        //	circle.graphics.beginFill("red");
+        //	circle.graphics.drawCircle(0, 0, 10);
+        //	this.addChild(circle);
+        //}
         this.animateIn();
     }
     Athlete.prototype.animateIn = function () {
@@ -46,14 +50,23 @@ var Athlete = (function (_super) {
         this.state = 0 /* Entering */;
         this.sprite.gotoAndPlay("run");
     };
-    Athlete.prototype.getSpritesheetData = function () {
+    Athlete.prototype.getSpritesheet = function () {
         var level = smorball.game.levelIndex;
-        var jsonName = this.type.id + "_normal_json";
-        var pngName = this.type.id + "_normal_png";
+        // The variation depends upon the selected powerup
+        var variation = "normal";
+        if (this.powerup == "cleats")
+            variation = "cleats";
+        else if (this.powerup == "helmet")
+            variation = "helmet";
+        // Work out the resource name for the data and the image
+        var jsonName = this.type.id + "_" + variation + "_json";
+        var pngName = this.type.id + "_" + variation + "_png";
+        // Grab them
         var data = smorball.resources.getResource(jsonName);
         var sprite = smorball.resources.getResource(pngName);
+        // Update the data with the image and return
         data.images = [sprite];
-        return data;
+        return new createjs.SpriteSheet(data);
     };
     Athlete.prototype.update = function (delta) {
         if (this.state == 0 /* Entering */) {
@@ -63,34 +76,53 @@ var Athlete = (function (_super) {
         }
         else if (this.state == 2 /* Running */) {
             // Move the enemy along
-            this.x = this.x + this.type.speed * delta;
+            var speed = this.type.speed;
+            if (this.powerup == "cleats")
+                speed *= smorball.powerups.types.cleats.speedMultiplier;
+            this.x = this.x + speed * delta;
             // Check for collisions
             this.checkCollisions();
             // If we get to the end of the world then die
             if (this.x > smorball.config.width)
-                this.tackle();
+                this.destroy();
         }
     };
     Athlete.prototype.checkCollisions = function () {
         var _this = this;
-        var myBounds = this.getBounds();
-        myBounds.x += this.x;
-        myBounds.y += this.y;
-        _.chain(smorball.game.enemies).filter(function (e) { return e.state == 0 /* Alive */ && e.lane == _this.lane; }).each(function (e) {
-            var theirBounds = e.getBounds();
-            theirBounds.x += e.x;
-            theirBounds.y += e.y;
+        var myBounds = this.getTransformedBounds();
+        // Check collisions with enemies
+        _.chain(smorball.game.enemies).filter(function (e) { return e.state == 0 /* Alive */ && e.lane == _this.lane && _this.enemiesTackled.indexOf(e) == -1; }).each(function (e) {
+            var theirBounds = e.getTransformedBounds();
             if (myBounds.intersects(theirBounds)) {
                 e.tackled(_this);
-                _this.tackle();
+                _this.tackle(e);
+            }
+        });
+        // Check collisions with powerups
+        _.chain(smorball.powerups.powerups).filter(function (p) { return p.lane == _this.lane && p.state == 0 /* NotCollected */; }).each(function (p) {
+            var theirBounds = p.getTransformedBounds();
+            if (myBounds.intersects(theirBounds)) {
+                p.collect();
             }
         });
     };
-    Athlete.prototype.tackle = function () {
+    Athlete.prototype.tackle = function (enemy) {
         var _this = this;
-        this.state = 3 /* Dieing */;
+        // Rember that we have tackeld this enemy
+        this.enemiesTackled.push(enemy);
+        // Play the tackle anim adn stop running
+        this.state = 3 /* Tackling */;
         this.sprite.gotoAndPlay("tackle");
-        this.sprite.on("animationend", function (e) { return _this.destroy(); }, this, false);
+        // When the animation is done
+        this.sprite.on("animationend", function (e) {
+            // If we have the hemlet then we can get back up and continue to run
+            if (_this.powerup == "helmet") {
+                _this.state = 2 /* Running */;
+                _this.sprite.gotoAndPlay("run");
+            }
+            else
+                _this.destroy();
+        }, this, false);
     };
     Athlete.prototype.setReadyToRun = function () {
         this.x = this.startX;
@@ -105,6 +137,13 @@ var Athlete = (function (_super) {
     Athlete.prototype.run = function () {
         this.state = 2 /* Running */;
         this.sprite.gotoAndPlay("run");
+    };
+    Athlete.prototype.selectedPowerupChanged = function (powerup) {
+        // If we arent in one of the states that cares then dont dont anything
+        if (this.state != 0 /* Entering */ && this.state != 1 /* ReadyToRun */)
+            return;
+        this.powerup = powerup;
+        this.sprite.spriteSheet = this.getSpritesheet();
     };
     return Athlete;
 })(createjs.Container);

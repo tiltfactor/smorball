@@ -1,27 +1,5 @@
 ﻿
-interface Level {
-	index: number;
-	name: string;
-	lanes: number[];
-	team: Team;
-	waves: LevelWave[];
-}
 
-interface Team {
-	name: string;
-	id: string;
-}
-
-interface LevelWave {
-	actions: WaveAction[];
-}
-
-interface WaveAction {
-	type: string;
-	enemy?: string;
-	commentry?: string;
-	time?: number;
-}
 
 enum GameState {
 	NotPlaying,
@@ -45,15 +23,29 @@ class GameManager extends createjs.Container {
 	enemyTouchdowns: number;
 	passesRemaining: number;
 
+	timeOnLevel: number;
+
 	enemies: Enemy[];
 	athletes: Athlete[];
+	ambienceSound: createjs.AbstractSoundInstance;
 
 	init() {
 		this.levels = smorball.resources.getResource("levels_data");
 		this.enemyTypes = smorball.resources.getResource("enemies_data");
 		this.athleteTypes = smorball.resources.getResource("athletes_data");
 
-		console.log("this.enemyTypes", this.enemyTypes);
+		// Listen for keyboard presses
+		document.onkeydown = e => this.onKeyDown(e);	
+	}
+
+	private onKeyDown(e: KeyboardEvent) {
+		// Only handle keypresses if we are running
+		if (this.state != GameState.Playing) return;
+		// Tab
+		if (e.keyCode == 9) {
+			smorball.screens.game.selectNextPowerup();
+			e.preventDefault();
+		}
 	}
 	
 	loadLevel(levelIndex: number) {
@@ -70,6 +62,9 @@ class GameManager extends createjs.Container {
 		// Load the resources needed
 		smorball.resources.loadLevelResources(levelIndex);
 
+		// Take this oppertunity to grab a new page from the API
+		smorball.captchas.loadPageFromServer();
+
 		// Show the loading screen
 		smorball.screens.open(smorball.screens.loadingLevel);
 	}
@@ -78,11 +73,16 @@ class GameManager extends createjs.Container {
 
 		// Open the correct screen
 		smorball.screens.open(smorball.screens.game);
-		smorball.screens.game.newGame();
+		smorball.screens.game.newLevel();
+		smorball.powerups.newLevel();
 		
 		// Reset these
 		this.enemies = [];
 		this.athletes = [];
+		this.timeOnLevel = 0;
+
+		// Start playing the crowd cheering sound
+		this.ambienceSound = smorball.audio.playAudioSprite("stadium_ambience_looping_sound", { startTime: 0, duration: 28000, loop: -1 });
 
 		// Update the spawner
 		smorball.spawning.startNewLevel(this.level);
@@ -98,17 +98,35 @@ class GameManager extends createjs.Container {
 
 	update(delta: number) {
 		if (this.state != GameState.Playing) return;
-		_.each(this.enemies, e => e.update(delta));
-		_.each(this.athletes, e => e.update(delta));
+		this.timeOnLevel += delta;
+		_.each(this.enemies, e => { if (e != null) e.update(delta); } );
+		_.each(this.athletes, e => { if (e != null) e.update(delta); });
 	}
 
 	gameOver(win: boolean) {
+
+		// Set these
 		this.state = GameState.GameOver;
 		createjs.Ticker.setPaused(true);
+
+		// If we win then show the win screen
 		if (win) {
+
+			// Stop the ambience
+			smorball.audio.fadeOutAndStop(this.ambienceSound, 2000);		
+
+			// Play a different ambient sound
+			this.ambienceSound = smorball.audio.playSound("crowd_cheering_ambient_sound");
+
+			// If this is the first level then lets adjust the difficulty
+			if (this.levelIndex == 0) smorball.difficulty.updateDifficulty(this.timeOnLevel);
+
+			// Work out how much we earnt
 			var earnt = smorball.user.levelWon(this.levelIndex);
 			smorball.screens.game.showVictory(earnt);
 		}
+
+		// Else show the defeat screen
 		else smorball.screens.game.showDefeat(0);
 	}
 
@@ -119,6 +137,10 @@ class GameManager extends createjs.Container {
 
 		if (this.enemyTouchdowns >= smorball.config.enemyTouchdowns)
 			this.gameOver(false);
+	}
+
+	getOpponentsRemaining() {
+		return smorball.spawning.enemySpawnsThisLevel - smorball.game.enemiesKilled - this.enemyTouchdowns;
 	}
 
 	getScore() {
@@ -132,7 +154,7 @@ class GameManager extends createjs.Container {
 	timeout() {
 		this.state = GameState.Timeout;
 		createjs.Ticker.setPaused(true);
-		smorball.screens.game.timeoutEl.hidden = false;
+		smorball.screens.game.showTimeout();	
 		smorball.screens.game.captchas.visible = false;
 		smorball.stage.update();
 	}
@@ -146,10 +168,12 @@ class GameManager extends createjs.Container {
 
 	help() {
 		createjs.Ticker.setPaused(false);
+		this.ambienceSound.paused = true;
 		smorball.screens.instructions.backMenu = smorball.screens.game;
 		smorball.screens.open(smorball.screens.instructions);
 		smorball.screens.instructions.on("back",() => {
 			createjs.Ticker.setPaused(true);
+			this.ambienceSound.paused = false;
 			smorball.stage.update();
 		}, this, true);
 	}
@@ -158,6 +182,10 @@ class GameManager extends createjs.Container {
 		createjs.Ticker.setPaused(false);
 		this.state = GameState.NotPlaying;
 		smorball.screens.open(smorball.screens.map);
+
+		// Stop the ambience
+		if (this.ambienceSound)
+			smorball.audio.fadeOutAndStop(this.ambienceSound, 2000);	
 	}
 
 }

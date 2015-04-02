@@ -4,7 +4,7 @@ enum AthleteState {
 	Entering,
 	ReadyToRun,
 	Running,
-	Dieing
+	Tackling
 }
 
 class Athlete extends createjs.Container {
@@ -14,13 +14,21 @@ class Athlete extends createjs.Container {
 	sprite: createjs.Sprite;
 	state: AthleteState = AthleteState.ReadyToRun;
 
+	powerup: string;
+
 	private startX: number;
+	private enemiesTackled: Enemy[];
 
 	constructor(type: AthleteType, lane: number) {
 		super();
 
 		this.lane = lane;
 		this.type = type;
+		this.enemiesTackled = [];
+
+		// If a powerup is already selected then make sure we have it set
+		if (smorball.screens.game.selectedPowerup!=null)
+			this.powerup = smorball.screens.game.selectedPowerup.type;
 
 		// Start us off in the correct position
 		var startPos = smorball.config.friendlySpawnPositions[this.lane];
@@ -28,22 +36,22 @@ class Athlete extends createjs.Container {
 		this.y = startPos.y;
 
 		// Setup the spritesheet
-		var ss = new createjs.SpriteSheet(this.getSpritesheetData());
-        this.sprite = new createjs.Sprite(ss, "idle");
+        this.sprite = new createjs.Sprite(this.getSpritesheet(), "idle");
 		this.sprite.framerate = 20;
 		this.addChild(this.sprite);
 
 		// Offset by the correct offset
 		this.sprite.x = -this.type.offsetX;
 		this.sprite.y = -this.type.offsetY;
+		this.sprite.scaleX = this.sprite.scaleY = this.type.scale;
 
 		// Draw a debug circle
-		if (smorball.config.debug) {
-			var circle = new createjs.Shape();
-			circle.graphics.beginFill("red");
-			circle.graphics.drawCircle(0, 0, 10);
-			this.addChild(circle);
-		}
+		//if (smorball.config.debug) {
+		//	var circle = new createjs.Shape();
+		//	circle.graphics.beginFill("red");
+		//	circle.graphics.drawCircle(0, 0, 10);
+		//	this.addChild(circle);
+		//}
 
 		this.animateIn();
 	}
@@ -55,14 +63,25 @@ class Athlete extends createjs.Container {
 		this.sprite.gotoAndPlay("run");
 	}
 
-	private getSpritesheetData(): any {
+	private getSpritesheet(): createjs.SpriteSheet {
 		var level = smorball.game.levelIndex;
-		var jsonName = this.type.id + "_normal_json";
-		var pngName = this.type.id + "_normal_png";
+
+		// The variation depends upon the selected powerup
+		var variation = "normal";
+		if (this.powerup == "cleats") variation = "cleats";
+		else if (this.powerup == "helmet") variation = "helmet";
+
+		// Work out the resource name for the data and the image
+		var jsonName = this.type.id + "_" + variation+"_json";
+		var pngName = this.type.id + "_" + variation + "_png";
+
+		// Grab them
 		var data = smorball.resources.getResource(jsonName);
 		var sprite = smorball.resources.getResource(pngName);
+
+		// Update the data with the image and return
 		data.images = [sprite];
-		return data;
+		return new createjs.SpriteSheet(data);
 	}
 
 	update(delta: number) {
@@ -75,42 +94,67 @@ class Athlete extends createjs.Container {
 		else if (this.state == AthleteState.Running) {
 
 			// Move the enemy along
-			this.x = this.x + this.type.speed * delta;
+			var speed = this.type.speed;
+			if (this.powerup == "cleats") speed *= smorball.powerups.types.cleats.speedMultiplier;
+			this.x = this.x + speed * delta;
 
 			// Check for collisions
 			this.checkCollisions();
 
 			// If we get to the end of the world then die
 			if (this.x > smorball.config.width) 
-				this.tackle();			
+				this.destroy();			
 		}
+				
 	}
 
 	private checkCollisions() {
 
-		var myBounds = this.getBounds();
-		myBounds.x += this.x;
-		myBounds.y += this.y;
+		var myBounds = this.getTransformedBounds();
 
+		// Check collisions with enemies
 		_.chain(smorball.game.enemies)
-			.filter(e => e.state == EnemyState.Alive && e.lane == this.lane)
+			.filter(e => e.state == EnemyState.Alive && e.lane == this.lane && this.enemiesTackled.indexOf(e) == -1)
 			.each(e => {
-				var theirBounds = e.getBounds();
-				theirBounds.x += e.x;
-				theirBounds.y += e.y;
-
+				var theirBounds = e.getTransformedBounds();
 				if (myBounds.intersects(theirBounds)) {
 					e.tackled(this);
-					this.tackle();
+					this.tackle(e);				
 				}
+			});
+
+		// Check collisions with powerups
+		_.chain(smorball.powerups.powerups)
+			.filter(p => p.lane == this.lane && p.state == PowerupState.NotCollected)
+			.each(p => {
+			var theirBounds = p.getTransformedBounds();
+			if (myBounds.intersects(theirBounds)) {
+				p.collect();				
+			}
 		});
 	}
 
-	private tackle() {
-		this.state = AthleteState.Dieing;
+	private tackle(enemy: Enemy) {
+
+		// Rember that we have tackeld this enemy
+		this.enemiesTackled.push(enemy);
+
+		// Play the tackle anim adn stop running
+		this.state = AthleteState.Tackling;
 		this.sprite.gotoAndPlay("tackle");
-		
-		this.sprite.on("animationend",(e: any) => this.destroy(), this, false);
+			
+		// When the animation is done
+		this.sprite.on("animationend",(e: any) => {
+
+			// If we have the hemlet then we can get back up and continue to run
+			if (this.powerup == "helmet") {
+				this.state = AthleteState.Running;
+				this.sprite.gotoAndPlay("run");
+			}
+			// Else we die
+			else this.destroy();
+
+		}, this, false);
 	}
 
 	private setReadyToRun() {
@@ -129,4 +173,14 @@ class Athlete extends createjs.Container {
 		this.state = AthleteState.Running;
 		this.sprite.gotoAndPlay("run");
 	}
+
+	selectedPowerupChanged(powerup:string) {
+
+		// If we arent in one of the states that cares then dont dont anything
+		if (this.state != AthleteState.Entering && this.state != AthleteState.ReadyToRun) return;
+
+		this.powerup = powerup;
+		this.sprite.spriteSheet = this.getSpritesheet();
+	}
+
 }

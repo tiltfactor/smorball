@@ -59,6 +59,9 @@ button.back {
 	background-image: url("../images/Clubhouse/back_btn_up.png");
 	width: 163px;
 	height: 147px;
+	position: absolute;
+	bottom: 30px;
+	left: 30px;
 }
 
 button.back:hover {

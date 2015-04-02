@@ -9,7 +9,7 @@ class UpgradesManager {
 	}
 
 	init() {
-		this.upgrades = <Upgrade[]>smorball.resources.getResource("shop_data");
+		this.upgrades = <Upgrade[]>smorball.resources.getResource("upgrade_data");
 	}
 
 	isUpgradeLocked(indx: number) {

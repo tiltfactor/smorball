@@ -18,12 +18,6 @@
 	right: 20px;	
 }
 
-#shopScreen button.back {
-	position: absolute;
-	bottom: 30px;
-	left: 30px;
-}
-
 #shopScreen .smorball-bordered-container {
 	width: 1060px;
 	height: 920px;

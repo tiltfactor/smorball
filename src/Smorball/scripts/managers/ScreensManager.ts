@@ -45,10 +45,18 @@ class ScreensManager extends createjs.Container {
 
 		// Make sure we start off hidden
 		_.each(this.menus, m => m.hide());
+
+		// Add a generic hover over button sound
+		$("button").hover(() => smorball.audio.playSound("mouse_over_button_sound"));
+		$("button").click(() => smorball.audio.playSound("click_sound"));
 	}
 
 	open(menu: ScreenBase) {
 		if (this.current) this.current.hide();
+
+		if (menu == this.game) smorball.audio.stopMusic();
+		else smorball.audio.playMusic(); 
+
 		menu.show();
 		this.current = menu;
 	}

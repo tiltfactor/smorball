@@ -24,13 +24,19 @@ var ResourcesManager = (function () {
         this.queue.loadManifest({ manifest: entries }, true);
     };
     ResourcesManager.prototype.loadManifest = function (manifest, completeCallback) {
-        if (smorball.config.debug)
-            manifest += "?r=" + Math.random();
         this.queue.on("complete", completeCallback, this, true);
         this.queue.loadManifest(manifest, true);
     };
     ResourcesManager.prototype.getResource = function (resourceId) {
         return this.queue.getResult(resourceId);
+    };
+    ResourcesManager.prototype.load = function (url, id, callback) {
+        var _this = this;
+        this.queue.loadFile({ src: url, id: id }, true);
+        this.queue.on("complete", function () {
+            if (callback != null)
+                callback(_this.getResource(id));
+        }, this, true);
     };
     return ResourcesManager;
 })();

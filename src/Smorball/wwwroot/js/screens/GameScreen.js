@@ -25,6 +25,26 @@ var GameScreen = (function (_super) {
         this.bubble.x = 800;
         this.bubble.y = 314;
         this.addChild(this.bubble);
+        this.indicator = new CorrectIncorrectIndicator();
+        this.indicator.x = 800;
+        this.indicator.y = 960;
+        this.addChild(this.indicator);
+        this.powerupIcons = [];
+        var powerup = new PowerupHudIcon("helmet");
+        powerup.x = 1220;
+        powerup.y = 80;
+        this.addChild(powerup);
+        this.powerupIcons.push(powerup);
+        var powerup = new PowerupHudIcon("cleats");
+        powerup.x = 1360;
+        powerup.y = 80;
+        this.addChild(powerup);
+        this.powerupIcons.push(powerup);
+        var powerup = new PowerupHudIcon("bullhorn");
+        powerup.x = 1500;
+        powerup.y = 80;
+        this.addChild(powerup);
+        this.powerupIcons.push(powerup);
         this.timeoutEl = $('#gameScreen .timeout').get(0);
         this.victoryEl = $('#gameScreen .victory').get(0);
         this.defeatEl = $('#gameScreen .defeat').get(0);
@@ -37,16 +57,35 @@ var GameScreen = (function (_super) {
         $('#gameScreen .timeout button.quit').click(function () { return smorball.game.returnToMap(); });
         $('#gameScreen .timeout button.help').click(function () { return smorball.game.help(); });
         $('#gameScreen button.continue').click(function () { return smorball.game.returnToMap(); });
+        // Add some audio events
+        $("#gameScreen .entry input").on("keydown", function (event) {
+            if (event.keyCode == 8) {
+                smorball.audio.playSound("text_entry_backspace_sound", 0.5);
+            }
+            else if (event.keyCode == 9) {
+            }
+            else {
+                smorball.audio.playSound("text_entry_4_sound", 0.2);
+            }
+        });
     };
-    GameScreen.prototype.newGame = function () {
+    GameScreen.prototype.newLevel = function () {
         this.timeoutEl.hidden = true;
         this.captchas.visible = true;
         this.victoryEl.hidden = true;
         this.defeatEl.hidden = true;
+        this.selectPowerup(null);
+        this.indicator.visible = false;
         this.bubble.visible = false;
         this.actors.removeAllChildren();
         this.captchas.removeAllChildren();
         this.stadium.setTeam(smorball.game.level.team);
+    };
+    GameScreen.prototype.showTimeout = function () {
+        console.log("timeout changed!");
+        smorball.screens.game.timeoutEl.hidden = false;
+        $('#gameScreen .timeout .music-slider').slider("setValue", smorball.audio.musicVolume * 100);
+        $('#gameScreen .timeout .sound-slider').slider("setValue", smorball.audio.soundVolume * 100);
     };
     GameScreen.prototype.showVictory = function (cashEarnt) {
         this.victoryEl.hidden = false;
@@ -57,10 +96,50 @@ var GameScreen = (function (_super) {
         $('#gameScreen .defeat .cashbar-small').text(cashEarnt + "").focus();
     };
     GameScreen.prototype.update = function (delta) {
-        this.opponentsEl.textContent = (smorball.spawning.enemySpawnsThisLevel - smorball.game.enemiesKilled) + "";
+        this.opponentsEl.textContent = smorball.game.getOpponentsRemaining() + "";
         this.scoreEl.textContent = smorball.game.getScore() + "";
         // Sort by depth
         this.actors.sortChildren(function (a, b) { return a.y - b.y; });
+        _.each(this.powerupIcons, function (i) { return i.update(delta); });
+    };
+    GameScreen.prototype.selectNextPowerup = function () {
+        // If none is currently selected, find the first visible one and select that
+        if (this.selectedPowerup == null) {
+            var visible = _.find(this.powerupIcons, function (i) { return i.visible; });
+            if (visible != null)
+                this.selectPowerup(visible);
+        }
+        else {
+            var indx = this.powerupIcons.indexOf(this.selectedPowerup);
+            var next = null;
+            for (var i = indx + 1; i < this.powerupIcons.length; i++) {
+                if (this.powerupIcons[i].visible) {
+                    next = this.powerupIcons[i];
+                    break;
+                }
+            }
+            this.selectPowerup(next);
+        }
+    };
+    GameScreen.prototype.selectPowerup = function (powerup) {
+        this.selectedPowerup = powerup;
+        // Play a sound
+        if (powerup != null)
+            smorball.audio.playSound("powerup_selection_changed_sound", 1);
+        // If no powerup was passed then we should deselect all powerups
+        if (powerup == null) {
+            _.each(this.powerupIcons, function (i) { return i.deselect(); });
+        }
+        else {
+            // If that powerup is already selected then simply deselect it
+            if (powerup.isSelected)
+                powerup.deselect();
+            else {
+                _.each(this.powerupIcons, function (i) { return i.deselect(); });
+                powerup.select();
+            }
+        }
+        _.each(smorball.game.athletes, function (a) { return a.selectedPowerupChanged(powerup == null ? null : powerup.type); });
     };
     return GameScreen;
 })(ScreenBase);

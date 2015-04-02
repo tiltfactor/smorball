@@ -35,6 +35,18 @@
 		{ "src": "images/UI/instructions_border.png", "id": "instructions_border" },
 		{ "src": "images/UI/paging_dot_empty.png", "id": "paging_dot_empty" },
 		{ "src": "images/UI/paging_dot_full.png", "id": "paging_dot_full" },
+		{ "src": "images/UI/correct_text.png", "id": "correct_text" },
+		{ "src": "images/UI/incorrect_text.png", "id": "incorrect_text" },
+		{ "src": "images/UI/bullhorn_icon.png", "id": "bullhorn_icon" },
+		{ "src": "images/UI/bullhorn_selected_icon.png", "id": "bullhorn_selected_icon" },
+		{ "src": "images/UI/cleats_icon.png", "id": "cleats_icon" },
+		{ "src": "images/UI/cleats_selected_icon.png", "id": "cleats_selected_icon" },
+		{ "src": "images/UI/helmet_icon.png", "id": "helmet_icon" },
+		{ "src": "images/UI/helmet_selected_icon.png", "id": "helmet_selected_icon" },
+		{ "src": "images/UI/bullhorn_powerup.png", "id": "bullhorn_powerup" },
+		{ "src": "images/UI/cleats_powerup.png", "id": "cleats_powerup" },
+		{ "src": "images/UI/helmet_powerup.png", "id": "helmet_powerup" },
+		{ "src": "images/UI/shadow.png", "id": "shadow" },
 
 
 		{ "src": "images/Splash Screens/BHL Logo.png", "id": "BHL_logo" },
@@ -62,9 +74,10 @@
 		{ "src": "data/enemies data.json", "id": "enemies_data" },
 		{ "src": "data/stadium data.json", "id": "stadium_data" },
 		{ "src": "data/athletes data.json", "id": "athletes_data" },
-		{ "src": "data/captcha data.json", "id": "captcha_data" },
+		{ "src": "data/local ocr page data.json", "id": "local_ocr_page_data" },
 		{ "src": "data/instructions data.json", "id": "instructions_data" },
-		{ "src": "data/shop data.json", "id": "shop_data" },
+		{ "src": "data/upgrade data.json", "id": "upgrade_data" },
+		{ "src": "data/powerups data.json", "id": "powerups_data" },
 
 		{ "src": "images/The Stadium/advertisement_board.png", "id": "stadium_ad_board" },
 		{ "src": "images/The Stadium/commentators.png", "id": "stadium_commentators" },
@@ -128,6 +141,8 @@
         { "src": "images/Characters/friendly/Friendly Hockey Cleets.png", "id": "hockey_cleats_png" },
 		{ "src": "images/Characters/friendly/Friendly Hockey Cleets.json", "id": "hockey_cleats_json" },
 
+		{ "src": "audio/main_theme.mp3", "id": "main_theme_sound" },
+	
 		{ "src": "images/Other/Captchas.json", "id": "captchas_json" },
 		{ "src": "images/Other/Captchas.jpg", "id": "captchas_jpg" }
 

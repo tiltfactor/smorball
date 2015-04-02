@@ -3,7 +3,6 @@
 /// <reference path="../../scripts/managers/resourcesmanager.ts" />
 /// <reference path="../tsd.d.ts" />
 /// <reference path="../../scripts/main.ts" />
-/// <reference path="../../scripts/config.ts" />
 /// <reference path="../../scripts/actors/backgroundstar.ts" />
 /// <reference path="../../scripts/utils/utils.ts" />
 /// <reference path="../../scripts/managers/gamemanager.ts" />
@@ -18,15 +17,97 @@
 /// <reference path="../../scripts/managers/spawningmanager.ts" />
 /// <reference path="../../scripts/actors/athlete.ts" />
 
-interface CapatchaDifference {
-	texts: string[];
-	captcha: Captcha;
+interface OCRPage {
+	_id?: string;
+	url?: string;
+	id?: string;
+	__v?: number;
+	differences: OCRChunk[];
+	isLocal: boolean;
+	spritesheet?: createjs.SpriteSheet;
 }
 
-interface CaptchaEntry {
-	image: string;
-	ocr1: string;
-	ocr2: string;
+interface OCRChunk {
+	_id?: string;
+	id: string;
+	__v?: number;
+	tags?: PageAPIDifferenceTag[];
+	texts: string[];
+	coords?: { x: number; y: number }[];
+	page?: OCRPage;
+	frame: number;
+}
+
+interface PowerupTypes extends _.Dictionary<PowerupType> {
+	cleats: PowerupType;
+	helmet: PowerupType;
+	bullhorn: PowerupType;
+}
+
+interface PowerupType {
+	name: string;
+	speedMultiplier?: number;
+	damageMultiplier?: number;
+}
+
+interface PageAPIDifferenceTag {
+	text: string;
+	weight: number
+}
+
+
+interface Difficulty {
+	name: string;
+	multiplier: number;
+	requiredTime: number;
+}
+
+interface Level {
+	index: number;
+	name: string;
+	lanes: number[];
+	team: Team;
+	waves: LevelWave[];
+}
+
+interface Team {
+	name: string;
+	id: string;
+}
+
+interface LevelWave {
+	actions: WaveAction[];
+}
+
+interface WaveAction {
+	type: string;
+	enemy?: string;
+	commentry?: string;
+	time?: number;
+	sameLane?: boolean;
+	powerup?: string;
+	quantity?: number;
+	noSkip?: boolean;
+	lane?: number;
+}
+
+interface SmorballConfig {
+	enemySpawnPositions: { x: number; y: number }[];
+	friendlySpawnPositions: { x: number; y: number }[];
+	captchaPositions: { x: number; y: number }[];
+	width: number;
+	height: number;
+	penaltyTime: number;
+	enemyTouchdowns: number;
+	passes: number;
+	debug: boolean;
+	goalLine: number;
+	difficulties: Difficulty[];
+	knockback: number;
+	PageAPIUrl: string;
+	PageAPIAccessToken: string;
+	PAgeAPITimeout: number;
+	maxCaptchaSize: number;
 }
 
 interface Upgrade {
@@ -44,21 +125,30 @@ interface EnemyType {
 	speed: number;
 	life: number;
 	changeLane: boolean;
-	sound: { hit: string; die: string };
 	spritesPathTemplate: string;
-	sX?: number;
-	sY?: number;
 	offsetX?: number;
 	offsetY?: number;
+	scale: number;
+	audio: EnemyTypeAudioSettings;
+}
+
+interface EnemyTypeAudioSettings {
+	id: string;
+	hit: EnemyTypeAudioSetting;
+	die: EnemyTypeAudioSetting;
+}
+
+interface EnemyTypeAudioSetting {
+	variations: number;
 }
 
 interface EnemyTypes extends _.Dictionary<EnemyType> {
-	coach: EnemyType;
-	fast: EnemyType;
-	tallstops: EnemyType;
-	weak: EnemyType;
-	winger: EnemyType;
-	wideCenters: EnemyType;
+	//boss: EnemyType;
+	//fast: EnemyType;
+	//regular: EnemyType;
+	//weak: EnemyType;
+	//lanechange: EnemyType;
+	//heavy: EnemyType;
 }
 
 
@@ -68,6 +158,7 @@ interface AthleteType {
 	offsetX?: number;
 	offsetY?: number;
 	speed: number;
+	scale: number;
 }
 
 interface AthleteTypes extends _.Dictionary<AthleteType> {
@@ -83,8 +174,8 @@ interface Instruction {
 
 declare class closestWord {
     match: any;
-    closestOcr: CapatchaDifference;
-    constructor(intput: any, differences: CapatchaDifference[]);
+    closestOcr: OCRChunk;
+    constructor(intput: any, differences: OCRChunk[]);
 }
 
 interface JQuery {
@@ -92,4 +183,5 @@ interface JQuery {
     leanSlider(options: any);
 	mCustomScrollbar(options?: any);
 	slider(options?: any): JQuery;
+	slider(property:string, value:any): JQuery;
 }

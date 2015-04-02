@@ -18,7 +18,7 @@
 	width: 100%;
 	position: absolute;
 	pointer-events: auto;
-	bottom: 10px;
+	bottom: 0;
 }
 
 #gameScreen .entry input {

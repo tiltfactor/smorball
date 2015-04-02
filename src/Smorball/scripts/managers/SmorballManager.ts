@@ -16,13 +16,16 @@ class SmorballManager {
 	captchas: CaptchasManager;
 	user: UserManager;
 	upgrades: UpgradesManager;
+	powerups: PowerupsManager;
+
+	constructor(config: SmorballConfig) {
+		this.config = config;
+		this.config.debug = location.hostname == "localhost";
+	}
 
 	init() {
 		console.log("starting up Smorball");
 
-		// Load the config first
-		this.config = new SmorballConfig();
-		
 		// Create the main stage
 		this.stage = new createjs.Stage("mainCanvas");
 		this.stage.stage.canvas.width = this.config.width;
@@ -35,16 +38,16 @@ class SmorballManager {
 		}
 		
 		// Setup the ticker which handles the main game update loop
-		createjs.Ticker.timingMode = createjs.Ticker.RAF_SYNCHED;
+		//createjs.Ticker.timingMode = createjs.Ticker.RAF_SYNCHED;
         createjs.Ticker.setFPS(60);
         createjs.Ticker.addEventListener("tick",(e: createjs.TickerEvent) => this.update(e));
 
 		// Create Managers
 		this.resources = new ResourcesManager();
+		this.audio = new AudioManager();
 		this.splashScreens = new SplashScreensManager();
 		this.loadingScreen = new LoadingScreen();
 		this.screens = new ScreensManager();
-		this.audio = new AudioManager();
 		this.difficulty = new DifficultyManager();
 		this.persistance = new PersistanceManager();
 		this.game = new GameManager();
@@ -52,6 +55,7 @@ class SmorballManager {
 		this.captchas = new CaptchasManager();
 		this.user = new UserManager();
 		this.upgrades = new UpgradesManager();
+		this.powerups = new PowerupsManager();
 
 		// Start off things invisible
 		this.loadingScreen.visible = false;
@@ -64,7 +68,7 @@ class SmorballManager {
 		this.stage.addChild(this.loadingScreen);
 		this.stage.addChild(this.screens);
 		this.stage.addChild(this.game);
-					
+
 		// Handle resizing so we can centre the canvas
 		window.onresize = () => this.onResize();
 		this.onResize();
@@ -78,18 +82,20 @@ class SmorballManager {
 		this.resources.loadInitialResources(() => {
 			console.log("initial resources loaded, showing loading screen and loading main game resources");
 
-			// Now the initial resources have been loaded we can init the loading screen's bits and show it
-			this.loadingScreen.init();
+			// Now the initial resources have been loaded we can init the loading screen's bits and show it			
+			this.audio.init();
+			this.loadingScreen.init();			
 			this.loadingScreen.visible = true;
 
 			this.resources.loadMainGameResources(() => {
 				console.log("main game resources loaded, showing splash screens.");
 
-				// Now the main resources have been loaded we can init a few things
+				// Now the main resources have been loaded we can init a few things		
 				this.upgrades.init();
 				this.game.init();
 				this.screens.init();
 				this.captchas.init();
+				this.powerups.init();
 
 				// Dont need the loading screen any more
 				this.loadingScreen.visible = false;
@@ -125,6 +131,9 @@ class SmorballManager {
 	
 	update(e: createjs.TickerEvent) {
 
+		// Always update the audio
+		this.audio.update(delta);
+
 		// Dont update if paused!
 		if (createjs.Ticker.getPaused()) return;
 
@@ -137,6 +146,7 @@ class SmorballManager {
 		this.game.update(delta);
 		this.spawning.update(delta);
 		this.captchas.update(delta);
+		this.powerups.update(delta);	
 
 		// Finally render
 		this.stage.update(e);

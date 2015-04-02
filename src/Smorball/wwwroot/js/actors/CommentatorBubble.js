@@ -34,10 +34,16 @@ var CommentatorBubble = (function (_super) {
         // Animate in
         createjs.Tween.removeTweens(this.background);
         this.background.scaleX = this.background.scaleY = 0;
-        createjs.Tween.get(this.background).to({ scaleX: 1, scaleY: 1 }, 4000, createjs.Ease.elasticOut);
+        var t = createjs.Tween.get(this.background).to({ scaleX: 1, scaleY: 1 }, 3000, createjs.Ease.elasticOut);
+        // If this isnt the tutorial level then animate out after a cetain time
+        if (smorball.game.levelIndex != 0)
+            t.wait(2000 + commentry.length * 40).to({ scaleX: 0, scaleY: 0 }, 500, createjs.Ease.backIn);
         createjs.Tween.removeTweens(this.text);
         this.text.alpha = 0;
-        createjs.Tween.get(this.text).wait(1500).to({ alpha: 1 }, 1000, createjs.Ease.sineOut);
+        t = createjs.Tween.get(this.text).wait(1500).to({ alpha: 1 }, 500, createjs.Ease.sineOut);
+        // If this isnt the tutorial level then animate out after a cetain time
+        if (smorball.game.levelIndex != 0)
+            t.wait(2500 + commentry.length * 40).to({ alpha: 0 }, 500);
     };
     return CommentatorBubble;
 })(createjs.Container);

@@ -55,11 +55,23 @@ module.exports = function (grunt) {
                 	'wwwroot/index.html': ['wwwroot/lib/jquery/**/*.css', 'wwwroot/lib/**/*.css', 'wwwroot/css/**/*.css'],
                 }
             }
+        },
+        'http-server': { 
+        	'dev': {
+        		root: "wwwroot",
+        		port: 8989,
+        		host: "0.0.0.0",
+        		cache: 1,
+        		showDir : true,
+        		autoIndex: true,
+        		ext: "html",
+        		runInBackground: false
+        	} 
         }
     });
 
     // This command registers the default task which will install bower packages into wwwroot/lib
-    grunt.registerTask("default", ["bower:install", "typescript:build", "injector"]);
+    grunt.registerTask("default", ["bower:install", "typescript:build", "build-manifest", "injector"]);
     grunt.registerTask("watch", ["typescript:watch"]);
 
 	// Build the main game manifest
@@ -69,7 +81,7 @@ module.exports = function (grunt) {
     // This line needs to be at the end of this this file.
     grunt.loadNpmTasks("grunt-bower-task");
     grunt.loadNpmTasks('grunt-typescript');
-    //grunt.loadNpmTasks('grunt-http-server');
+    grunt.loadNpmTasks('grunt-http-server');
     grunt.loadNpmTasks('grunt-asset-injector');
 
 };

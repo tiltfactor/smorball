@@ -3,6 +3,8 @@
 var smorball: SmorballManager;
 
 $(() => {
-	smorball = new SmorballManager();
-	smorball.init();
+	$.getJSON("data/smorball config.json",(config: SmorballConfig) => {
+		smorball = new SmorballManager(config);
+		smorball.init();
+	});
 });

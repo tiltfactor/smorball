@@ -21,6 +21,9 @@ var UserManager = (function () {
         var score = smorball.game.getScore();
         var diff = score - l.score;
         l.score = Math.max(score - l.score);
+        // If this is the first level then we earn nothing!
+        if (level == 0)
+            diff = 0;
         smorball.user.cash += diff;
         if (this.levels[level + 1] == undefined)
             this.levels.push({ isUnlocked: true, score: 0 });

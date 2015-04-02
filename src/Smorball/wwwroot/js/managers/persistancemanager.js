@@ -5,10 +5,10 @@ var PersistanceManager = (function () {
         var obj = {
             musicVolume: smorball.audio.musicVolume,
             soundVolume: smorball.audio.soundVolume,
-            difficulty: smorball.difficulty.difficulty,
+            difficulty: smorball.difficulty.current.name,
             levels: smorball.user.levels,
             cash: smorball.user.cash,
-            upgrades: smorball.upgrades.upgradesOwned
+            upgrades: smorball.upgrades.upgradesOwned,
         };
         localStorage.setItem("smorball", JSON.stringify(obj));
     };
@@ -25,7 +25,7 @@ var PersistanceManager = (function () {
         if (obj.soundVolume != undefined)
             smorball.audio.soundVolume = obj.soundVolume;
         if (obj.difficulty != undefined)
-            smorball.difficulty.difficulty = obj.difficulty;
+            smorball.difficulty.current = smorball.difficulty.getDifficulty(obj.difficulty);
         if (obj.levels != undefined)
             smorball.user.levels = obj.levels;
         if (obj.cash != undefined)

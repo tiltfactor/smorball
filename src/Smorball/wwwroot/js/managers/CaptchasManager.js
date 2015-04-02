@@ -1,5 +1,7 @@
 var CaptchasManager = (function () {
     function CaptchasManager() {
+        this.localChunks = [];
+        this.remoteChunks = [];
     }
     CaptchasManager.prototype.init = function () {
         var _this = this;
@@ -14,14 +16,26 @@ var CaptchasManager = (function () {
     CaptchasManager.prototype.startNewLevel = function (level) {
         this.captchasSucceeded = 0;
         this.updatePassButton();
-        // Reset the local entries cache
-        var data = smorball.resources.getResource("captcha_data");
-        this.entries = data.entries.slice().reverse();
+        // First refresh our local chunks list
+        this.localChunks = this.getLocalChunks();
         // If this isnt the first level then shuffle up the entries a little
-        if (level.index != 0)
-            this.entries = _.shuffle(this.entries);
+        //if (level.index != 0)
+        //this.entries = <CaptchaEntry[]>_.shuffle(this.entries);
         // Make the new ones
         this.constructCaptchas(level);
+    };
+    CaptchasManager.prototype.getLocalChunks = function () {
+        // Grab the local page and make a copy
+        var inData = smorball.resources.getResource("local_ocr_page_data");
+        // Construct the spritesheet if we havent already
+        if (inData.spritesheet == null) {
+            var ssData = smorball.resources.getResource("captchas_json");
+            ssData.images = [smorball.resources.getResource("captchas_jpg")];
+            inData.spritesheet = new createjs.SpriteSheet(ssData);
+            // Set the parent in each chunk (for easy reference later);
+            _.each(inData.differences, function (d) { return d.page = inData; });
+        }
+        return inData.differences.slice().reverse();
     };
     CaptchasManager.prototype.constructCaptchas = function (level) {
         var _this = this;
@@ -41,7 +55,24 @@ var CaptchasManager = (function () {
     };
     CaptchasManager.prototype.refreshCaptcha = function (lane) {
         var captcha = _.find(this.captchas, function (c) { return c.lane == lane; });
-        captcha.setEntry(this.entries.pop());
+        for (var i = 0; i < 100; i++) {
+            captcha.setChunk(this.getNextChunk());
+            console.log("Captcha width", captcha.getBounds().width, "Max width", smorball.config.maxCaptchaSize);
+            if (captcha.getBounds().width < smorball.config.maxCaptchaSize)
+                break;
+        }
+    };
+    CaptchasManager.prototype.getNextChunk = function () {
+        // If its a tutorial level then we need to use a speacially prepared list
+        if (smorball.game.levelIndex == 0)
+            return this.localChunks.pop();
+        else {
+            // If there arent any chunks remaining then just chunk our local store in there 
+            if (this.remoteChunks.length == 0)
+                return Utils.randomOne(this.localChunks);
+            // Else lets return back one
+            return Utils.randomOne(this.remoteChunks);
+        }
     };
     CaptchasManager.prototype.update = function (delta) {
         if (this.isLocked) {
@@ -55,7 +86,7 @@ var CaptchasManager = (function () {
         // Decrement the number of passes remaining
         smorball.game.passesRemaining--;
         // Set new entries for the visible captcahs
-        _.chain(this.captchas).filter(function (c) { return c.entry != null; }).each(function (c) { return c.setEntry(_this.entries.pop()); });
+        _.chain(this.captchas).filter(function (c) { return c.chunk != null; }).each(function (c) { return c.setChunk(_this.getNextChunk()); });
         this.updatePassButton();
     };
     CaptchasManager.prototype.updatePassButton = function () {
@@ -67,7 +98,9 @@ var CaptchasManager = (function () {
         }
     };
     CaptchasManager.prototype.testTextEntry = function () {
-        var _this = this;
+        // Cant test if the game is not running
+        if (smorball.game.state != 2 /* Playing */)
+            return;
         // Grab the text and reset it ready for the next one
         var text = $("#gameScreen .entry input").val();
         $("#gameScreen .entry input").val("");
@@ -75,72 +108,72 @@ var CaptchasManager = (function () {
         if (this.checkForCheats(text))
             return;
         // Get the visible captchas on screen 
-        var visibleCapatchas = _.filter(this.captchas, function (c) { return c.entry != null; });
+        var visibleCapatchas = _.filter(this.captchas, function (c) { return c.chunk != null; });
         // If there are no visible then lets just jump out until they are
         if (visibleCapatchas.length == 0)
             return;
         // Log
-        console.log("Comparing text", text, _.map(this.captchas, function (c) { return c.entry; }));
+        console.log("Comparing text", text, _.map(this.captchas, function (c) { return c.chunk; }));
         // Convert them into a form that the closestWord algo needs
-        var differences = _.map(visibleCapatchas, function (c) {
-            return {
-                captcha: c,
-                texts: [c.entry.ocr1, c.entry.ocr2]
-            };
-        });
+        var differences = _.map(visibleCapatchas, function (c) { return c.chunk; });
         // Slam it through the library
         var output = new closestWord(text, differences);
         console.log("Comparing inputted text against captchas", text, output);
+        // Handle success
         if (output.match) {
-            // Hide the current captcha
-            output.closestOcr.captcha.clear();
-            // Start the athlete running
-            var lane = output.closestOcr.captcha.lane;
-            _.find(smorball.game.athletes, function (a) { return a.lane == lane && a.state == 1 /* ReadyToRun */; }).run();
-            // Spawn another in the same lane
-            smorball.spawning.spawnAthlete(lane);
+            // Which was the selected one?
+            var captcha = _.find(visibleCapatchas, function (c) { return c.chunk == output.closestOcr; });
+            this.onCaptchaEnteredSuccessfully(captcha);
+        }
+        else
+            this.onCaptchaEnterError();
+    };
+    CaptchasManager.prototype.onCaptchaEnteredSuccessfully = function (captcha) {
+        var _this = this;
+        // Hide the current captcha
+        captcha.clear();
+        // Show the indicator
+        smorball.screens.game.indicator.showCorrect();
+        // If we have the bullhorn powerup selected then send all athletes running
+        var powerup = smorball.screens.game.selectedPowerup;
+        if (powerup != null) {
+            // Play a sound
+            smorball.audio.playSound("word_typed_correctly_sound");
+            // If its a bullhorn then send every athlete in the 
+            if (powerup.type == "bullhorn") {
+                _.chain(smorball.game.athletes).filter(function (a) { return a.state == 1 /* ReadyToRun */; }).each(function (a) { return _this.sendAthleteInLane(a.lane); });
+            }
+            else
+                this.sendAthleteInLane(captcha.lane);
+            // Decrement the powerup
+            smorball.powerups.quantities[powerup.type]--;
+            if (smorball.powerups.quantities[powerup.type] == 0)
+                smorball.screens.game.selectPowerup(null);
         }
         else {
-            this.lock();
-            // So long as we arent running the first level then lets refresh all the captchas
-            if (smorball.game.levelIndex != 0) {
-                _.each(visibleCapatchas, function (c) { return c.setEntry(_this.entries.pop()); });
-            }
+            // Play a sound
+            smorball.audio.playSound("word_typed_correctly_with_powerup_sound");
+            this.sendAthleteInLane(captcha.lane);
         }
-        //this.captchaProcessor.compare();
-        //EventBus.dispatch("playSound", "textEntry1");
-        //var output = this.captchaProcessor.compare();
-        //if (output.cheated) {
-        //	EventBus.dispatch("showCommentary", output.message);
-        //	this.showResultScreen(2);
-        //} else {
-        //	this.showMessage(output.message);
-        //	this.removeActivePowerup();
-        //	if (output.pass) {
-        //		if (this.activePowerup != null) {
-        //			EventBus.dispatch("playSound", "correctPowerup");
-        //			smorball.myBag.selectedId = -1;
-        //		}
-        //		else {
-        //			EventBus.dispatch("playSound", "correctSound");
-        //		}
-        //		if (this.activePowerup != null && this.activePowerup.getId() == "bullhorn") {
-        //			this.startPlayersFromAllLanes();
-        //		} else {
-        //			var lane = this.getLaneById(output.laneId);
-        //			this.activatePlayer(lane.player);
-        //			if (output.extraDamage && lane.player != undefined && lane.player.getLife() == 1) {
-        //				lane.player.setLife(smorball.gameState.gs.extraDamage);
-        //			}
-        //			lane.player = undefined;
-        //		}
-        //	} else {
-        //		EventBus.dispatch("playSound", "incorrectSound");
-        //		this.updatePlayerOnDefault();
-        //		this.playConfusedAnimation();
-        //		this.activePowerup = undefined;
-        //	}
-        //}
+    };
+    CaptchasManager.prototype.onCaptchaEnterError = function () {
+        var _this = this;
+        this.lock();
+        // Play a sound
+        smorball.audio.playSound("word_typed_incorrectly_sound");
+        // Show the indicator
+        smorball.screens.game.indicator.showIncorrect();
+        var visibleCapatchas = _.filter(this.captchas, function (c) { return c.chunk != null; });
+        // So long as we arent running the first level then lets refresh all the captchas
+        if (smorball.game.levelIndex != 0) {
+            _.each(visibleCapatchas, function (c) { return _this.refreshCaptcha(c.lane); });
+        }
+    };
+    CaptchasManager.prototype.sendAthleteInLane = function (lane) {
+        // Start the athlete running
+        _.find(smorball.game.athletes, function (a) { return a.lane == lane && a.state == 1 /* ReadyToRun */; }).run();
+        // Spawn another in the same lane
+        smorball.spawning.spawnAthlete(lane);
     };
     CaptchasManager.prototype.checkForCheats = function (text) {
         if (text.toLowerCase() == "win level") {
@@ -158,9 +191,26 @@ var CaptchasManager = (function () {
         else if (text.toLowerCase() == "win all levels") {
             smorball.game.enemiesKilled = Math.round(Math.random() * smorball.spawning.enemySpawnsThisLevel);
             smorball.game.enemyTouchdowns = smorball.config.enemyTouchdowns;
+            smorball.user.cash += 99999;
             for (var i = 0; i < smorball.game.levels.length; i++)
                 smorball.user.levelWon(i);
             smorball.game.gameOver(true);
+            return true;
+        }
+        else if (text.toLowerCase() == "increase cleats") {
+            smorball.powerups.quantities.cleats++;
+            return true;
+        }
+        else if (text.toLowerCase() == "increase helmets") {
+            smorball.powerups.quantities.helmet++;
+            return true;
+        }
+        else if (text.toLowerCase() == "increase bullhorns") {
+            smorball.powerups.quantities.bullhorn++;
+            return true;
+        }
+        else if (text.toLowerCase() == "spawn powerup") {
+            smorball.powerups.spawnPowerup(Utils.randomOne(_.keys(smorball.powerups.types)), Utils.randomOne(smorball.game.level.lanes));
             return true;
         }
         return false;
@@ -217,6 +267,24 @@ var CaptchasManager = (function () {
         //		smorball.gameState.inputTextArr = [];
         //		console.log(data);
         //	}
+    };
+    CaptchasManager.prototype.loadPageFromServer = function () {
+        var _this = this;
+        $.ajax({
+            url: smorball.config.PageAPIUrl,
+            success: function (data) { return _this.parsePageAPIData(data); },
+            type: 'GET',
+            headers: { "x-access-token": smorball.config.PageAPIAccessToken },
+            crossDomain: true,
+            timeout: smorball.config.PAgeAPITimeout
+        });
+    };
+    CaptchasManager.prototype.parsePageAPIData = function (data) {
+        console.log("OCRPage loaded", data);
+        // First lets grab that page image
+        smorball.resources.load(data.url, "ocr_page_" + data.id, function (img) {
+            console.log("OCRPage image loaded", img);
+        });
     };
     return CaptchasManager;
 })();

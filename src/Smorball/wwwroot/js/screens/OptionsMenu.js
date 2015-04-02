@@ -22,15 +22,26 @@ var OptionsMenu = (function (_super) {
         $('#musicSlider').slider({ value: smorball.audio.musicVolume * 100 }).on("slide", function (e) { return smorball.audio.setMusicVolume(e.value / 100); });
         // Setup the sound slider and listen for changes
         $('#soundSlider').slider({ value: smorball.audio.soundVolume * 100 }).on("slide", function (e) { return smorball.audio.setSoundVolume(e.value / 100); });
+        // Set the persisted difficulty
+        $("#difficultyDropdown button").text(smorball.difficulty.current.name.toUpperCase());
+        // Populate the difficulties
+        var dropdown = $("#difficultyDropdown .dropdown-menu").empty();
+        _.each(smorball.config.difficulties, function (d) {
+            dropdown.append('<li role="presentation"><a role="menuitem" tabindex="- 1">' + d.name + '</a></li>');
+        });
         // Listen for clicks on the difficulty dropdown
         $("#difficultyDropdown a").click(function (e) { return _this.onDifficultyOptionClicked(e.currentTarget); });
-        // Set the persisted difficulty
-        $("#difficultyDropdown button").text(Difficulty[smorball.difficulty.difficulty].toUpperCase());
+    };
+    OptionsMenu.prototype.show = function () {
+        _super.prototype.show.call(this);
+        $('#musicSlider').slider("setValue", smorball.audio.musicVolume * 100);
+        $('#soundSlider').slider("setValue", smorball.audio.soundVolume * 100);
+        $("#difficultyDropdown button").text(smorball.difficulty.current.name.toUpperCase());
     };
     OptionsMenu.prototype.onDifficultyOptionClicked = function (element) {
-        var difficulty = parseInt(element.dataset["difficulty"]);
+        var difficulty = smorball.difficulty.getDifficulty(element.textContent);
         smorball.difficulty.setDifficulty(difficulty);
-        $("#difficultyDropdown button").text(Difficulty[difficulty].toUpperCase());
+        $("#difficultyDropdown button").text(difficulty.name.toUpperCase());
     };
     OptionsMenu.prototype.update = function (delta) {
         this.background.update(delta);

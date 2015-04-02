@@ -180,6 +180,7 @@ declare module createjs {
         static registerSound(src: string, id?: string, data?: Object, basePath?: string): Object;
         static registerSound(src: Object, id?: string, data?: number, basePath?: string): Object;
         static registerSound(src: Object, id?: string, data?: Object, basePath?: string): Object;
+		static registerSounds(sounds: any);
         static removeAllSounds(): void;
         static removeManifest(manifest: any[], basePath: string): Object;
         static removeSound(src: string, basePath: string): boolean;

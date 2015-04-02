@@ -214,7 +214,7 @@
 					{
 						"enemy": "weak",
 						"type": "spawn",
-						"sameRow": true
+						"sameLane": true
 					},
 					{
 						"time": 15,
@@ -239,7 +239,7 @@
 					{
 						"enemy": "weak",
 						"type": "spawn",
-						"sameRow": true
+						"sameLane": true
 					}
 				]
 			},
@@ -256,7 +256,7 @@
 					{
 						"enemy": "weak",
 						"type": "spawn",
-						"sameRow": true
+						"sameLane": true
 					},
 					{
 						"time": 10,
@@ -273,14 +273,14 @@
 					{
 						"enemy": "weak",
 						"type": "spawn",
-						"sameRow": true
+						"sameLane": true
 					}
 				]
 			},
 			{
 				"actions": [
 					{
-						"enemy": "tallstop",
+						"enemy": "regular",
 						"type": "spawn"
 					}
 				]
@@ -288,7 +288,7 @@
 			{
 				"actions": [
 					{
-						"enemy": "tallstop",
+						"enemy": "regular",
 						"type": "spawn"
 					}
 				]
@@ -296,7 +296,7 @@
 			{
 				"actions": [
 					{
-						"enemy": "tallstop",
+						"enemy": "regular",
 						"type": "spawn"
 					},
 					{
@@ -306,7 +306,7 @@
 					{
 						"enemy": "weak",
 						"type": "spawn",
-						"sameRow": true
+						"sameLane": true
 					}
 				]
 			}
@@ -328,8 +328,172 @@
 			{
 				"actions": [
 					{
+						"enemy": "regular",
+						"type": "spawn"
+					},
+					{
+						"time": 3,
+						"type": "delay"
+					},
+					{
+						"enemy": "fast",
+						"type": "spawn"
+					}
+				]
+			},
+			{
+				"actions": [
+					{
+						"enemy": "regular",
+						"type": "spawn"
+					},
+					{
+						"time": 4,
+						"type": "delay"
+					},
+					{
 						"enemy": "weak",
 						"type": "spawn"
+					}
+				]
+			},
+			{
+				"actions": [
+					{
+						"enemy": "weak",
+						"type": "spawn"
+					},
+					{
+						"time": 5,
+						"type": "delay"
+					},
+					{
+						"enemy": "regular",
+						"type": "spawn"
+					},
+					{
+						"time": 5,
+						"type": "delay"
+					},
+					{
+						"enemy": "regular",
+						"type": "spawn"
+					}
+				]
+			},
+			{
+				"actions": [
+					{
+						"enemy": "regular",
+						"type": "spawn"
+					},
+					{
+						"time": 15,
+						"type": "delay"
+					},
+					{
+						"enemy": "regular",
+						"type": "spawn"
+					},
+					{
+						"time": 15,
+						"type": "delay"
+					},
+					{
+						"enemy": "weak",
+						"type": "spawn"
+					}
+				]
+			},
+			{
+				"actions": [
+					{
+						"enemy": "fast",
+						"type": "spawn"
+					},
+					{
+						"time": 3,
+						"type": "delay"
+					},
+					{
+						"enemy": "weak",
+						"type": "spawn"
+					},
+					{
+						"time": 3,
+						"type": "delay"
+					},
+					{
+						"enemy": "regular",
+						"type": "spawn"
+					},
+					{
+						"time": 8,
+						"type": "delay"
+					},
+					{
+						"enemy": "regular",
+						"type": "spawn"
+					},
+					{
+						"time": 8,
+						"type": "delay"
+					},
+					{
+						"enemy": "regular",
+						"type": "spawn"
+					}
+				]
+			},
+			{
+				"actions": [
+					{
+						"enemy": "fast",
+						"type": "spawn"
+					},
+					{
+						"time": 4,
+						"type": "delay"
+					},
+					{
+						"enemy": "regular",
+						"type": "spawn"
+					},
+					{
+						"time": 10,
+						"type": "delay"
+					},
+					{
+						"enemy": "fast",
+						"type": "spawn"
+					},
+					{
+						"time": 4,
+						"type": "delay"
+					},
+					{
+						"enemy": "regular",
+						"type": "spawn"
+					},
+					{
+						"time": 4,
+						"type": "delay"
+					},
+					{
+						"enemy": "fast",
+						"type": "spawn"
+					}
+				]
+			},
+			{
+				"actions": [
+					{
+						"enemy": "boss",
+						"type": "spawn"
+					},
+					{
+						"commentry": "Watch out for the boss! He’s very strong!",
+						"type": "commentate"
 					}
 				]
 			}
@@ -351,9 +515,136 @@
 			{
 				"actions": [
 					{
-						"enemy": "weak",
+						"commentry": "Powerups make your next word super powerful!",
+						"type": "commentate"
+					},
+					{
+						"time": 3,
+						"type": "delay",
+						"noSkip": true
+					},
+					{
+						"powerup": "cleats",
+						"type": "spawn"
+					},
+					{
+						"commentry": "Type the word to pick up the powerup. Use tab to select your powerup. This one deals extra damage! Try it now!",
+						"type": "commentate"
+					},
+					{
+						"time": 3,
+						"type": "delay",
+						"noSkip": true
+					},
+					{
+						"enemy": "boss",
+						"type": "spawn"
+					},
+					{
+						"time": 20,
+						"type": "delay"
+					},
+					{
+						"powerup": "cleats",
+						"quantity": 2,
 						"type": "spawn"
 					}
+				]
+			},
+			{
+				"actions": [
+					{
+						"enemy": "boss",
+						"type": "spawn",
+						"lane": 0
+					},
+					{
+						"time": 5,
+						"type": "delay"
+					},
+					{
+						"powerup": "cleats",
+						"type": "spawn"
+					},
+					{
+						"time": 5,
+						"type": "delay"
+					},
+					{
+						"enemy": "boss",
+						"type": "spawn",
+						"lane": 1
+					}
+				]
+			},
+			{
+				"actions": [
+					{
+						"powerup": "cleats",
+						"type": "spawn",
+						"quantity": 3
+					}
+				]
+			},
+			{
+				"actions": [
+					{
+						"type": "spawn",
+						"enemy": "regular"
+
+					},
+					{
+						"type": "delay",
+						"time": 4
+					},
+					{
+						"type": "spawn",
+						"enemy": "regular"
+
+					},
+					{
+						"type": "delay",
+						"time": 4
+					},
+					{
+						"type": "spawn",
+						"enemy": "regular"
+
+					},
+					{
+						"type": "delay",
+						"time": 4
+					},
+					{
+						"type": "spawn",
+						"powerup": "cleats"
+					},
+					{
+						"type": "delay",
+						"time": 4
+					},
+					{
+						"type": "spawn",
+						"enemy": "boss"
+					}
+				]
+			},
+			{
+				"actions": [
+					{
+						"type": "spawn",
+						"enemy": "boss"
+
+					},
+					{
+						"type": "spawn",
+						"powerup": "cleats"
+					},
+					{
+						"type": "spawn",
+						"enemy": "regular"
+
+					}							
 				]
 			}
 		]

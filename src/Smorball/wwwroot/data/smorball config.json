@@ -1,0 +1,50 @@
+﻿{
+	"enemySpawnPositions": [
+		{ "x": 1650, "y": 710 },
+		{ "x": 1650, "y": 880 },
+		{ "x": 1650, "y": 1060 }
+	],
+
+	"friendlySpawnPositions": [
+		{ "x": 100, "y": 710 },
+		{ "x": 100, "y": 880 },
+		{ "x": 100, "y": 1060 }
+	],
+
+	"captchaPositions": [
+		{ "x": 250, "y": 660 },
+		{ "x": 250, "y": 830 },
+		{ "x": 250, "y": 1010 }
+	],
+
+	"difficulties": [
+		{
+			"name": "easy",
+			"requiredTime": 260,
+			"multiplier": 1
+		},
+		{
+			"name": "medium",
+			"requiredTime": 180,
+			"multiplier": 2
+		},
+		{
+			"name": "hard",
+			"requiredTime": 120,
+			"multiplier":  3
+		}
+	],
+
+	"width": 1600,
+	"height":  1200,
+	"goalLine":  345,
+	"penaltyTime": 3,
+	"enemyTouchdowns":  6,
+	"passes": 2,
+	"maxCaptchaSize":  180,
+	"knockback": 100,
+	"PageAPIUrl":  "http://tiltfactor1.dartmouth.edu:8080/api/page",
+	"PageAPITimeout":  3000,
+	"PageAPIAccessToken":  "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJHYW1lIiwiaWF0IjoxNDE1MzQxNjMxMjY4LCJpc3MiOiJCSExTZXJ2ZXIifQ.bwRps5G6lAd8tGZKK7nExzhxFrZmAwud0C2RW26sdRM"
+
+}

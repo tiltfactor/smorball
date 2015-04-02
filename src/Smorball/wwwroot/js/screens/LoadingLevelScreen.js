@@ -24,6 +24,7 @@ var LoadingLevelScreen = (function (_super) {
         this.addChild(this.bar);
         // Add some listeners
         $("#loadingLevelScreen .play-btn").click(function () { return _this.onPlayClicked(); });
+        $("#loadingLevelScreen .back").click(function () { return smorball.screens.open(smorball.screens.map); });
     };
     LoadingLevelScreen.prototype.show = function () {
         _super.prototype.show.call(this);

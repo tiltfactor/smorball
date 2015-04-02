@@ -37,6 +37,8 @@ var ShopScreen = (function (_super) {
             smorball.upgrades.sell(indx);
         else
             smorball.upgrades.purchase(indx);
+        // Play sound
+        smorball.audio.playSound("purchase_item_sound");
         // Refresh the view
         this.updateItems();
         this.cashEl.textContent = smorball.user.cash + "";

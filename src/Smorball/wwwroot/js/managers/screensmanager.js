@@ -31,10 +31,17 @@ var ScreensManager = (function (_super) {
         _.each(this.menus, function (m) { return m.init(); });
         // Make sure we start off hidden
         _.each(this.menus, function (m) { return m.hide(); });
+        // Add a generic hover over button sound
+        $("button").hover(function () { return smorball.audio.playSound("mouse_over_button_sound"); });
+        $("button").click(function () { return smorball.audio.playSound("click_sound"); });
     };
     ScreensManager.prototype.open = function (menu) {
         if (this.current)
             this.current.hide();
+        if (menu == this.game)
+            smorball.audio.stopMusic();
+        else
+            smorball.audio.playMusic();
         menu.show();
         this.current = menu;
     };

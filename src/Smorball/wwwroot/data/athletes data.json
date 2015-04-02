@@ -3,6 +3,7 @@
 		"id": "baseball",
 		"offsetX": 263,
 		"offsetY": 366,
+		"scale":  1,
 		"speed": 180,
 		"sound": {}
 	},
@@ -10,6 +11,7 @@
 		"id": "football",
 		"offsetX": 263,
 		"offsetY": 366,
+		"scale":  1,
 		"speed": 180,
 		"sound": {}
 	},
@@ -17,6 +19,7 @@
 		"id": "hockey",
 		"offsetX": 263,
 		"offsetY": 366,
+		"scale":  1.2,
 		"speed": 180,
 		"sound": {}
 	}

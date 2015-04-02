@@ -14,7 +14,7 @@ class ResourcesManager
 	queue: createjs.LoadQueue;
 
 	constructor() {
-		this.queue = new createjs.LoadQueue();
+		this.queue = new createjs.LoadQueue();		
 	}
 
 	loadInitialResources(completeCallback: () => void) {
@@ -47,13 +47,20 @@ class ResourcesManager
 	}
 
 	loadManifest(manifest: string, completeCallback: () => void) {
-		if (smorball.config.debug) manifest += "?r=" + Math.random();
 		this.queue.on("complete", completeCallback, this, true);
 		this.queue.loadManifest(manifest, true);
 	}
 
 	getResource(resourceId: string) : any {
 		return this.queue.getResult(resourceId);
+	}
+
+	load(url: string, id: string, callback?: (resource: any) => void) {
+		this.queue.loadFile({ src: url, id: id }, true);
+		this.queue.on("complete",() => {
+			if (callback != null)
+				callback(this.getResource(id));
+		}, this, true);
 	}
 
 }

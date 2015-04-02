@@ -26,17 +26,30 @@ class OptionsMenu extends ScreenBase {
 		$('#soundSlider').slider({ value: smorball.audio.soundVolume * 100 })
 			.on("slide",(e: any) => smorball.audio.setSoundVolume(e.value / 100));
 
+		// Set the persisted difficulty
+		$("#difficultyDropdown button").text(smorball.difficulty.current.name.toUpperCase());
+
+		// Populate the difficulties
+		var dropdown = $("#difficultyDropdown .dropdown-menu").empty();
+		_.each(smorball.config.difficulties, d => {
+			dropdown.append('<li role="presentation"><a role="menuitem" tabindex="- 1">' + d.name + '</a></li>');
+		});
+
 		// Listen for clicks on the difficulty dropdown
 		$("#difficultyDropdown a").click((e: any) => this.onDifficultyOptionClicked(e.currentTarget));
+	}
 
-		// Set the persisted difficulty
-		$("#difficultyDropdown button").text(Difficulty[smorball.difficulty.difficulty].toUpperCase());
+	show() {
+		super.show();
+		$('#musicSlider').slider("setValue", smorball.audio.musicVolume * 100);
+		$('#soundSlider').slider("setValue", smorball.audio.soundVolume * 100);
+		$("#difficultyDropdown button").text(smorball.difficulty.current.name.toUpperCase());
 	}
 
 	onDifficultyOptionClicked(element: HTMLElement) {
-		var difficulty = parseInt(element.dataset["difficulty"]);
+		var difficulty = smorball.difficulty.getDifficulty(element.textContent);
 		smorball.difficulty.setDifficulty(difficulty);
-		$("#difficultyDropdown button").text(Difficulty[difficulty].toUpperCase());
+		$("#difficultyDropdown button").text(difficulty.name.toUpperCase());
 	}
 
 	update(delta: number) {

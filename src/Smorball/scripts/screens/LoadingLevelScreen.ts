@@ -28,6 +28,7 @@ class LoadingLevelScreen extends ScreenBase
 
 		// Add some listeners
 		$("#loadingLevelScreen .play-btn").click(() => this.onPlayClicked());
+		$("#loadingLevelScreen .back").click(() => smorball.screens.open(smorball.screens.map));
 	}
 
 	show() {

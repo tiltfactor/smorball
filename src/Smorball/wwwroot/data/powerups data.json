@@ -1,0 +1,13 @@
+﻿{
+	"cleats": {
+		"name": "Cleats",
+		"speedMultiplier": 2,
+		"damageMultiplier": 2
+	},
+	"helmet": {
+		"name": "Helmet"
+	},
+	"bullhorn": {
+		"name": "Bullhorn"
+	}	
+}
