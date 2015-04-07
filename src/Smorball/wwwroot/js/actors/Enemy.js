@@ -28,13 +28,14 @@ var Enemy = (function (_super) {
         var ss = new createjs.SpriteSheet(this.getSpritesheetData());
         this.sprite = new createjs.Sprite(ss, "run");
         this.sprite.framerate = 20;
+        this.sprite.regX = this.type.offsetX;
+        this.sprite.regY = this.type.offsetY;
         this.sprite.scaleX = this.sprite.scaleY = this.type.scale;
         this.addChild(this.sprite);
-        // Offset by the correct offset
-        this.sprite.x = -this.type.offsetX * this.type.scale;
-        this.sprite.y = -this.type.offsetY * this.type.scale;
         // Create the health indicator
         this.addHearts();
+        // Work out lane changes upfront
+        this.calculateLaneChanges();
         // Draw a debug circle
         //if (smorball.config.debug) {
         //	var circle = new createjs.Shape();
@@ -43,6 +44,17 @@ var Enemy = (function (_super) {
         //	this.addChild(circle);
         //}
     }
+    Enemy.prototype.calculateLaneChanges = function () {
+        this.laneChanges = [];
+        if (!this.type.changeLane)
+            return;
+        var diff = smorball.config.width - smorball.config.goalLine;
+        var oneThirdsPos = (diff * 0.6666) + smorball.config.goalLine;
+        var twoThirdsPos = (diff * 0.3333) + smorball.config.goalLine;
+        oneThirdsPos += -100 + Math.random() * 200;
+        twoThirdsPos += -100 + Math.random() * 200;
+        this.laneChanges.push(oneThirdsPos, twoThirdsPos);
+    };
     Enemy.prototype.addHearts = function () {
         // Set the hearts container
         this.heartsContainer = new createjs.Container();
@@ -76,12 +88,29 @@ var Enemy = (function (_super) {
                 this.sprite.gotoAndPlay("scoring");
                 this.sprite.on("animationend", function (e) { return _this.destroy(); }, this, false);
             }
+            // If have lange changes then handle them
+            if (this.laneChanges.length > 0 && this.x < this.laneChanges[0]) {
+                this.laneChanges.splice(0, 1);
+                this.changeLane();
+            }
         }
+    };
+    Enemy.prototype.changeLane = function () {
+        var _this = this;
+        var l = this.lane;
+        if (l == 0)
+            l = 1;
+        else if (l == 2)
+            l = 1;
+        else if (l == 1)
+            l = Math.random() > 0.5 ? 0 : 2;
+        createjs.Tween.get(this).to({ y: smorball.config.enemySpawnPositions[l].y }, 1000);
+        createjs.Tween.get(this).to({}, 500).call(function () { return _this.lane = l; });
     };
     Enemy.prototype.tackled = function (athlete) {
         var _this = this;
         // Decrement the life
-        var damage = 1;
+        var damage = 1 * athlete.damageMultiplier;
         if (athlete.powerup == "cleats")
             damage *= smorball.powerups.types.cleats.damageMultiplier;
         for (var i = 0; i < damage; i++) {
@@ -107,7 +136,7 @@ var Enemy = (function (_super) {
             // Play a sound
             this.playSound("hit");
             // Knock us back a bit (but not too far)
-            var newX = this.x + smorball.config.knockback;
+            var newX = this.x + smorball.config.knockback * smorball.game.knockbackMultiplier;
             if (newX > smorball.config.width)
                 newX = smorball.config.width;
             createjs.Tween.get(this).to({ x: newX }, 200, createjs.Ease.quartOut);

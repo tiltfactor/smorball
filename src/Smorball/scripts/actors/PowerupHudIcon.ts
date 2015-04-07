@@ -59,7 +59,7 @@
 	update(delta: number) {
 
 		// Update the visibilities
-		var quantity = smorball.powerups.quantities[this.type];
+		var quantity = smorball.powerups.powerups[this.type].quantity;
 		if (quantity == 0) this.visible = false;
 		else if (quantity == 1) {
 			this.visible = true;

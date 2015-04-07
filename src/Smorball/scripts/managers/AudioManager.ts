@@ -23,7 +23,7 @@
 	}
 
 	private onSoundLoaded(id: string) {
-		if (id == "main_theme_sound" && smorball.screens.current != smorball.screens.game)
+		if (id == "main_theme_sound" && smorball.screens.current != null && smorball.screens.current != smorball.screens.game)
 			this.playMusic();
 	}
 
@@ -66,7 +66,7 @@
 
 	stopMusic() {
 		if (this.music == null) return;
-		this.fadeOutAndStop(this.music, 2000);
+		this.fadeOutAndStop(this.music, 1000);
 		this.music = null;
 	}
 

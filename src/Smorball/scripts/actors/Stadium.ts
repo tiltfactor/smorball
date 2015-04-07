@@ -1,15 +1,6 @@
 ﻿/// <reference path="../../typings/smorball/smorball.d.ts" />
 
-interface StadiumPart {
-	x: number;
-	y: number;
-	type: string;
-	flipped?: boolean;
-}
 
-interface StadiumData {
-	parts: StadiumPart[];
-}
 
 class Stadium extends createjs.Container {
 
@@ -18,11 +9,12 @@ class Stadium extends createjs.Container {
 	init() {			
 
 		this.addParts();
+		this.addAudience();
 
 		this.logo = new createjs.Bitmap(null);
 		this.logo.alpha = 0.2;
 		this.logo.x = smorball.config.width / 2 - 256;
-		this.logo.y = smorball.config.height / 2 + 60;
+		this.logo.y = smorball.config.height / 2 + 40;
 		this.addChild(this.logo);
 	}
 
@@ -41,9 +33,11 @@ class Stadium extends createjs.Container {
 
 			var obj: createjs.DisplayObject;
 
-			if (part.type == "SB_background_2x")
-				obj = new createjs.Bitmap(smorball.resources.getResource("stadium_background"));
-			else if (part.type == "seat")
+			if (part.type == "stadium_wall")
+				obj = new createjs.Bitmap(smorball.resources.getResource("stadium_wall"));
+			if (part.type == "stadium_grass")
+				obj = new createjs.Bitmap(smorball.resources.getResource("stadium_grass"));
+			else if (part.type == "seat") 
 				obj = new createjs.Bitmap(smorball.resources.getResource("stadium_seat"));
 			else if (part.type == "scoreboard")
 				obj = new createjs.Bitmap(smorball.resources.getResource("stadium_scoreboard"));
@@ -55,6 +49,8 @@ class Stadium extends createjs.Container {
 				obj = new createjs.Bitmap(smorball.resources.getResource("stadium_ad_board"));
 			else if (part.type == "commentators")
 				obj = new createjs.Bitmap(smorball.resources.getResource("stadium_commentators"));
+			else if (part.type == "crowd_glass")
+				obj = new createjs.Bitmap(smorball.resources.getResource("crowd_glass"));
 
 			if (obj != null) {
 				obj.x = part.x * scale;
@@ -65,7 +61,29 @@ class Stadium extends createjs.Container {
 
 				this.addChild(obj);
 			}
+
 		});
+	}
+
+	private addAudience() {
+
+		var seatImg = smorball.resources.getResource("stadium_seat");
+		var audienceTypes = <AudienceMemberType[]>smorball.resources.getResource("audience_data");
+
+
+		// Find all seats
+		_.chain(this.children)
+			.filter(obj => obj instanceof createjs.Bitmap && obj.image == seatImg)
+			.each(seat => {
+
+			// Lets put an audience member on that seat.
+			var member = new AudienceMember(Utils.randomOne(audienceTypes));
+			member.x = seat.x;
+			member.y = seat.y;
+			this.addChildAt(member, this.getChildIndex(seat) + 1);
+
+		});
+
 	}
 
 

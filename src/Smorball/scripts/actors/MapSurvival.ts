@@ -20,9 +20,11 @@ class MapSurvival extends createjs.Container {
 		this.survival.y = -204;
 		this.survival.cursor = "pointer";
 		this.survival.mouseEnabled = true;
-		this.addChild(this.survival);
-	
+		this.addChild(this.survival);	
+
 		this.updateLockedState();
+
+		this.on("click", e => this.onClick(), this, false, null, true);
 	}
 
 	updateLockedState() {
@@ -34,6 +36,12 @@ class MapSurvival extends createjs.Container {
 		else {
 			this.lock.visible = true;
 			this.survival.visible = false;
+		}
+	}
+
+	onClick() {
+		if (smorball.user.isSurvivalUnlocked()) {
+			smorball.game.loadLevel(smorball.game.levels.length-1);
 		}
 	}
 }

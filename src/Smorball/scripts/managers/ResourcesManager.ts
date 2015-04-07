@@ -38,7 +38,7 @@ class ResourcesManager
 
 		// Add the required enemy variation
 		_.each(smorball.game.enemyTypes, enemy => {
-			var path = Utils.format(enemy.spritesPathTemplate, Utils.zeroPad(levelIndx + 1, 2));
+			var path = Utils.format(enemy.spritesPathTemplate, Utils.zeroPad(level.team.outfit, 2));
 			entries.push({ src: path + ".json", id: enemy.id + "_" + Utils.zeroPad(levelIndx, 2) + "_json" } );
 			entries.push({ src: path + ".png", id: enemy.id + "_" + Utils.zeroPad(levelIndx, 2) + "_png" });
 		});

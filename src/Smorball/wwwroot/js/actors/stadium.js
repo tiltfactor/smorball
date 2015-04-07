@@ -12,10 +12,11 @@ var Stadium = (function (_super) {
     }
     Stadium.prototype.init = function () {
         this.addParts();
+        this.addAudience();
         this.logo = new createjs.Bitmap(null);
         this.logo.alpha = 0.2;
         this.logo.x = smorball.config.width / 2 - 256;
-        this.logo.y = smorball.config.height / 2 + 60;
+        this.logo.y = smorball.config.height / 2 + 40;
         this.addChild(this.logo);
     };
     Stadium.prototype.setTeam = function (team) {
@@ -27,8 +28,10 @@ var Stadium = (function (_super) {
         var scale = 1600 / 800;
         _.each(data.parts, function (part) {
             var obj;
-            if (part.type == "SB_background_2x")
-                obj = new createjs.Bitmap(smorball.resources.getResource("stadium_background"));
+            if (part.type == "stadium_wall")
+                obj = new createjs.Bitmap(smorball.resources.getResource("stadium_wall"));
+            if (part.type == "stadium_grass")
+                obj = new createjs.Bitmap(smorball.resources.getResource("stadium_grass"));
             else if (part.type == "seat")
                 obj = new createjs.Bitmap(smorball.resources.getResource("stadium_seat"));
             else if (part.type == "scoreboard")
@@ -41,6 +44,8 @@ var Stadium = (function (_super) {
                 obj = new createjs.Bitmap(smorball.resources.getResource("stadium_ad_board"));
             else if (part.type == "commentators")
                 obj = new createjs.Bitmap(smorball.resources.getResource("stadium_commentators"));
+            else if (part.type == "crowd_glass")
+                obj = new createjs.Bitmap(smorball.resources.getResource("crowd_glass"));
             if (obj != null) {
                 obj.x = part.x * scale;
                 obj.y = part.y * scale;
@@ -48,6 +53,19 @@ var Stadium = (function (_super) {
                     obj.scaleX = -1;
                 _this.addChild(obj);
             }
+        });
+    };
+    Stadium.prototype.addAudience = function () {
+        var _this = this;
+        var seatImg = smorball.resources.getResource("stadium_seat");
+        var audienceTypes = smorball.resources.getResource("audience_data");
+        // Find all seats
+        _.chain(this.children).filter(function (obj) { return obj instanceof createjs.Bitmap && obj.image == seatImg; }).each(function (seat) {
+            // Lets put an audience member on that seat.
+            var member = new AudienceMember(Utils.randomOne(audienceTypes));
+            member.x = seat.x;
+            member.y = seat.y;
+            _this.addChildAt(member, _this.getChildIndex(seat) + 1);
         });
     };
     return Stadium;

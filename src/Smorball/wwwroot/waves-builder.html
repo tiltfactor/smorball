@@ -1,0 +1,113 @@
+﻿<html>
+<head>   
+	<link rel="stylesheet" href="lib/bootstrap/bootstrap.css">
+	<script src="lib/jquery/jquery.js"></script>
+	<script src="lib/underscore/underscore.js"></script>
+	<script src="lib/bootstrap/bootstrap.js"></script>
+	<script src="js/utils/utils.js"></script>
+	<script src="js/utils/wavesbuilder.js"></script>
+</head>
+<body>
+
+	<style>
+		body {
+			padding: 10px;
+		}
+
+		.output {
+			float: right;
+		}
+	</style>
+
+	<div class="col-xs-6">
+
+		<form>
+			<div class="form-group">
+				<label>Type</label>
+				<select id="type" class="form-control">
+					<option>spawn</option>
+					<option>commentate</option>
+					<option>delay</option>
+				</select>
+			</div>
+			
+			<div class="form-group">
+				<label>Time</label>
+				<input type="text" class="form-control" id="time" placeholder="0">
+			</div>
+			<div class="form-group">
+				<label>Powerup</label>
+				<select id="powerup" class="form-control">
+					<option></option>
+					<option>cleats</option>
+					<option>helmet</option>
+					<option>bullhorn</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<label>Enemy</label>
+				<select id="enemy" class="form-control">
+					<option></option>
+					<option>weak</option>
+					<option>regular</option>
+					<option>boss</option>
+					<option>fast</option>
+					<option>lanechange</option>
+					<option>coach</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<label>Lane</label>
+				<input type="text" class="form-control" id="lane">
+			</div>
+			<div class="form-group">
+				<label>Quantity</label>
+				<input type="text" class="form-control" id="quantity">
+			</div>
+			<div class="form-group">
+				<label>Commentry</label>
+				<input type="text" class="form-control" id="commentry">
+			</div>
+			<div>
+				<div class="checkbox">
+					<label>
+						<input id="sameLane" type="checkbox"> Same Lane?
+					</label>
+				</div>
+			</div>
+			<div>
+				<div class="checkbox">
+					<label>
+						<input id="noSkip" type="checkbox"> No Skip?
+					</label>
+				</div>
+			</div>
+			<a id="addBtn" class="btn btn-primary">Add</a>
+			<a id="newWaveBtn" class="btn btn-primary">New Wave</a>
+		</form>
+
+	</div>
+
+	<div class="output col-xs-6">
+		<label>Waves:</label>
+
+		<ul id="wavesLst">
+			<li>
+				<label>Wave 0:</label>
+				<ul>
+					<li>{ "type": "spawn", "enemy": "boss" } <a>delete</a></li>
+				</ul>
+			</li>
+		</ul>
+
+
+		<label>Output:</label>
+		<textarea class="form-control" rows="20" id="output"></textarea>
+	</div>
+
+	
+
+	
+	
+</body>
+</html>

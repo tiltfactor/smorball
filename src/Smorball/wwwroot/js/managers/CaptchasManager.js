@@ -16,6 +16,7 @@ var CaptchasManager = (function () {
     CaptchasManager.prototype.startNewLevel = function (level) {
         this.captchasSucceeded = 0;
         this.updatePassButton();
+        this.confusedTimeMuliplier = 1;
         // First refresh our local chunks list
         this.localChunks = this.getLocalChunks();
         // If this isnt the first level then shuffle up the entries a little
@@ -77,7 +78,7 @@ var CaptchasManager = (function () {
     CaptchasManager.prototype.update = function (delta) {
         if (this.isLocked) {
             this.lockedTimer += delta;
-            if (this.lockedTimer >= smorball.config.penaltyTime)
+            if (this.lockedTimer >= smorball.config.penaltyTime * this.confusedTimeMuliplier)
                 this.unlock();
         }
     };
@@ -123,17 +124,21 @@ var CaptchasManager = (function () {
         if (output.match) {
             // Which was the selected one?
             var captcha = _.find(visibleCapatchas, function (c) { return c.chunk == output.closestOcr; });
-            this.onCaptchaEnteredSuccessfully(captcha);
+            this.onCaptchaEnteredSuccessfully(text, captcha);
         }
         else
             this.onCaptchaEnterError();
     };
-    CaptchasManager.prototype.onCaptchaEnteredSuccessfully = function (captcha) {
+    CaptchasManager.prototype.onCaptchaEnteredSuccessfully = function (text, captcha) {
         var _this = this;
         // Hide the current captcha
         captcha.clear();
         // Show the indicator
         smorball.screens.game.indicator.showCorrect();
+        // This is needed as the Breakfast Club powerup is dependant on the length of the captcha
+        var damageMultiplier = 1;
+        if (text.length > 8 && smorball.upgrades.isOwned("breakfast"))
+            damageMultiplier = smorball.upgrades.getUpgrade("breakfast").multiplier;
         // If we have the bullhorn powerup selected then send all athletes running
         var powerup = smorball.screens.game.selectedPowerup;
         if (powerup != null) {
@@ -141,19 +146,19 @@ var CaptchasManager = (function () {
             smorball.audio.playSound("word_typed_correctly_sound");
             // If its a bullhorn then send every athlete in the 
             if (powerup.type == "bullhorn") {
-                _.chain(smorball.game.athletes).filter(function (a) { return a.state == 1 /* ReadyToRun */; }).each(function (a) { return _this.sendAthleteInLane(a.lane); });
+                _.chain(smorball.game.athletes).filter(function (a) { return a.state == 1 /* ReadyToRun */; }).each(function (a) { return _this.sendAthleteInLane(a.lane, damageMultiplier); });
             }
             else
-                this.sendAthleteInLane(captcha.lane);
+                this.sendAthleteInLane(captcha.lane, damageMultiplier);
             // Decrement the powerup
-            smorball.powerups.quantities[powerup.type]--;
-            if (smorball.powerups.quantities[powerup.type] == 0)
+            smorball.powerups.powerups[powerup.type].quantity--;
+            if (smorball.powerups.powerups[powerup.type].quantity == 0)
                 smorball.screens.game.selectPowerup(null);
         }
         else {
             // Play a sound
             smorball.audio.playSound("word_typed_correctly_with_powerup_sound");
-            this.sendAthleteInLane(captcha.lane);
+            this.sendAthleteInLane(captcha.lane, damageMultiplier);
         }
     };
     CaptchasManager.prototype.onCaptchaEnterError = function () {
@@ -169,9 +174,11 @@ var CaptchasManager = (function () {
             _.each(visibleCapatchas, function (c) { return _this.refreshCaptcha(c.lane); });
         }
     };
-    CaptchasManager.prototype.sendAthleteInLane = function (lane) {
+    CaptchasManager.prototype.sendAthleteInLane = function (lane, damageMultiplier) {
         // Start the athlete running
-        _.find(smorball.game.athletes, function (a) { return a.lane == lane && a.state == 1 /* ReadyToRun */; }).run();
+        var athelete = _.find(smorball.game.athletes, function (a) { return a.lane == lane && a.state == 1 /* ReadyToRun */; });
+        athelete.damageMultiplier = damageMultiplier;
+        athelete.run();
         // Spawn another in the same lane
         smorball.spawning.spawnAthlete(lane);
     };
@@ -198,15 +205,15 @@ var CaptchasManager = (function () {
             return true;
         }
         else if (text.toLowerCase() == "increase cleats") {
-            smorball.powerups.quantities.cleats++;
+            smorball.powerups.powerups.cleats.quantity++;
             return true;
         }
         else if (text.toLowerCase() == "increase helmets") {
-            smorball.powerups.quantities.helmet++;
+            smorball.powerups.powerups.helmet.quantity++;
             return true;
         }
         else if (text.toLowerCase() == "increase bullhorns") {
-            smorball.powerups.quantities.bullhorn++;
+            smorball.powerups.powerups.bullhorn.quantity++;
             return true;
         }
         else if (text.toLowerCase() == "spawn powerup") {
@@ -281,10 +288,18 @@ var CaptchasManager = (function () {
     };
     CaptchasManager.prototype.parsePageAPIData = function (data) {
         console.log("OCRPage loaded", data);
-        // First lets grab that page image
-        smorball.resources.load(data.url, "ocr_page_" + data.id, function (img) {
-            console.log("OCRPage image loaded", img);
+        $.ajax({
+            url: data.url,
+            success: function (data) { return console.log("got page img", data); },
+            type: 'GET',
+            headers: { "x-access-token": smorball.config.PageAPIAccessToken },
+            crossDomain: true,
+            timeout: smorball.config.PAgeAPITimeout
         });
+        // First lets grab that page image
+        //smorball.resources.load(data.url, "ocr_page_" + data.id, img => {
+        //	console.log("OCRPage image loaded", img);
+        //});
     };
     return CaptchasManager;
 })();

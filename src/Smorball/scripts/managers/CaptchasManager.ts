@@ -8,6 +8,8 @@ class CaptchasManager {
 	localChunks: OCRChunk[];
 	remoteChunks: OCRChunk[];
 
+	confusedTimeMuliplier: number;
+
 	private inputTextArr: any[];
 	private isLocked: boolean;
 	private lockedTimer: number;
@@ -30,6 +32,7 @@ class CaptchasManager {
 	startNewLevel(level: Level) {
 		this.captchasSucceeded = 0;
 		this.updatePassButton();
+		this.confusedTimeMuliplier = 1;
 
 		// First refresh our local chunks list
 		this.localChunks = this.getLocalChunks();
@@ -111,7 +114,7 @@ class CaptchasManager {
 	update(delta: number) {
 		if (this.isLocked) {
 			this.lockedTimer += delta;
-			if (this.lockedTimer >= smorball.config.penaltyTime)
+			if (this.lockedTimer >= smorball.config.penaltyTime * this.confusedTimeMuliplier)
 				this.unlock();
 		}
 	}
@@ -175,7 +178,7 @@ class CaptchasManager {
 
 			// Which was the selected one?
 			var captcha = _.find(visibleCapatchas, c => c.chunk == output.closestOcr);
-			this.onCaptchaEnteredSuccessfully(captcha);					
+			this.onCaptchaEnteredSuccessfully(text, captcha);					
 		}
 
 		// Or error
@@ -183,12 +186,18 @@ class CaptchasManager {
 			this.onCaptchaEnterError();
 	}
 
-	onCaptchaEnteredSuccessfully(captcha: Captcha) {
+	onCaptchaEnteredSuccessfully(text: string, captcha: Captcha) {		
+
 		// Hide the current captcha
 		captcha.clear();
 
 		// Show the indicator
 		smorball.screens.game.indicator.showCorrect();
+
+		// This is needed as the Breakfast Club powerup is dependant on the length of the captcha
+		var damageMultiplier = 1;
+		if (text.length > 8 && smorball.upgrades.isOwned("breakfast"))
+			damageMultiplier = smorball.upgrades.getUpgrade("breakfast").multiplier;
 
 		// If we have the bullhorn powerup selected then send all athletes running
 		var powerup = smorball.screens.game.selectedPowerup;
@@ -201,21 +210,21 @@ class CaptchasManager {
 			if (powerup.type == "bullhorn") {
 				_.chain(smorball.game.athletes)
 					.filter(a => a.state == AthleteState.ReadyToRun)
-					.each(a => this.sendAthleteInLane(a.lane));
+					.each(a => this.sendAthleteInLane(a.lane, damageMultiplier));
 			}
 			else
-				this.sendAthleteInLane(captcha.lane)
+				this.sendAthleteInLane(captcha.lane, damageMultiplier)
 
 			// Decrement the powerup
-			smorball.powerups.quantities[powerup.type]--;
-			if (smorball.powerups.quantities[powerup.type] == 0)
+			smorball.powerups.powerups[powerup.type].quantity--;
+			if (smorball.powerups.powerups[powerup.type].quantity == 0)
 				smorball.screens.game.selectPowerup(null);
 		}
 		else {
 			// Play a sound
 			smorball.audio.playSound("word_typed_correctly_with_powerup_sound");
 
-			this.sendAthleteInLane(captcha.lane);
+			this.sendAthleteInLane(captcha.lane, damageMultiplier);
 		}	
 	}
 
@@ -236,10 +245,11 @@ class CaptchasManager {
 		}
 	}
 
-	private sendAthleteInLane(lane: number) {
+	private sendAthleteInLane(lane: number, damageMultiplier: number) {
 		// Start the athlete running
-		_.find(smorball.game.athletes, a => a.lane == lane && a.state == AthleteState.ReadyToRun)
-			.run();
+		var athelete = _.find(smorball.game.athletes, a => a.lane == lane && a.state == AthleteState.ReadyToRun);
+		athelete.damageMultiplier = damageMultiplier;
+		athelete.run();
 
 		// Spawn another in the same lane
 		smorball.spawning.spawnAthlete(lane);
@@ -271,15 +281,15 @@ class CaptchasManager {
 			return true;
 		}
 		else if (text.toLowerCase() == "increase cleats") {
-			smorball.powerups.quantities.cleats++;
+			smorball.powerups.powerups.cleats.quantity++;
 			return true;
 		}
 		else if (text.toLowerCase() == "increase helmets") {
-			smorball.powerups.quantities.helmet++;
+			smorball.powerups.powerups.helmet.quantity++;
 			return true;
 		}
 		else if (text.toLowerCase() == "increase bullhorns") {
-			smorball.powerups.quantities.bullhorn++;
+			smorball.powerups.powerups.bullhorn.quantity++;
 			return true;
 		}
 		else if (text.toLowerCase() == "spawn powerup") {
@@ -370,13 +380,22 @@ class CaptchasManager {
 
 		console.log("OCRPage loaded", data);
 
-		// First lets grab that page image
-		smorball.resources.load(data.url, "ocr_page_" + data.id, img => {
-
-			console.log("OCRPage image loaded", img);
-
-
+		$.ajax({
+			url: data.url,
+			success: data => console.log("got page img", data),
+			type: 'GET',
+			headers: { "x-access-token": smorball.config.PageAPIAccessToken },
+			crossDomain: true,
+			timeout: smorball.config.PAgeAPITimeout
 		});
+
+		// First lets grab that page image
+		//smorball.resources.load(data.url, "ocr_page_" + data.id, img => {
+
+		//	console.log("OCRPage image loaded", img);
+
+
+		//});
 		
 	}
 	

@@ -1,0 +1,20 @@
+﻿[
+	{
+		"id": "audience_girl",
+		"scale": 0.8,
+		"offsetX": 264,
+		"offsetY": 392
+	},
+	{
+		"id": "audience_old_man",
+		"scale": 0.8,
+		"offsetX": 253,
+		"offsetY": 352
+	},
+	{
+		"id": "audience_woman",
+		"scale": 0.8,
+		"offsetX": 264,
+		"offsetY":  345
+	}
+]

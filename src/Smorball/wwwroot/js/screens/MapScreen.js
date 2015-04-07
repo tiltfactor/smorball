@@ -37,7 +37,7 @@ var MapScreen = (function (_super) {
         this.shop.x = 1080;
         this.shop.y = 947;
         this.addChild(this.shop);
-        // Add the shop
+        // Add the survival level
         this.survival = new MapSurvival();
         this.survival.x = 272;
         this.survival.y = 915;

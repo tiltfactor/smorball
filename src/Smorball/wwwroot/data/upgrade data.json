@@ -33,7 +33,8 @@
 		"type": "sponserShip",
 		"price": 4200,
 		"icon": "snike_icon",
-		"unlocksAt": 4
+		"unlocksAt": 4,
+		"multiplier":  0.5
 	},
 	{
 		"name": "Bawling™ Sponsorship",
@@ -42,7 +43,8 @@
 		"type": "sponserShip",
 		"price": 4200,
 		"icon": "bawling_icon",
-		"unlocksAt": 6
+		"unlocksAt": 6,
+		"multiplier":  0.5
 	},
 	{
 		"name": "Breakfast Club",
@@ -51,7 +53,8 @@
 		"type": "breakfast",
 		"price": 4200,
 		"icon": "breakfast_club_icon",
-		"unlocksAt": 10
+		"unlocksAt": 10,
+		"multiplier":  2
 	},
 	{
 		"name": "Loudmouth™ Sponsorship",
@@ -60,7 +63,8 @@
 		"type": "sponserShip",
 		"price": 4200,
 		"icon": "loudmouth_icon",
-		"unlocksAt": 12
+		"unlocksAt": 12,
+		"multiplier":  0.5
 	},
 	{
 		"name": "Strength Conditioning",
@@ -69,7 +73,8 @@
 		"type": "strength",
 		"price": 4200,
 		"icon": "strength_conditioning_icon",
-		"unlocksAt": 12
+		"unlocksAt": 12,
+		"multiplier":  2
 	},
 	{
 		"name": "Night Classes",
@@ -78,6 +83,7 @@
 		"type": "nightclass",
 		"price": 4200,
 		"icon": "night_classes_icon",
-		"unlocksAt": 14
+		"unlocksAt": 14,
+		"multiplier":  0.5
 	}
 ]

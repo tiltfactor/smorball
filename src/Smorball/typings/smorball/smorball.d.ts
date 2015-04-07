@@ -27,6 +27,24 @@ interface OCRPage {
 	spritesheet?: createjs.SpriteSheet;
 }
 
+interface StadiumPart {
+	x: number;
+	y: number;
+	type: string;
+	flipped?: boolean;
+}
+
+interface StadiumData {
+	parts: StadiumPart[];
+}
+
+interface AudienceMemberType {
+	id: string;
+	scale: number;
+	offsetX: number;
+	offsetY: number;
+}
+
 interface OCRChunk {
 	_id?: string;
 	id: string;
@@ -48,6 +66,7 @@ interface PowerupType {
 	name: string;
 	speedMultiplier?: number;
 	damageMultiplier?: number;
+	spawnChance: number;
 }
 
 interface PageAPIDifferenceTag {
@@ -68,11 +87,13 @@ interface Level {
 	lanes: number[];
 	team: Team;
 	waves: LevelWave[];
+	powerups: string[];
 }
 
 interface Team {
 	name: string;
 	id: string;
+	outfit: number;
 }
 
 interface LevelWave {
@@ -118,6 +139,7 @@ interface Upgrade {
 	icon: string;
 	description: string;
 	unlocksAt: number;
+	multiplier?: number;
 }
 
 interface EnemyType {

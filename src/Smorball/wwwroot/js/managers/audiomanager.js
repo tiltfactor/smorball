@@ -17,7 +17,7 @@ var AudioManager = (function () {
         createjs.Sound.registerSounds(manifest);
     };
     AudioManager.prototype.onSoundLoaded = function (id) {
-        if (id == "main_theme_sound" && smorball.screens.current != smorball.screens.game)
+        if (id == "main_theme_sound" && smorball.screens.current != null && smorball.screens.current != smorball.screens.game)
             this.playMusic();
     };
     AudioManager.prototype.setMusicVolume = function (volume) {
@@ -58,7 +58,7 @@ var AudioManager = (function () {
     AudioManager.prototype.stopMusic = function () {
         if (this.music == null)
             return;
-        this.fadeOutAndStop(this.music, 2000);
+        this.fadeOutAndStop(this.music, 1000);
         this.music = null;
     };
     AudioManager.prototype.fadeOutAndStop = function (sound, duration) {

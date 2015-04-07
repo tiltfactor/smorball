@@ -27,7 +27,7 @@ var Captcha = (function (_super) {
             // For debug purposes, let this be clickable
             this.mouseEnabled = true;
             this.cursor = "pointer";
-            this.on("click", function () { return smorball.captchas.onCaptchaEnteredSuccessfully(_this); });
+            this.on("click", function () { return smorball.captchas.onCaptchaEnteredSuccessfully(_this.chunk.texts[0], _this); });
         }
     }
     Captcha.prototype.setChunk = function (chunk) {

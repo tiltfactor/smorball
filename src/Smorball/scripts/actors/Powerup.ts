@@ -59,14 +59,14 @@ class Powerup extends createjs.Container {
 		smorball.audio.playSound("powerup_activated_sound", 1);
 
 		this.state = PowerupState.Collecting;
-		smorball.powerups.quantities[this.type]++;
+		smorball.powerups.powerups[this.type].quantity++;
 		createjs.Tween.get(this).to({ alpha: 0 }, 500, createjs.Ease.quartOut);
 		createjs.Tween.get(this.icon).to({ y: this.icon.y - 20, scaleX: 0, scaleY: 0.5 }, 500, createjs.Ease.quartOut)
 			.call(() => this.destroy());
 	}
 
 	destroy() {
-		smorball.powerups.powerups.splice(smorball.powerups.powerups.indexOf(this), 1);
+		smorball.powerups.views.splice(smorball.powerups.views.indexOf(this), 1);
 		smorball.screens.game.actors.removeChild(this);
 	}
 

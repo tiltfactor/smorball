@@ -8,6 +8,7 @@ var __extends = this.__extends || function (d, b) {
 var MapSurvival = (function (_super) {
     __extends(MapSurvival, _super);
     function MapSurvival() {
+        var _this = this;
         _super.call(this);
         // Add the lock
         this.lock = new createjs.Bitmap(smorball.resources.getResource("map_lock"));
@@ -22,6 +23,7 @@ var MapSurvival = (function (_super) {
         this.survival.mouseEnabled = true;
         this.addChild(this.survival);
         this.updateLockedState();
+        this.on("click", function (e) { return _this.onClick(); }, this, false, null, true);
     }
     MapSurvival.prototype.updateLockedState = function () {
         if (smorball.user.isSurvivalUnlocked()) {
@@ -31,6 +33,11 @@ var MapSurvival = (function (_super) {
         else {
             this.lock.visible = true;
             this.survival.visible = false;
+        }
+    };
+    MapSurvival.prototype.onClick = function () {
+        if (smorball.user.isSurvivalUnlocked()) {
+            smorball.game.loadLevel(smorball.game.levels.length - 1);
         }
     };
     return MapSurvival;

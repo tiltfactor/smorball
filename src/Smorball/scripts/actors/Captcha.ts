@@ -30,7 +30,7 @@
 			// For debug purposes, let this be clickable
 			this.mouseEnabled = true;
 			this.cursor = "pointer";
-			this.on("click",() => smorball.captchas.onCaptchaEnteredSuccessfully(this));
+			this.on("click",() => smorball.captchas.onCaptchaEnteredSuccessfully(this.chunk.texts[0], this));
 		}
 	}
 

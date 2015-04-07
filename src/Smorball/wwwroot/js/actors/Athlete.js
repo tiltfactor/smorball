@@ -19,6 +19,7 @@ var Athlete = (function (_super) {
         this.state = 1 /* ReadyToRun */;
         this.lane = lane;
         this.type = type;
+        this.damageMultiplier = 1;
         this.enemiesTackled = [];
         // If a powerup is already selected then make sure we have it set
         if (smorball.screens.game.selectedPowerup != null)
@@ -29,12 +30,11 @@ var Athlete = (function (_super) {
         this.y = startPos.y;
         // Setup the spritesheet
         this.sprite = new createjs.Sprite(this.getSpritesheet(), "idle");
+        this.sprite.regX = this.type.offsetX;
+        this.sprite.regY = this.type.offsetY;
         this.sprite.framerate = 20;
-        this.addChild(this.sprite);
-        // Offset by the correct offset
-        this.sprite.x = -this.type.offsetX;
-        this.sprite.y = -this.type.offsetY;
         this.sprite.scaleX = this.sprite.scaleY = this.type.scale;
+        this.addChild(this.sprite);
         // Draw a debug circle
         //if (smorball.config.debug) {
         //	var circle = new createjs.Shape();
@@ -99,7 +99,7 @@ var Athlete = (function (_super) {
             }
         });
         // Check collisions with powerups
-        _.chain(smorball.powerups.powerups).filter(function (p) { return p.lane == _this.lane && p.state == 0 /* NotCollected */; }).each(function (p) {
+        _.chain(smorball.powerups.views).filter(function (p) { return p.lane == _this.lane && p.state == 0 /* NotCollected */; }).each(function (p) {
             var theirBounds = p.getTransformedBounds();
             if (myBounds.intersects(theirBounds)) {
                 p.collect();

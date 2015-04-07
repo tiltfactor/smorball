@@ -53,14 +53,16 @@ var GameManager = (function (_super) {
         smorball.screens.open(smorball.screens.loadingLevel);
     };
     GameManager.prototype.play = function () {
-        // Open the correct screen
-        smorball.screens.open(smorball.screens.game);
-        smorball.screens.game.newLevel();
-        smorball.powerups.newLevel();
         // Reset these
         this.enemies = [];
         this.athletes = [];
         this.timeOnLevel = 0;
+        this.knockbackMultiplier = 1;
+        // Open the correct screen
+        smorball.screens.open(smorball.screens.game);
+        smorball.screens.game.newLevel();
+        smorball.powerups.newLevel();
+        smorball.upgrades.newLevel();
         // Start playing the crowd cheering sound
         this.ambienceSound = smorball.audio.playAudioSprite("stadium_ambience_looping_sound", { startTime: 0, duration: 28000, loop: -1 });
         // Update the spawner
@@ -119,6 +121,7 @@ var GameManager = (function (_super) {
     };
     GameManager.prototype.enemyKilled = function (enemy) {
         this.enemiesKilled++;
+        smorball.powerups.onEnemyKilled(enemy);
     };
     GameManager.prototype.timeout = function () {
         this.state = 3 /* Timeout */;

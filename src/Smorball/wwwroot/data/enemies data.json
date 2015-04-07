@@ -15,7 +15,7 @@
 		"life": 6,
 		"offsetX": 265,
 		"offsetY": 369,
-		"scale": 1,
+		"scale": 1.3,
 		"spritesPathTemplate": "images/Characters/enemy/Coach Enemy C{0}"
 	},
 	"fast":
@@ -35,7 +35,7 @@
 		"life": 1,
 		"offsetX": 265,
 		"offsetY": 369,
-		"scale":  1,
+		"scale":  1.3,
 		"spritesPathTemplate": "images/Characters/enemy/Skater Enemy S{0}"
 	},
 	"regular":
@@ -55,7 +55,7 @@
 		"life": 3,
 		"offsetX": 265,
 		"offsetY": 369,
-		"scale":  1,
+		"scale":  1.3,
 		"spritesPathTemplate": "images/Characters/enemy/Tennis Enemy T{0}"
 	},
 	"weak":
@@ -75,7 +75,7 @@
 		"life": 1,
 		"offsetX": 265,
 		"offsetY": 369,
-		"scale":  1,
+		"scale":  1.3,
 		"spritesPathTemplate": "images/Characters/enemy/Grand Mother Enemy GB{0}"
 	},
 	"lanechange":
@@ -94,8 +94,8 @@
 		"speed": 30,
 		"life": 1,
 		"offsetX": 265,
-		"offsetY": 369,
-		"scale":  1,
+		"offsetY": 340,
+		"scale":  1.3,
 		"spritesPathTemplate": "images/Characters/enemy/Hooligan Enemy H{0}"
 	},
 	"boss":
@@ -115,7 +115,7 @@
 		"life": 6,
 		"offsetX": 129,
 		"offsetY": 182,
-		"scale":  1.7,
+		"scale":  2,
 		"spritesPathTemplate": "images/Characters/enemy/Weightlifter Enemy W{0}"
 	}
 }
