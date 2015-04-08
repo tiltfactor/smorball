@@ -31,6 +31,6 @@ class LoadingScreen extends createjs.Container {
 		this.background.update(delta);
 
 		// Update the bar based on our load progress
-		this.bar.setProgress(smorball.resources.queue.progress);
+		this.bar.setProgress(smorball.resources.fgQueue.progress);
 	}
 }

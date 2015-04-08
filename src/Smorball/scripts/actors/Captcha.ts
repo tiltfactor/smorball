@@ -28,34 +28,42 @@
 			//this.addChild(circle);
 
 			// For debug purposes, let this be clickable
-			this.mouseEnabled = true;
-			this.cursor = "pointer";
-			this.on("click",() => smorball.captchas.onCaptchaEnteredSuccessfully(this.chunk.texts[0], this));
+			//this.mouseEnabled = true;
+			//this.cursor = "pointer";
+			//this.on("click",() => smorball.captchas.onCaptchaEnteredSuccessfully(this.chunk.texts[0], this));
 		}
 	}
 
+	getWidth() {
+		if (this.chunk == null) return 0;
+		var frame = this.chunk.page.spritesheet.getFrame(this.chunk.frame);
+		return frame.rect.width * (this.chunk.page.isLocal ? 1 : 0.75);
+	}
+
 	setChunk(chunk: OCRChunk) {
+
+		var scale = chunk.page.isLocal ? 1 : 0.75;
 
 		// Update the sprite
 		this.chunk = chunk;
 		this.sprite.spriteSheet = chunk.page.spritesheet;
 		this.sprite.gotoAndStop(chunk.frame);
-		this.sprite.regX = this.sprite.getBounds().width / 2;
-		this.sprite.regY = this.sprite.getBounds().height / 2;
-		this.sprite.x = this.sprite.getBounds().width / 2;
-		this.visible = true;	
+		this.sprite.scaleX = this.sprite.scaleY = scale;
+		this.sprite.regX = this.sprite.getTransformedBounds().width / 2;
+		this.sprite.regY = this.sprite.getTransformedBounds().height / 2;
+		this.sprite.x = this.sprite.getTransformedBounds().width / 2;
+		this.visible = true;
 					
 		// Animate in
 		createjs.Tween.removeTweens(this.sprite);
 		this.sprite.scaleX = this.sprite.scaleY = 0;
-		createjs.Tween.get(this.sprite).to({ scaleX: 1, scaleY: 1 }, 500, createjs.Ease.backOut);
-	}
+		createjs.Tween.get(this.sprite).to({ scaleX: scale, scaleY: scale }, 500, createjs.Ease.backOut);
+	}	
 
 	clear() {
 		this.chunk = null;
 		// Animate Out
 		createjs.Tween.removeTweens(this.sprite);
-		this.scaleX = this.scaleY = 1;
 		createjs.Tween.get(this.sprite).to({ scaleX: 0, scaleY: 0 }, 250, createjs.Ease.backOut)
 			.call(tween => this.visible = false);
 	}

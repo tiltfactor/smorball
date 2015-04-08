@@ -11,6 +11,7 @@ class GameScreen extends ScreenBase
 	timeoutEl: HTMLElement;
 	victoryEl: HTMLElement;
 	defeatEl: HTMLElement;
+	survivalEl: HTMLElement;
 
 	actors: createjs.Container;
 	captchas: createjs.Container;
@@ -20,6 +21,8 @@ class GameScreen extends ScreenBase
 	powerupIcons: PowerupHudIcon[];
 
 	selectedPowerup: PowerupHudIcon;
+
+	framerate: Framerate;
 
 	constructor() {
 		super("gameScreen", "game_screen_html");
@@ -74,6 +77,7 @@ class GameScreen extends ScreenBase
 		this.timeoutEl = $('#gameScreen .timeout').get(0);
 		this.victoryEl = $('#gameScreen .victory').get(0);
 		this.defeatEl = $('#gameScreen .defeat').get(0);
+		this.survivalEl = $('#gameScreen .survival').get(0);
 
 		// Setup the music slider and listen for changes to it
 		$('#gameScreen .timeout .music-slider').slider({ value: smorball.audio.musicVolume * 100 })
@@ -97,6 +101,11 @@ class GameScreen extends ScreenBase
 			else if (event.keyCode == 9) { }
 			else { smorball.audio.playSound("text_entry_4_sound", 0.2); }
 		});			
+
+		this.framerate = new Framerate();
+		this.framerate.x = smorball.config.width - 80;
+		this.framerate.y = smorball.config.height - 60;
+		this.addChild(this.framerate);
 	}
 
 	newLevel() {
@@ -104,6 +113,7 @@ class GameScreen extends ScreenBase
 		this.captchas.visible = true;
 		this.victoryEl.hidden = true;
 		this.defeatEl.hidden = true;
+		this.survivalEl.hidden = true;
 		this.selectPowerup(null);
 		this.indicator.visible = false;
 		this.bubble.visible = false;
@@ -127,6 +137,12 @@ class GameScreen extends ScreenBase
 			.focus();
 	}
 
+	showTimeTrialEnd() {
+		this.survivalEl.hidden = false;
+		$('#gameScreen .survival .best-time').text(Utils.formatTime(smorball.user.bestSurvivalTime)).focus();
+		$('#gameScreen .survival .time-survived').text(Utils.formatTime(smorball.game.timeOnLevel)).focus();
+	}
+
 	showDefeat(cashEarnt: number) {
 		this.defeatEl.hidden = false;
 		$('#gameScreen .defeat .cashbar-small')
@@ -135,13 +151,22 @@ class GameScreen extends ScreenBase
 	}
 
 	update(delta: number) {
-		this.opponentsEl.textContent = smorball.game.getOpponentsRemaining() + "";
-		this.scoreEl.textContent = smorball.game.getScore() + "";
+
+		if (smorball.game.level.timeTrial) {
+			this.opponentsEl.textContent = smorball.game.enemiesKilled + "";
+			this.scoreEl.textContent = Utils.formatTime(smorball.game.timeOnLevel);
+		}
+		else {
+			this.opponentsEl.textContent = smorball.game.getOpponentsRemaining() + "";
+			this.scoreEl.textContent = smorball.game.getScore() + "";
+		}
 
 		// Sort by depth
 		this.actors.sortChildren((a, b) => a.y - b.y);
 
 		_.each(this.powerupIcons, i => i.update(delta));
+
+		this.framerate.update(delta);
 	}
 
 	selectNextPowerup() {

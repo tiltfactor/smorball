@@ -17,6 +17,7 @@ class SmorballManager {
 	user: UserManager;
 	upgrades: UpgradesManager;
 	powerups: PowerupsManager;
+	timeTrial: TimeTrailManager;
 
 	constructor(config: SmorballConfig) {
 		this.config = config;
@@ -56,6 +57,7 @@ class SmorballManager {
 		this.user = new UserManager();
 		this.upgrades = new UpgradesManager();
 		this.powerups = new PowerupsManager();
+		this.timeTrial = new TimeTrailManager();
 
 		// Start off things invisible
 		this.loadingScreen.visible = false;
@@ -96,6 +98,7 @@ class SmorballManager {
 				this.screens.init();
 				this.captchas.init();
 				this.powerups.init();
+				this.timeTrial.init();
 
 				// Dont need the loading screen any more
 				this.loadingScreen.visible = false;
@@ -146,7 +149,8 @@ class SmorballManager {
 		this.game.update(delta);
 		this.spawning.update(delta);
 		this.captchas.update(delta);
-		this.powerups.update(delta);	
+		this.powerups.update(delta);
+		this.timeTrial.update(delta);	
 
 		// Finally render
 		this.stage.update(e);

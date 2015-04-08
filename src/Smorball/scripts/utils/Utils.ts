@@ -50,4 +50,11 @@
 			jq.animate({ 'margin-left': "+=" + (l = -l) + 'px' }, 50);
 	}
 
+	static formatTime(seconds: number) {
+		seconds = Math.floor(seconds);
+		var minutes = Math.floor(seconds / 60);
+		seconds -= minutes * 60;
+		return this.zeroPad(minutes, 2) + ":" + this.zeroPad(seconds, 2);
+	}
+
 }

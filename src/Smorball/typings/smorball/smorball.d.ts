@@ -17,6 +17,23 @@
 /// <reference path="../../scripts/managers/spawningmanager.ts" />
 /// <reference path="../../scripts/actors/athlete.ts" />
 
+interface SurvivalEnemyData {
+	startTime: number;
+	spawnCost: number;
+}
+
+interface SurvivalPowerupData {
+	startTime: number;
+	spawnCost: number;
+}
+
+interface SurvivalData {
+	minimumEnemySpawnTime: number;
+	minimumPowerupSpawnTime: number;
+	enemies: _.Dictionary<SurvivalEnemyData>;
+	powerups: _.Dictionary<SurvivalPowerupData>;
+}
+
 interface OCRPage {
 	_id?: string;
 	url?: string;
@@ -88,6 +105,7 @@ interface Level {
 	team: Team;
 	waves: LevelWave[];
 	powerups: string[];
+	timeTrial?: boolean;
 }
 
 interface Team {
@@ -127,8 +145,9 @@ interface SmorballConfig {
 	knockback: number;
 	PageAPIUrl: string;
 	PageAPIAccessToken: string;
-	PAgeAPITimeout: number;
+	PageAPITimeout: number;
 	maxCaptchaSize: number;
+	DifferenceAPIUrl: string;
 }
 
 interface Upgrade {
@@ -197,6 +216,7 @@ interface Instruction {
 declare class closestWord {
     match: any;
     closestOcr: OCRChunk;
+	text: string;
     constructor(intput: any, differences: OCRChunk[]);
 }
 

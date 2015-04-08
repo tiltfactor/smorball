@@ -9,6 +9,7 @@ var PersistanceManager = (function () {
             levels: smorball.user.levels,
             cash: smorball.user.cash,
             upgrades: smorball.upgrades.upgradesOwned,
+            bestSurvivalTime: smorball.user.bestSurvivalTime,
         };
         localStorage.setItem("smorball", JSON.stringify(obj));
     };
@@ -32,6 +33,8 @@ var PersistanceManager = (function () {
             smorball.user.cash = obj.cash;
         if (obj.upgrades != undefined)
             smorball.upgrades.upgradesOwned = obj.upgrades;
+        if (obj.bestSurvivalTime != undefined)
+            smorball.user.bestSurvivalTime = obj.bestSurvivalTime;
     };
     return PersistanceManager;
 })();

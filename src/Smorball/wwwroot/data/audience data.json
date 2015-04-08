@@ -1,7 +1,7 @@
 ﻿[
 	{
 		"id": "audience_girl",
-		"scale": 0.8,
+		"scale": 0.6,
 		"offsetX": 264,
 		"offsetY": 392
 	},
@@ -13,8 +13,20 @@
 	},
 	{
 		"id": "audience_woman",
-		"scale": 0.8,
+		"scale": 0.7,
 		"offsetX": 264,
-		"offsetY":  345
+		"offsetY": 345
+	},
+	{
+		"id": "audience_man_1",
+		"scale": 1,
+		"offsetX": 162,
+		"offsetY": 235
+	},
+	{
+		"id": "audience_man_2",
+		"scale": 1,
+		"offsetX": 211,
+		"offsetY":  300
 	}
 ]

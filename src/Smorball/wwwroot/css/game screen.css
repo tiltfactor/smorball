@@ -126,3 +126,15 @@
 #gameScreen .cashbar-small {
 	float: right;
 }
+
+#gameScreen .survival .well {
+	font-size: 74px;
+	padding-top: 20px;
+	height: 254px;
+	margin-bottom: 20px;
+}
+
+#gameScreen .survival .well .result {
+	float: right;
+}
+

@@ -1688,6 +1688,7 @@
 	},
 	{
 		"index": 16,
+		"timeTrial":  true,
 		"lanes": [
 			0,
 			1,

@@ -80,6 +80,7 @@
 		{ "src": "data/upgrade data.json", "id": "upgrade_data" },
 		{ "src": "data/powerups data.json", "id": "powerups_data" },
 		{ "src": "data/audience data.json", "id": "audience_data" },
+		{ "src": "data/survival data.json", "id": "survival_data" },
 
 		{ "src": "images/The Stadium/advertisement_board.png", "id": "stadium_ad_board" },
 		{ "src": "images/The Stadium/commentators.png", "id": "stadium_commentators" },
@@ -151,6 +152,10 @@
 		{ "src": "images/Audience/audience old man.json", "id": "audience_old_man_json" },
 		{ "src": "images/Audience/audience woman.png", "id": "audience_woman_png" },
 		{ "src": "images/Audience/audience woman.json", "id": "audience_woman_json" },
+		{ "src": "images/Audience/audience man 1.json", "id": "audience_man_1_json" },
+		{ "src": "images/Audience/audience man 1.png", "id": "audience_man_1_png" },
+		{ "src": "images/Audience/audience man 2.json", "id": "audience_man_2_json" },
+		{ "src": "images/Audience/audience man 2.png", "id": "audience_man_2_png" },
 
 		{ "src": "audio/main_theme.mp3", "id": "main_theme_sound" },
 	

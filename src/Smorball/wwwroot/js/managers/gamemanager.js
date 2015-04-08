@@ -63,6 +63,7 @@ var GameManager = (function (_super) {
         smorball.screens.game.newLevel();
         smorball.powerups.newLevel();
         smorball.upgrades.newLevel();
+        smorball.timeTrial.newLevel();
         // Start playing the crowd cheering sound
         this.ambienceSound = smorball.audio.playAudioSprite("stadium_ambience_looping_sound", { startTime: 0, duration: 28000, loop: -1 });
         // Update the spawner
@@ -91,8 +92,17 @@ var GameManager = (function (_super) {
         // Set these
         this.state = 4 /* GameOver */;
         createjs.Ticker.setPaused(true);
-        // If we win then show the win screen
-        if (win) {
+        // If this is a timetrail level then we need to do something special
+        if (this.level.timeTrial) {
+            // If we beat the best time then update it here
+            if (this.timeOnLevel > smorball.user.bestSurvivalTime)
+                smorball.user.bestSurvivalTime = this.timeOnLevel;
+            // Show the end screen
+            smorball.screens.game.showTimeTrialEnd();
+            // Save
+            smorball.persistance.persist();
+        }
+        else if (win) {
             // Stop the ambience
             smorball.audio.fadeOutAndStop(this.ambienceSound, 2000);
             // Play a different ambient sound
@@ -110,7 +120,10 @@ var GameManager = (function (_super) {
     GameManager.prototype.enemyReachedGoaline = function (enemy) {
         this.enemyTouchdowns++;
         smorball.captchas.refreshCaptcha(enemy.lane);
-        if (this.enemyTouchdowns >= smorball.config.enemyTouchdowns)
+        // If its a time trail then only one enemy is allowed to reach the goaline
+        if (this.level.timeTrial)
+            this.gameOver(false);
+        else if (this.enemyTouchdowns >= smorball.config.enemyTouchdowns)
             this.gameOver(false);
     };
     GameManager.prototype.getOpponentsRemaining = function () {

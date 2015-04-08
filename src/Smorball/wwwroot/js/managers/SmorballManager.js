@@ -34,6 +34,7 @@ var SmorballManager = (function () {
         this.user = new UserManager();
         this.upgrades = new UpgradesManager();
         this.powerups = new PowerupsManager();
+        this.timeTrial = new TimeTrailManager();
         // Start off things invisible
         this.loadingScreen.visible = false;
         // Load the last session (if there is one)
@@ -65,6 +66,7 @@ var SmorballManager = (function () {
                 _this.screens.init();
                 _this.captchas.init();
                 _this.powerups.init();
+                _this.timeTrial.init();
                 // Dont need the loading screen any more
                 _this.loadingScreen.visible = false;
                 // If we are using a skipIntro debug flag then skip it now
@@ -107,6 +109,7 @@ var SmorballManager = (function () {
         this.spawning.update(delta);
         this.captchas.update(delta);
         this.powerups.update(delta);
+        this.timeTrial.update(delta);
         // Finally render
         this.stage.update(e);
     };

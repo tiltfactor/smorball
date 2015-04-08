@@ -1,7 +1,8 @@
 /// <reference path="../../typings/smorball/smorball.d.ts" />
 var ResourcesManager = (function () {
     function ResourcesManager() {
-        this.queue = new createjs.LoadQueue();
+        this.fgQueue = new createjs.LoadQueue(true, "", true);
+        this.bgQueue = new createjs.LoadQueue(false, "", false);
     }
     ResourcesManager.prototype.loadInitialResources = function (completeCallback) {
         this.loadManifest("data/initial manifest.json", completeCallback);
@@ -21,21 +22,21 @@ var ResourcesManager = (function () {
             entries.push({ src: path + ".json", id: enemy.id + "_" + Utils.zeroPad(levelIndx, 2) + "_json" });
             entries.push({ src: path + ".png", id: enemy.id + "_" + Utils.zeroPad(levelIndx, 2) + "_png" });
         });
-        this.queue.loadManifest({ manifest: entries }, true);
+        this.fgQueue.loadManifest({ manifest: entries }, true);
     };
     ResourcesManager.prototype.loadManifest = function (manifest, completeCallback) {
-        this.queue.on("complete", completeCallback, this, true);
-        this.queue.loadManifest(manifest, true);
+        this.fgQueue.on("complete", completeCallback, this, true);
+        this.fgQueue.loadManifest(manifest, true);
     };
     ResourcesManager.prototype.getResource = function (resourceId) {
-        return this.queue.getResult(resourceId);
+        return this.fgQueue.getResult(resourceId);
     };
-    ResourcesManager.prototype.load = function (url, id, callback) {
-        var _this = this;
-        this.queue.loadFile({ src: url, id: id }, true);
-        this.queue.on("complete", function () {
+    ResourcesManager.prototype.load = function (item, forground, callback) {
+        var queue = forground ? this.fgQueue : this.bgQueue;
+        queue.loadFile(item, true);
+        queue.on("complete", function (data) {
             if (callback != null)
-                callback(_this.getResource(id));
+                callback(queue.getItem(item.id));
         }, this, true);
     };
     return ResourcesManager;

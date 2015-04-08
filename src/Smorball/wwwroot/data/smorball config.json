@@ -31,7 +31,7 @@
 		{
 			"name": "hard",
 			"requiredTime": 120,
-			"multiplier":  3
+			"multiplier": 3
 		}
 	],
 
@@ -43,7 +43,8 @@
 	"passes": 2,
 	"maxCaptchaSize":  180,
 	"knockback": 100,
-	"PageAPIUrl":  "http://tiltfactor1.dartmouth.edu:8080/api/page",
+	"PageAPIUrl": "http://tiltfactor1.dartmouth.edu:8080/api/page",
+	"DifferenceAPIUrl": "http://tiltfactor1.dartmouth.edu:8080/api/difference",
 	"PageAPITimeout":  3000,
 	"PageAPIAccessToken":  "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJHYW1lIiwiaWF0IjoxNDE1MzQxNjMxMjY4LCJpc3MiOiJCSExTZXJ2ZXIifQ.bwRps5G6lAd8tGZKK7nExzhxFrZmAwud0C2RW26sdRM"
 

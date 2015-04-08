@@ -13,6 +13,7 @@ class CaptchasManager {
 	private inputTextArr: any[];
 	private isLocked: boolean;
 	private lockedTimer: number;
+	private attemptsNotSent: closestWord[];
 
 	constructor() {
 		this.localChunks = [];
@@ -33,6 +34,7 @@ class CaptchasManager {
 		this.captchasSucceeded = 0;
 		this.updatePassButton();
 		this.confusedTimeMuliplier = 1;
+		this.attemptsNotSent = [];
 
 		// First refresh our local chunks list
 		this.localChunks = this.getLocalChunks();
@@ -87,10 +89,11 @@ class CaptchasManager {
 		var captcha = _.find(this.captchas, c => c.lane == lane);
 		
 		// Limit the captcha to a certain length
-		for (var i = 0; i < 100; i++) {
+		for (var i = 0; i < 100; i++) {			
 			captcha.setChunk(this.getNextChunk());
-			console.log("Captcha width", captcha.getBounds().width, "Max width", smorball.config.maxCaptchaSize);
-			if (captcha.getBounds().width < smorball.config.maxCaptchaSize)
+			var width = captcha.getWidth();
+			console.log("Captcha width", width, "Max width", smorball.config.maxCaptchaSize);
+			if (width < smorball.config.maxCaptchaSize)
 				break;
 		}
 	}
@@ -171,7 +174,16 @@ class CaptchasManager {
 
 		// Slam it through the library
 		var output = new closestWord(text, differences);
+		output.text = text;
 		console.log("Comparing inputted text against captchas", text, output);
+
+		// Increment and send if neccessary
+		if (!output.closestOcr.page.isLocal) {
+			this.attemptsNotSent.push(output);
+			if (this.attemptsNotSent.length > 4)
+				this.sendInputsToServer();
+		}
+	
 
 		// Handle success
 		if (output.match) {
@@ -343,59 +355,77 @@ class CaptchasManager {
 	}
 
 	sendInputsToServer() {
-		//var arr = smorball.gameState.inputTextArr;
-		//$.ajax({
-		//	url: 'http://tiltfactor1.dartmouth.edu:8080/api/difference',
-		//	type: 'PUT',
-		//	dataType: 'json',
-		//	headers: { "x-access-token": 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJHYW1lIiwiaWF0IjoxNDE1MzQxNjMxMjY4LCJpc3MiOiJCSExTZXJ2ZXIifQ.bwRps5G6lAd8tGZKK7nExzhxFrZmAwud0C2RW26sdRM' },
-		//	processData: false,
-		//	contentType: 'application/json',
-		//	timeout: 10000,
-		//	data: JSON.stringify(arr), //this data will be in the format of a json object of user inputs and database IDs of the word they were going for (provided in the json that GET returns)
-		//	crossDomain: true,
-		//	error: (err) => {
-		//		var errorText = JSON.parse(err.responseText);
-		//		console.log(errorText);
-		//		smorball.gameState.inputTextArr = [];
-		//	},
-		//	success: (data) => {
-		//		smorball.gameState.inputTextArr = [];
-		//		console.log(data);
-		//	}
+
+		// Convert it into the format needed by the server
+		var data = {
+			differences:  _.map(this.attemptsNotSent, a => { return { _id: a.closestOcr._id, text: a.text } })
+		}
+
+		// Make a copy of the attempts not sent and reset the list ready for the next send
+		var attempts = this.attemptsNotSent.slice();
+		this.attemptsNotSent = [];
+
+		$.ajax({
+			type: 'PUT',
+			dataType: 'json',
+			processData: false,
+			contentType: 'application/json',
+			crossDomain: true,
+			url: smorball.config.DifferenceAPIUrl,
+			data: JSON.stringify(data),
+			timeout: 10000,
+			success: data => {
+				console.log("data sent to DifferenceAPI success!", data);
+			},
+			error: (err) => {
+				console.log("difference API error:", err);
+
+				// If we get an error, add these attempts back into the list
+				this.attemptsNotSent = this.attemptsNotSent.concat(attempts);
+			},
+			headers: { "x-access-token": smorball.config.PageAPIAccessToken }
+		});
 	}
 
 	loadPageFromServer() {
 		$.ajax({
 			url: smorball.config.PageAPIUrl,
 			success: data => this.parsePageAPIData(data),
-			type: 'GET',
 			headers: { "x-access-token": smorball.config.PageAPIAccessToken	},
-			crossDomain: true,
-			timeout: smorball.config.PAgeAPITimeout
+			timeout: smorball.config.PageAPITimeout
 		});
 	}
 
 	private parsePageAPIData(data: OCRPage) {
 
-		console.log("OCRPage loaded", data);
+		console.log("OCRPage loaded, loading image..", data);
 
-		$.ajax({
-			url: data.url,
-			success: data => console.log("got page img", data),
-			type: 'GET',
-			headers: { "x-access-token": smorball.config.PageAPIAccessToken },
-			crossDomain: true,
-			timeout: smorball.config.PAgeAPITimeout
-		});
+		// This seems to be the only way I can get the CORS image to work
+		var image = new Image();
+		image.src = data.url;
+		image.onload = () => {
 
-		// First lets grab that page image
-		//smorball.resources.load(data.url, "ocr_page_" + data.id, img => {
+			console.log("IMAGE LOADED!", image);
 
-		//	console.log("OCRPage image loaded", img);
+			var ssData = {
+				frames: [],
+				images: []
+			};
 
-
-		//});
+			_.each(data.differences, d => {
+				var x = d.coords[3].x-1;
+				var y = d.coords[3].y-1;
+				var w = d.coords[1].x - d.coords[3].x+2;
+				var h = d.coords[1].y - d.coords[3].y+2;
+				d.frame = ssData.frames.length;
+				d.page = data;
+				ssData.frames.push([x, y, w, h]);
+				this.remoteChunks.push(d);
+			});
+			
+			ssData.images = [image];
+			data.spritesheet = new createjs.SpriteSheet(ssData);
+		};
 		
 	}
 	

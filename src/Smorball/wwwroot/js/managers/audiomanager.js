@@ -8,7 +8,7 @@ var AudioManager = (function () {
         createjs.Sound.registerPlugins([createjs.WebAudioPlugin]);
         createjs.Sound.alternateExtensions = ["mp3"];
         createjs.Sound.defaultInterruptBehavior = createjs.Sound.INTERRUPT_NONE;
-        smorball.resources.queue.installPlugin(createjs.Sound);
+        smorball.resources.fgQueue.installPlugin(createjs.Sound);
     }
     AudioManager.prototype.init = function () {
         var _this = this;

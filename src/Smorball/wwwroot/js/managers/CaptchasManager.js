@@ -17,6 +17,7 @@ var CaptchasManager = (function () {
         this.captchasSucceeded = 0;
         this.updatePassButton();
         this.confusedTimeMuliplier = 1;
+        this.attemptsNotSent = [];
         // First refresh our local chunks list
         this.localChunks = this.getLocalChunks();
         // If this isnt the first level then shuffle up the entries a little
@@ -58,8 +59,9 @@ var CaptchasManager = (function () {
         var captcha = _.find(this.captchas, function (c) { return c.lane == lane; });
         for (var i = 0; i < 100; i++) {
             captcha.setChunk(this.getNextChunk());
-            console.log("Captcha width", captcha.getBounds().width, "Max width", smorball.config.maxCaptchaSize);
-            if (captcha.getBounds().width < smorball.config.maxCaptchaSize)
+            var width = captcha.getWidth();
+            console.log("Captcha width", width, "Max width", smorball.config.maxCaptchaSize);
+            if (width < smorball.config.maxCaptchaSize)
                 break;
         }
     };
@@ -119,7 +121,14 @@ var CaptchasManager = (function () {
         var differences = _.map(visibleCapatchas, function (c) { return c.chunk; });
         // Slam it through the library
         var output = new closestWord(text, differences);
+        output.text = text;
         console.log("Comparing inputted text against captchas", text, output);
+        // Increment and send if neccessary
+        if (!output.closestOcr.page.isLocal) {
+            this.attemptsNotSent.push(output);
+            if (this.attemptsNotSent.length > 4)
+                this.sendInputsToServer();
+        }
         // Handle success
         if (output.match) {
             // Which was the selected one?
@@ -254,52 +263,70 @@ var CaptchasManager = (function () {
         this.isLocked = false;
     };
     CaptchasManager.prototype.sendInputsToServer = function () {
-        //var arr = smorball.gameState.inputTextArr;
-        //$.ajax({
-        //	url: 'http://tiltfactor1.dartmouth.edu:8080/api/difference',
-        //	type: 'PUT',
-        //	dataType: 'json',
-        //	headers: { "x-access-token": 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJHYW1lIiwiaWF0IjoxNDE1MzQxNjMxMjY4LCJpc3MiOiJCSExTZXJ2ZXIifQ.bwRps5G6lAd8tGZKK7nExzhxFrZmAwud0C2RW26sdRM' },
-        //	processData: false,
-        //	contentType: 'application/json',
-        //	timeout: 10000,
-        //	data: JSON.stringify(arr), //this data will be in the format of a json object of user inputs and database IDs of the word they were going for (provided in the json that GET returns)
-        //	crossDomain: true,
-        //	error: (err) => {
-        //		var errorText = JSON.parse(err.responseText);
-        //		console.log(errorText);
-        //		smorball.gameState.inputTextArr = [];
-        //	},
-        //	success: (data) => {
-        //		smorball.gameState.inputTextArr = [];
-        //		console.log(data);
-        //	}
+        var _this = this;
+        // Convert it into the format needed by the server
+        var data = {
+            differences: _.map(this.attemptsNotSent, function (a) {
+                return { _id: a.closestOcr._id, text: a.text };
+            })
+        };
+        // Make a copy of the attempts not sent and reset the list ready for the next send
+        var attempts = this.attemptsNotSent.slice();
+        this.attemptsNotSent = [];
+        $.ajax({
+            type: 'PUT',
+            dataType: 'json',
+            processData: false,
+            contentType: 'application/json',
+            crossDomain: true,
+            url: smorball.config.DifferenceAPIUrl,
+            data: JSON.stringify(data),
+            timeout: 10000,
+            success: function (data) {
+                console.log("data sent to DifferenceAPI success!", data);
+            },
+            error: function (err) {
+                console.log("difference API error:", err);
+                // If we get an error, add these attempts back into the list
+                _this.attemptsNotSent = _this.attemptsNotSent.concat(attempts);
+            },
+            headers: { "x-access-token": smorball.config.PageAPIAccessToken }
+        });
     };
     CaptchasManager.prototype.loadPageFromServer = function () {
         var _this = this;
         $.ajax({
             url: smorball.config.PageAPIUrl,
             success: function (data) { return _this.parsePageAPIData(data); },
-            type: 'GET',
             headers: { "x-access-token": smorball.config.PageAPIAccessToken },
-            crossDomain: true,
-            timeout: smorball.config.PAgeAPITimeout
+            timeout: smorball.config.PageAPITimeout
         });
     };
     CaptchasManager.prototype.parsePageAPIData = function (data) {
-        console.log("OCRPage loaded", data);
-        $.ajax({
-            url: data.url,
-            success: function (data) { return console.log("got page img", data); },
-            type: 'GET',
-            headers: { "x-access-token": smorball.config.PageAPIAccessToken },
-            crossDomain: true,
-            timeout: smorball.config.PAgeAPITimeout
-        });
-        // First lets grab that page image
-        //smorball.resources.load(data.url, "ocr_page_" + data.id, img => {
-        //	console.log("OCRPage image loaded", img);
-        //});
+        var _this = this;
+        console.log("OCRPage loaded, loading image..", data);
+        // This seems to be the only way I can get the CORS image to work
+        var image = new Image();
+        image.src = data.url;
+        image.onload = function () {
+            console.log("IMAGE LOADED!", image);
+            var ssData = {
+                frames: [],
+                images: []
+            };
+            _.each(data.differences, function (d) {
+                var x = d.coords[3].x - 1;
+                var y = d.coords[3].y - 1;
+                var w = d.coords[1].x - d.coords[3].x + 2;
+                var h = d.coords[1].y - d.coords[3].y + 2;
+                d.frame = ssData.frames.length;
+                d.page = data;
+                ssData.frames.push([x, y, w, h]);
+                _this.remoteChunks.push(d);
+            });
+            ssData.images = [image];
+            data.spritesheet = new createjs.SpriteSheet(ssData);
+        };
     };
     return CaptchasManager;
 })();

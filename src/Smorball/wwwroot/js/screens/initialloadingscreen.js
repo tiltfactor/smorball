@@ -30,7 +30,7 @@ var LoadingScreen = (function (_super) {
         // Update the animated background
         this.background.update(delta);
         // Update the bar based on our load progress
-        this.bar.setProgress(smorball.resources.queue.progress);
+        this.bar.setProgress(smorball.resources.fgQueue.progress);
     };
     return LoadingScreen;
 })(createjs.Container);

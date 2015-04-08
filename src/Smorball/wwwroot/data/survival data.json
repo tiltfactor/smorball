@@ -1,0 +1,44 @@
+﻿{
+	"minimumEnemySpawnTime": 1,
+	"minimumPowerupSpawnTime":  1,
+	"enemies": {
+		"weak": {
+			"startTime": 0,
+			"spawnCost": 10
+		},
+		"regular": {
+			"startTime": 30,
+			"spawnCost": 20
+		},
+		"fast": {
+			"startTime": 60,
+			"spawnCost": 30
+		},
+		"lanechange": {
+			"startTime": 90,
+			"spawnCost": 40
+		},
+		"boss": {
+			"startTime": 120,
+			"spawnCost": 50
+		},
+		"coach": {
+			"startTime": 150,
+			"spawnCost": 60
+		}
+	},
+	"powerups": {
+		"cleats": {
+			"startTime": 30,
+			"spawnCost": 10
+		},
+		"helmet": {
+			"startTime": 90,
+			"spawnCost": 10
+		},
+		"bullhorn": {
+			"startTime": 150,
+			"spawnCost": 10
+		}
+	}
+}

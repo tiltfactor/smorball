@@ -40,5 +40,11 @@ var Utils = (function () {
         for (var i = 0; i < 10; i++)
             jq.animate({ 'margin-left': "+=" + (l = -l) + 'px' }, 50);
     };
+    Utils.formatTime = function (seconds) {
+        seconds = Math.floor(seconds);
+        var minutes = Math.floor(seconds / 60);
+        seconds -= minutes * 60;
+        return this.zeroPad(minutes, 2) + ":" + this.zeroPad(seconds, 2);
+    };
     return Utils;
 })();

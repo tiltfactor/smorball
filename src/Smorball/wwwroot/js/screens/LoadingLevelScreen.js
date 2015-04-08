@@ -38,9 +38,9 @@ var LoadingLevelScreen = (function (_super) {
         // Update the stars
         this.background.update(delta);
         // Update the bar based on our load progress
-        this.bar.setProgress(smorball.resources.queue.progress);
+        this.bar.setProgress(smorball.resources.fgQueue.progress);
         // If we are done loading then show the play button
-        if (smorball.resources.queue.progress == 1) {
+        if (smorball.resources.fgQueue.progress == 1) {
             this.bar.visible = false;
             this.playButtonEl.hidden = false;
         }

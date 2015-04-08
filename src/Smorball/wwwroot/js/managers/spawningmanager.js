@@ -9,6 +9,7 @@ var SpawningManager = (function () {
         this.logWave();
         this.logAction();
         this.lastEnemySpawnLane = 1;
+        this.survivalData = smorball.resources.getResource("survival_data");
         // Spawn some starting athletes
         _.each(this.level.lanes, function (i) { return smorball.spawning.spawnAthlete(i); });
     };
@@ -23,7 +24,11 @@ var SpawningManager = (function () {
         return count;
     };
     SpawningManager.prototype.update = function (delta) {
+        // If the game isnt playing then we shouldnt do anything
         if (smorball.game.state != 2 /* Playing */)
+            return;
+        // If its a time trail we dont do scripted spawning, spawning is handled by TimeTrailManager
+        if (smorball.game.level.timeTrial)
             return;
         var startAction = this.action;
         var startWave = this.wave;

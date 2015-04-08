@@ -11,10 +11,12 @@ interface Manifest {
 
 class ResourcesManager
 {
-	queue: createjs.LoadQueue;
+	fgQueue: createjs.LoadQueue;
+	bgQueue: createjs.LoadQueue;
 
 	constructor() {
-		this.queue = new createjs.LoadQueue();		
+		this.fgQueue = new createjs.LoadQueue(true, "", true);		
+		this.bgQueue = new createjs.LoadQueue(false, "", false);		
 	}
 
 	loadInitialResources(completeCallback: () => void) {
@@ -43,23 +45,24 @@ class ResourcesManager
 			entries.push({ src: path + ".png", id: enemy.id + "_" + Utils.zeroPad(levelIndx, 2) + "_png" });
 		});
 
-		this.queue.loadManifest({ manifest: entries }, true);
+		this.fgQueue.loadManifest({ manifest: entries }, true);
 	}
 
 	loadManifest(manifest: string, completeCallback: () => void) {
-		this.queue.on("complete", completeCallback, this, true);
-		this.queue.loadManifest(manifest, true);
+		this.fgQueue.on("complete", completeCallback, this, true);
+		this.fgQueue.loadManifest(manifest, true);
 	}
 
 	getResource(resourceId: string) : any {
-		return this.queue.getResult(resourceId);
+		return this.fgQueue.getResult(resourceId);
 	}
 
-	load(url: string, id: string, callback?: (resource: any) => void) {
-		this.queue.loadFile({ src: url, id: id }, true);
-		this.queue.on("complete",() => {
+	load(item: createjs.LoadItem, forground: boolean, callback?: (resource: any) => void) {
+		var queue = forground ? this.fgQueue : this.bgQueue;
+		queue.loadFile(item, true);
+		queue.on("complete",(data) => {
 			if (callback != null)
-				callback(this.getResource(id));
+				callback(queue.getItem(item.id));
 		}, this, true);
 	}
 

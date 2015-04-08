@@ -2,6 +2,7 @@ var UserManager = (function () {
     function UserManager() {
         this.levels = [{ isUnlocked: true, score: 0 }];
         this.cash = 0;
+        this.bestSurvivalTime = 0;
     }
     UserManager.prototype.newGame = function () {
         this.levels = [{ isUnlocked: true, score: 0 }];

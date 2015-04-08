@@ -7,7 +7,6 @@ var __extends = this.__extends || function (d, b) {
 var Captcha = (function (_super) {
     __extends(Captcha, _super);
     function Captcha(lane) {
-        var _this = this;
         _super.call(this);
         this.lane = lane;
         // Create and add the spritesheet
@@ -20,36 +19,35 @@ var Captcha = (function (_super) {
         this.y = pos.y;
         // Draw a debug circle
         if (smorball.config.debug) {
-            //var circle = new createjs.Shape();
-            //circle.graphics.beginFill("red");
-            //circle.graphics.drawCircle(0, 0, 10);
-            //this.addChild(circle);
-            // For debug purposes, let this be clickable
-            this.mouseEnabled = true;
-            this.cursor = "pointer";
-            this.on("click", function () { return smorball.captchas.onCaptchaEnteredSuccessfully(_this.chunk.texts[0], _this); });
         }
     }
+    Captcha.prototype.getWidth = function () {
+        if (this.chunk == null)
+            return 0;
+        var frame = this.chunk.page.spritesheet.getFrame(this.chunk.frame);
+        return frame.rect.width * (this.chunk.page.isLocal ? 1 : 0.75);
+    };
     Captcha.prototype.setChunk = function (chunk) {
+        var scale = chunk.page.isLocal ? 1 : 0.75;
         // Update the sprite
         this.chunk = chunk;
         this.sprite.spriteSheet = chunk.page.spritesheet;
         this.sprite.gotoAndStop(chunk.frame);
-        this.sprite.regX = this.sprite.getBounds().width / 2;
-        this.sprite.regY = this.sprite.getBounds().height / 2;
-        this.sprite.x = this.sprite.getBounds().width / 2;
+        this.sprite.scaleX = this.sprite.scaleY = scale;
+        this.sprite.regX = this.sprite.getTransformedBounds().width / 2;
+        this.sprite.regY = this.sprite.getTransformedBounds().height / 2;
+        this.sprite.x = this.sprite.getTransformedBounds().width / 2;
         this.visible = true;
         // Animate in
         createjs.Tween.removeTweens(this.sprite);
         this.sprite.scaleX = this.sprite.scaleY = 0;
-        createjs.Tween.get(this.sprite).to({ scaleX: 1, scaleY: 1 }, 500, createjs.Ease.backOut);
+        createjs.Tween.get(this.sprite).to({ scaleX: scale, scaleY: scale }, 500, createjs.Ease.backOut);
     };
     Captcha.prototype.clear = function () {
         var _this = this;
         this.chunk = null;
         // Animate Out
         createjs.Tween.removeTweens(this.sprite);
-        this.scaleX = this.scaleY = 1;
         createjs.Tween.get(this.sprite).to({ scaleX: 0, scaleY: 0 }, 250, createjs.Ease.backOut).call(function (tween) { return _this.visible = false; });
     };
     return Captcha;

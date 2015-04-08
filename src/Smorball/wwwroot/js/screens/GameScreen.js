@@ -48,6 +48,7 @@ var GameScreen = (function (_super) {
         this.timeoutEl = $('#gameScreen .timeout').get(0);
         this.victoryEl = $('#gameScreen .victory').get(0);
         this.defeatEl = $('#gameScreen .defeat').get(0);
+        this.survivalEl = $('#gameScreen .survival').get(0);
         // Setup the music slider and listen for changes to it
         $('#gameScreen .timeout .music-slider').slider({ value: smorball.audio.musicVolume * 100 }).on("slide", function (e) { return smorball.audio.setMusicVolume(e.value / 100); });
         // Setup the sound slider and listen for changes
@@ -68,12 +69,17 @@ var GameScreen = (function (_super) {
                 smorball.audio.playSound("text_entry_4_sound", 0.2);
             }
         });
+        this.framerate = new Framerate();
+        this.framerate.x = smorball.config.width - 80;
+        this.framerate.y = smorball.config.height - 60;
+        this.addChild(this.framerate);
     };
     GameScreen.prototype.newLevel = function () {
         this.timeoutEl.hidden = true;
         this.captchas.visible = true;
         this.victoryEl.hidden = true;
         this.defeatEl.hidden = true;
+        this.survivalEl.hidden = true;
         this.selectPowerup(null);
         this.indicator.visible = false;
         this.bubble.visible = false;
@@ -91,16 +97,28 @@ var GameScreen = (function (_super) {
         this.victoryEl.hidden = false;
         $('#gameScreen .victory .cashbar-small').text(cashEarnt + "").focus();
     };
+    GameScreen.prototype.showTimeTrialEnd = function () {
+        this.survivalEl.hidden = false;
+        $('#gameScreen .survival .best-time').text(Utils.formatTime(smorball.user.bestSurvivalTime)).focus();
+        $('#gameScreen .survival .time-survived').text(Utils.formatTime(smorball.game.timeOnLevel)).focus();
+    };
     GameScreen.prototype.showDefeat = function (cashEarnt) {
         this.defeatEl.hidden = false;
         $('#gameScreen .defeat .cashbar-small').text(cashEarnt + "").focus();
     };
     GameScreen.prototype.update = function (delta) {
-        this.opponentsEl.textContent = smorball.game.getOpponentsRemaining() + "";
-        this.scoreEl.textContent = smorball.game.getScore() + "";
+        if (smorball.game.level.timeTrial) {
+            this.opponentsEl.textContent = smorball.game.enemiesKilled + "";
+            this.scoreEl.textContent = Utils.formatTime(smorball.game.timeOnLevel);
+        }
+        else {
+            this.opponentsEl.textContent = smorball.game.getOpponentsRemaining() + "";
+            this.scoreEl.textContent = smorball.game.getScore() + "";
+        }
         // Sort by depth
         this.actors.sortChildren(function (a, b) { return a.y - b.y; });
         _.each(this.powerupIcons, function (i) { return i.update(delta); });
+        this.framerate.update(delta);
     };
     GameScreen.prototype.selectNextPowerup = function () {
         // If none is currently selected, find the first visible one and select that

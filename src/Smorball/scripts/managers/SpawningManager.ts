@@ -5,10 +5,11 @@ class SpawningManager {
 	level: Level;
 	wave: LevelWave;
 	action: WaveAction;
+	survivalData: SurvivalData;
 
 	private waveTimer: number;
 	private actionTimer: number;
-	private lastEnemySpawnLane: number;
+	private lastEnemySpawnLane: number;	
 
 	startNewLevel(level: Level) {
 		this.level = level;
@@ -18,6 +19,7 @@ class SpawningManager {
 		this.logWave();
 		this.logAction();
 		this.lastEnemySpawnLane = 1;
+		this.survivalData = smorball.resources.getResource("survival_data");
 
 		// Spawn some starting athletes
 		_.each(this.level.lanes, i => smorball.spawning.spawnAthlete(i));
@@ -34,9 +36,13 @@ class SpawningManager {
 		return count;
 	}
 
-	update(delta: number) {
+	update(delta: number) {	
 
+		// If the game isnt playing then we shouldnt do anything
 		if (smorball.game.state != GameState.Playing) return;
+
+		// If its a time trail we dont do scripted spawning, spawning is handled by TimeTrailManager
+		if (smorball.game.level.timeTrial) return;
 
 		var startAction = this.action;
 		var startWave = this.wave;
@@ -68,7 +74,7 @@ class SpawningManager {
 			this.logWave();
 
 		if (this.action != startAction)
-			this.logAction();
+			this.logAction();		
 	}
 
 	private logWave() {

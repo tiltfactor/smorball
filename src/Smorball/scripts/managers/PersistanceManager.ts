@@ -5,6 +5,7 @@
 	levels?: LevelPersistanceData[];
 	cash?: number;
 	upgrades?: boolean[];
+	bestSurvivalTime?: number;
 }
 
 class PersistanceManager {
@@ -17,6 +18,7 @@ class PersistanceManager {
 			levels: smorball.user.levels,
 			cash: smorball.user.cash,
 			upgrades: smorball.upgrades.upgradesOwned,
+			bestSurvivalTime: smorball.user.bestSurvivalTime,
 		};
 
 		localStorage.setItem("smorball", JSON.stringify(obj));
@@ -38,6 +40,7 @@ class PersistanceManager {
 		if (obj.levels != undefined) smorball.user.levels = obj.levels;
 		if (obj.cash != undefined) smorball.user.cash = obj.cash;
 		if (obj.upgrades != undefined) smorball.upgrades.upgradesOwned = obj.upgrades;
+		if (obj.bestSurvivalTime != undefined) smorball.user.bestSurvivalTime = obj.bestSurvivalTime;
 	}
 
 
