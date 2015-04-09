@@ -11,7 +11,7 @@
 			}
 		},
 		"changeLane": false,
-		"speed": 20,
+		"speed": 40,
 		"life": 6,
 		"offsetX": 265,
 		"offsetY": 369,
@@ -31,7 +31,7 @@
 			}
 		},
 		"changeLane": false,
-		"speed": 50,
+		"speed": 100,
 		"life": 1,
 		"offsetX": 265,
 		"offsetY": 369,
@@ -51,7 +51,7 @@
 			}
 		},
 		"changeLane": false,
-		"speed": 10,
+		"speed": 20,
 		"life": 3,
 		"offsetX": 265,
 		"offsetY": 369,
@@ -71,7 +71,7 @@
 			}
 		},
 		"changeLane": false,
-		"speed": 20,
+		"speed": 40,
 		"life": 1,
 		"offsetX": 265,
 		"offsetY": 369,
@@ -91,7 +91,7 @@
 			}
 		},
 		"changeLane": true,
-		"speed": 30,
+		"speed": 60,
 		"life": 1,
 		"offsetX": 265,
 		"offsetY": 340,
@@ -111,7 +111,7 @@
 			}
 		},
 		"changeLane": false,
-		"speed": 20,
+		"speed": 40,
 		"life": 6,
 		"offsetX": 129,
 		"offsetY": 182,

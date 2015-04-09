@@ -2,7 +2,7 @@
 	"cleats": {
 		"name": "Cleats",
 		"speedMultiplier": 2,
-		"damageMultiplier": 2,
+		"damageMultiplier": 3,
 		"spawnChance": 60  
 	},
 	"helmet": {

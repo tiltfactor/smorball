@@ -34,4 +34,13 @@ class AudienceMember extends createjs.Container {
 		return new createjs.SpriteSheet(data);
 	}
 
+	cheer() {
+		this.member.gotoAndPlay("cheer");
+		this.member.currentAnimationFrame = Math.floor(this.member.spriteSheet.getNumFrames("cheer") * Math.random());
+	}
+
+	idle() {
+		this.member.gotoAndPlay("idle");
+		this.member.currentAnimationFrame = Math.floor(this.member.spriteSheet.getNumFrames("idle") * Math.random());
+	}
 }

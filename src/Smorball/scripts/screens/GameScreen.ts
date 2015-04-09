@@ -95,17 +95,26 @@ class GameScreen extends ScreenBase
 
 		$('#gameScreen button.continue').click(() => smorball.game.returnToMap());		
 		
-		// Add some audio events
-		$("#gameScreen .entry input").on("keydown",(event) => {
-			if (event.keyCode == 8) { smorball.audio.playSound("text_entry_backspace_sound", 0.5); }
-			else if (event.keyCode == 9) { }
-			else { smorball.audio.playSound("text_entry_4_sound", 0.2); }
-		});			
+
+		$("#gameScreen .entry input").on("keydown",(event) => this.onKeyDown(event));			
+
+		// When any keyboard event happens focus the input
+		window.onkeydown = () => {
+			if (smorball.game.state == GameState.Playing) {
+				$("#gameScreen .entry input").focus();
+			}
+		};
 
 		this.framerate = new Framerate();
 		this.framerate.x = smorball.config.width - 80;
 		this.framerate.y = smorball.config.height - 60;
 		this.addChild(this.framerate);
+	}
+
+	private onKeyDown(event: JQueryEventObject) {
+		if (event.keyCode == 8) { smorball.audio.playSound("text_entry_backspace_sound", 0.5); }
+		else if (event.keyCode == 9) { }
+		else { smorball.audio.playSound("text_entry_4_sound", 0.2); }
 	}
 
 	newLevel() {
@@ -119,7 +128,7 @@ class GameScreen extends ScreenBase
 		this.bubble.visible = false;
 		this.actors.removeAllChildren();
 		this.captchas.removeAllChildren();
-
+		this.stadium.idleAudience();
 		this.stadium.setTeam(smorball.game.level.team);
 	}
 
@@ -167,6 +176,7 @@ class GameScreen extends ScreenBase
 		_.each(this.powerupIcons, i => i.update(delta));
 
 		this.framerate.update(delta);
+		this.stadium.update(delta);
 	}
 
 	selectNextPowerup() {

@@ -129,6 +129,7 @@ class Enemy extends createjs.Container {
 		// Decrement the life
 		var damage = 1 * athlete.damageMultiplier;
 		if (athlete.powerup == "cleats") damage *= smorball.powerups.types.cleats.damageMultiplier;
+		damage = Math.min(damage, this.lifeRemaining);
 		for (var i = 0; i < damage; i++) {
 			this.lifeRemaining--;
 			var bm = <createjs.Bitmap>this.heartsContainer.getChildAt(this.lifeRemaining);
@@ -147,7 +148,7 @@ class Enemy extends createjs.Container {
 			this.sprite.gotoAndPlay("dead");
 
 			// When the animation is done we should remove from the display list
-			this.sprite.on("animationend",(e: any) => this.destroy(), this, false);
+			this.sprite.on("animationend",(e: any) => this.onDeathAnimationComplete(), this, false);
 
 			// Play a sound
 			this.playSound("die");
@@ -175,6 +176,11 @@ class Enemy extends createjs.Container {
 			}, this, false);
 		}	
 
+	}
+
+	private onDeathAnimationComplete() {
+		this.sprite.stop();
+		createjs.Tween.get(this).to({ alpha: 0 }, 500).call(() => this.destroy());
 	}
 
 	private playSound(sound: string) {

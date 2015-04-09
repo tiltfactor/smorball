@@ -47,8 +47,8 @@ class ScreensManager extends createjs.Container {
 		_.each(this.menus, m => m.hide());
 
 		// Add a generic hover over button sound
-		$("button").hover(() => smorball.audio.playSound("mouse_over_button_sound"));
-		$("button").click(() => smorball.audio.playSound("click_sound"));
+		$("button").hover(() => smorball.audio.playSound("mouse_over_button_sound", 1.5));
+		$("button").click(() => smorball.audio.playSound("click_sound", 1.5));
 	}
 
 	open(menu: ScreenBase) {

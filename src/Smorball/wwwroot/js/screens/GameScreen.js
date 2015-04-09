@@ -11,6 +11,7 @@ var GameScreen = (function (_super) {
         _super.call(this, "gameScreen", "game_screen_html");
     }
     GameScreen.prototype.init = function () {
+        var _this = this;
         _super.prototype.init.call(this);
         this.stadium = new Stadium();
         this.stadium.init();
@@ -58,21 +59,27 @@ var GameScreen = (function (_super) {
         $('#gameScreen .timeout button.quit').click(function () { return smorball.game.returnToMap(); });
         $('#gameScreen .timeout button.help').click(function () { return smorball.game.help(); });
         $('#gameScreen button.continue').click(function () { return smorball.game.returnToMap(); });
-        // Add some audio events
-        $("#gameScreen .entry input").on("keydown", function (event) {
-            if (event.keyCode == 8) {
-                smorball.audio.playSound("text_entry_backspace_sound", 0.5);
+        $("#gameScreen .entry input").on("keydown", function (event) { return _this.onKeyDown(event); });
+        // When any keyboard event happens focus the input
+        window.onkeydown = function () {
+            if (smorball.game.state == 2 /* Playing */) {
+                $("#gameScreen .entry input").focus();
             }
-            else if (event.keyCode == 9) {
-            }
-            else {
-                smorball.audio.playSound("text_entry_4_sound", 0.2);
-            }
-        });
+        };
         this.framerate = new Framerate();
         this.framerate.x = smorball.config.width - 80;
         this.framerate.y = smorball.config.height - 60;
         this.addChild(this.framerate);
+    };
+    GameScreen.prototype.onKeyDown = function (event) {
+        if (event.keyCode == 8) {
+            smorball.audio.playSound("text_entry_backspace_sound", 0.5);
+        }
+        else if (event.keyCode == 9) {
+        }
+        else {
+            smorball.audio.playSound("text_entry_4_sound", 0.2);
+        }
     };
     GameScreen.prototype.newLevel = function () {
         this.timeoutEl.hidden = true;
@@ -85,6 +92,7 @@ var GameScreen = (function (_super) {
         this.bubble.visible = false;
         this.actors.removeAllChildren();
         this.captchas.removeAllChildren();
+        this.stadium.idleAudience();
         this.stadium.setTeam(smorball.game.level.team);
     };
     GameScreen.prototype.showTimeout = function () {
@@ -119,6 +127,7 @@ var GameScreen = (function (_super) {
         this.actors.sortChildren(function (a, b) { return a.y - b.y; });
         _.each(this.powerupIcons, function (i) { return i.update(delta); });
         this.framerate.update(delta);
+        this.stadium.update(delta);
     };
     GameScreen.prototype.selectNextPowerup = function () {
         // If none is currently selected, find the first visible one and select that

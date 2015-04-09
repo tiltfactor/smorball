@@ -71,8 +71,8 @@ class MapScreen extends ScreenBase
 		this.addChild(this.survival);
 
 		// Listen for some events
-		$("#mapMenu .fb-share").click(() => this.shareToFB());
-		$("#mapMenu .twitter-share").click(() => this.shareToTwitter());
+		$("#mapMenu .fb-share").click(() => smorball.social.shareProgressToFB());
+		$("#mapMenu .twitter-share").click(() => smorball.social.shareProgressToTwitter());
 		$("#mapMenu .menu").click(() => smorball.screens.open(smorball.screens.main));
 	}
 
@@ -86,14 +86,6 @@ class MapScreen extends ScreenBase
 		this.onLevelRollover(this.levels[0]);
 		this.shop.updateLockedState();		
 		this.survival.updateLockedState();		
-	}
-
-	private shareToFB() {
-		console.log("sharing to facebook");
-	}
-
-	private shareToTwitter() {
-		console.log("sharing to twitter");
 	}
 
 	private onLevelRollover(level:MapLevel) {

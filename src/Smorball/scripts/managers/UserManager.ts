@@ -10,16 +10,25 @@ class UserManager {
 	cash: number;
 	levels: LevelPersistanceData[];
 	bestSurvivalTime: number;
+	lastSurvivalTime: number;
+	lastLevelPlayed: number;
 
 	constructor() {
 		this.levels = [{ isUnlocked: true, score: 0 }];
 		this.cash = 0;
 		this.bestSurvivalTime = 0;
+		this.lastLevelPlayed = -1;
+		this.lastSurvivalTime = 0;
 	}
 
 	newGame() {
 		this.levels = [{ isUnlocked: true, score: 0 }];
 		this.cash = 0;
+	}
+
+	newLevel() {
+		this.lastLevelPlayed = smorball.game.levelIndex;
+		smorball.persistance.persist();
 	}
 
 	hasSaveGame() {

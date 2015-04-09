@@ -3,6 +3,8 @@
 	musicVolume: number = 1;
 	soundVolume: number = 1;
 
+	musicVolumeMultiplier = 0.6;
+
 	private music: createjs.AbstractSoundInstance;
 	private soundsPlaying: createjs.AbstractSoundInstance[];
 
@@ -29,7 +31,7 @@
 
 	setMusicVolume(volume: number) {
 		this.musicVolume = volume;
-		if (this.music) this.music.volume = volume;
+		if (this.music) this.music.volume = volume * this.musicVolumeMultiplier;
 		smorball.persistance.persist();
 	}
 
@@ -44,7 +46,7 @@
 		if (this.music != null) return;
 		this.music = createjs.Sound.play("main_theme_sound");		
 		this.music.loop = -1;
-		this.music.volume = this.musicVolume;
+		this.music.volume = this.musicVolume * this.musicVolumeMultiplier;
 
 		if (this.music.playState == "playFailed")
 			this.music = null;

@@ -28,6 +28,9 @@ class CaptchasManager {
 			if (event.which == 13)
 				this.testTextEntry();
 		});
+
+		this.attemptsNotSent = [];
+		window.onbeforeunload = () => this.sendInputsToServer();
 	}
 	
 	startNewLevel(level: Level) {
@@ -87,15 +90,37 @@ class CaptchasManager {
 
 	refreshCaptcha(lane: number) {
 		var captcha = _.find(this.captchas, c => c.lane == lane);
-		
+
+		// Get the visible captchas on screen 
+		var visibleCapatchas = _.filter(this.captchas, c => c.chunk != null && c.lane != lane);
+
 		// Limit the captcha to a certain length
-		for (var i = 0; i < 100; i++) {			
-			captcha.setChunk(this.getNextChunk());
+		for (var i = 0; i < 100; i++) {		
+			
+			// Grab the next chunk from the stack
+			var nextChunk = this.getNextChunk();
+
+			// Must ensure that the next chunk does not equal one that is already on screen
+			var match = _.find(visibleCapatchas, c => this.doChunksMatch(c.chunk, nextChunk));
+			if (match!=null) continue;
+				
+			// Ensure that the chunk isnt too wide
+			captcha.setChunk(nextChunk);
 			var width = captcha.getWidth();
 			console.log("Captcha width", width, "Max width", smorball.config.maxCaptchaSize);
 			if (width < smorball.config.maxCaptchaSize)
 				break;
 		}
+	}
+
+	doChunksMatch(a: OCRChunk, b: OCRChunk) {
+
+		for (var i = 0; i < a.texts.length; i++) 
+			for (var j = 0; j < b.texts.length; j++) 
+				if (a.texts[i] == b.texts[j])
+					return true;
+
+		return false;
 	}
 
 	getNextChunk(): OCRChunk {
@@ -180,10 +205,9 @@ class CaptchasManager {
 		// Increment and send if neccessary
 		if (!output.closestOcr.page.isLocal) {
 			this.attemptsNotSent.push(output);
-			if (this.attemptsNotSent.length > 4)
+			if (this.attemptsNotSent.length > smorball.config.entriesBeforeServerSubmission)
 				this.sendInputsToServer();
-		}
-	
+		}	
 
 		// Handle success
 		if (output.match) {
@@ -204,7 +228,7 @@ class CaptchasManager {
 		captcha.clear();
 
 		// Show the indicator
-		smorball.screens.game.indicator.showCorrect();
+		smorball.screens.game.indicator.showCorrect();		
 
 		// This is needed as the Breakfast Club powerup is dependant on the length of the captcha
 		var damageMultiplier = 1;
@@ -216,7 +240,7 @@ class CaptchasManager {
 		if (powerup != null) {
 
 			// Play a sound
-			smorball.audio.playSound("word_typed_correctly_sound");
+			smorball.audio.playSound("word_typed_correctly_with_powerup_sound");
 				
 			// If its a bullhorn then send every athlete in the 
 			if (powerup.type == "bullhorn") {
@@ -229,12 +253,13 @@ class CaptchasManager {
 
 			// Decrement the powerup
 			smorball.powerups.powerups[powerup.type].quantity--;
-			if (smorball.powerups.powerups[powerup.type].quantity == 0)
-				smorball.screens.game.selectPowerup(null);
+
+			// Deselect the powerup
+			smorball.screens.game.selectPowerup(null);
 		}
 		else {
 			// Play a sound
-			smorball.audio.playSound("word_typed_correctly_with_powerup_sound");
+			smorball.audio.playSound("word_typed_correctly_sound");
 
 			this.sendAthleteInLane(captcha.lane, damageMultiplier);
 		}	
@@ -244,7 +269,7 @@ class CaptchasManager {
 		this.lock();
 
 		// Play a sound
-		smorball.audio.playSound("word_typed_incorrectly_sound");
+		smorball.audio.playSound("word_typed_incorrect_sound");
 
 		// Show the indicator
 		smorball.screens.game.indicator.showIncorrect();
@@ -355,6 +380,11 @@ class CaptchasManager {
 	}
 
 	sendInputsToServer() {
+
+		// Dont send anything if there arent enoughv to send!
+		if (this.attemptsNotSent.length == 0) return;
+
+		console.log("sending difference inputs to sever..");
 
 		// Convert it into the format needed by the server
 		var data = {

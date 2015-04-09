@@ -27,7 +27,7 @@ class UpgradesManager {
 	}
 
 	isShopUnlocked(): boolean {
-		return smorball.user.levels.length > 1;
+		return smorball.user.levels.length > 2;
 	}
 
 	purchase(upgrade: number) {

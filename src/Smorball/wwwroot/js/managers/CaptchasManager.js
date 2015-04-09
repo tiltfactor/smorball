@@ -12,6 +12,8 @@ var CaptchasManager = (function () {
             if (event.which == 13)
                 _this.testTextEntry();
         });
+        this.attemptsNotSent = [];
+        window.onbeforeunload = function () { return _this.sendInputsToServer(); };
     };
     CaptchasManager.prototype.startNewLevel = function (level) {
         this.captchasSucceeded = 0;
@@ -56,14 +58,31 @@ var CaptchasManager = (function () {
         _.each(this.captchas, function (c) { return c.visible = false; });
     };
     CaptchasManager.prototype.refreshCaptcha = function (lane) {
+        var _this = this;
         var captcha = _.find(this.captchas, function (c) { return c.lane == lane; });
+        // Get the visible captchas on screen 
+        var visibleCapatchas = _.filter(this.captchas, function (c) { return c.chunk != null && c.lane != lane; });
         for (var i = 0; i < 100; i++) {
-            captcha.setChunk(this.getNextChunk());
+            // Grab the next chunk from the stack
+            var nextChunk = this.getNextChunk();
+            // Must ensure that the next chunk does not equal one that is already on screen
+            var match = _.find(visibleCapatchas, function (c) { return _this.doChunksMatch(c.chunk, nextChunk); });
+            if (match != null)
+                continue;
+            // Ensure that the chunk isnt too wide
+            captcha.setChunk(nextChunk);
             var width = captcha.getWidth();
             console.log("Captcha width", width, "Max width", smorball.config.maxCaptchaSize);
             if (width < smorball.config.maxCaptchaSize)
                 break;
         }
+    };
+    CaptchasManager.prototype.doChunksMatch = function (a, b) {
+        for (var i = 0; i < a.texts.length; i++)
+            for (var j = 0; j < b.texts.length; j++)
+                if (a.texts[i] == b.texts[j])
+                    return true;
+        return false;
     };
     CaptchasManager.prototype.getNextChunk = function () {
         // If its a tutorial level then we need to use a speacially prepared list
@@ -126,7 +145,7 @@ var CaptchasManager = (function () {
         // Increment and send if neccessary
         if (!output.closestOcr.page.isLocal) {
             this.attemptsNotSent.push(output);
-            if (this.attemptsNotSent.length > 4)
+            if (this.attemptsNotSent.length > smorball.config.entriesBeforeServerSubmission)
                 this.sendInputsToServer();
         }
         // Handle success
@@ -152,7 +171,7 @@ var CaptchasManager = (function () {
         var powerup = smorball.screens.game.selectedPowerup;
         if (powerup != null) {
             // Play a sound
-            smorball.audio.playSound("word_typed_correctly_sound");
+            smorball.audio.playSound("word_typed_correctly_with_powerup_sound");
             // If its a bullhorn then send every athlete in the 
             if (powerup.type == "bullhorn") {
                 _.chain(smorball.game.athletes).filter(function (a) { return a.state == 1 /* ReadyToRun */; }).each(function (a) { return _this.sendAthleteInLane(a.lane, damageMultiplier); });
@@ -161,12 +180,12 @@ var CaptchasManager = (function () {
                 this.sendAthleteInLane(captcha.lane, damageMultiplier);
             // Decrement the powerup
             smorball.powerups.powerups[powerup.type].quantity--;
-            if (smorball.powerups.powerups[powerup.type].quantity == 0)
-                smorball.screens.game.selectPowerup(null);
+            // Deselect the powerup
+            smorball.screens.game.selectPowerup(null);
         }
         else {
             // Play a sound
-            smorball.audio.playSound("word_typed_correctly_with_powerup_sound");
+            smorball.audio.playSound("word_typed_correctly_sound");
             this.sendAthleteInLane(captcha.lane, damageMultiplier);
         }
     };
@@ -174,7 +193,7 @@ var CaptchasManager = (function () {
         var _this = this;
         this.lock();
         // Play a sound
-        smorball.audio.playSound("word_typed_incorrectly_sound");
+        smorball.audio.playSound("word_typed_incorrect_sound");
         // Show the indicator
         smorball.screens.game.indicator.showIncorrect();
         var visibleCapatchas = _.filter(this.captchas, function (c) { return c.chunk != null; });
@@ -264,6 +283,10 @@ var CaptchasManager = (function () {
     };
     CaptchasManager.prototype.sendInputsToServer = function () {
         var _this = this;
+        // Dont send anything if there arent enoughv to send!
+        if (this.attemptsNotSent.length == 0)
+            return;
+        console.log("sending difference inputs to sever..");
         // Convert it into the format needed by the server
         var data = {
             differences: _.map(this.attemptsNotSent, function (a) {

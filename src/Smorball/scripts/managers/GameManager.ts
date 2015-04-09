@@ -83,9 +83,10 @@ class GameManager extends createjs.Container {
 		smorball.powerups.newLevel();
 		smorball.upgrades.newLevel();
 		smorball.timeTrial.newLevel();
+		smorball.user.newLevel();
 
 		// Start playing the crowd cheering sound
-		this.ambienceSound = smorball.audio.playAudioSprite("stadium_ambience_looping_sound", { startTime: 0, duration: 28000, loop: -1 });
+		this.ambienceSound = smorball.audio.playAudioSprite("stadium_ambience_looping_sound", { startTime: 0, duration: 28000, loop: -1 }, 0.8);
 
 		// Update the spawner
 		smorball.spawning.startNewLevel(this.level);
@@ -110,10 +111,16 @@ class GameManager extends createjs.Container {
 
 		// Set these
 		this.state = GameState.GameOver;
-		createjs.Ticker.setPaused(true);
+		//createjs.Ticker.setPaused(true);
+
+		// Send inputs to server
+		smorball.captchas.sendInputsToServer();
 
 		// If this is a timetrail level then we need to do something special
 		if (this.level.timeTrial) {
+
+			// Save this
+			smorball.user.lastSurvivalTime = this.timeOnLevel;
 
 			// If we beat the best time then update it here
 			if (this.timeOnLevel > smorball.user.bestSurvivalTime)
@@ -133,10 +140,13 @@ class GameManager extends createjs.Container {
 			smorball.audio.fadeOutAndStop(this.ambienceSound, 2000);		
 
 			// Play a different ambient sound
-			this.ambienceSound = smorball.audio.playSound("crowd_cheering_ambient_sound");
+			this.ambienceSound = smorball.audio.playSound("crowd_cheering_ambient_sound", 0.8);
 
 			// If this is the first level then lets adjust the difficulty
 			if (this.levelIndex == 0) smorball.difficulty.updateDifficulty(this.timeOnLevel);
+
+			// Make all the audience cheer
+			smorball.screens.game.stadium.cheerAudience();
 
 			// Work out how much we earnt
 			var earnt = smorball.user.levelWon(this.levelIndex);

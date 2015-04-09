@@ -148,6 +148,8 @@ interface SmorballConfig {
 	PageAPITimeout: number;
 	maxCaptchaSize: number;
 	DifferenceAPIUrl: string;
+	entriesBeforeServerSubmission: number;
+	fbAppId: string;
 }
 
 interface Upgrade {
@@ -195,7 +197,7 @@ interface EnemyTypes extends _.Dictionary<EnemyType> {
 
 interface AthleteType {
 	id: string;
-	sound: { fall?: string; run?: string };
+	sound: { tackle: string; };
 	offsetX?: number;
 	offsetY?: number;
 	speed: number;

@@ -1,6 +1,8 @@
 ﻿{
 	"manifest": [
 		{ "src": "images/Splash Screens/MBG-Logo.jpg", "id": "MBG_logo" },
+		{ "src": "images/Splash Screens/BHL Logo.png", "id": "BHL_logo" },
+		{ "src": "images/Splash Screens/Tiltfacor on White.png", "id": "TiltFactor_logo" },
 
 		{ "src": "images/Clubhouse/back_btn_up.png", "id": "back_button_up" },
 		{ "src": "images/Clubhouse/back_btn_over.png", "id": "back_button_over" },
@@ -50,8 +52,7 @@
 
 		
 		
-		{ "src": "images/Splash Screens/BHL Logo.png", "id": "BHL_logo" },
-		{ "src": "images/Splash Screens/Tiltfacor on White.png", "id": "TiltFactor_logo" },
+		
 
 		{ "src": "html/main menu.html", "id": "main_menu_html" },
 		{ "src": "html/options menu.html", "id": "options_menu_html" },
@@ -92,6 +93,8 @@
 		{ "src": "images/The Stadium/stadium-grass.png", "id": "stadium_grass" },
 		{ "src": "images/The Stadium/stadium-wall.png", "id": "stadium_wall" },
 		{ "src": "images/The Stadium/crowd_glass.png", "id": "crowd_glass" },
+		{ "src": "images/The Stadium/speaker_animation1.png", "id": "speaker_off" },
+		{ "src": "images/The Stadium/speaker_animation2.png", "id": "speaker_on" },
 
 		{ "src": "images/Logos/beige_logo.png", "id": "beige_logo" },
 		{ "src": "images/Logos/bronies_logo.png", "id": "bronies_logo" },

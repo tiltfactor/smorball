@@ -35,10 +35,13 @@ var SmorballManager = (function () {
         this.upgrades = new UpgradesManager();
         this.powerups = new PowerupsManager();
         this.timeTrial = new TimeTrailManager();
+        this.social = new SocialManager();
         // Start off things invisible
         this.loadingScreen.visible = false;
         // Load the last session (if there is one)
         this.persistance.depersist();
+        // Init the social stuff now so it can load SDKs and what not
+        this.social.init();
         // Add managers that are containers
         this.stage.addChild(this.splashScreens);
         this.stage.addChild(this.loadingScreen);

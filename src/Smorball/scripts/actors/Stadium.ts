@@ -5,6 +5,8 @@
 class Stadium extends createjs.Container {
 
 	logo: createjs.Bitmap;
+	audienceMembers: AudienceMember[];
+	speakers: StadiumSpeaker[];
 
 	init() {			
 
@@ -28,6 +30,8 @@ class Stadium extends createjs.Container {
 
 		var scale = 1600 / 800;
 
+		this.speakers = [];
+
 
 		_.each(data.parts, part => {
 
@@ -37,12 +41,15 @@ class Stadium extends createjs.Container {
 				obj = new createjs.Bitmap(smorball.resources.getResource("stadium_wall"));
 			if (part.type == "stadium_grass")
 				obj = new createjs.Bitmap(smorball.resources.getResource("stadium_grass"));
-			else if (part.type == "seat") 
+			else if (part.type == "seat")
 				obj = new createjs.Bitmap(smorball.resources.getResource("stadium_seat"));
 			else if (part.type == "scoreboard")
 				obj = new createjs.Bitmap(smorball.resources.getResource("stadium_scoreboard"));
-			else if (part.type == "speaker")
-				obj = new createjs.Bitmap(smorball.resources.getResource("stadium_speaker"));
+			else if (part.type == "speaker") {
+				var speaker = new StadiumSpeaker();
+				this.speakers.push(speaker);
+				obj = speaker;
+			}
 			else if (part.type == "speaker_pole")
 				obj = new createjs.Bitmap(smorball.resources.getResource("stadium_speaker_pole"));
 			else if (part.type == "advertisement_board")
@@ -65,11 +72,20 @@ class Stadium extends createjs.Container {
 		});
 	}
 
+	idleAudience() {
+		_.each(this.audienceMembers, m => m.idle());
+	}
+
+	cheerAudience() {
+		_.each(this.audienceMembers, m => m.cheer());
+	}
+
 	private addAudience() {
 
 		var seatImg = smorball.resources.getResource("stadium_seat");
 		var audienceTypes = <AudienceMemberType[]>smorball.resources.getResource("audience_data");
 
+		this.audienceMembers = [];
 
 		// Find all seats
 		_.chain(this.children)
@@ -78,12 +94,17 @@ class Stadium extends createjs.Container {
 
 			// Lets put an audience member on that seat.
 			var member = new AudienceMember(Utils.randomOne(audienceTypes));
+			this.audienceMembers.push(member);
 			member.x = seat.x;
 			member.y = seat.y;
 			this.addChildAt(member, this.getChildIndex(seat) + 1);
 
 		});
 
+	}
+
+	update(delta: number) {
+		_.each(this.speakers, s => s.update(delta));
 	}
 
 

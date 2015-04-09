@@ -25,7 +25,7 @@ var UpgradesManager = (function () {
         return (smorball.user.getHighestUnlockedLevel() + 2) <= this.upgrades[indx].unlocksAt;
     };
     UpgradesManager.prototype.isShopUnlocked = function () {
-        return smorball.user.levels.length > 1;
+        return smorball.user.levels.length > 2;
     };
     UpgradesManager.prototype.purchase = function (upgrade) {
         this.upgradesOwned[upgrade] = true;

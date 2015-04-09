@@ -26,8 +26,10 @@ var CommentatorBubble = (function (_super) {
         this.text.lineWidth = this.background.getTransformedBounds().width - 40;
         this.addChild(this.text);
         this.visible = false;
+        this.isOpen = false;
     }
     CommentatorBubble.prototype.showCommentary = function (commentry) {
+        var _this = this;
         this.visible = true;
         this.text.text = commentry.toUpperCase();
         this.text.y = this.background.getBounds().height / 2 - this.text.getBounds().height / 2;
@@ -40,10 +42,10 @@ var CommentatorBubble = (function (_super) {
             t.wait(2000 + commentry.length * 40).to({ scaleX: 0, scaleY: 0 }, 500, createjs.Ease.backIn);
         createjs.Tween.removeTweens(this.text);
         this.text.alpha = 0;
-        t = createjs.Tween.get(this.text).wait(1500).to({ alpha: 1 }, 500, createjs.Ease.sineOut);
+        t = createjs.Tween.get(this.text).wait(1500).to({ alpha: 1 }, 500, createjs.Ease.sineOut).call(function () { return _this.isOpen = true; });
         // If this isnt the tutorial level then animate out after a cetain time
         if (smorball.game.levelIndex != 0)
-            t.wait(2500 + commentry.length * 40).to({ alpha: 0 }, 500);
+            t.wait(2500 + commentry.length * 40).to({ alpha: 0 }, 500).call(function () { return _this.isOpen = false; });
     };
     return CommentatorBubble;
 })(createjs.Container);

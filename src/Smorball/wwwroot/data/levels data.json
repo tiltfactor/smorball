@@ -516,8 +516,9 @@
 		"team": {
 			"name": "Tucson Walruses",
 			"id": "walruses",
-			"outfit":  4
+			"outfit": 4
 		},
+		"powerups": [ ],
 		"waves": [
 			{
 				"actions": [

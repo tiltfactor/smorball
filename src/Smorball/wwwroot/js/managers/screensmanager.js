@@ -32,8 +32,8 @@ var ScreensManager = (function (_super) {
         // Make sure we start off hidden
         _.each(this.menus, function (m) { return m.hide(); });
         // Add a generic hover over button sound
-        $("button").hover(function () { return smorball.audio.playSound("mouse_over_button_sound"); });
-        $("button").click(function () { return smorball.audio.playSound("click_sound"); });
+        $("button").hover(function () { return smorball.audio.playSound("mouse_over_button_sound", 1.5); });
+        $("button").click(function () { return smorball.audio.playSound("click_sound", 1.5); });
     };
     ScreensManager.prototype.open = function (menu) {
         if (this.current)

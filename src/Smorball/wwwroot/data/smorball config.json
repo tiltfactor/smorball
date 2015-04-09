@@ -35,10 +35,13 @@
 		}
 	],
 
+	"fbAppId": "1572394949706252",
+
 	"width": 1600,
 	"height":  1200,
 	"goalLine":  345,
 	"penaltyTime": 3,
+	"entriesBeforeServerSubmission":  50,
 	"enemyTouchdowns":  6,
 	"passes": 2,
 	"maxCaptchaSize":  180,

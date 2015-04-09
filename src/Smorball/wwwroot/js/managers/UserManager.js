@@ -3,10 +3,16 @@ var UserManager = (function () {
         this.levels = [{ isUnlocked: true, score: 0 }];
         this.cash = 0;
         this.bestSurvivalTime = 0;
+        this.lastLevelPlayed = -1;
+        this.lastSurvivalTime = 0;
     }
     UserManager.prototype.newGame = function () {
         this.levels = [{ isUnlocked: true, score: 0 }];
         this.cash = 0;
+    };
+    UserManager.prototype.newLevel = function () {
+        this.lastLevelPlayed = smorball.game.levelIndex;
+        smorball.persistance.persist();
     };
     UserManager.prototype.hasSaveGame = function () {
         return this.levels != null;

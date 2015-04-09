@@ -115,12 +115,14 @@ class Athlete extends createjs.Container {
 		// Check collisions with enemies
 		_.chain(smorball.game.enemies)
 			.filter(e => e.state == EnemyState.Alive && e.lane == this.lane && this.enemiesTackled.indexOf(e) == -1)
-			.each(e => {
+			.every(e => {
 				var theirBounds = e.getTransformedBounds();
 				if (myBounds.intersects(theirBounds)) {
 					e.tackled(this);
-					this.tackle(e);				
+					this.tackle(e);
+					return false;			
 				}
+				return true;
 			});
 
 		// Check collisions with powerups
@@ -142,6 +144,9 @@ class Athlete extends createjs.Container {
 		// Play the tackle anim adn stop running
 		this.state = AthleteState.Tackling;
 		this.sprite.gotoAndPlay("tackle");
+
+		// Play a sound
+		smorball.audio.playSound(this.type.sound.tackle);
 			
 		// When the animation is done
 		this.sprite.on("animationend",(e: any) => {
@@ -152,9 +157,14 @@ class Athlete extends createjs.Container {
 				this.sprite.gotoAndPlay("run");
 			}
 			// Else we die
-			else this.destroy();
+			else this.onDeathAnimationComplete();
 
 		}, this, false);
+	}
+
+	private onDeathAnimationComplete() {
+		this.sprite.stop();
+		createjs.Tween.get(this).to({ alpha: 0 }, 500).call(() => this.destroy());
 	}
 
 	private setReadyToRun() {

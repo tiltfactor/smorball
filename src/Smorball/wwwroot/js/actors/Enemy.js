@@ -113,6 +113,7 @@ var Enemy = (function (_super) {
         var damage = 1 * athlete.damageMultiplier;
         if (athlete.powerup == "cleats")
             damage *= smorball.powerups.types.cleats.damageMultiplier;
+        damage = Math.min(damage, this.lifeRemaining);
         for (var i = 0; i < damage; i++) {
             this.lifeRemaining--;
             var bm = this.heartsContainer.getChildAt(this.lifeRemaining);
@@ -128,7 +129,7 @@ var Enemy = (function (_super) {
             this.state = 1 /* Dieing */;
             this.sprite.gotoAndPlay("dead");
             // When the animation is done we should remove from the display list
-            this.sprite.on("animationend", function (e) { return _this.destroy(); }, this, false);
+            this.sprite.on("animationend", function (e) { return _this.onDeathAnimationComplete(); }, this, false);
             // Play a sound
             this.playSound("die");
         }
@@ -149,6 +150,11 @@ var Enemy = (function (_super) {
                 _this.sprite.gotoAndPlay("run");
             }, this, false);
         }
+    };
+    Enemy.prototype.onDeathAnimationComplete = function () {
+        var _this = this;
+        this.sprite.stop();
+        createjs.Tween.get(this).to({ alpha: 0 }, 500).call(function () { return _this.destroy(); });
     };
     Enemy.prototype.playSound = function (sound) {
         var setting = this.type.audio[sound];

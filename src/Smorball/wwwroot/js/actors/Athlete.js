@@ -91,12 +91,14 @@ var Athlete = (function (_super) {
         var _this = this;
         var myBounds = this.getTransformedBounds();
         // Check collisions with enemies
-        _.chain(smorball.game.enemies).filter(function (e) { return e.state == 0 /* Alive */ && e.lane == _this.lane && _this.enemiesTackled.indexOf(e) == -1; }).each(function (e) {
+        _.chain(smorball.game.enemies).filter(function (e) { return e.state == 0 /* Alive */ && e.lane == _this.lane && _this.enemiesTackled.indexOf(e) == -1; }).every(function (e) {
             var theirBounds = e.getTransformedBounds();
             if (myBounds.intersects(theirBounds)) {
                 e.tackled(_this);
                 _this.tackle(e);
+                return false;
             }
+            return true;
         });
         // Check collisions with powerups
         _.chain(smorball.powerups.views).filter(function (p) { return p.lane == _this.lane && p.state == 0 /* NotCollected */; }).each(function (p) {
@@ -113,6 +115,8 @@ var Athlete = (function (_super) {
         // Play the tackle anim adn stop running
         this.state = 3 /* Tackling */;
         this.sprite.gotoAndPlay("tackle");
+        // Play a sound
+        smorball.audio.playSound(this.type.sound.tackle);
         // When the animation is done
         this.sprite.on("animationend", function (e) {
             // If we have the hemlet then we can get back up and continue to run
@@ -121,8 +125,13 @@ var Athlete = (function (_super) {
                 _this.sprite.gotoAndPlay("run");
             }
             else
-                _this.destroy();
+                _this.onDeathAnimationComplete();
         }, this, false);
+    };
+    Athlete.prototype.onDeathAnimationComplete = function () {
+        var _this = this;
+        this.sprite.stop();
+        createjs.Tween.get(this).to({ alpha: 0 }, 500).call(function () { return _this.destroy(); });
     };
     Athlete.prototype.setReadyToRun = function () {
         this.x = this.startX;

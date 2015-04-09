@@ -26,6 +26,7 @@ var Stadium = (function (_super) {
         var _this = this;
         var data = smorball.resources.getResource("stadium_data");
         var scale = 1600 / 800;
+        this.speakers = [];
         _.each(data.parts, function (part) {
             var obj;
             if (part.type == "stadium_wall")
@@ -36,8 +37,11 @@ var Stadium = (function (_super) {
                 obj = new createjs.Bitmap(smorball.resources.getResource("stadium_seat"));
             else if (part.type == "scoreboard")
                 obj = new createjs.Bitmap(smorball.resources.getResource("stadium_scoreboard"));
-            else if (part.type == "speaker")
-                obj = new createjs.Bitmap(smorball.resources.getResource("stadium_speaker"));
+            else if (part.type == "speaker") {
+                var speaker = new StadiumSpeaker();
+                _this.speakers.push(speaker);
+                obj = speaker;
+            }
             else if (part.type == "speaker_pole")
                 obj = new createjs.Bitmap(smorball.resources.getResource("stadium_speaker_pole"));
             else if (part.type == "advertisement_board")
@@ -55,18 +59,29 @@ var Stadium = (function (_super) {
             }
         });
     };
+    Stadium.prototype.idleAudience = function () {
+        _.each(this.audienceMembers, function (m) { return m.idle(); });
+    };
+    Stadium.prototype.cheerAudience = function () {
+        _.each(this.audienceMembers, function (m) { return m.cheer(); });
+    };
     Stadium.prototype.addAudience = function () {
         var _this = this;
         var seatImg = smorball.resources.getResource("stadium_seat");
         var audienceTypes = smorball.resources.getResource("audience_data");
+        this.audienceMembers = [];
         // Find all seats
         _.chain(this.children).filter(function (obj) { return obj instanceof createjs.Bitmap && obj.image == seatImg; }).each(function (seat) {
             // Lets put an audience member on that seat.
             var member = new AudienceMember(Utils.randomOne(audienceTypes));
+            _this.audienceMembers.push(member);
             member.x = seat.x;
             member.y = seat.y;
             _this.addChildAt(member, _this.getChildIndex(seat) + 1);
         });
+    };
+    Stadium.prototype.update = function (delta) {
+        _.each(this.speakers, function (s) { return s.update(delta); });
     };
     return Stadium;
 })(createjs.Container);

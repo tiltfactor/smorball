@@ -45,8 +45,8 @@ var MapScreen = (function (_super) {
         //this.survival.on("click",() => smorball.screens.open(smorball.screens.shop));
         this.addChild(this.survival);
         // Listen for some events
-        $("#mapMenu .fb-share").click(function () { return _this.shareToFB(); });
-        $("#mapMenu .twitter-share").click(function () { return _this.shareToTwitter(); });
+        $("#mapMenu .fb-share").click(function () { return smorball.social.shareProgressToFB(); });
+        $("#mapMenu .twitter-share").click(function () { return smorball.social.shareProgressToTwitter(); });
         $("#mapMenu .menu").click(function () { return smorball.screens.open(smorball.screens.main); });
     };
     MapScreen.prototype.update = function (delta) {
@@ -58,12 +58,6 @@ var MapScreen = (function (_super) {
         this.onLevelRollover(this.levels[0]);
         this.shop.updateLockedState();
         this.survival.updateLockedState();
-    };
-    MapScreen.prototype.shareToFB = function () {
-        console.log("sharing to facebook");
-    };
-    MapScreen.prototype.shareToTwitter = function () {
-        console.log("sharing to twitter");
     };
     MapScreen.prototype.onLevelRollover = function (level) {
         if (level.isUnlocked) {

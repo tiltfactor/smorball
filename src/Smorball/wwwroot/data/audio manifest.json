@@ -90,6 +90,16 @@
         "data": 99
     },
     {
+        "src": "audio/Smorball_foam_bat_01.mp3",
+        "id": "smorball_foam_bat_01_sound",
+        "data": 99
+    },
+    {
+        "src": "audio/Smorball_foam_bat_03.mp3",
+        "id": "smorball_foam_bat_03_sound",
+        "data": 99
+    },
+    {
         "src": "audio/Smorball_grandmother_die_01.mp3",
         "id": "smorball_grandmother_die_01_sound",
         "data": 99
@@ -162,6 +172,11 @@
     {
         "src": "audio/Smorball_skater_hit_03.mp3",
         "id": "smorball_skater_hit_03_sound",
+        "data": 99
+    },
+    {
+        "src": "audio/Smorball_Tackle_05.mp3",
+        "id": "smorball_tackle_05_sound",
         "data": 99
     },
     {
