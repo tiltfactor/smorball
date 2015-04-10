@@ -34,6 +34,12 @@
 		return array[Math.floor(Math.random() * array.length)];
 	}
 
+	static popRandomOne<T>(array: T[]): T {
+		if (array.length == 0) return null;
+		var indx = Math.floor(Math.random() * array.length);
+		return array.splice(indx, 1)[0];
+	}
+	
 	static centre(obj: createjs.DisplayObject, horizontally: boolean = true, vertically: boolean = true) {
 
 		if (horizontally)

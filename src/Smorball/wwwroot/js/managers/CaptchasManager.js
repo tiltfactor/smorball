@@ -22,9 +22,6 @@ var CaptchasManager = (function () {
         this.attemptsNotSent = [];
         // First refresh our local chunks list
         this.localChunks = this.getLocalChunks();
-        // If this isnt the first level then shuffle up the entries a little
-        //if (level.index != 0)
-        //this.entries = <CaptchaEntry[]>_.shuffle(this.entries);
         // Make the new ones
         this.constructCaptchas(level);
     };
@@ -65,16 +62,20 @@ var CaptchasManager = (function () {
         for (var i = 0; i < 100; i++) {
             // Grab the next chunk from the stack
             var nextChunk = this.getNextChunk();
+            console.log("Next captcha pulled from stack, isLocal:", nextChunk.page.isLocal, nextChunk);
             // Must ensure that the next chunk does not equal one that is already on screen
             var match = _.find(visibleCapatchas, function (c) { return _this.doChunksMatch(c.chunk, nextChunk); });
-            if (match != null)
+            if (match != null) {
+                console.log("Cannot use captcha, same one is already on the screen");
                 continue;
+            }
             // Ensure that the chunk isnt too wide
             captcha.setChunk(nextChunk);
             var width = captcha.getWidth();
-            console.log("Captcha width", width, "Max width", smorball.config.maxCaptchaSize);
             if (width < smorball.config.maxCaptchaSize)
                 break;
+            else
+                console.log("Cannot use captcha, its too wide! Width:", width, "Max width", smorball.config.maxCaptchaSize);
         }
     };
     CaptchasManager.prototype.doChunksMatch = function (a, b) {
@@ -93,7 +94,12 @@ var CaptchasManager = (function () {
             if (this.remoteChunks.length == 0)
                 return Utils.randomOne(this.localChunks);
             // Else lets return back one
-            return Utils.randomOne(this.remoteChunks);
+            var chunk = Utils.popRandomOne(this.remoteChunks);
+            // If there is nothing left in there lets grab another page
+            if (this.remoteChunks.length == 0)
+                this.loadPageFromServer();
+            // Return the chunk popped
+            return chunk;
         }
     };
     CaptchasManager.prototype.update = function (delta) {
@@ -328,11 +334,12 @@ var CaptchasManager = (function () {
     CaptchasManager.prototype.parsePageAPIData = function (data) {
         var _this = this;
         console.log("OCRPage loaded, loading image..", data);
+        data.isLocal = false;
         // This seems to be the only way I can get the CORS image to work
         var image = new Image();
         image.src = data.url;
         image.onload = function () {
-            console.log("IMAGE LOADED!", image);
+            console.log("OCRPage image loaded..", image);
             var ssData = {
                 frames: [],
                 images: []

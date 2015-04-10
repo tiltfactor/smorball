@@ -27,6 +27,12 @@ var Utils = (function () {
     Utils.randomOne = function (array) {
         return array[Math.floor(Math.random() * array.length)];
     };
+    Utils.popRandomOne = function (array) {
+        if (array.length == 0)
+            return null;
+        var indx = Math.floor(Math.random() * array.length);
+        return array.splice(indx, 1)[0];
+    };
     Utils.centre = function (obj, horizontally, vertically) {
         if (horizontally === void 0) { horizontally = true; }
         if (vertically === void 0) { vertically = true; }

@@ -90,6 +90,7 @@ var GameScreen = (function (_super) {
         this.selectPowerup(null);
         this.indicator.visible = false;
         this.bubble.visible = false;
+        this.bubble.isOpen = false;
         this.actors.removeAllChildren();
         this.captchas.removeAllChildren();
         this.stadium.idleAudience();

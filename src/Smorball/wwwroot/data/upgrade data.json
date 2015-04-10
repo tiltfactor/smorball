@@ -1,35 +1,47 @@
 ﻿[
 	{
+		"name": "Strength Conditioning",
+		"id": "strength",
+		"description": "When an opponent is tackled but not eliminated he or she is pushed back twice as far.",
+		"type": "strength",
+		"price": 4200,
+		"icon": "strength_conditioning_icon",
+		"unlocksAt": 2,
+		"multiplier":  2
+	},
+		{
+		"name": "Breakfast Club",
+		"id": "breakfast",
+		"description": "Phrases longer than 8 characters make your athletes twice as strong.",
+		"type": "breakfast",
+		"price": 4200,
+		"icon": "breakfast_club_icon",
+		"unlocksAt": 2,
+		"multiplier":  2
+	},
+	{
+		"name": "Night Classes",
+		"id": "nightclass",
+		"description": "Decreases the confused time when you make a mistake while typing a phrase by 50%",
+		"type": "nightclass",
+		"price": 4200,
+		"icon": "night_classes_icon",
+		"unlocksAt": 2,
+		"multiplier":  0.5
+	},
+	{
 		"name": "Spare Cleats",
 		"id": "cleats",
-		"description": "Start the level with 1 'cleats' poweup",
+		"description": "Start each level with 1 set of cleats.",
 		"type": "powerup",
 		"price": 2200,
 		"icon": "spare_cleats_icon",
-		"unlocksAt": 2
-	},
-	{
-		"name": "Spare Helmet",
-		"id": "helmet",
-		"description": "Start the level with 1 'helmet' powerup",
-		"type": "powerup",
-		"price": 2000,
-		"icon": "spare_helmet_icon",
-		"unlocksAt": 2
-	},
-	{
-		"name": "Spare Bullhorn",
-		"id": "bullhorn",
-		"description": "Start the level with 1 'bullhorn' powerup",
-		"type": "powerup",
-		"price": 3200,
-		"icon": "spare_bullhorn_icon",
-		"unlocksAt": 2
+		"unlocksAt": 4
 	},
 	{
 		"name": "Snike™ Sponsorship ",
 		"id": "snike",
-		"description": "More cleats during gameplay ",
+		"description": "More cleats will appear on the field each level.",
 		"type": "sponserShip",
 		"price": 4200,
 		"icon": "snike_icon",
@@ -37,9 +49,18 @@
 		"multiplier":  0.5
 	},
 	{
+		"name": "Spare Helmet",
+		"id": "helmet",
+		"description": "Start each level with 1 helmet.",
+		"type": "powerup",
+		"price": 2000,
+		"icon": "spare_helmet_icon",
+		"unlocksAt": 6
+	},
+	{
 		"name": "Bawling™ Sponsorship",
 		"id": "bawling",
-		"description": " More helmets during gameplay ",
+		"description": "More helmets will appear on the field each level.",
 		"type": "sponserShip",
 		"price": 4200,
 		"icon": "bawling_icon",
@@ -47,43 +68,22 @@
 		"multiplier":  0.5
 	},
 	{
-		"name": "Breakfast Club",
-		"id": "breakfast",
-		"description": "If the word is longer than 8 characters then the athlete does twice the damage to opponents.",
-		"type": "breakfast",
-		"price": 4200,
-		"icon": "breakfast_club_icon",
-		"unlocksAt": 10,
-		"multiplier":  2
+		"name": "Spare Bullhorn",
+		"id": "bullhorn",
+		"description": "Start the level with 1 bullhorn",
+		"type": "powerup",
+		"price": 3200,
+		"icon": "spare_bullhorn_icon",
+		"unlocksAt": 8
 	},
 	{
 		"name": "Loudmouth™ Sponsorship",
 		"id": "loudmouth",
-		"description": "More bullhorns during gameplay ",
+		"description": "More bullhorns will appear on the field each level.",
 		"type": "sponserShip",
 		"price": 4200,
 		"icon": "loudmouth_icon",
-		"unlocksAt": 12,
-		"multiplier":  0.5
-	},
-	{
-		"name": "Strength Conditioning",
-		"id": "strength",
-		"description": "When an opponent is tackled but not killed it is 'knocked back' twice as far as it usually would be.",
-		"type": "strength",
-		"price": 4200,
-		"icon": "strength_conditioning_icon",
-		"unlocksAt": 12,
-		"multiplier":  2
-	},
-	{
-		"name": "Night Classes",
-		"id": "nightclass",
-		"description": "Decreases the 'confused' time when the player types a capatcha in by 50%",
-		"type": "nightclass",
-		"price": 4200,
-		"icon": "night_classes_icon",
-		"unlocksAt": 14,
+		"unlocksAt": 8,
 		"multiplier":  0.5
 	}
 ]
