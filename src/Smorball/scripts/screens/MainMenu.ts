@@ -37,7 +37,7 @@ class MainMenu extends ScreenBase
 	private onPlayClicked() {
 
 		// If there is no currently active saved game, just jump straight into it
-		if (!smorball.user.hasSaveGame())
+		if (!smorball.user.hasSaveGame)
 			this.newGame();
 
 		// Otherwise we have to ask the user if they want to continue or make a new game

@@ -35,6 +35,10 @@
 	padding-bottom: 16px;
 }
 
+#gameScreen .range-slider {
+	width: 665px;
+}
+
 #gameScreen .entry input:focus  {
 	outline: 0;
 }

@@ -247,6 +247,52 @@ button.forward:hover {
 	background-image: url("../images/Clubhouse/back_btn_over.png");
 }
 
-button.back:forward {
+button.forward:active {
 	background-image: url("../images/Clubhouse/back_btn_down.png");
+}
+
+.red-text {
+	color: red;
+}
+
+
+
+
+.range-slider {
+  width:420px;
+  height:20px;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  position:relative;
+  cursor: pointer;
+  padding: 0;
+}
+
+.range-slider .before-bar {
+	background-color: red;
+	height: 10px;
+	border-radius: 4px;
+	position:relative;
+	z-index:1;
+}
+
+.range-slider .after-bar {
+	background-color: white;
+	height: 10px;
+	border-radius: 4px;
+	position:relative;
+	z-index:1;
+}
+
+.range-slider .handle {
+	background: none;
+	background-image: url("../images/UI/scroller_btn.png");
+	width: 85px;
+	height: 89px;
+	cursor: pointer;
+	border: 0;
+	position:relative;
+	z-index:2;
+	top:0;
+	left:0;
 }

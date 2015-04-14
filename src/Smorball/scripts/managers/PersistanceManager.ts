@@ -8,6 +8,7 @@
 	bestSurvivalTime?: number;
 	lastLevelPlayed?: number;
 	lastSurvivalTime?: number;
+	hasSaveGame?: boolean;
 }
 
 class PersistanceManager {
@@ -22,7 +23,8 @@ class PersistanceManager {
 			upgrades: smorball.upgrades.upgradesOwned,
 			bestSurvivalTime: smorball.user.bestSurvivalTime,
 			lastLevelPlayed: smorball.user.lastLevelPlayed,
-			lastSurvivalTime: smorball.user.lastSurvivalTime
+			lastSurvivalTime: smorball.user.lastSurvivalTime,
+			hasSaveGame: smorball.user.hasSaveGame
 		};
 
 		localStorage.setItem("smorball", JSON.stringify(obj));
@@ -47,6 +49,7 @@ class PersistanceManager {
 		if (obj.bestSurvivalTime != undefined) smorball.user.bestSurvivalTime = obj.bestSurvivalTime;
 		if (obj.lastLevelPlayed != undefined) smorball.user.lastLevelPlayed = obj.lastLevelPlayed;
 		if (obj.lastSurvivalTime != undefined) smorball.user.lastSurvivalTime = obj.lastSurvivalTime;
+		if (obj.hasSaveGame != undefined) smorball.user.hasSaveGame = obj.hasSaveGame;
 	}
 
 

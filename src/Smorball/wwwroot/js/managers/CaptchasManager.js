@@ -180,10 +180,10 @@ var CaptchasManager = (function () {
             smorball.audio.playSound("word_typed_correctly_with_powerup_sound");
             // If its a bullhorn then send every athlete in the 
             if (powerup.type == "bullhorn") {
-                _.chain(smorball.game.athletes).filter(function (a) { return a.state == 1 /* ReadyToRun */; }).each(function (a) { return _this.sendAthleteInLane(a.lane, damageMultiplier); });
+                _.chain(smorball.game.athletes).filter(function (a) { return a.state == 1 /* ReadyToRun */; }).each(function (a) { return _this.sendAthleteInLane(a.lane, text, damageMultiplier); });
             }
             else
-                this.sendAthleteInLane(captcha.lane, damageMultiplier);
+                this.sendAthleteInLane(captcha.lane, text, damageMultiplier);
             // Decrement the powerup
             smorball.powerups.powerups[powerup.type].quantity--;
             // Deselect the powerup
@@ -192,7 +192,7 @@ var CaptchasManager = (function () {
         else {
             // Play a sound
             smorball.audio.playSound("word_typed_correctly_sound");
-            this.sendAthleteInLane(captcha.lane, damageMultiplier);
+            this.sendAthleteInLane(captcha.lane, text, damageMultiplier);
         }
     };
     CaptchasManager.prototype.onCaptchaEnterError = function () {
@@ -208,10 +208,11 @@ var CaptchasManager = (function () {
             _.each(visibleCapatchas, function (c) { return _this.refreshCaptcha(c.lane); });
         }
     };
-    CaptchasManager.prototype.sendAthleteInLane = function (lane, damageMultiplier) {
+    CaptchasManager.prototype.sendAthleteInLane = function (lane, text, damageMultiplier) {
         // Start the athlete running
         var athelete = _.find(smorball.game.athletes, function (a) { return a.lane == lane && a.state == 1 /* ReadyToRun */; });
         athelete.damageMultiplier = damageMultiplier;
+        athelete.knockback = Utils.clamp(text.length * smorball.config.knockbackWordLengthMultiplier, smorball.config.knockbackMin, smorball.config.knockbackMax);
         athelete.run();
         // Spawn another in the same lane
         smorball.spawning.spawnAthlete(lane);

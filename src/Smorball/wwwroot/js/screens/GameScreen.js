@@ -51,9 +51,8 @@ var GameScreen = (function (_super) {
         this.defeatEl = $('#gameScreen .defeat').get(0);
         this.survivalEl = $('#gameScreen .survival').get(0);
         // Setup the music slider and listen for changes to it
-        $('#gameScreen .timeout .music-slider').slider({ value: smorball.audio.musicVolume * 100 }).on("slide", function (e) { return smorball.audio.setMusicVolume(e.value / 100); });
-        // Setup the sound slider and listen for changes
-        $('#gameScreen .timeout .sound-slider').slider({ value: smorball.audio.soundVolume * 100 }).on("slide", function (e) { return smorball.audio.setSoundVolume(e.value / 100); });
+        this.musicSlider = new RangeSlider("#gameScreen .timeout .music-slider", smorball.audio.musicVolume, function (value) { return smorball.audio.setMusicVolume(value); });
+        this.soundSlider = new RangeSlider("#gameScreen .timeout .sound-slider", smorball.audio.soundVolume, function (value) { return smorball.audio.setSoundVolume(value); });
         $("#gameScreen .menu").click(function () { return smorball.game.timeout(); });
         $('#gameScreen .timeout button.close').click(function () { return smorball.game.resume(); });
         $('#gameScreen .timeout button.quit').click(function () { return smorball.game.returnToMap(); });
@@ -61,10 +60,18 @@ var GameScreen = (function (_super) {
         $('#gameScreen button.continue').click(function () { return smorball.game.returnToMap(); });
         $("#gameScreen .entry input").on("keydown", function (event) { return _this.onKeyDown(event); });
         // When any keyboard event happens focus the input
-        window.onkeydown = function () {
+        window.onkeydown = function (event) {
             if (smorball.game.state == 2 /* Playing */) {
                 $("#gameScreen .entry input").focus();
+                // If the key is escape then lets timeout
+                if (event.keyCode == 27)
+                    smorball.game.timeout();
             }
+        };
+        // If the window looses focus then lets pause the game if we are running
+        window.onblur = function (event) {
+            if (smorball.game.state == 2 /* Playing */)
+                smorball.game.timeout();
         };
         this.framerate = new Framerate();
         this.framerate.x = smorball.config.width - 80;
@@ -95,12 +102,13 @@ var GameScreen = (function (_super) {
         this.captchas.removeAllChildren();
         this.stadium.idleAudience();
         this.stadium.setTeam(smorball.game.level.team);
+        this.score = 6000;
     };
     GameScreen.prototype.showTimeout = function () {
         console.log("timeout changed!");
         smorball.screens.game.timeoutEl.hidden = false;
-        $('#gameScreen .timeout .music-slider').slider("setValue", smorball.audio.musicVolume * 100);
-        $('#gameScreen .timeout .sound-slider').slider("setValue", smorball.audio.soundVolume * 100);
+        this.musicSlider.value = smorball.audio.musicVolume;
+        this.soundSlider.value = smorball.audio.soundVolume;
     };
     GameScreen.prototype.showVictory = function (cashEarnt) {
         this.victoryEl.hidden = false;
@@ -115,14 +123,22 @@ var GameScreen = (function (_super) {
         this.defeatEl.hidden = false;
         $('#gameScreen .defeat .cashbar-small').text(cashEarnt + "").focus();
     };
+    GameScreen.prototype.flashRed = function (el, time) {
+        $(el).css("color", "red");
+        // Jquery .delay() doesnt seem to work so I have to do this
+        createjs.Tween.get(this).to({}, time).call(function () { return $(el).removeAttr("style"); });
+    };
     GameScreen.prototype.update = function (delta) {
         if (smorball.game.level.timeTrial) {
             this.opponentsEl.textContent = smorball.game.enemiesKilled + "";
             this.scoreEl.textContent = Utils.formatTime(smorball.game.timeOnLevel);
         }
         else {
+            var s = smorball.game.getScore();
+            if (this.score > s)
+                this.score = Math.max(this.score - Math.round(delta * 1000), s);
             this.opponentsEl.textContent = smorball.game.getOpponentsRemaining() + "";
-            this.scoreEl.textContent = smorball.game.getScore() + "";
+            this.scoreEl.textContent = this.score + "";
         }
         // Sort by depth
         this.actors.sortChildren(function (a, b) { return a.y - b.y; });

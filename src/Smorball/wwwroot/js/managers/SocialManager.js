@@ -24,7 +24,7 @@ var SocialManager = (function () {
     SocialManager.prototype.shareProgressToFB = function () {
         FB.ui({
             method: 'share',
-            href: 'https://developers.facebook.com/docs/',
+            href: 'http://tiltfactor.pepwuper.com/Smorball/',
         }, function (response) {
         });
     };

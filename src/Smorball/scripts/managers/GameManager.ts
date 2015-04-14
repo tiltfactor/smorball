@@ -24,6 +24,7 @@ class GameManager extends createjs.Container {
 	passesRemaining: number;
 	knockbackMultiplier: number;
 	timeOnLevel: number;
+	enemySpeedBuff: number;
 
 	enemies: Enemy[];
 	athletes: Athlete[];
@@ -57,6 +58,7 @@ class GameManager extends createjs.Container {
 		this.level = this.getLevel(levelIndex);
 		this.enemiesKilled = 0;
 		this.enemyTouchdowns = 0;
+		this.enemySpeedBuff = 0;
 		this.passesRemaining = smorball.config.passes;
 
 		// Load the resources needed
@@ -76,21 +78,19 @@ class GameManager extends createjs.Container {
 		this.athletes = [];
 		this.timeOnLevel = 0;
 		this.knockbackMultiplier = 1;
-
-		// Open the correct screen
+		
+		// Let these know about the new level starting (order is important here)
 		smorball.screens.open(smorball.screens.game);
 		smorball.screens.game.newLevel();
 		smorball.powerups.newLevel();
-		smorball.upgrades.newLevel();
 		smorball.timeTrial.newLevel();
 		smorball.user.newLevel();
+		smorball.spawning.startNewLevel(this.level);
+		smorball.captchas.startNewLevel(this.level);
+		smorball.upgrades.newLevel();
 
 		// Start playing the crowd cheering sound
 		this.ambienceSound = smorball.audio.playAudioSprite("stadium_ambience_looping_sound", { startTime: 0, duration: 28000, loop: -1 }, 0.8);
-
-		// Update the spawner
-		smorball.spawning.startNewLevel(this.level);
-		smorball.captchas.startNewLevel(this.level);
 
 		// Finaly change the state so we start playing
 		this.state = GameState.Playing;
@@ -160,6 +160,14 @@ class GameManager extends createjs.Container {
 	enemyReachedGoaline(enemy: Enemy) {
 		this.enemyTouchdowns++;
 
+		// Show some floating text
+		smorball.screens.game.actors.addChild(new FloatingText("-1000", enemy.x, enemy.y - enemy.getBounds().height));
+
+		// Flash the score red
+		smorball.screens.game.flashRed(smorball.screens.game.scoreEl, 800);
+		smorball.screens.game.flashRed(smorball.screens.game.opponentsEl, 800);
+
+		// Change the captcha
 		smorball.captchas.refreshCaptcha(enemy.lane);
 
 		// If its a time trail then only one enemy is allowed to reach the goaline
@@ -182,6 +190,9 @@ class GameManager extends createjs.Container {
 	enemyKilled(enemy: Enemy) {
 		this.enemiesKilled++;
 		smorball.powerups.onEnemyKilled(enemy);
+
+		// Flash the score red
+		smorball.screens.game.flashRed(smorball.screens.game.opponentsEl, 800);
 	}
 
 	timeout() {
@@ -215,6 +226,9 @@ class GameManager extends createjs.Container {
 		createjs.Ticker.setPaused(false);
 		this.state = GameState.NotPlaying;
 		smorball.screens.open(smorball.screens.map);
+
+		// Send inputs to server
+		smorball.captchas.sendInputsToServer();
 
 		// Stop the ambience
 		if (this.ambienceSound)

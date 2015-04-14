@@ -19,9 +19,8 @@ var OptionsMenu = (function (_super) {
         // Listen for a few things
         $("#optionsMenu button.back").click(function () { return _this.onBackClicked(); });
         // Setup the music slider and listen for changes to it
-        $('#musicSlider').slider({ value: smorball.audio.musicVolume * 100 }).on("slide", function (e) { return smorball.audio.setMusicVolume(e.value / 100); });
-        // Setup the sound slider and listen for changes
-        $('#soundSlider').slider({ value: smorball.audio.soundVolume * 100 }).on("slide", function (e) { return smorball.audio.setSoundVolume(e.value / 100); });
+        this.musicSlider = new RangeSlider("#musicSlider", smorball.audio.musicVolume, function (value) { return smorball.audio.setMusicVolume(value); });
+        this.soundSlider = new RangeSlider("#soundSlider", smorball.audio.soundVolume, function (value) { return smorball.audio.setSoundVolume(value); });
         // Set the persisted difficulty
         $("#difficultyDropdown button").text(smorball.difficulty.current.name.toUpperCase());
         // Populate the difficulties
@@ -34,8 +33,8 @@ var OptionsMenu = (function (_super) {
     };
     OptionsMenu.prototype.show = function () {
         _super.prototype.show.call(this);
-        $('#musicSlider').slider("setValue", smorball.audio.musicVolume * 100);
-        $('#soundSlider').slider("setValue", smorball.audio.soundVolume * 100);
+        this.musicSlider.value = smorball.audio.musicVolume;
+        this.soundSlider.value = smorball.audio.soundVolume;
         $("#difficultyDropdown button").text(smorball.difficulty.current.name.toUpperCase());
     };
     OptionsMenu.prototype.onDifficultyOptionClicked = function (element) {

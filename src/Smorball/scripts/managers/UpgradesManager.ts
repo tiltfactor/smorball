@@ -20,6 +20,7 @@ class UpgradesManager {
 		if (this.isOwned("bawling")) smorball.powerups.powerups.bullhorn.spawnRateMultiplier = this.getUpgrade("bawling").multiplier;
 		if (this.isOwned("loudmouth")) smorball.powerups.powerups.bullhorn.spawnRateMultiplier = this.getUpgrade("loudmouth").multiplier;
 		if (this.isOwned("nightclass")) smorball.captchas.confusedTimeMuliplier = this.getUpgrade("nightclass").multiplier;
+		if (this.isOwned("strength")) smorball.game.knockbackMultiplier = this.getUpgrade("strength").multiplier;
 	}
 
 	isUpgradeLocked(indx: number) {

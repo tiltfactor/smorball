@@ -12,6 +12,7 @@ class UserManager {
 	bestSurvivalTime: number;
 	lastSurvivalTime: number;
 	lastLevelPlayed: number;
+	hasSaveGame: boolean;
 
 	constructor() {
 		this.levels = [{ isUnlocked: true, score: 0 }];
@@ -24,15 +25,13 @@ class UserManager {
 	newGame() {
 		this.levels = [{ isUnlocked: true, score: 0 }];
 		this.cash = 0;
+		this.hasSaveGame = true;
+		smorball.persistance.persist();
 	}
 
 	newLevel() {
 		this.lastLevelPlayed = smorball.game.levelIndex;
 		smorball.persistance.persist();
-	}
-
-	hasSaveGame() {
-		return this.levels != null;
 	}
 
 	hasUnlockedLevel(level: number) {

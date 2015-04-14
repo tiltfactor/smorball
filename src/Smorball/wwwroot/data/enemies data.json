@@ -11,8 +11,9 @@
 			}
 		},
 		"changeLane": false,
-		"speed": 40,
+		"speed": 20,
 		"life": 6,
+		"speedBuff":  40,
 		"offsetX": 265,
 		"offsetY": 369,
 		"scale": 1.3,

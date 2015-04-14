@@ -9,13 +9,12 @@ var UserManager = (function () {
     UserManager.prototype.newGame = function () {
         this.levels = [{ isUnlocked: true, score: 0 }];
         this.cash = 0;
+        this.hasSaveGame = true;
+        smorball.persistance.persist();
     };
     UserManager.prototype.newLevel = function () {
         this.lastLevelPlayed = smorball.game.levelIndex;
         smorball.persistance.persist();
-    };
-    UserManager.prototype.hasSaveGame = function () {
-        return this.levels != null;
     };
     UserManager.prototype.hasUnlockedLevel = function (level) {
         if (this.levels == null || level >= this.levels.length)

@@ -16,6 +16,7 @@ class Athlete extends createjs.Container {
 
 	powerup: string;
 	damageMultiplier: number;
+	knockback: number;
 
 	private startX: number;
 	private enemiesTackled: Enemy[];

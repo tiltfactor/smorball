@@ -45,6 +45,10 @@ class Enemy extends createjs.Container {
 		// Work out lane changes upfront
 		this.calculateLaneChanges();
 
+		// If this unit has a speedbuff then apply it now
+		if (this.type.speedBuff != undefined)
+			smorball.game.enemySpeedBuff += this.type.speedBuff;
+
 		// Draw a debug circle
 		//if (smorball.config.debug) {
 		//	var circle = new createjs.Shape();
@@ -97,7 +101,7 @@ class Enemy extends createjs.Container {
 		if (this.state == EnemyState.Alive) {
 
 			// Move the enemy along
-			this.x = this.x - this.type.speed * delta;
+			this.x = this.x - (this.type.speed + smorball.game.enemySpeedBuff) * delta;
 
 			// If we get the goal line then happy days!
 			if (this.x < smorball.config.goalLine) {
@@ -148,7 +152,7 @@ class Enemy extends createjs.Container {
 			this.sprite.gotoAndPlay("dead");
 
 			// When the animation is done we should remove from the display list
-			this.sprite.on("animationend",(e: any) => this.onDeathAnimationComplete(), this, false);
+			this.sprite.on("animationend",(e: any) => this.onDeathAnimationComplete(), this, true);
 
 			// Play a sound
 			this.playSound("die");
@@ -161,7 +165,7 @@ class Enemy extends createjs.Container {
 			this.playSound("hit");
 
 			// Knock us back a bit (but not too far)
-			var newX = this.x + smorball.config.knockback * smorball.game.knockbackMultiplier;
+			var newX = this.x + athlete.knockback * smorball.game.knockbackMultiplier;
 			if (newX > smorball.config.width) newX = smorball.config.width;
 			createjs.Tween.get(this).to({ x: newX }, 200, createjs.Ease.quartOut);
 
@@ -173,14 +177,20 @@ class Enemy extends createjs.Container {
 			this.sprite.on("animationend",(e: any) => {
 				this.state = EnemyState.Alive;
 				this.sprite.gotoAndPlay("run");
-			}, this, false);
+			}, this, true);
 		}	
 
 	}
 
 	private onDeathAnimationComplete() {
+
+		// Stop animating and play a fade out effect
 		this.sprite.stop();
 		createjs.Tween.get(this).to({ alpha: 0 }, 500).call(() => this.destroy());
+
+		// If this enemy has a speed buff dont forget to remove it on death
+		if (this.type.speedBuff != undefined)
+			smorball.game.enemySpeedBuff -= this.type.speedBuff;
 	}
 
 	private playSound(sound: string) {

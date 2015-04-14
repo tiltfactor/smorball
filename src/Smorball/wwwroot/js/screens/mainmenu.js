@@ -32,7 +32,7 @@ var MainMenu = (function (_super) {
     };
     MainMenu.prototype.onPlayClicked = function () {
         // If there is no currently active saved game, just jump straight into it
-        if (!smorball.user.hasSaveGame())
+        if (!smorball.user.hasSaveGame)
             this.newGame();
         else
             this.newGameContinue.hidden = false;

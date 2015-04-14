@@ -25,7 +25,7 @@
 	shareProgressToFB() {
 		FB.ui({
 			method: 'share',
-			href: 'https://developers.facebook.com/docs/',
+			href: 'http://tiltfactor.pepwuper.com/Smorball/',
 		}, (response) => { });
 	}
 

@@ -11,7 +11,8 @@ var PersistanceManager = (function () {
             upgrades: smorball.upgrades.upgradesOwned,
             bestSurvivalTime: smorball.user.bestSurvivalTime,
             lastLevelPlayed: smorball.user.lastLevelPlayed,
-            lastSurvivalTime: smorball.user.lastSurvivalTime
+            lastSurvivalTime: smorball.user.lastSurvivalTime,
+            hasSaveGame: smorball.user.hasSaveGame
         };
         localStorage.setItem("smorball", JSON.stringify(obj));
     };
@@ -41,6 +42,8 @@ var PersistanceManager = (function () {
             smorball.user.lastLevelPlayed = obj.lastLevelPlayed;
         if (obj.lastSurvivalTime != undefined)
             smorball.user.lastSurvivalTime = obj.lastSurvivalTime;
+        if (obj.hasSaveGame != undefined)
+            smorball.user.hasSaveGame = obj.hasSaveGame;
     };
     return PersistanceManager;
 })();

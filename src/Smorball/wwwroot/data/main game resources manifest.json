@@ -112,6 +112,7 @@
 		{ "src": "images/Logos/pharmacists_logo.png", "id": "pharmacists_logo" },
 		{ "src": "images/Logos/portents_logo.png", "id": "portents_logo" },
 		{ "src": "images/Logos/walruses_logo.png", "id": "walruses_logo" },
+		{ "src": "images/Logos/survival_logo.png", "id": "survival_logo" },
 
 		{ "src": "images/Logos/small/beige_logo_small.png", "id": "beige_logo_small" },
 		{ "src": "images/Logos/small/bronies_logo_small.png", "id": "bronies_logo_small" },
@@ -129,6 +130,7 @@
 		{ "src": "images/Logos/small/pharmacists_logo_small.png", "id": "pharmacists_logo_small" },
 		{ "src": "images/Logos/small/portents_logo_small.png", "id": "portents_logo_small" },
 		{ "src": "images/Logos/small/walruses_logo_small.png", "id": "walruses_logo_small" },
+		{ "src": "images/Logos/small/survival_logo_small.png", "id": "survival_logo_small" },
 
 		{ "src": "images/Characters/friendly/Friendly Baseball Normal.png", "id": "baseball_normal_png" },
 		{ "src": "images/Characters/friendly/Friendly Baseball Normal.json", "id": "baseball_normal_json" },

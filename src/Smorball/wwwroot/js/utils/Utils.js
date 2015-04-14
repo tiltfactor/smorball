@@ -52,5 +52,8 @@ var Utils = (function () {
         seconds -= minutes * 60;
         return this.zeroPad(minutes, 2) + ":" + this.zeroPad(seconds, 2);
     };
+    Utils.clamp = function (value, min, max) {
+        return Math.min(Math.max(value, min), max);
+    };
     return Utils;
 })();

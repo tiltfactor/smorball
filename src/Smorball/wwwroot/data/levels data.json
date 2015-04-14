@@ -9,7 +9,7 @@
 		"team": {
 			"name": "Eugene Melonballers",
 			"id": "eugene_melonballers",
-			"outfit":  1
+			"outfit": 1
 		},
 		"waves": [
 			{
@@ -166,7 +166,7 @@
 		"team": {
 			"name": "Carson City Cardinals",
 			"id": "carson_city",
-			"outfit":  2
+			"outfit": 2
 		},
 		"waves": [
 			{
@@ -328,7 +328,7 @@
 		"team": {
 			"name": "Los Angeles Beige",
 			"id": "beige",
-			"outfit":  3
+			"outfit": 3
 		},
 		"waves": [
 			{
@@ -511,7 +511,7 @@
 			0,
 			1,
 			2
-		],		
+		],
 		"name": "Local Semifinals",
 		"team": {
 			"name": "Tucson Walruses",
@@ -669,7 +669,7 @@
 		"team": {
 			"name": "Salt Lake City Diacritics",
 			"id": "diacritics",
-			"outfit":  5
+			"outfit": 5
 		},
 		"waves": [
 			{
@@ -932,7 +932,7 @@
 		"team": {
 			"name": "Billings Bronies",
 			"id": "bronies",
-			"outfit":  6
+			"outfit": 6
 		},
 		"waves": [
 			{
@@ -1449,7 +1449,7 @@
 		"team": {
 			"name": "Fargo 4.9ers",
 			"id": "fargo",
-			"outfit":  7
+			"outfit": 7
 		},
 		"waves": [
 			{
@@ -1474,7 +1474,7 @@
 		"team": {
 			"name": "Amarillo Pantyhose",
 			"id": "pantyhose",
-			"outfit":  8
+			"outfit": 8
 		},
 		"waves": [
 			{
@@ -1499,7 +1499,7 @@
 		"team": {
 			"name": "Omaha Hoarders",
 			"id": "hoarders",
-			"outfit":  9
+			"outfit": 9
 		},
 		"waves": [
 			{
@@ -1524,7 +1524,7 @@
 		"team": {
 			"name": "Fort Worth",
 			"id": "ffd",
-			"outfit":  10
+			"outfit": 10
 		},
 		"waves": [
 			{
@@ -1549,7 +1549,7 @@
 		"team": {
 			"name": "Kansas City Cupcakes",
 			"id": "cupcakes",
-			"outfit":  11
+			"outfit": 11
 		},
 		"waves": [
 			{
@@ -1574,7 +1574,7 @@
 		"team": {
 			"name": "Chicago Chargers",
 			"id": "chargers",
-			"outfit":  12
+			"outfit": 12
 		},
 		"waves": [
 			{
@@ -1599,7 +1599,7 @@
 		"team": {
 			"name": "Memphis Metaphors",
 			"id": "metaphors",
-			"outfit":  13
+			"outfit": 13
 		},
 		"waves": [
 			{
@@ -1624,7 +1624,7 @@
 		"team": {
 			"name": "Atlanta Portents",
 			"id": "portents",
-			"outfit":  14
+			"outfit": 14
 		},
 		"waves": [
 			{
@@ -1649,13 +1649,21 @@
 		"team": {
 			"name": "Cincinnati Pharmacists",
 			"id": "pharmacists",
-			"outfit":  15
+			"outfit": 15
 		},
 		"waves": [
 			{
 				"actions": [
 					{
-						"enemy": "weak",
+						"enemy": "regular",
+						"type": "spawn"
+					},
+					{
+						"type": "delay",
+						"time": 35
+					},
+					{
+						"enemy": "fast",
 						"type": "spawn"
 					}
 				]
@@ -1674,13 +1682,33 @@
 		"team": {
 			"name": "New England Nerds",
 			"id": "nerds",
-			"outfit":  16
+			"outfit": 16
 		},
 		"waves": [
 			{
 				"actions": [
 					{
-						"enemy": "lanechange",
+						"enemy": "weak",
+						"type": "spawn"
+					},
+					{
+						"type": "delay",
+						"time": 5
+					},
+					{
+						"enemy": "coach",
+						"type": "spawn"
+					},
+					{
+						"type": "delay",
+						"time": 8
+					},
+					{
+						"enemy": "weak",
+						"type": "spawn"
+					},
+					{
+						"enemy": "weak",
 						"type": "spawn"
 					}
 				]
@@ -1698,9 +1726,9 @@
 		"powerups": [ "cleats", "helmet", "bullhorn" ],
 		"name": "Time Challenge",
 		"team": {
-			"name": "New England Nerds",
-			"id": "nerds",
-			"outfit":  16
+			"name": "Time Challenge",
+			"id": "survival",
+			"outfit": 1
 		},
 		"waves": [
 			{

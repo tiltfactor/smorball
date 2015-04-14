@@ -3,6 +3,8 @@
 class OptionsMenu extends ScreenBase {
 
 	background: StarBackground;
+	musicSlider: RangeSlider;
+	soundSlider: RangeSlider;
 
 	constructor() {
 		super("optionsMenu", "options_menu_html");
@@ -19,12 +21,8 @@ class OptionsMenu extends ScreenBase {
 		$("#optionsMenu button.back").click(() => this.onBackClicked())
 
 		// Setup the music slider and listen for changes to it
-		$('#musicSlider').slider({ value: smorball.audio.musicVolume * 100 })
-			.on("slide",(e: any) => smorball.audio.setMusicVolume(e.value/100));
-
-		// Setup the sound slider and listen for changes
-		$('#soundSlider').slider({ value: smorball.audio.soundVolume * 100 })
-			.on("slide",(e: any) => smorball.audio.setSoundVolume(e.value / 100));
+		this.musicSlider = new RangeSlider("#musicSlider", smorball.audio.musicVolume, value => smorball.audio.setMusicVolume(value));
+		this.soundSlider = new RangeSlider("#soundSlider", smorball.audio.soundVolume, value => smorball.audio.setSoundVolume(value));
 
 		// Set the persisted difficulty
 		$("#difficultyDropdown button").text(smorball.difficulty.current.name.toUpperCase());
@@ -41,8 +39,8 @@ class OptionsMenu extends ScreenBase {
 
 	show() {
 		super.show();
-		$('#musicSlider').slider("setValue", smorball.audio.musicVolume * 100);
-		$('#soundSlider').slider("setValue", smorball.audio.soundVolume * 100);
+		this.musicSlider.value = smorball.audio.musicVolume;
+		this.soundSlider.value = smorball.audio.soundVolume;
 		$("#difficultyDropdown button").text(smorball.difficulty.current.name.toUpperCase());
 	}
 

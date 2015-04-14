@@ -15,6 +15,9 @@ class GameScreen extends ScreenBase
 
 	actors: createjs.Container;
 	captchas: createjs.Container;
+
+	musicSlider: RangeSlider;
+	soundSlider: RangeSlider;
 	
 	indicator: CorrectIncorrectIndicator;
 
@@ -23,6 +26,8 @@ class GameScreen extends ScreenBase
 	selectedPowerup: PowerupHudIcon;
 
 	framerate: Framerate;
+
+	private score: number;
 
 	constructor() {
 		super("gameScreen", "game_screen_html");
@@ -80,13 +85,9 @@ class GameScreen extends ScreenBase
 		this.survivalEl = $('#gameScreen .survival').get(0);
 
 		// Setup the music slider and listen for changes to it
-		$('#gameScreen .timeout .music-slider').slider({ value: smorball.audio.musicVolume * 100 })
-			.on("slide",(e: any) => smorball.audio.setMusicVolume(e.value / 100));
-
-		// Setup the sound slider and listen for changes
-		$('#gameScreen .timeout .sound-slider').slider({ value: smorball.audio.soundVolume * 100 })
-			.on("slide",(e: any) => smorball.audio.setSoundVolume(e.value / 100));
-
+		this.musicSlider = new RangeSlider("#gameScreen .timeout .music-slider", smorball.audio.musicVolume, value => smorball.audio.setMusicVolume(value));
+		this.soundSlider = new RangeSlider("#gameScreen .timeout .sound-slider", smorball.audio.soundVolume, value => smorball.audio.setSoundVolume(value));
+		
 		$("#gameScreen .menu").click(() => smorball.game.timeout());
 
 		$('#gameScreen .timeout button.close').click(() => smorball.game.resume());
@@ -99,11 +100,21 @@ class GameScreen extends ScreenBase
 		$("#gameScreen .entry input").on("keydown",(event) => this.onKeyDown(event));			
 
 		// When any keyboard event happens focus the input
-		window.onkeydown = () => {
+		window.onkeydown = (event) => {
 			if (smorball.game.state == GameState.Playing) {
 				$("#gameScreen .entry input").focus();
+
+				// If the key is escape then lets timeout
+				if (event.keyCode == 27)
+					smorball.game.timeout();
 			}
 		};
+
+		// If the window looses focus then lets pause the game if we are running
+		window.onblur = (event) => {
+			if (smorball.game.state == GameState.Playing)
+				smorball.game.timeout();
+		}
 
 		this.framerate = new Framerate();
 		this.framerate.x = smorball.config.width - 80;
@@ -131,13 +142,14 @@ class GameScreen extends ScreenBase
 		this.captchas.removeAllChildren();
 		this.stadium.idleAudience();
 		this.stadium.setTeam(smorball.game.level.team);
+		this.score = 6000;
 	}
 
 	showTimeout() {
 		console.log("timeout changed!");
 		smorball.screens.game.timeoutEl.hidden = false;
-		$('#gameScreen .timeout .music-slider').slider("setValue", smorball.audio.musicVolume * 100);
-		$('#gameScreen .timeout .sound-slider').slider("setValue", smorball.audio.soundVolume * 100);
+		this.musicSlider.value = smorball.audio.musicVolume;
+		this.soundSlider.value = smorball.audio.soundVolume;
 	}
 	
 	showVictory(cashEarnt:number) {
@@ -160,6 +172,12 @@ class GameScreen extends ScreenBase
 			.focus();
 	}
 
+	flashRed(el: HTMLElement, time: number) {
+		$(el).css("color", "red");
+		// Jquery .delay() doesnt seem to work so I have to do this
+		createjs.Tween.get(this).to({}, time).call(() => $(el).removeAttr("style"));
+	}
+
 	update(delta: number) {
 
 		if (smorball.game.level.timeTrial) {
@@ -167,8 +185,12 @@ class GameScreen extends ScreenBase
 			this.scoreEl.textContent = Utils.formatTime(smorball.game.timeOnLevel);
 		}
 		else {
+
+			var s = smorball.game.getScore();
+			if (this.score > s) this.score = Math.max(this.score-Math.round(delta * 1000), s);
+
 			this.opponentsEl.textContent = smorball.game.getOpponentsRemaining() + "";
-			this.scoreEl.textContent = smorball.game.getScore() + "";
+			this.scoreEl.textContent = this.score + "";
 		}
 
 		// Sort by depth

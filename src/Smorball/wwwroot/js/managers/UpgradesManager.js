@@ -20,6 +20,8 @@ var UpgradesManager = (function () {
             smorball.powerups.powerups.bullhorn.spawnRateMultiplier = this.getUpgrade("loudmouth").multiplier;
         if (this.isOwned("nightclass"))
             smorball.captchas.confusedTimeMuliplier = this.getUpgrade("nightclass").multiplier;
+        if (this.isOwned("strength"))
+            smorball.game.knockbackMultiplier = this.getUpgrade("strength").multiplier;
     };
     UpgradesManager.prototype.isUpgradeLocked = function (indx) {
         return (smorball.user.getHighestUnlockedLevel() + 2) <= this.upgrades[indx].unlocksAt;

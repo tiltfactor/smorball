@@ -252,10 +252,10 @@ class CaptchasManager {
 			if (powerup.type == "bullhorn") {
 				_.chain(smorball.game.athletes)
 					.filter(a => a.state == AthleteState.ReadyToRun)
-					.each(a => this.sendAthleteInLane(a.lane, damageMultiplier));
+					.each(a => this.sendAthleteInLane(a.lane, text, damageMultiplier));
 			}
 			else
-				this.sendAthleteInLane(captcha.lane, damageMultiplier)
+				this.sendAthleteInLane(captcha.lane, text, damageMultiplier)
 
 			// Decrement the powerup
 			smorball.powerups.powerups[powerup.type].quantity--;
@@ -267,7 +267,7 @@ class CaptchasManager {
 			// Play a sound
 			smorball.audio.playSound("word_typed_correctly_sound");
 
-			this.sendAthleteInLane(captcha.lane, damageMultiplier);
+			this.sendAthleteInLane(captcha.lane, text, damageMultiplier);
 		}	
 	}
 
@@ -288,10 +288,12 @@ class CaptchasManager {
 		}
 	}
 
-	private sendAthleteInLane(lane: number, damageMultiplier: number) {
+	private sendAthleteInLane(lane: number, text:string, damageMultiplier: number) {
+		
 		// Start the athlete running
 		var athelete = _.find(smorball.game.athletes, a => a.lane == lane && a.state == AthleteState.ReadyToRun);
 		athelete.damageMultiplier = damageMultiplier;
+		athelete.knockback = Utils.clamp(text.length * smorball.config.knockbackWordLengthMultiplier, smorball.config.knockbackMin, smorball.config.knockbackMax);
 		athelete.run();
 
 		// Spawn another in the same lane

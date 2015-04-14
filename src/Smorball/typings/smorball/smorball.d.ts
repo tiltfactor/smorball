@@ -142,7 +142,9 @@ interface SmorballConfig {
 	debug: boolean;
 	goalLine: number;
 	difficulties: Difficulty[];
-	knockback: number;
+	knockbackMin: number;
+	knockbackMax: number;
+	knockbackWordLengthMultiplier: number;
 	PageAPIUrl: string;
 	PageAPIAccessToken: string;
 	PageAPITimeout: number;
@@ -173,6 +175,7 @@ interface EnemyType {
 	offsetY?: number;
 	scale: number;
 	audio: EnemyTypeAudioSettings;
+	speedBuff?: number;
 }
 
 interface EnemyTypeAudioSettings {

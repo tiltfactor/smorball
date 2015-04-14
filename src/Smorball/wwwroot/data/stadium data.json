@@ -296,17 +296,17 @@
 			"type": "speaker_pole"
 		},
 		{
-			"x": 296,
+			"x": 298,
 			"y": 116.2,
 			"type": "speaker"
 		},
 		{
-			"x": 508.1,
+			"x": 506.1,
 			"y": 106.2,
 			"type": "speaker_pole"
 		},
 		{
-			"x": 504.1,
+			"x": 506.1,
 			"y": 116.2,
 			"type": "speaker",
 			"flipped":  true

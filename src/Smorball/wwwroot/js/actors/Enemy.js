@@ -36,6 +36,9 @@ var Enemy = (function (_super) {
         this.addHearts();
         // Work out lane changes upfront
         this.calculateLaneChanges();
+        // If this unit has a speedbuff then apply it now
+        if (this.type.speedBuff != undefined)
+            smorball.game.enemySpeedBuff += this.type.speedBuff;
         // Draw a debug circle
         //if (smorball.config.debug) {
         //	var circle = new createjs.Shape();
@@ -80,7 +83,7 @@ var Enemy = (function (_super) {
         var _this = this;
         if (this.state == 0 /* Alive */) {
             // Move the enemy along
-            this.x = this.x - this.type.speed * delta;
+            this.x = this.x - (this.type.speed + smorball.game.enemySpeedBuff) * delta;
             // If we get the goal line then happy days!
             if (this.x < smorball.config.goalLine) {
                 this.state = 2 /* Scoring */;
@@ -129,7 +132,7 @@ var Enemy = (function (_super) {
             this.state = 1 /* Dieing */;
             this.sprite.gotoAndPlay("dead");
             // When the animation is done we should remove from the display list
-            this.sprite.on("animationend", function (e) { return _this.onDeathAnimationComplete(); }, this, false);
+            this.sprite.on("animationend", function (e) { return _this.onDeathAnimationComplete(); }, this, true);
             // Play a sound
             this.playSound("die");
         }
@@ -137,7 +140,7 @@ var Enemy = (function (_super) {
             // Play a sound
             this.playSound("hit");
             // Knock us back a bit (but not too far)
-            var newX = this.x + smorball.config.knockback * smorball.game.knockbackMultiplier;
+            var newX = this.x + athlete.knockback * smorball.game.knockbackMultiplier;
             if (newX > smorball.config.width)
                 newX = smorball.config.width;
             createjs.Tween.get(this).to({ x: newX }, 200, createjs.Ease.quartOut);
@@ -148,13 +151,17 @@ var Enemy = (function (_super) {
             this.sprite.on("animationend", function (e) {
                 _this.state = 0 /* Alive */;
                 _this.sprite.gotoAndPlay("run");
-            }, this, false);
+            }, this, true);
         }
     };
     Enemy.prototype.onDeathAnimationComplete = function () {
         var _this = this;
+        // Stop animating and play a fade out effect
         this.sprite.stop();
         createjs.Tween.get(this).to({ alpha: 0 }, 500).call(function () { return _this.destroy(); });
+        // If this enemy has a speed buff dont forget to remove it on death
+        if (this.type.speedBuff != undefined)
+            smorball.game.enemySpeedBuff -= this.type.speedBuff;
     };
     Enemy.prototype.playSound = function (sound) {
         var setting = this.type.audio[sound];
