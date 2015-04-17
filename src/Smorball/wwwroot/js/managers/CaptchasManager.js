@@ -20,6 +20,7 @@ var CaptchasManager = (function () {
         this.updatePassButton();
         this.confusedTimeMuliplier = 1;
         this.attemptsNotSent = [];
+        $("#gameScreen .entry input").val("");
         // First refresh our local chunks list
         this.localChunks = this.getLocalChunks();
         // Make the new ones
@@ -43,7 +44,7 @@ var CaptchasManager = (function () {
         this.captchas = [];
         // Making a captcha for each lane needed
         _.each(level.lanes, function (lane) {
-            var captcha = new Captcha(lane);
+            var captcha = new Captcha(lane, Utils.randomOne(_this.localChunks));
             _this.captchas.push(captcha);
             smorball.screens.game.captchas.addChild(captcha);
         });
@@ -58,7 +59,7 @@ var CaptchasManager = (function () {
         var _this = this;
         var captcha = _.find(this.captchas, function (c) { return c.lane == lane; });
         // Get the visible captchas on screen 
-        var visibleCapatchas = _.filter(this.captchas, function (c) { return c.chunk != null && c.lane != lane; });
+        var visibleCapatchas = _.filter(this.getActiveCaptchas(), function (c) { return c.lane != lane; });
         for (var i = 0; i < 100; i++) {
             // Grab the next chunk from the stack
             var nextChunk = this.getNextChunk();
@@ -70,13 +71,33 @@ var CaptchasManager = (function () {
                 continue;
             }
             // Ensure that the chunk isnt too wide
+            captcha.scaleX = captcha.scaleY = 1;
             captcha.setChunk(nextChunk);
             var width = captcha.getWidth();
             if (width < smorball.config.maxCaptchaSize)
                 break;
-            else
-                console.log("Cannot use captcha, its too wide! Width:", width, "Max width", smorball.config.maxCaptchaSize);
+            else {
+                // If the chunk is too wide then lets see if we should scale it down or not
+                var L = this.getAverageTextLength(nextChunk);
+                var result = Math.min(width, smorball.config.maxCaptchaSize) / L;
+                // If the result is less than a specific constant value then throw out this word and try another
+                if (result < smorball.config.captchaScaleLimitConstantN) {
+                    console.log("Cannot use captcha, its too wide compared to contant! result:", result);
+                    continue;
+                }
+                // Else lets scale the captcha down some
+                var scale = smorball.config.maxCaptchaSize / width;
+                console.log("Scaling captcha down to:", scale);
+                captcha.scaleX = captcha.scaleY = scale;
+                break;
+            }
+            break;
         }
+    };
+    CaptchasManager.prototype.getAverageTextLength = function (chunk) {
+        var len = 0;
+        _.each(chunk.texts, function (t) { return len += t.length; });
+        return len / chunk.texts.length;
     };
     CaptchasManager.prototype.doChunksMatch = function (a, b) {
         for (var i = 0; i < a.texts.length; i++)
@@ -122,6 +143,7 @@ var CaptchasManager = (function () {
             $("#gameScreen .entry .pass-btn").prop("disabled", true).text("PASS");
         }
         else {
+            $("#gameScreen .entry .pass-btn").prop("disabled", false);
             $("#gameScreen .entry .pass-btn").text("PASS (" + smorball.game.passesRemaining + ")");
         }
     };
@@ -131,12 +153,14 @@ var CaptchasManager = (function () {
             return;
         // Grab the text and reset it ready for the next one
         var text = $("#gameScreen .entry input").val();
+        if (text == null || text == "")
+            return; // skip if no text entered
         $("#gameScreen .entry input").val("");
         // Check for cheats first
         if (this.checkForCheats(text))
             return;
         // Get the visible captchas on screen 
-        var visibleCapatchas = _.filter(this.captchas, function (c) { return c.chunk != null; });
+        var visibleCapatchas = this.getActiveCaptchas();
         // If there are no visible then lets just jump out until they are
         if (visibleCapatchas.length == 0)
             return;
@@ -191,9 +215,15 @@ var CaptchasManager = (function () {
         }
         else {
             // Play a sound
-            smorball.audio.playSound("word_typed_correctly_sound");
+            smorball.audio.playSound("word_typed_correct_sound");
             this.sendAthleteInLane(captcha.lane, text, damageMultiplier);
+            // If this is the tutorial level then make sure the captcha is now hidden so the user cant enter before the next wave
+            if (smorball.game.levelIndex == 0)
+                captcha.visible = false;
         }
+    };
+    CaptchasManager.prototype.getActiveCaptchas = function () {
+        return _.filter(this.captchas, function (c) { return c.visible && c.chunk != null; });
     };
     CaptchasManager.prototype.onCaptchaEnterError = function () {
         var _this = this;
@@ -202,7 +232,7 @@ var CaptchasManager = (function () {
         smorball.audio.playSound("word_typed_incorrect_sound");
         // Show the indicator
         smorball.screens.game.indicator.showIncorrect();
-        var visibleCapatchas = _.filter(this.captchas, function (c) { return c.chunk != null; });
+        var visibleCapatchas = this.getActiveCaptchas();
         // So long as we arent running the first level then lets refresh all the captchas
         if (smorball.game.levelIndex != 0) {
             _.each(visibleCapatchas, function (c) { return _this.refreshCaptcha(c.lane); });
@@ -335,6 +365,7 @@ var CaptchasManager = (function () {
     CaptchasManager.prototype.parsePageAPIData = function (data) {
         var _this = this;
         console.log("OCRPage loaded, loading image..", data);
+        localStorage["last_page"] = JSON.stringify(data);
         data.isLocal = false;
         // This seems to be the only way I can get the CORS image to work
         var image = new Image();
@@ -346,10 +377,23 @@ var CaptchasManager = (function () {
                 images: []
             };
             _.each(data.differences, function (d) {
-                var x = d.coords[3].x - 1;
-                var y = d.coords[3].y - 1;
-                var w = d.coords[1].x - d.coords[3].x + 2;
-                var h = d.coords[1].y - d.coords[3].y + 2;
+                var x = d.coords[3].x;
+                var y = d.coords[3].y;
+                var w = d.coords[1].x - d.coords[3].x;
+                var h = d.coords[1].y - d.coords[3].y;
+                // A few error catches here
+                if (x < 0)
+                    console.error("X LESS THAN ZERO!! ", d);
+                if (y < 0)
+                    console.error("Y LESS THAN ZERO!! ", d);
+                if (w <= 0)
+                    console.error("WIDTH LESS THAN OR EQUAL TO ZERO!! ", d);
+                if (h <= 0)
+                    console.error("HEIGHT LESS THAN OR EQUAL TO ZERO!! ", d);
+                if (x + w > image.width)
+                    console.error("WIDTH GREATER THAN IMAGE!! ", d);
+                if (y + h > image.height)
+                    console.error("WIDTH GREATER THAN IMAGE!! ", d);
                 d.frame = ssData.frames.length;
                 d.page = data;
                 ssData.frames.push([x, y, w, h]);

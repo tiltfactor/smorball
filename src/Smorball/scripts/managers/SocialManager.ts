@@ -23,10 +23,13 @@
 	}
 
 	shareProgressToFB() {
+		console.log("Sharing to FB: " + this.getShareText());
 		FB.ui({
-			method: 'share',
-			href: 'http://tiltfactor.pepwuper.com/Smorball/',
-		}, (response) => { });
+			method: 'feed',
+			caption: this.getShareText(),
+			description: this.getShareText(),
+			//href: 'http://tiltfactor.pepwuper.com/Smorball/',
+		},	(response) => { console.log("FB Feed response", response) });
 	}
 
 	shareProgressToTwitter() {

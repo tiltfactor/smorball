@@ -27,6 +27,37 @@ var Utils = (function () {
     Utils.randomOne = function (array) {
         return array[Math.floor(Math.random() * array.length)];
     };
+    ///
+    // Borrowed from: http://erlycoder.com/105/javascript-weighted-random-value-from-array
+    ///
+    Utils.weightedRandomOne = function (array, weights) {
+        var normalisedWeights = new Array();
+        var sum = 0;
+        for (var i = 0; i < array.length; i++) {
+            sum += weights[i];
+            normalisedWeights[i] = sum;
+        }
+        for (var i = 0; i < array.length; i++) {
+            normalisedWeights[i] = normalisedWeights[i] / sum;
+        }
+        var needle = Math.random();
+        var high = normalisedWeights.length - 1;
+        var low = 0;
+        while (low < high) {
+            var probe = Math.ceil((high + low) / 2);
+            if (normalisedWeights[probe] < needle)
+                low = probe + 1;
+            else if (normalisedWeights[probe] > needle)
+                high = probe - 1;
+            else
+                return array[probe];
+        }
+        // Return corner cases
+        if (low != high)
+            return array[(normalisedWeights[low] >= needle) ? low : probe];
+        else
+            return array[(normalisedWeights[low] >= needle) ? low : low + 1];
+    };
     Utils.popRandomOne = function (array) {
         if (array.length == 0)
             return null;

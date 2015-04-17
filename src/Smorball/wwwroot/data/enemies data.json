@@ -11,7 +11,7 @@
 			}
 		},
 		"changeLane": false,
-		"speed": 20,
+		"speed": 80,
 		"life": 6,
 		"speedBuff":  40,
 		"offsetX": 265,
@@ -32,7 +32,7 @@
 			}
 		},
 		"changeLane": false,
-		"speed": 100,
+		"speed": 160,
 		"life": 1,
 		"offsetX": 265,
 		"offsetY": 369,
@@ -52,7 +52,7 @@
 			}
 		},
 		"changeLane": false,
-		"speed": 20,
+		"speed": 80,
 		"life": 3,
 		"offsetX": 265,
 		"offsetY": 369,
@@ -63,26 +63,6 @@
 	{
 		"id": "weak",
 		"audio": {
-			"id": "grandmother",
-			"die": {
-				"variations": 2
-			},
-			"hit": {
-				"variations": 2
-			}
-		},
-		"changeLane": false,
-		"speed": 40,
-		"life": 1,
-		"offsetX": 265,
-		"offsetY": 369,
-		"scale":  1.3,
-		"spritesPathTemplate": "images/Characters/enemy/Grand Mother Enemy GB{0}"
-	},
-	"lanechange":
-	{
-		"id": "lanechange",
-		"audio": {
 			"id": "hooligan",
 			"die": {
 				"variations": 3
@@ -91,13 +71,33 @@
 				"variations": 3
 			}
 		},
-		"changeLane": true,
-		"speed": 60,
+		"changeLane": false,
+		"speed": 80,
 		"life": 1,
 		"offsetX": 265,
 		"offsetY": 340,
 		"scale":  1.3,
 		"spritesPathTemplate": "images/Characters/enemy/Hooligan Enemy H{0}"
+	},
+	"lanechange":
+	{
+		"id": "lanechange",
+		"audio": {
+			"id": "grandmother",
+			"die": {
+				"variations": 2
+			},
+			"hit": {
+				"variations": 2
+			}
+		},
+		"changeLane": true,
+		"speed": 100,
+		"life": 2,
+		"offsetX": 265,
+		"offsetY": 369,
+		"scale":  1.3,
+		"spritesPathTemplate": "images/Characters/enemy/Grand Mother Enemy GB{0}"
 	},
 	"boss":
 	{
@@ -112,7 +112,7 @@
 			}
 		},
 		"changeLane": false,
-		"speed": 40,
+		"speed": 50,
 		"life": 6,
 		"offsetX": 129,
 		"offsetY": 182,

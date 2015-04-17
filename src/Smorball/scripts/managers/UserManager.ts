@@ -66,6 +66,6 @@ class UserManager {
 	}
 
 	isSurvivalUnlocked(): boolean {
-		return this.getHighestUnlockedLevel() >= 16;
+		return this.getHighestUnlockedLevel() >= smorball.config.timeTrialUnlockLevel;
 	}
 }

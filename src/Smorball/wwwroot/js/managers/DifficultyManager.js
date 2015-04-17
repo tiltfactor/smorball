@@ -16,5 +16,10 @@ var DifficultyManager = (function () {
         this.current = _.chain(smorball.config.difficulties).filter(function (d) { return timeOnLevel < d.requiredTime; }).min(function (d) { return d.requiredTime; }).value();
         console.log("Level completed in " + timeOnLevel + "s, difficulty set to: ", this.current.name);
     };
+    DifficultyManager.prototype.getCurrentDifficultyMultiplier = function () {
+        if (smorball.game.levelIndex == 0)
+            return 1;
+        return this.current.multiplier;
+    };
     return DifficultyManager;
 })();

@@ -22,10 +22,13 @@ var SocialManager = (function () {
         }(document, 'script', 'facebook-jssdk'));
     };
     SocialManager.prototype.shareProgressToFB = function () {
+        console.log("Sharing to FB: " + this.getShareText());
         FB.ui({
-            method: 'share',
-            href: 'http://tiltfactor.pepwuper.com/Smorball/',
+            method: 'feed',
+            caption: this.getShareText(),
+            description: this.getShareText(),
         }, function (response) {
+            console.log("FB Feed response", response);
         });
     };
     SocialManager.prototype.shareProgressToTwitter = function () {

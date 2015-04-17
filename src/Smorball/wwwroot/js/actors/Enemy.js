@@ -89,6 +89,7 @@ var Enemy = (function (_super) {
                 this.state = 2 /* Scoring */;
                 smorball.game.enemyReachedGoaline(this);
                 this.sprite.gotoAndPlay("scoring");
+                smorball.audio.playSound("smorball_enemy_score_06_sound");
                 this.sprite.on("animationend", function (e) { return _this.destroy(); }, this, false);
             }
             // If have lange changes then handle them

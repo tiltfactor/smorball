@@ -108,6 +108,7 @@ class Enemy extends createjs.Container {
 				this.state = EnemyState.Scoring;
 				smorball.game.enemyReachedGoaline(this);
 				this.sprite.gotoAndPlay("scoring");
+				smorball.audio.playSound("smorball_enemy_score_06_sound");
 				this.sprite.on("animationend",(e: any) => this.destroy(), this, false);
 			}
 

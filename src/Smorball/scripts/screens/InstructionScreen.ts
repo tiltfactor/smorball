@@ -57,7 +57,7 @@ class InstructionsScreen extends ScreenBase
 		img.src = "images/Instructions/" + instruction.image + ".png";
 
 		// Update the text
-		$("#instructionsScreen .smorball-bordered-container span").get(0).innerText = instruction.description;
+		$("#instructionsScreen .smorball-bordered-container span").text(instruction.description);
 
 		// Update the paging elements
 		$("#instructionsScreen .paging img").each((i, e: HTMLImageElement) => {

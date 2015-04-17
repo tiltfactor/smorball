@@ -7,38 +7,38 @@
 			"spawnCost": 10
 		},
 		"regular": {
-			"startTime": 30,
-			"spawnCost": 20
-		},
-		"fast": {
-			"startTime": 60,
+			"startTime": 10,
 			"spawnCost": 30
 		},
+		"fast": {
+			"startTime": 10,
+			"spawnCost": 15
+		},
 		"lanechange": {
-			"startTime": 90,
+			"startTime": 70,
 			"spawnCost": 40
 		},
 		"boss": {
-			"startTime": 120,
-			"spawnCost": 50
+			"startTime": 40,
+			"spawnCost": 55
 		},
 		"coach": {
-			"startTime": 150,
-			"spawnCost": 60
+			"startTime": 100,
+			"spawnCost": 70
 		}
 	},
 	"powerups": {
 		"cleats": {
-			"startTime": 30,
-			"spawnCost": 10
+			"startTime": 20,
+			"spawnCost": 50
 		},
 		"helmet": {
-			"startTime": 90,
-			"spawnCost": 10
+			"startTime": 20,
+			"spawnCost": 50
 		},
 		"bullhorn": {
-			"startTime": 150,
-			"spawnCost": 10
+			"startTime": 20,
+			"spawnCost": 50
 		}
 	}
 }

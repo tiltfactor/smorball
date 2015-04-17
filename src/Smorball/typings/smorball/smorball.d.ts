@@ -106,6 +106,7 @@ interface Level {
 	waves: LevelWave[];
 	powerups: string[];
 	timeTrial?: boolean;
+	passes?: number;
 }
 
 interface Team {
@@ -152,6 +153,8 @@ interface SmorballConfig {
 	DifferenceAPIUrl: string;
 	entriesBeforeServerSubmission: number;
 	fbAppId: string;
+	timeTrialUnlockLevel: number;
+	captchaScaleLimitConstantN: number;
 }
 
 interface Upgrade {

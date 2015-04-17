@@ -109,8 +109,21 @@ class SpawningManager {
 				this.action = this.getNextAction();
 
 			// Else wait until the delay has completed
-			else if (this.actionTimer > this.action.time * smorball.difficulty.current.multiplier)
+			else if (this.actionTimer > this.action.time * smorball.difficulty.getCurrentDifficultyMultiplier())
 				this.action = this.getNextAction();
+		}
+		else if (this.action.type == "add pass") {
+			smorball.game.passesRemaining++;
+			smorball.captchas.updatePassButton();
+			this.action = this.getNextAction();
+		}
+		else if (this.action.type == "hide captchas") {
+			smorball.captchas.hideCaptchas();
+			this.action = this.getNextAction();
+		}
+		else if (this.action.type == "show captchas") {
+			smorball.captchas.showCaptchas();
+			this.action = this.getNextAction();
 		}
 	}
 

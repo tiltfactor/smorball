@@ -21,7 +21,8 @@ class Stadium extends createjs.Container {
 	}
 
 	setTeam(team: Team) {
-		this.logo.image = smorball.resources.getResource(team.id + "_logo"); 
+		this.logo.image = smorball.resources.getResource(team.id + "_logo");
+		this.logo.visible = !smorball.game.level.timeTrial;
 	}
 
 	private addParts() {

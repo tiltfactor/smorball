@@ -26,4 +26,9 @@ class DifficultyManager {
 
 		console.log("Level completed in " + timeOnLevel + "s, difficulty set to: ", this.current.name);
 	}
+
+	getCurrentDifficultyMultiplier() {
+		if (smorball.game.levelIndex == 0) return 1;
+		return this.current.multiplier;
+	}
 }

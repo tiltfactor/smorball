@@ -162,10 +162,7 @@
 		{ "src": "images/Audience/audience man 2.json", "id": "audience_man_2_json" },
 		{ "src": "images/Audience/audience man 2.png", "id": "audience_man_2_png" },
 
-		{ "src": "audio/main_theme.mp3", "id": "main_theme_sound" },
-	
 		{ "src": "images/Other/Captchas.json", "id": "captchas_json" },
 		{ "src": "images/Other/Captchas.jpg", "id": "captchas_jpg" }
-
 	]
 }

@@ -40,7 +40,7 @@ var UserManager = (function () {
         return this.levels.length - 1;
     };
     UserManager.prototype.isSurvivalUnlocked = function () {
-        return this.getHighestUnlockedLevel() >= 16;
+        return this.getHighestUnlockedLevel() >= smorball.config.timeTrialUnlockLevel;
     };
     return UserManager;
 })();

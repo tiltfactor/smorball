@@ -5,7 +5,7 @@
 			"id": "000",
 			"frame": 0,
 			"texts": [
-				"2)retty",
+				"pretty",
 				"pretty"
 			]
 		},
@@ -13,7 +13,7 @@
 			"id": "001",
 			"frame": 1,
 			"texts": [
-				"thraugliout,",
+				"throughout,",
 				"throughout,"
 			]
 		},
@@ -21,7 +21,7 @@
 			"id": "002",
 			"frame": 2,
 			"texts": [
-				"ToTT.",
+				"Torr.",
 				"Torr."
 			]
 		},
@@ -29,7 +29,7 @@
 			"id": "003",
 			"frame": 3,
 			"texts": [
-				"EosA",
+				"ROSA",
 				"ROSA"
 			]
 		},
@@ -37,7 +37,7 @@
 			"id": "004",
 			"frame": 4,
 			"texts": [
-				"Gray'sFlora^",
+				"Gray's Flora,",
 				"Gray's Flora,"
 			]
 		},
@@ -45,24 +45,24 @@
 			"id": "005",
 			"frame": 5,
 			"texts": [
-				"ROSACEiE.",
-				"ROSACEJE."
+				"ROSACEAE.",
+				"ROSACEAE."
 			]
 		},
 		{
-			"id": "006",
-			"frame": 6,
+			"id": "055",
+			"frame": 55,
 			"texts": [
-				"l-l|",
-				"1-1j"
+				"6/10",
+				"6/10"
 			]
 		},
 		{
 			"id": "073",
 			"frame": 73,
 			"texts": [
-				"bracte^",
-				"bracted"
+				"bractea",
+				"bracteâ"
 			]
 		},
 		{
@@ -127,6 +127,14 @@
 			"texts": [
 				"Grays",
 				"Gray's"
+			]
+		},
+		{
+			"id": "006",
+			"frame": 6,
+			"texts": [
+				"l-l|",
+				"1-1j"
 			]
 		},
 		{
@@ -447,14 +455,6 @@
 			"texts": [
 				"gequantibus;",
 				"sequantibus;"
-			]
-		},
-		{
-			"id": "055",
-			"frame": 55,
-			"texts": [
-				"^V",
-				"o%-"
 			]
 		},
 		{

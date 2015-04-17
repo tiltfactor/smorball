@@ -38,6 +38,7 @@ class CaptchasManager {
 		this.updatePassButton();
 		this.confusedTimeMuliplier = 1;
 		this.attemptsNotSent = [];
+		$("#gameScreen .entry input").val("");
 
 		// First refresh our local chunks list
 		this.localChunks = this.getLocalChunks();
@@ -70,7 +71,7 @@ class CaptchasManager {
 		// Making a captcha for each lane needed
 		_.each(level.lanes, lane => {
 
-			var captcha = new Captcha(lane);
+			var captcha = new Captcha(lane, Utils.randomOne(this.localChunks));
 			this.captchas.push(captcha);
 			smorball.screens.game.captchas.addChild(captcha);
 		});
@@ -88,7 +89,7 @@ class CaptchasManager {
 		var captcha = _.find(this.captchas, c => c.lane == lane);
 
 		// Get the visible captchas on screen 
-		var visibleCapatchas = _.filter(this.captchas, c => c.chunk != null && c.lane != lane);
+		var visibleCapatchas = _.filter(this.getActiveCaptchas(), c => c.lane != lane);
 
 		// Do a maximum of 100 loops here just incase we run into infinate loop issues
 		for (var i = 0; i < 100; i++) {		
@@ -105,11 +106,38 @@ class CaptchasManager {
 			}
 				
 			// Ensure that the chunk isnt too wide
+			captcha.scaleX = captcha.scaleY = 1;
 			captcha.setChunk(nextChunk);
 			var width = captcha.getWidth();			
 			if (width < smorball.config.maxCaptchaSize) break;
-			else console.log("Cannot use captcha, its too wide! Width:", width, "Max width", smorball.config.maxCaptchaSize);
+			else {
+
+				// If the chunk is too wide then lets see if we should scale it down or not
+				var L = this.getAverageTextLength(nextChunk);
+				var result = Math.min(width, smorball.config.maxCaptchaSize) / L;
+
+				// If the result is less than a specific constant value then throw out this word and try another
+				if (result < smorball.config.captchaScaleLimitConstantN) {
+					console.log("Cannot use captcha, its too wide compared to contant! result:", result);
+					continue;
+				}
+
+				// Else lets scale the captcha down some
+				var scale = smorball.config.maxCaptchaSize / width;
+				console.log("Scaling captcha down to:", scale);
+				captcha.scaleX = captcha.scaleY = scale;
+				break;
+			}
+
+			// If we get here then we are done
+			break;
 		}
+	}
+
+	private getAverageTextLength(chunk: OCRChunk) {
+		var len = 0;
+		_.each(chunk.texts, t => len += t.length);
+		return len / chunk.texts.length;
 	}
 
 	doChunksMatch(a: OCRChunk, b: OCRChunk) {
@@ -173,6 +201,7 @@ class CaptchasManager {
 				.text("PASS");
 		}
 		else {
+			$("#gameScreen .entry .pass-btn").prop("disabled", false);
 			$("#gameScreen .entry .pass-btn")
 				.text("PASS (" + smorball.game.passesRemaining + ")");
 		}
@@ -185,6 +214,7 @@ class CaptchasManager {
 
 		// Grab the text and reset it ready for the next one
 		var text = <string>$("#gameScreen .entry input").val();		
+		if (text == null || text == "") return; // skip if no text entered
 		$("#gameScreen .entry input").val("");
 
 		// Check for cheats first
@@ -192,7 +222,7 @@ class CaptchasManager {
 			return;
 
 		// Get the visible captchas on screen 
-		var visibleCapatchas = _.filter(this.captchas, c => c.chunk != null);	
+		var visibleCapatchas = this.getActiveCaptchas();	
 
 		// If there are no visible then lets just jump out until they are
 		if (visibleCapatchas.length == 0) return;
@@ -265,10 +295,18 @@ class CaptchasManager {
 		}
 		else {
 			// Play a sound
-			smorball.audio.playSound("word_typed_correctly_sound");
+			smorball.audio.playSound("word_typed_correct_sound");
 
 			this.sendAthleteInLane(captcha.lane, text, damageMultiplier);
+
+			// If this is the tutorial level then make sure the captcha is now hidden so the user cant enter before the next wave
+			if (smorball.game.levelIndex == 0)
+				captcha.visible = false;
 		}	
+	}
+
+	getActiveCaptchas() {
+		return _.filter(this.captchas, c => c.visible && c.chunk != null);
 	}
 
 	onCaptchaEnterError() {
@@ -280,7 +318,7 @@ class CaptchasManager {
 		// Show the indicator
 		smorball.screens.game.indicator.showIncorrect();
 
-		var visibleCapatchas = _.filter(this.captchas, c => c.chunk != null);	
+		var visibleCapatchas = this.getActiveCaptchas();	
 
 		// So long as we arent running the first level then lets refresh all the captchas
 		if (smorball.game.levelIndex != 0) {
@@ -435,8 +473,10 @@ class CaptchasManager {
 	}
 
 	private parsePageAPIData(data: OCRPage) {
-
+				
 		console.log("OCRPage loaded, loading image..", data);
+		localStorage["last_page"] = JSON.stringify(data);
+
 		data.isLocal = false;
 
 		// This seems to be the only way I can get the CORS image to work
@@ -452,10 +492,19 @@ class CaptchasManager {
 			};
 
 			_.each(data.differences, d => {
-				var x = d.coords[3].x-1;
-				var y = d.coords[3].y-1;
-				var w = d.coords[1].x - d.coords[3].x+2;
-				var h = d.coords[1].y - d.coords[3].y+2;
+				var x = d.coords[3].x;
+				var y = d.coords[3].y;
+				var w = d.coords[1].x - d.coords[3].x;
+				var h = d.coords[1].y - d.coords[3].y;
+
+				// A few error catches here
+				if (x < 0) console.error("X LESS THAN ZERO!! ",d);
+				if (y < 0) console.error("Y LESS THAN ZERO!! ",d);
+				if (w <= 0) console.error("WIDTH LESS THAN OR EQUAL TO ZERO!! ",d);
+				if (h <= 0) console.error("HEIGHT LESS THAN OR EQUAL TO ZERO!! ", d);
+				if (x + w > image.width) console.error("WIDTH GREATER THAN IMAGE!! ", d);
+				if (y + h > image.height) console.error("WIDTH GREATER THAN IMAGE!! ", d);
+
 				d.frame = ssData.frames.length;
 				d.page = data;
 				ssData.frames.push([x, y, w, h]);

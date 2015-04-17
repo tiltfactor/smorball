@@ -64,6 +64,23 @@ var Athlete = (function (_super) {
         // Grab them
         var data = smorball.resources.getResource(jsonName);
         var sprite = smorball.resources.getResource(pngName);
+        // BIG HACK for helmeted hockey lady to make the animation look right
+        if (this.type.id == "hockey" && this.powerup == "helmet") {
+            // Clone the data
+            data = JSON.parse(JSON.stringify(data));
+            var frames = data.frames;
+            var newframes = frames.slice();
+            // Rejig the frames
+            newframes[41] = frames[39];
+            newframes[42] = frames[38];
+            newframes[43] = frames[39];
+            newframes[44] = frames[36];
+            newframes[45] = frames[35];
+            newframes[46] = frames[34];
+            newframes[47] = frames[33];
+            // Set the new frames
+            data.frames = newframes;
+        }
         // Update the data with the image and return
         data.images = [sprite];
         return new createjs.SpriteSheet(data);

@@ -1,4 +1,4 @@
-﻿[
+[
 	{
 		"index": 0,
 		"lanes": [
@@ -6,21 +6,51 @@
 		],
 		"powerups": [ ],
 		"name": "Pre Season Scrimmage",
+		"passes": 0,
 		"team": {
 			"name": "Eugene Melonballers",
 			"id": "eugene_melonballers",
-			"outfit": 1
+			"outfit":  1
 		},
 		"waves": [
 			{
 				"actions": [
 					{
+						"commentry": "Opponents come from the right",
+						"type": "commentate"
+					},
+					{
+						"type": "hide captchas"
+					},
+					{
+						"time": 6,
+						"noSkip":  true,
+						"type": "delay"
+					},
+					{
+						"commentry": "Keep them from scoring in your end zone", 
+						"type": "commentate"
+					},
+					{
+						"time": 6,
+						"noSkip":  true,
+						"type": "delay"
+					},
+					{
+						"commentry": "Type the word and press enter to tackle the opponent",
+						"type": "commentate"
+					},
+					{
+						"time": 2,
+						"noSkip":  true,
+						"type": "delay"
+					},
+					{
 						"enemy": "weak",
 						"type": "spawn"
 					},
 					{
-						"commentry": "Jujubes come from the right. Keep the Jujubes from getting to the grass. Type the word and press enter to stop the Jujube.",
-						"type": "commentate"
+						"type": "show captchas"
 					}
 				]
 			},
@@ -31,9 +61,21 @@
 						"type": "spawn"
 					},
 					{
-						"commentry": "Careful, because punctuation maters!",
+						"commentry": "Careful, because punctuation matters!",
 						"type": "commentate"
+					},
+					{
+						"type": "hide captchas"
+					},
+					{
+						"time": 2,
+						"noSkip":  true,
+						"type": "delay"
+					},
+					{
+						"type": "show captchas"
 					}
+					
 				]
 			},
 			{
@@ -41,6 +83,21 @@
 					{
 						"enemy": "weak",
 						"type": "spawn"
+					},
+					{
+						"commentry": "Capitalization does not matter!",
+						"type": "commentate"
+					},
+					{
+						"type": "hide captchas"
+					},
+					{
+						"time": 2,
+						"noSkip":  true,
+						"type": "delay"
+					},
+					{
+						"type": "show captchas"
 					}
 				]
 			},
@@ -51,24 +108,19 @@
 						"type": "spawn"
 					},
 					{
-						"commentry": "Capitalization matters too!",
-						"type": "commentate"
-					}
-				]
-			},
-			{
-				"actions": [
-					{
-						"enemy": "weak",
-						"type": "spawn"
+						"type": "hide captchas"
 					},
 					{
-						"commentry": "Every letter in this word is capital!",
-						"type": "commentate"
+						"time": 2,
+						"noSkip":  true,
+						"type": "delay"
+					},
+					{
+						"type": "show captchas"
 					}
 				]
-			},
-			{
+			}, 
+			 {
 				"actions": [
 					{
 						"enemy": "weak",
@@ -77,9 +129,20 @@
 					{
 						"commentry": "Use a space to separate multiple words.",
 						"type": "commentate"
+					},
+					{
+						"type": "hide captchas"
+					},
+					{
+						"time": 2,
+						"noSkip":  true,
+						"type": "delay"
+					},
+					{
+						"type": "show captchas"
 					}
 				]
-			},
+			}, 
 			{
 				"actions": [
 					{
@@ -89,6 +152,17 @@
 					{
 						"commentry": "Type Æ as AE...",
 						"type": "commentate"
+					},
+					{
+						"type": "hide captchas"
+					},
+					{
+						"time": 2,
+						"noSkip":  true,
+						"type": "delay"
+					},
+					{
+						"type": "show captchas"
 					}
 				]
 			},
@@ -101,6 +175,17 @@
 					{
 						"commentry": "... and use / for fractions.",
 						"type": "commentate"
+					},
+					{
+						"type": "hide captchas"
+					},
+					{
+						"time": 2,
+						"noSkip":  true,
+						"type": "delay"
+					},
+					{
+						"type": "show captchas"
 					}
 				]
 			},
@@ -113,6 +198,17 @@
 					{
 						"commentry": "You don’t need to type accents.",
 						"type": "commentate"
+					},
+					{
+						"type": "hide captchas"
+					},
+					{
+						"time": 2,
+						"noSkip":  true,
+						"type": "delay"
+					},
+					{
+						"type": "show captchas"
 					}
 				]
 			},
@@ -127,9 +223,20 @@
 						"type": "commentate"
 					},
 					{
-						"enemy": "weak",
-						"type": "spawn"
-					}
+						"type": "hide captchas"
+					},
+					{
+						"time": 2,
+						"noSkip":  true,
+						"type": "delay"
+					},
+					{
+						"type": "show captchas"
+					},
+					{
+						"quantity": "1",
+						"type": "add pass"
+					}		
 				]
 			},
 			{
@@ -139,12 +246,26 @@
 						"type": "commentate"
 					},
 					{
+						"type": "hide captchas"
+					},
+					{
+						"time": 2,
+						"noSkip":  true,
+						"type": "delay"
+					},
+					{
+						"type": "show captchas"
+					},
+					{
 						"enemy": "fast",
 						"type": "spawn"
 					},
 					{
 						"time": 6,
 						"type": "delay"
+					},
+					{
+						"type": "show captchas"
 					},
 					{
 						"enemy": "weak",
@@ -166,25 +287,40 @@
 		"team": {
 			"name": "Carson City Cardinals",
 			"id": "carson_city",
-			"outfit": 2
+			"outfit":  2
 		},
 		"waves": [
 			{
 				"actions": [
 					{
-						"enemy": "weak",
-						"type": "spawn"
-					},
-					{
-						"commentry": "Jujubes come in 3 different rows now. Type the word in the same row as the Jujube to hit that Jujube.",
+						"commentry": "Opponents come in 3 different rows",
 						"type": "commentate"
 					},
 					{
-						"time": 10,
+						"time": 4,
+						"noSkip":  true,
+						"type": "delay"
+					},
+					{
+						"commentry": "Type the phrase in the bottom row",
+						"type": "commentate"
+					},
+					{
+						"time": 2,
 						"type": "delay"
 					},
 					{
 						"enemy": "weak",
+						"type": "spawn",
+						"lane": 2
+					}
+				]
+			},
+			{
+				"actions": [
+					{
+						"enemy": "weak",
+						"lane": 0,
 						"type": "spawn"
 					}
 				]
@@ -193,14 +329,7 @@
 				"actions": [
 					{
 						"enemy": "weak",
-						"type": "spawn"
-					}
-				]
-			},
-			{
-				"actions": [
-					{
-						"enemy": "weak",
+						"lane": 1,
 						"type": "spawn"
 					}
 				]
@@ -323,195 +452,373 @@
 			1,
 			2
 		],
-		"powerups": [ ],
+		"powerups": [],
 		"name": "Local Quarterfinals",
 		"team": {
 			"name": "Los Angeles Beige",
 			"id": "beige",
-			"outfit": 3
+			"outfit":  3
 		},
 		"waves": [
 			{
 				"actions": [
 					{
-						"enemy": "regular",
-						"type": "spawn"
-					},
-					{
-						"time": 3,
-						"type": "delay"
-					},
-					{
-						"enemy": "fast",
-						"type": "spawn"
-					}
-				]
-			},
-			{
-				"actions": [
-					{
-						"enemy": "regular",
-						"type": "spawn"
-					},
-					{
-						"time": 4,
-						"type": "delay"
-					},
-					{
-						"enemy": "weak",
-						"type": "spawn"
-					}
-				]
-			},
-			{
-				"actions": [
-					{
-						"enemy": "weak",
-						"type": "spawn"
-					},
-					{
-						"time": 5,
-						"type": "delay"
-					},
-					{
-						"enemy": "regular",
-						"type": "spawn"
-					},
-					{
-						"time": 5,
-						"type": "delay"
-					},
-					{
-						"enemy": "regular",
-						"type": "spawn"
-					}
-				]
-			},
-			{
-				"actions": [
-					{
-						"enemy": "regular",
-						"type": "spawn"
-					},
-					{
-						"time": 15,
-						"type": "delay"
-					},
-					{
-						"enemy": "regular",
-						"type": "spawn"
-					},
-					{
-						"time": 15,
-						"type": "delay"
-					},
-					{
-						"enemy": "weak",
-						"type": "spawn"
-					}
-				]
-			},
-			{
-				"actions": [
-					{
-						"enemy": "fast",
-						"type": "spawn"
-					},
-					{
-						"time": 3,
-						"type": "delay"
-					},
-					{
-						"enemy": "weak",
-						"type": "spawn"
-					},
-					{
-						"time": 3,
-						"type": "delay"
-					},
-					{
-						"enemy": "regular",
-						"type": "spawn"
-					},
-					{
-						"time": 8,
-						"type": "delay"
-					},
-					{
-						"enemy": "regular",
-						"type": "spawn"
-					},
-					{
-						"time": 8,
-						"type": "delay"
-					},
-					{
-						"enemy": "regular",
-						"type": "spawn"
-					}
-				]
-			},
-			{
-				"actions": [
-					{
-						"enemy": "fast",
-						"type": "spawn"
-					},
-					{
-						"time": 4,
-						"type": "delay"
-					},
-					{
-						"enemy": "regular",
-						"type": "spawn"
-					},
-					{
-						"time": 10,
-						"type": "delay"
-					},
-					{
-						"enemy": "fast",
-						"type": "spawn"
-					},
-					{
-						"time": 4,
-						"type": "delay"
-					},
-					{
-						"enemy": "regular",
-						"type": "spawn"
-					},
-					{
-						"time": 4,
-						"type": "delay"
-					},
-					{
-						"enemy": "fast",
-						"type": "spawn"
-					}
-				]
-			},
-			{
-				"actions": [
-					{
-						"enemy": "boss",
-						"type": "spawn"
-					},
-					{
-						"commentry": "Watch out for the boss! He’s very strong!",
+						"commentry": "Equipment makes your next word super powerful",
 						"type": "commentate"
+					},
+					{
+						"time": 4,
+						"type": "delay",
+						"noSkip": true
+					},
+					{
+						"type": "spawn",
+						"powerup": "helmet"
+					},
+					{
+						"commentry": "Type the phrase to pick up the helmet",
+						"type": "commentate"
+					},
+					{
+						"time": 8,
+						"type": "delay",
+						"noSkip": true
+					},
+					{
+						"commentry": "Press 'TAB' to equip the helmet.",
+						"type": "commentate"
+					},
+					{
+						"time": 5,
+						"type": "delay",
+						"noSkip": true
+					},
+					{
+						"commentry": "Athletes with helmets hit every opponent in the row. Try it now!",
+						"type": "commentate"
+					},
+					{
+						"time": 2,
+						"type": "delay",
+						"noSkip": true
+					},
+					{
+						"enemy": "weak",
+						"type": "spawn",
+						"lane": 1
+					},
+					{
+						"time": 1,
+						"type": "delay"
+					},
+					{
+						"enemy": "weak",
+						"type": "spawn",
+						"sameLane": true
+					},
+					{
+						"time": 1,
+						"type": "delay"
+					},
+					{
+						"enemy": "weak",
+						"type": "spawn",
+						"sameLane": true
+					},
+					{
+						"time": 7,
+						"type": "delay",
+						"noSkip": true
+					},
+					{
+						"type": "spawn",
+						"powerup": "helmet",
+						"lane": 0
+					},
+					{
+						"commentry": "Pick up another helmet!",
+						"type": "commentate"
+					},
+					{
+						"time": 8,
+						"type": "delay",
+						"noSkip": true
+					}
+				]
+			},
+			{
+				"actions": [
+					{
+						"commentry": "'TAB' equips the helmet!",
+						"type": "commentate"
+					},
+					{
+						"enemy": "regular",
+						"type": "spawn",
+						"lane": 2
+					},
+					{
+						"enemy": "weak",
+						"type": "spawn",
+						"sameLane": true
+					},
+					{
+						"time": 0.5,
+						"type": "delay"
+					},
+					{
+						"enemy": "weak",
+						"type": "spawn",
+						"sameLane": true
+					},
+					{
+						"time": 0.5,
+						"type": "delay"
+					},
+					{
+						"enemy": "weak",
+						"type": "spawn",
+						"sameLane": true
+					},
+					{
+						"time": 9,
+						"type": "delay",
+						"noSkip": true
+					},
+					{
+						"type": "spawn",
+						"powerup": "helmet"
+					},
+					{
+						"time": 8,
+						"type": "delay",
+						"noSkip": true
+					}
+				]
+			},
+			{
+				"actions": [
+					{
+						"enemy": "regular",
+						"type": "spawn"
+					},
+					{
+						"enemy": "weak",
+						"type": "spawn",
+						"sameLane": true
+					},
+					{
+						"type": "spawn",
+						"powerup": "helmet"
+					},
+					{
+						"time": 3,
+						"type": "delay"
+					},
+					{
+						"enemy": "regular",
+						"type": "spawn",
+						"sameLane": true
+					},
+					{
+						"time": 3,
+						"type": "delay"
+					},
+					{
+						"enemy": "weak",
+						"type": "spawn",
+						"sameLane": true
+					},
+					{
+						"time": 8,
+						"type": "delay",
+						"noSkip": true
+					},
+					{
+						"type": "spawn",
+						"powerup": "helmet"
+					},
+					{
+						"enemy": "fast",
+						"type": "spawn"
+					},
+					{
+						"enemy": "weak",
+						"type": "spawn",
+						"sameLane": true
+					},
+					{
+						"type": "spawn",
+						"powerup": "helmet"
+					},
+					{
+						"type": "spawn",
+						"powerup": "helmet"
+					},
+					{
+						"type": "spawn",
+						"powerup": "helmet"
+					},
+					{
+						"time": 5,
+						"type": "delay",
+						"noSkip": true
+					}
+				]
+			},
+			{
+				"actions": [
+					{
+						"type": "spawn",
+						"enemy": "fast"
+					},
+					{
+						"type": "delay",
+						"time": 0.5
+					},
+					{
+						"type": "spawn",
+						"enemy": "fast",
+						"sameLane": true
+					},
+					{
+						"type": "delay",
+						"time": 0.5
+					},
+					{
+						"type": "spawn",
+						"enemy": "fast",
+						"sameLane": true
+					},
+					{
+						"type": "delay",
+						"time": 0.5
+					},
+					{
+						"type": "spawn",
+						"enemy": "fast",
+						"sameLane": true
+					},
+					{
+						"type": "delay",
+						"time": 6
+					},
+					{
+						"type": "spawn",
+						"powerup": "helmet"
+					},
+					{
+						"type": "spawn",
+						"enemy": "regular"
+					},
+					{
+						"type": "delay",
+						"time": 0.5
+					},
+					{
+						"type": "spawn",
+						"enemy": "regular",
+						"sameLane": true
+					},
+					{
+						"type": "delay",
+						"time": 0.5
+					},
+					{
+						"type": "spawn",
+						"enemy": "regular",
+						"sameLane": true
+					},
+					{
+						"type": "delay",
+						"time": 0.5
+					},
+					{
+						"type": "spawn",
+						"enemy": "regular",
+						"sameLane": true
+					},
+					{
+						"type": "delay",
+						"time": 4,
+						"noSkip": true
+					},
+					{
+						"type": "spawn",
+						"powerup": "helmet"
+					}
+				]
+			},
+			{
+				"actions": [
+					{
+						"type": "spawn",
+						"lane": 1,
+						"enemy": "regular"
+					},
+					{
+						"type": "delay",
+						"time": 0.5
+					},
+					{
+						"type": "spawn",
+						"lane": 1,
+						"enemy": "regular"
+					},
+					{
+						"type": "delay",
+						"time": 0.5
+					},
+					{
+						"type": "spawn",
+						"lane": 1,
+						"enemy": "regular"
+					},
+					{
+						"type": "spawn",
+						"powerup": "helmet",
+						"lane": 1
+					},
+					{
+						"type": "delay",
+						"time": 4,
+						"noSkip": true
+					},
+					{
+						"type": "spawn",
+						"enemy": "weak"
+					},
+					{
+						"type": "spawn",
+						"enemy": "weak"
+					},
+					{
+						"type": "spawn",
+						"enemy": "weak"
+					},
+					{
+						"type": "spawn",
+						"enemy": "weak"
+					},
+					{
+						"type": "spawn",
+						"enemy": "weak"
+					},
+					{
+						"type": "spawn",
+						"enemy": "weak"
 					}
 				]
 			}
 		]
-	},
+	},	
 	{
 		"index": 3,
 		"lanes": [
 			0,
 			1,
 			2
-		],
+		],		
 		"name": "Local Semifinals",
 		"team": {
 			"name": "Tucson Walruses",
@@ -523,7 +830,7 @@
 			{
 				"actions": [
 					{
-						"commentry": "Powerups make your next word super powerful!",
+						"commentry": "Cleats make your next word super powerful!",
 						"type": "commentate"
 					},
 					{
@@ -533,126 +840,51 @@
 					},
 					{
 						"powerup": "cleats",
-						"type": "spawn"
-					},
-					{
-						"commentry": "Type the word to pick up the powerup. Use tab to select your powerup. This one deals extra damage! Try it now!",
-						"type": "commentate"
-					},
-					{
-						"time": 3,
-						"type": "delay",
-						"noSkip": true
-					},
-					{
-						"enemy": "boss",
-						"type": "spawn"
-					},
-					{
-						"time": 20,
-						"type": "delay"
-					},
-					{
-						"powerup": "cleats",
-						"quantity": 2,
-						"type": "spawn"
-					}
-				]
-			},
-			{
-				"actions": [
-					{
-						"enemy": "boss",
 						"type": "spawn",
 						"lane": 0
 					},
 					{
-						"time": 5,
-						"type": "delay"
+						"commentry": "Pick up the cleats. This one deals extra damage!",
+						"type": "commentate"
+					},
+					{
+						"time": 4,
+						"type": "delay",
+						"noSkip": true
+					},
+					{
+						"commentry": "Use tab to select them. Try it now!",
+						"type": "commentate"
+					},
+					{
+						"time": 6,
+						"type": "delay",
+						"noSkip": true
+					},
+					{
+						"enemy": "regular",
+						"type": "spawn",
+						"lane": 2
+					},
+					{
+						"time": 8,
+						"type": "delay",
+						"noSkip": true
 					},
 					{
 						"powerup": "cleats",
 						"type": "spawn"
 					},
 					{
-						"time": 5,
-						"type": "delay"
-					},
-					{
-						"enemy": "boss",
-						"type": "spawn",
-						"lane": 1
-					}
-				]
-			},
-			{
-				"actions": [
-					{
 						"powerup": "cleats",
-						"type": "spawn",
-						"quantity": 3
+						"type": "spawn"
+					},
+					{
+						"time": 4,
+						"type": "delay",
+						"noSkip": true
 					}
-				]
-			},
-			{
-				"actions": [
-					{
-						"type": "spawn",
-						"enemy": "regular"
-
-					},
-					{
-						"type": "delay",
-						"time": 4
-					},
-					{
-						"type": "spawn",
-						"enemy": "regular"
-
-					},
-					{
-						"type": "delay",
-						"time": 4
-					},
-					{
-						"type": "spawn",
-						"enemy": "regular"
-
-					},
-					{
-						"type": "delay",
-						"time": 4
-					},
-					{
-						"type": "spawn",
-						"powerup": "cleats"
-					},
-					{
-						"type": "delay",
-						"time": 4
-					},
-					{
-						"type": "spawn",
-						"enemy": "boss"
-					}
-				]
-			},
-			{
-				"actions": [
-					{
-						"type": "spawn",
-						"enemy": "boss"
-
-					},
-					{
-						"type": "spawn",
-						"powerup": "cleats"
-					},
-					{
-						"type": "spawn",
-						"enemy": "regular"
-
-					}
+				
 				]
 			}
 		]
@@ -669,257 +901,286 @@
 		"team": {
 			"name": "Salt Lake City Diacritics",
 			"id": "diacritics",
-			"outfit": 5
+			"outfit":  5
 		},
 		"waves": [
 			{
 				"actions": [
 					{
-						"type": "spawn",
-						"enemy": "weak"
-
+						"commentry": "Cleats make your next word super powerful!",
+						"type": "commentate"
 					},
 					{
-						"type": "spawn",
-						"enemy": "weak"
-
-					},
-					{
-						"type": "spawn",
-						"enemy": "weak"
-
-					},
-					{
+						"time": 3,
 						"type": "delay",
-						"time": 5
+						"noSkip": true
 					},
 					{
-						"type": "spawn",
 						"powerup": "cleats",
-						"quantity": 2
-					},
-					{
-						"type": "delay",
-						"time": 14
-					},
-					{
 						"type": "spawn",
-						"enemy": "regular"
-
+						"lane": 0
 					},
 					{
+						"commentry": "Pick up the cleats. This one deals extra damage!",
+						"type": "commentate"
+					},
+					{
+						"time": 4,
 						"type": "delay",
-						"time": 8
+						"noSkip": true
 					},
 					{
-						"type": "spawn",
-						"enemy": "regular"
-
+						"commentry": "Use tab to select them. Try it now!",
+						"type": "commentate"
 					},
 					{
+						"time": 6,
 						"type": "delay",
-						"time": 8
+						"noSkip": true
 					},
 					{
+						"enemy": "regular",
 						"type": "spawn",
-						"enemy": "regular"
-
+						"lane": 2
+					},
+					{
+						"time": 8,
+						"type": "delay",
+						"noSkip": true
+					},
+					{
+						"powerup": "cleats",
+						"type": "spawn"
+					},
+					{
+						"powerup": "cleats",
+						"type": "spawn"
+					},
+					{
+						"time": 4,
+						"type": "delay",
+						"noSkip": true
 					}
 				]
 			},
 			{
 				"actions": [
 					{
-						"type": "spawn",
-						"enemy": "fast"
-
+						"enemy": "fast",
+						"type": "spawn"
 					},
 					{
-						"type": "delay",
-						"time": 4
+						"time": 4,
+						"type": "delay"
 					},
 					{
-						"type": "spawn",
-						"enemy": "fast"
-
-					},
-					{
-						"type": "delay",
-						"time": 6
-					},
-					{
-						"type": "spawn",
-						"powerup": "cleats",
-						"quantity": 1
-					},
-					{
-						"type": "spawn",
-						"enemy": "regular"
-					},
-					{
-						"type": "delay",
-						"time": 6
-					},
-					{
-						"type": "spawn",
-						"enemy": "regular"
-
-					},
-					{
-						"type": "delay",
-						"time": 6
-					},
-					{
-						"type": "spawn",
-						"enemy": "fast"
-
-					},
-					{
-						"type": "delay",
-						"time": 4
-					},
-					{
-						"type": "spawn",
-						"enemy": "fast"
-
-					},
-					{
-						"type": "spawn",
-						"powerup": "cleats",
-						"quantity": 1
+						"enemy": "regular",
+						"type": "spawn"
 					}
 				]
 			},
 			{
 				"actions": [
 					{
-						"type": "spawn",
-						"enemy": "boss"
-					}
-				]
-			},
-			{
-				"actions": [
-					{
-						"type": "spawn",
-						"enemy": "weak"
-
-					},
-					{
-						"type": "delay",
-						"time": 5
-					},
-					{
-						"type": "spawn",
-						"enemy": "fast"
-
-					},
-					{
-						"type": "delay",
-						"time": 8
-					},
-					{
-						"type": "spawn",
-						"enemy": "regular"
-					},
-					{
-						"type": "delay",
-						"time": 6
-					},
-					{
-						"type": "spawn",
-						"enemy": "regular"
-
-					},
-					{
-						"type": "spawn",
-						"enemy": "regular"
-
-					}
-				]
-			},
-			{
-				"actions": [
-					{
-						"type": "spawn",
-						"enemy": "regular"
-
-					},
-					{
-						"type": "spawn",
-						"enemy": "regular"
-
-					},
-					{
-						"type": "delay",
-						"time": 8
-					},
-					{
-						"type": "spawn",
-						"enemy": "fast"
-					},
-					{
-						"type": "delay",
-						"time": 5
-					},
-					{
-						"type": "spawn",
-						"enemy": "fast"
-					},
-					{
-						"type": "delay",
-						"time": 8
-					},
-					{
-						"type": "spawn",
 						"powerup": "cleats",
-						"quantity": 2
+						"type": "spawn"
 					},
 					{
-						"type": "spawn",
-						"enemy": "regular"
+						"enemy": "boss",
+						"type": "spawn"
 					},
 					{
-						"type": "delay",
-						"time": 6
-					},
-					{
-						"type": "spawn",
-						"enemy": "weak"
-					},
-					{
-						"type": "delay",
-						"time": 7
-					},
-					{
-						"type": "spawn",
-						"enemy": "fast"
-					},
-					{
-						"type": "delay",
-						"time": 4
+						"commentry": "Watch out for the boss! He’s very strong!",
+						"type": "commentate"
 					}
 				]
 			},
 			{
 				"actions": [
 					{
-						"type": "spawn",
-						"enemy": "boss"
+						"time": 5,
+						"type": "delay"
 					},
 					{
-						"type": "spawn",
-						"enemy": "boss"
+						"enemy": "regular",
+						"type": "spawn"
 					},
 					{
-						"type": "spawn",
 						"powerup": "cleats",
-						"quantity": 3
+						"type": "spawn"
+					},
+					{
+						"time": 5,
+						"type": "delay"
+					},
+					{
+						"enemy": "boss",
+						"type": "spawn"
+					}
+				]
+			},
+			{
+				"actions": [
+					{
+						"enemy": "fast",
+						"type": "spawn"
+					},
+					{
+						"powerup": "cleats",
+						"type": "spawn"
+					},
+					{
+						"time": 8,
+						"type": "delay"
+					},
+					{
+						"enemy": "boss",
+						"type": "spawn"
+					},
+					{
+						"time": 7,
+						"type": "delay"
+					},
+					{
+						"enemy": "weak",
+						"type": "spawn"
+					}
+				]
+			},
+			{
+				"actions": [
+					{
+						"enemy": "fast",
+						"type": "spawn"
+					},
+					{
+						"time": 3,
+						"type": "delay"
+					},
+					{
+						"powerup": "cleats",
+						"type": "spawn"
+					},
+					{
+						"powerup": "helmet",
+						"type": "spawn"
+					},
+					{
+						"time": 7,
+						"type": "delay",
+						"noSkip": true
+					},
+					{
+						"commentry": "Use tab to switch between different equipment.",
+						"type": "commentate"
+					},
+					{
+						"commentry": "Select a helemet or cleats for the incoming opponents!",
+						"type": "commentate"
+					},
+					{
+						"time": 4,
+						"type": "delay",
+						"noSkip": true
+					},
+					{
+						"enemy": "boss",
+						"type": "spawn"
+					},
+					{
+						"time": 2,
+						"type": "delay"
+					},
+					{
+						"enemy": "regular",
+						"type": "spawn"
+					},
+					{
+						"time": 6,
+						"type": "delay"
+					},
+					{
+						"enemy": "boss",
+						"type": "spawn"
+					},
+					{
+						"time": 6,
+						"type": "delay"
+					},
+					{
+						"enemy": "regular",
+						"type": "spawn"
+					}
+				]
+			},
+			{
+				"actions": [
+					{
+						"enemy": "fast",
+						"type": "spawn"
+					},
+					{
+						"time": 4,
+						"type": "delay"
+					},
+					{
+						"powerup": "cleats",
+						"type": "spawn"
+					},
+					{
+						"powerup": "cleats",
+						"type": "spawn"
+					},
+					{
+						"enemy": "boss",
+						"type": "spawn"
+					},
+					{
+						"powerup": "cleats",
+						"type": "spawn"
+					},
+					{
+						"time": 10,
+						"type": "delay"
+					},
+					{
+						"enemy": "boss",
+						"type": "spawn"
+					},
+					{
+						"time": 4,
+						"type": "delay"
+					},
+					{
+						"enemy": "regular",
+						"type": "spawn"
+					},
+					{
+						"powerup": "cleats",
+						"type": "spawn"
+					},
+					{
+						"time": 4,
+						"type": "delay"
+					},
+					{
+						"enemy": "boss",
+						"type": "spawn"
+					},
+					{
+						"enemy": "boss",
+						"type": "spawn"
+					},
+					{
+						"enemy": "fast",
+						"type": "spawn"
 					}
 				]
 			}
 		]
 	},
+	
+		
 	{
 		"index": 5,
 		"lanes": [
@@ -932,7 +1193,7 @@
 		"team": {
 			"name": "Billings Bronies",
 			"id": "bronies",
-			"outfit": 6
+			"outfit":  6
 		},
 		"waves": [
 			{
@@ -1449,7 +1710,7 @@
 		"team": {
 			"name": "Fargo 4.9ers",
 			"id": "fargo",
-			"outfit": 7
+			"outfit":  7
 		},
 		"waves": [
 			{
@@ -1474,7 +1735,7 @@
 		"team": {
 			"name": "Amarillo Pantyhose",
 			"id": "pantyhose",
-			"outfit": 8
+			"outfit":  8
 		},
 		"waves": [
 			{
@@ -1499,7 +1760,7 @@
 		"team": {
 			"name": "Omaha Hoarders",
 			"id": "hoarders",
-			"outfit": 9
+			"outfit":  9
 		},
 		"waves": [
 			{
@@ -1524,7 +1785,7 @@
 		"team": {
 			"name": "Fort Worth",
 			"id": "ffd",
-			"outfit": 10
+			"outfit":  10
 		},
 		"waves": [
 			{
@@ -1549,7 +1810,7 @@
 		"team": {
 			"name": "Kansas City Cupcakes",
 			"id": "cupcakes",
-			"outfit": 11
+			"outfit":  11
 		},
 		"waves": [
 			{
@@ -1574,7 +1835,7 @@
 		"team": {
 			"name": "Chicago Chargers",
 			"id": "chargers",
-			"outfit": 12
+			"outfit":  12
 		},
 		"waves": [
 			{
@@ -1599,7 +1860,7 @@
 		"team": {
 			"name": "Memphis Metaphors",
 			"id": "metaphors",
-			"outfit": 13
+			"outfit":  13
 		},
 		"waves": [
 			{
@@ -1624,7 +1885,7 @@
 		"team": {
 			"name": "Atlanta Portents",
 			"id": "portents",
-			"outfit": 14
+			"outfit":  14
 		},
 		"waves": [
 			{
@@ -1649,21 +1910,13 @@
 		"team": {
 			"name": "Cincinnati Pharmacists",
 			"id": "pharmacists",
-			"outfit": 15
+			"outfit":  15
 		},
 		"waves": [
 			{
 				"actions": [
 					{
-						"enemy": "regular",
-						"type": "spawn"
-					},
-					{
-						"type": "delay",
-						"time": 35
-					},
-					{
-						"enemy": "fast",
+						"enemy": "weak",
 						"type": "spawn"
 					}
 				]
@@ -1682,33 +1935,13 @@
 		"team": {
 			"name": "New England Nerds",
 			"id": "nerds",
-			"outfit": 16
+			"outfit":  16
 		},
 		"waves": [
 			{
 				"actions": [
 					{
-						"enemy": "weak",
-						"type": "spawn"
-					},
-					{
-						"type": "delay",
-						"time": 5
-					},
-					{
-						"enemy": "coach",
-						"type": "spawn"
-					},
-					{
-						"type": "delay",
-						"time": 8
-					},
-					{
-						"enemy": "weak",
-						"type": "spawn"
-					},
-					{
-						"enemy": "weak",
+						"enemy": "lanechange",
 						"type": "spawn"
 					}
 				]
@@ -1726,9 +1959,9 @@
 		"powerups": [ "cleats", "helmet", "bullhorn" ],
 		"name": "Time Challenge",
 		"team": {
-			"name": "Time Challenge",
-			"id": "survival",
-			"outfit": 1
+			"name": "New England Nerds",
+			"id": "nerds",
+			"outfit":  16
 		},
 		"waves": [
 			{

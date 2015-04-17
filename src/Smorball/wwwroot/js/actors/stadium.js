@@ -21,6 +21,7 @@ var Stadium = (function (_super) {
     };
     Stadium.prototype.setTeam = function (team) {
         this.logo.image = smorball.resources.getResource(team.id + "_logo");
+        this.logo.visible = !smorball.game.level.timeTrial;
     };
     Stadium.prototype.addParts = function () {
         var _this = this;

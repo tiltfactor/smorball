@@ -45,7 +45,7 @@ var GameManager = (function (_super) {
         this.enemiesKilled = 0;
         this.enemyTouchdowns = 0;
         this.enemySpeedBuff = 0;
-        this.passesRemaining = smorball.config.passes;
+        this.passesRemaining = this.level.passes == null ? smorball.config.passes : this.level.passes;
         // Load the resources needed
         smorball.resources.loadLevelResources(levelIndex);
         // Take this oppertunity to grab a new page from the API

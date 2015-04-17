@@ -65,6 +65,7 @@ class MapScreen extends ScreenBase
 		this.survival = new MapSurvival();
 		this.survival.x = 272;
 		this.survival.y = 915;
+		this.survival.on("mouseover",(e: any) => this.onSurvivalRollover());
 		this.addChild(this.shop);
 		
 		//this.survival.on("click",() => smorball.screens.open(smorball.screens.shop));
@@ -104,6 +105,23 @@ class MapScreen extends ScreenBase
 			this.teamLogoEl.hidden = true;
 			this.teamNameEl.textContent = "Locked";
 			this.scoreEl.textContent = "0/6";
+			this.lockIconEl.hidden = false;
+		}
+	}
+
+	private onSurvivalRollover() {
+		if (smorball.user.isSurvivalUnlocked()) {
+			var img = <HTMLImageElement>smorball.resources.getResource("survival_logo_small");
+			this.teamLogoEl.src = img.src;
+			this.teamNameEl.textContent = "Time Trail";
+			this.scoreEl.textContent = Utils.formatTime(smorball.user.bestSurvivalTime);
+			this.lockIconEl.hidden = true;
+			this.teamLogoEl.hidden = false;
+		}
+		else {
+			this.teamLogoEl.hidden = true;
+			this.teamNameEl.textContent = "Locked";
+			this.scoreEl.textContent = "";
 			this.lockIconEl.hidden = false;
 		}
 	}

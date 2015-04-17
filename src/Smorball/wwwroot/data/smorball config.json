@@ -17,11 +17,11 @@
 		{ "x": 350, "y": 1010 }
 	],
 
-	"difficulties": [
+		"difficulties": [
 		{
 			"name": "easy",
 			"requiredTime": 260,
-			"multiplier": 1
+			"multiplier": 3
 		},
 		{
 			"name": "medium",
@@ -31,7 +31,7 @@
 		{
 			"name": "hard",
 			"requiredTime": 120,
-			"multiplier": 3
+			"multiplier": 1
 		}
 	],
 
@@ -44,7 +44,9 @@
 	"entriesBeforeServerSubmission":  50,
 	"enemyTouchdowns":  6,
 	"passes": 2,
-	"maxCaptchaSize":  180,
+	"maxCaptchaSize": 200,
+	"timeTrialUnlockLevel": 6,
+	"captchaScaleLimitConstantN":  12,
 	"knockbackMin": 10,
 	"knockbackMax": 200,
 	"knockbackWordLengthMultiplier": 15,

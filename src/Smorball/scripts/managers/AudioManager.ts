@@ -10,12 +10,12 @@
 
 	constructor() {
 		this.soundsPlaying = [];
-		createjs.Sound.initializeDefaultPlugins();
-		//createjs.Sound.registerPlugins([createjs.HTMLAudioPlugin, createjs.WebAudioPlugin, createjs.FlashAudioPlugin]);
-		createjs.Sound.registerPlugins([createjs.WebAudioPlugin]);
-		createjs.Sound.alternateExtensions = ["mp3"];
+		//createjs.Sound.initializeDefaultPlugins();
+		createjs.Sound.registerPlugins([createjs.WebAudioPlugin, createjs.HTMLAudioPlugin, createjs.FlashAudioPlugin]);
+		//createjs.Sound.alternateExtensions = ["mp3"];
 		createjs.Sound.defaultInterruptBehavior = createjs.Sound.INTERRUPT_NONE;
-		smorball.resources.fgQueue.installPlugin(<any>createjs.Sound);
+		//smorball.resources.fgQueue.installPlugin(<any>createjs.Sound);
+		console.log("AUDIO CAPABILITIESss: ", createjs.Sound.getCapabilities());
 	}
 
 	init() {

@@ -17,8 +17,7 @@ module.exports = function (grunt) {
 			var id = file.toLowerCase().replace(/ /g, '_').replace(".mp3", "_sound");
 			manifest.push({
 				src: path,
-				id: id,
-				data: 99
+				id: id
 			});
 		}
 

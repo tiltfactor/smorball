@@ -14,6 +14,8 @@ var MapSurvival = (function (_super) {
         this.lock = new createjs.Bitmap(smorball.resources.getResource("map_lock"));
         this.lock.x = -64;
         this.lock.y = -131;
+        this.lock.mouseEnabled = true;
+        this.lock.cursor = "pointer";
         this.addChild(this.lock);
         // Add the shop
         this.survival = new createjs.Bitmap(smorball.resources.getResource("stopwatch_icon"));

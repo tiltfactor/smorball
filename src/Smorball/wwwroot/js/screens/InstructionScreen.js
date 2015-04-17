@@ -49,7 +49,7 @@ var InstructionsScreen = (function (_super) {
         var img = $("#instructionsScreen .instruction-img").get(0);
         img.src = "images/Instructions/" + instruction.image + ".png";
         // Update the text
-        $("#instructionsScreen .smorball-bordered-container span").get(0).innerText = instruction.description;
+        $("#instructionsScreen .smorball-bordered-container span").text(instruction.description);
         // Update the paging elements
         $("#instructionsScreen .paging img").each(function (i, e) {
             if (i == _this.selectedInstruction)
