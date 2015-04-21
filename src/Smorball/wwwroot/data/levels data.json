@@ -17,7 +17,8 @@
 				"actions": [
 					{
 						"commentry": "Opponents come from the right",
-						"type": "commentate"
+						"type": "commentate",
+						"bubble":  "green"
 					},
 					{
 						"type": "hide captchas"

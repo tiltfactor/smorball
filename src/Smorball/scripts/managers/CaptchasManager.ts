@@ -108,6 +108,12 @@ class CaptchasManager {
 			// Ensure that the chunk isnt too wide
 			captcha.scaleX = captcha.scaleY = 1;
 			captcha.setChunk(nextChunk);
+
+			// If the new size of the captch is too small in either dimension then lets discard it
+			if (captcha.getBounds().width < smorball.config.minCaptchaPixelSize || captcha.getBounds().height < smorball.config.minCaptchaPixelSize)
+				continue;
+
+			// Lets check the pre-scaled size of the captcha to anything too big
 			var width = captcha.getWidth();			
 			if (width < smorball.config.maxCaptchaSize) break;
 			else {
@@ -126,6 +132,12 @@ class CaptchasManager {
 				var scale = smorball.config.maxCaptchaSize / width;
 				console.log("Scaling captcha down to:", scale);
 				captcha.scaleX = captcha.scaleY = scale;
+
+				// If the new size of the captch is too small in either dimension then lets discard it
+				if (captcha.getBounds().width < smorball.config.minCaptchaPixelSize || captcha.getBounds().height < smorball.config.minCaptchaPixelSize)
+					continue;
+
+				// Else we are finally done
 				break;
 			}
 
@@ -323,7 +335,7 @@ class CaptchasManager {
 		// So long as we arent running the first level then lets refresh all the captchas
 		if (smorball.game.levelIndex != 0) {
 			_.each(visibleCapatchas, c => this.refreshCaptcha(c.lane));
-		}
+		}		
 	}
 
 	private sendAthleteInLane(lane: number, text:string, damageMultiplier: number) {
@@ -402,6 +414,9 @@ class CaptchasManager {
 		// After some time enable them again
 		this.lockedTimer = 0;
 		this.isLocked = true;
+
+		// Hide all captchas unti lthe confused wears off
+		this.hideCaptchas();
 	}
 
 	private unlock() {
@@ -423,6 +438,9 @@ class CaptchasManager {
 
 		// Not locked any more
 		this.isLocked = false;
+		
+		// Show captchas again
+		this.showCaptchas();
 	}
 
 	sendInputsToServer() {

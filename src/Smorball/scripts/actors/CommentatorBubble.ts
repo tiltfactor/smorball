@@ -10,7 +10,7 @@ class CommentatorBubble extends createjs.Container {
 		super();
 
 		// Create the background
-		this.background = new createjs.Bitmap(smorball.resources.getResource("stadium_speech_bubble"));
+		this.background = new createjs.Bitmap(smorball.resources.getResource("stadium_speech_bubble_blue"));
 		this.background.regX = this.background.getBounds().width / 2;
 		this.addChild(this.background);
 
@@ -32,9 +32,11 @@ class CommentatorBubble extends createjs.Container {
 		this.isOpen = false;
 	}
 
-	showCommentary(commentry: string) {
+	showCommentary(commentry: string, bubbleVariant: string) {
 
 		this.visible = true;
+
+		this.background.image = smorball.resources.getResource("stadium_speech_bubble_" + bubbleVariant);
 
 		this.text.text = commentry.toUpperCase();
 		this.text.y = this.background.getBounds().height / 2 - this.text.getBounds().height / 2;

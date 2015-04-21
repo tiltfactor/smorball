@@ -79,14 +79,19 @@ var SpawningManager = (function () {
             }
         }
         else if (this.action.type == "commentate") {
-            smorball.screens.game.bubble.showCommentary(this.action.commentry);
+            var bubble = this.action.bubble == null ? "blue" : "green";
+            smorball.screens.game.bubble.showCommentary(this.action.commentry, bubble);
             this.action = this.getNextAction();
         }
         else if (this.action.type == "delay") {
+            // Lets work out what the multiplier should be, taking into account the noScale override
+            var multiplier = smorball.difficulty.getCurrentDifficultyMultiplier();
+            if (this.action.noScale == true)
+                multiplier = 1;
             // If there are no more enemies then we dont need to delay, just send another enemy immediatately
             if (!this.action.noSkip && smorball.game.enemies.length == 0)
                 this.action = this.getNextAction();
-            else if (this.actionTimer > this.action.time * smorball.difficulty.getCurrentDifficultyMultiplier())
+            else if (this.actionTimer > this.action.time * multiplier)
                 this.action = this.getNextAction();
         }
         else if (this.action.type == "add pass") {

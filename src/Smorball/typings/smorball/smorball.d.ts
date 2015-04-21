@@ -129,6 +129,8 @@ interface WaveAction {
 	quantity?: number;
 	noSkip?: boolean;
 	lane?: number;
+	noScale?: boolean;
+	bubble?: string;
 }
 
 interface SmorballConfig {
@@ -155,6 +157,7 @@ interface SmorballConfig {
 	fbAppId: string;
 	timeTrialUnlockLevel: number;
 	captchaScaleLimitConstantN: number;
+	minCaptchaPixelSize: number;
 }
 
 interface Upgrade {

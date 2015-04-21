@@ -73,6 +73,10 @@ var CaptchasManager = (function () {
             // Ensure that the chunk isnt too wide
             captcha.scaleX = captcha.scaleY = 1;
             captcha.setChunk(nextChunk);
+            // If the new size of the captch is too small in either dimension then lets discard it
+            if (captcha.getBounds().width < smorball.config.minCaptchaPixelSize || captcha.getBounds().height < smorball.config.minCaptchaPixelSize)
+                continue;
+            // Lets check the pre-scaled size of the captcha to anything too big
             var width = captcha.getWidth();
             if (width < smorball.config.maxCaptchaSize)
                 break;
@@ -89,6 +93,9 @@ var CaptchasManager = (function () {
                 var scale = smorball.config.maxCaptchaSize / width;
                 console.log("Scaling captcha down to:", scale);
                 captcha.scaleX = captcha.scaleY = scale;
+                // If the new size of the captch is too small in either dimension then lets discard it
+                if (captcha.getBounds().width < smorball.config.minCaptchaPixelSize || captcha.getBounds().height < smorball.config.minCaptchaPixelSize)
+                    continue;
                 break;
             }
             break;
@@ -302,6 +309,8 @@ var CaptchasManager = (function () {
         // After some time enable them again
         this.lockedTimer = 0;
         this.isLocked = true;
+        // Hide all captchas unti lthe confused wears off
+        this.hideCaptchas();
     };
     CaptchasManager.prototype.unlock = function () {
         $("#gameScreen .entry .submit-btn").prop("disabled", false);
@@ -317,6 +326,8 @@ var CaptchasManager = (function () {
         });
         // Not locked any more
         this.isLocked = false;
+        // Show captchas again
+        this.showCaptchas();
     };
     CaptchasManager.prototype.sendInputsToServer = function () {
         var _this = this;

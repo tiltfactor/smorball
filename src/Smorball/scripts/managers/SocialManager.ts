@@ -27,8 +27,8 @@
 		FB.ui({
 			method: 'feed',
 			caption: this.getShareText(),
-			description: this.getShareText(),
-			//href: 'http://tiltfactor.pepwuper.com/Smorball/',
+			//description: this.getShareText(),
+			link: 'http://tiltfactor.pepwuper.com/Smorball/',
 		},	(response) => { console.log("FB Feed response", response) });
 	}
 
@@ -56,7 +56,7 @@
 		else {
 
 			var level = smorball.game.levels[smorball.user.lastLevelPlayed];
-			var score = smorball.user.levels[smorball.user.lastLevelPlayed].score;
+			var score = 6000 - smorball.user.levels[smorball.user.lastLevelPlayed].score;
 
 			if (level.timeTrial)
 				return Utils.format("I just lasted {0}s in Smorball's infinite mode. http://smorball.com", Math.round(smorball.user.lastSurvivalTime));

@@ -50,6 +50,7 @@
 	"knockbackMin": 10,
 	"knockbackMax": 200,
 	"knockbackWordLengthMultiplier": 15,
+	"minCaptchaPixelSize":  10,
 	"PageAPIUrl": "http://tiltfactor1.dartmouth.edu:8080/api/page",
 	"DifferenceAPIUrl": "http://tiltfactor1.dartmouth.edu:8080/api/difference",
 	"PageAPITimeout":  3000,

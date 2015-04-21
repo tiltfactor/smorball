@@ -10,7 +10,7 @@ var CommentatorBubble = (function (_super) {
     function CommentatorBubble() {
         _super.call(this);
         // Create the background
-        this.background = new createjs.Bitmap(smorball.resources.getResource("stadium_speech_bubble"));
+        this.background = new createjs.Bitmap(smorball.resources.getResource("stadium_speech_bubble_blue"));
         this.background.regX = this.background.getBounds().width / 2;
         this.addChild(this.background);
         // Create the text
@@ -28,9 +28,10 @@ var CommentatorBubble = (function (_super) {
         this.visible = false;
         this.isOpen = false;
     }
-    CommentatorBubble.prototype.showCommentary = function (commentry) {
+    CommentatorBubble.prototype.showCommentary = function (commentry, bubbleVariant) {
         var _this = this;
         this.visible = true;
+        this.background.image = smorball.resources.getResource("stadium_speech_bubble_" + bubbleVariant);
         this.text.text = commentry.toUpperCase();
         this.text.y = this.background.getBounds().height / 2 - this.text.getBounds().height / 2;
         // Animate in
