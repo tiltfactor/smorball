@@ -107,6 +107,10 @@ var SpawningManager = (function () {
             smorball.captchas.showCaptchas();
             this.action = this.getNextAction();
         }
+        else if (this.action.type == "play sound") {
+            smorball.audio.playSound(this.action.sound);
+            this.action = this.getNextAction();
+        }
     };
     SpawningManager.prototype.spawnEnemy = function (enemyType, sameLane, lane) {
         // If lane is not provided then spawn on a random one

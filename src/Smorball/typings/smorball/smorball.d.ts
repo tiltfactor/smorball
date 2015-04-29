@@ -131,6 +131,7 @@ interface WaveAction {
 	lane?: number;
 	noScale?: boolean;
 	bubble?: string;
+	sound?: string;
 }
 
 interface SmorballConfig {
@@ -140,7 +141,7 @@ interface SmorballConfig {
 	width: number;
 	height: number;
 	penaltyTime: number;
-	enemyTouchdowns: number;
+	maxScore: number;
 	passes: number;
 	debug: boolean;
 	goalLine: number;
@@ -158,6 +159,7 @@ interface SmorballConfig {
 	timeTrialUnlockLevel: number;
 	captchaScaleLimitConstantN: number;
 	minCaptchaPixelSize: number;
+	incorrectCaptchaScorePenalty: number;
 }
 
 interface Upgrade {

@@ -50,10 +50,6 @@
 		{ "src": "images/UI/helmet_powerup.png", "id": "helmet_powerup" },
 		{ "src": "images/UI/shadow.png", "id": "shadow" },
 
-		
-		
-		
-
 		{ "src": "html/main menu.html", "id": "main_menu_html" },
 		{ "src": "html/options menu.html", "id": "options_menu_html" },
 		{ "src": "html/map menu.html", "id": "map_menu_html" },
@@ -83,7 +79,6 @@
 		{ "src": "data/audience data.json", "id": "audience_data" },
 		{ "src": "data/survival data.json", "id": "survival_data" },
 
-		{ "src": "images/The Stadium/advertisement_board.png", "id": "stadium_ad_board" },
 		{ "src": "images/The Stadium/commentators.png", "id": "stadium_commentators" },
 		{ "src": "images/The Stadium/scoreboard.png", "id": "stadium_scoreboard" },
 		{ "src": "images/The Stadium/seat.png", "id": "stadium_seat" },
@@ -95,6 +90,7 @@
 		{ "src": "images/The Stadium/stadium-wall.png", "id": "stadium_wall" },
 		{ "src": "images/The Stadium/crowd_glass.png", "id": "crowd_glass" },
 		{ "src": "images/The Stadium/speaker_animation1.png", "id": "speaker_off" },
+		{ "src": "images/The Stadium/stadium_board.png", "id": "stadium_ad_board" },
 		{ "src": "images/The Stadium/speaker_animation2.png", "id": "speaker_on" },
 
 		{ "src": "images/Logos/beige_logo.png", "id": "beige_logo" },

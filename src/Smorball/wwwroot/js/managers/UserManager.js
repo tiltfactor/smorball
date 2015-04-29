@@ -24,7 +24,7 @@ var UserManager = (function () {
     };
     UserManager.prototype.levelWon = function (level) {
         var l = this.levels[level];
-        var score = smorball.game.getScore();
+        var score = smorball.game.levelScore;
         var diff = score - l.score;
         l.score = Math.max(score - l.score);
         // If this is the first level then we earn nothing!

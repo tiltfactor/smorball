@@ -36,8 +36,11 @@ var Captcha = (function (_super) {
         this.sprite.regY = this.sprite.getTransformedBounds().height / 2;
         this.sprite.x = this.sprite.getTransformedBounds().width / 2;
         this.sprite.visible = true;
-        // Animate in
+        // Reset any previous animations
         createjs.Tween.removeTweens(this.sprite);
+        this.sprite.scaleX = this.sprite.scaleY = 1;
+    };
+    Captcha.prototype.animateIn = function () {
         this.sprite.scaleX = this.sprite.scaleY = 0;
         createjs.Tween.get(this.sprite).to({ scaleX: 1, scaleY: 1 }, 500, createjs.Ease.backOut);
     };

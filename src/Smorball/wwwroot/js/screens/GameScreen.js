@@ -18,14 +18,14 @@ var GameScreen = (function (_super) {
         this.addChild(this.stadium);
         this.opponentsEl = $("#gameScreen .opponents").get(0);
         this.scoreEl = $("#gameScreen .score").get(0);
-        this.captchas = new createjs.Container();
-        this.addChild(this.captchas);
-        this.actors = new createjs.Container();
-        this.addChild(this.actors);
         this.bubble = new CommentatorBubble();
         this.bubble.x = 800;
         this.bubble.y = 314;
         this.addChild(this.bubble);
+        this.actors = new createjs.Container();
+        this.addChild(this.actors);
+        this.captchas = new createjs.Container();
+        this.addChild(this.captchas);
         this.indicator = new CorrectIncorrectIndicator();
         this.indicator.x = 800;
         this.indicator.y = 960;
@@ -134,7 +134,7 @@ var GameScreen = (function (_super) {
             this.scoreEl.textContent = Utils.formatTime(smorball.game.timeOnLevel);
         }
         else {
-            var s = smorball.game.getScore();
+            var s = smorball.game.levelScore;
             if (this.score > s)
                 this.score = Math.max(this.score - Math.round(delta * 1000), s);
             this.opponentsEl.textContent = smorball.game.getOpponentsRemaining() + "";

@@ -45,7 +45,7 @@ var Stadium = (function (_super) {
             }
             else if (part.type == "speaker_pole")
                 obj = new createjs.Bitmap(smorball.resources.getResource("stadium_speaker_pole"));
-            else if (part.type == "advertisement_board")
+            else if (part.type == "stadium_board")
                 obj = new createjs.Bitmap(smorball.resources.getResource("stadium_ad_board"));
             else if (part.type == "commentators")
                 obj = new createjs.Bitmap(smorball.resources.getResource("stadium_commentators"));

@@ -1942,8 +1942,30 @@
 			{
 				"actions": [
 					{
-						"enemy": "lanechange",
+						"enemy": "weak",
 						"type": "spawn"
+					},
+					{
+						"time": 3,
+						"noSkip": true,
+						"type": "delay"
+					},
+					{
+						"sound": "smorball_enemy_score_06_sound",
+						"type": "play sound"
+					}
+				]
+			},
+			{
+				"actions": [
+					{
+						"commentry": "WEEEEEEEEEEE",
+						"type": "commentate"
+					},
+					{
+						"time": 6,
+						"noSkip":  true,
+						"type": "delay"
 					}
 				]
 			}

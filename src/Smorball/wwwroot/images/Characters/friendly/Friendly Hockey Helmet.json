@@ -672,32 +672,32 @@
     [
       419,
       1345,
-      193,
-      226,
+      194,
+      227,
       0,
-      -149,
+      -148,
       -75
     ],
     [
       419,
       1345,
-      193,
-      226,
+      194,
+      227,
       0,
-      -149,
+      -148,
       -75
     ],
     [
       419,
       1345,
-      193,
-      226,
+      194,
+      227,
       0,
-      -149,
+      -148,
       -75
     ],
     [
-      614,
+      615,
       1345,
       207,
       143,
@@ -706,7 +706,7 @@
       -158
     ],
     [
-      823,
+      824,
       1345,
       207,
       142,
@@ -715,7 +715,7 @@
       -159
     ],
     [
-      1032,
+      1033,
       1345,
       207,
       140,
@@ -743,7 +743,7 @@
     ]
   },
   "texturepacker": [
-    "SmartUpdateHash: $TexturePacker:SmartUpdate:6591d7f0cb7ef8e870ddab6ddedc4839:cd4d740966d6e71040f09f4ab0346ff8:6e8bf2617cfd9f1b1845d0193ed2b7fd$",
+    "SmartUpdateHash: $TexturePacker:SmartUpdate:b74f48e053483fcced9c6175f5851305:647729043d0ad30aac6d5b93a10ed5ed:6e8bf2617cfd9f1b1845d0193ed2b7fd$",
     "EaselJS Extended Exporter - Trim support"
   ],
   "framerate": 15

@@ -20,7 +20,6 @@ class GameManager extends createjs.Container {
 	state: GameState = GameState.NotPlaying;
 
 	enemiesKilled: number;
-	enemyTouchdowns: number;
 	passesRemaining: number;
 	knockbackMultiplier: number;
 	timeOnLevel: number;
@@ -29,6 +28,8 @@ class GameManager extends createjs.Container {
 	enemies: Enemy[];
 	athletes: Athlete[];
 	ambienceSound: createjs.AbstractSoundInstance;
+
+	levelScore: number;
 
 	init() {
 		this.levels = smorball.resources.getResource("levels_data");
@@ -57,8 +58,8 @@ class GameManager extends createjs.Container {
 		this.levelIndex = levelIndex;
 		this.level = this.getLevel(levelIndex);
 		this.enemiesKilled = 0;
-		this.enemyTouchdowns = 0;
 		this.enemySpeedBuff = 0;
+		this.levelScore = smorball.config.maxScore;
 		this.passesRemaining = this.level.passes == null ? smorball.config.passes : this.level.passes;
 
 		// Load the resources needed
@@ -78,6 +79,7 @@ class GameManager extends createjs.Container {
 		this.athletes = [];
 		this.timeOnLevel = 0;
 		this.knockbackMultiplier = 1;
+		this.levelScore = smorball.config.maxScore;
 		
 		// Let these know about the new level starting (order is important here)
 		smorball.screens.open(smorball.screens.game);
@@ -105,6 +107,9 @@ class GameManager extends createjs.Container {
 		this.timeOnLevel += delta;
 		_.each(this.enemies, e => { if (e != null) e.update(delta); } );
 		_.each(this.athletes, e => { if (e != null) e.update(delta); });
+
+		if (this.levelScore <= 0)
+			this.gameOver(false);
 	}
 
 	gameOver(win: boolean) {
@@ -158,7 +163,12 @@ class GameManager extends createjs.Container {
 	}
 
 	enemyReachedGoaline(enemy: Enemy) {
-		this.enemyTouchdowns++;
+		
+		// Decrement 1000 from the score
+		this.levelScore -= 1000;
+
+		// Rememberthis too
+		this.enemiesKilled++
 
 		// Show some floating text
 		smorball.screens.game.actors.addChild(new FloatingText("-1000", enemy.x, enemy.y - enemy.getBounds().height));
@@ -172,19 +182,11 @@ class GameManager extends createjs.Container {
 
 		// If its a time trail then only one enemy is allowed to reach the goaline
 		if (this.level.timeTrial) 
-			this.gameOver(false);
-		
-		// Else we have a certain nubmer that is allowed
-		else if (this.enemyTouchdowns >= smorball.config.enemyTouchdowns)
-			this.gameOver(false);
+			this.gameOver(false);				
 	}
 
 	getOpponentsRemaining() {
-		return smorball.spawning.enemySpawnsThisLevel - smorball.game.enemiesKilled - this.enemyTouchdowns;
-	}
-
-	getScore() {
-		return (smorball.config.enemyTouchdowns - this.enemyTouchdowns) * 1000;
+		return smorball.spawning.enemySpawnsThisLevel - smorball.game.enemiesKilled;
 	}
 
 	enemyKilled(enemy: Enemy) {

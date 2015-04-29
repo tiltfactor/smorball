@@ -131,6 +131,10 @@ class SpawningManager {
 			smorball.captchas.showCaptchas();
 			this.action = this.getNextAction();
 		}
+		else if (this.action.type == "play sound") {
+			smorball.audio.playSound(this.action.sound);
+			this.action = this.getNextAction();
+		}
 	}
 
 	spawnEnemy(enemyType: string, sameLane?: boolean, lane?:number) {

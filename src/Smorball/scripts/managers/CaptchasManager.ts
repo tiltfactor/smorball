@@ -110,13 +110,14 @@ class CaptchasManager {
 			captcha.setChunk(nextChunk);
 
 			// If the new size of the captch is too small in either dimension then lets discard it
-			if (captcha.getBounds().width < smorball.config.minCaptchaPixelSize || captcha.getBounds().height < smorball.config.minCaptchaPixelSize)
+			if (captcha.getBounds().width < smorball.config.minCaptchaPixelSize || captcha.getBounds().height < smorball.config.minCaptchaPixelSize) {
+				console.log("Cannot use captcha, width or height is less than minimum Captcha pixel size", captcha.getBounds(), smorball.config.minCaptchaPixelSize );
 				continue;
+			}
 
 			// Lets check the pre-scaled size of the captcha to anything too big
 			var width = captcha.getWidth();			
-			if (width < smorball.config.maxCaptchaSize) break;
-			else {
+			if (width > smorball.config.maxCaptchaSize) {				
 
 				// If the chunk is too wide then lets see if we should scale it down or not
 				var L = this.getAverageTextLength(nextChunk);
@@ -134,15 +135,15 @@ class CaptchasManager {
 				captcha.scaleX = captcha.scaleY = scale;
 
 				// If the new size of the captch is too small in either dimension then lets discard it
-				if (captcha.getBounds().width < smorball.config.minCaptchaPixelSize || captcha.getBounds().height < smorball.config.minCaptchaPixelSize)
+				if (captcha.getBounds().width < smorball.config.minCaptchaPixelSize || captcha.getBounds().height < smorball.config.minCaptchaPixelSize) {
+					console.log("Cannot use captcha, width or height is less than minimum Captcha pixel size", captcha.getBounds(), smorball.config.minCaptchaPixelSize);
 					continue;
-
-				// Else we are finally done
-				break;
+				}			
 			}
 
 			// If we get here then we are done
-			break;
+			captcha.animateIn();
+			break;			
 		}
 	}
 
@@ -322,7 +323,6 @@ class CaptchasManager {
 	}
 
 	onCaptchaEnterError() {
-		this.lock();
 
 		// Play a sound
 		smorball.audio.playSound("word_typed_incorrect_sound");
@@ -330,12 +330,18 @@ class CaptchasManager {
 		// Show the indicator
 		smorball.screens.game.indicator.showIncorrect();
 
-		var visibleCapatchas = this.getActiveCaptchas();	
+		// Add a score penalty and show some floating text
+		var penalty = smorball.config.incorrectCaptchaScorePenalty;
+		smorball.game.levelScore -= penalty;
+		smorball.screens.game.actors.addChild(new FloatingText("-" + penalty, smorball.config.width / 2, smorball.config.height/2 + 200));
 
 		// So long as we arent running the first level then lets refresh all the captchas
 		if (smorball.game.levelIndex != 0) {
-			_.each(visibleCapatchas, c => this.refreshCaptcha(c.lane));
-		}		
+			_.each(this.getActiveCaptchas(), c => this.refreshCaptcha(c.lane));
+		}	
+		
+		// Finally lock
+		this.lock();	
 	}
 
 	private sendAthleteInLane(lane: number, text:string, damageMultiplier: number) {
@@ -353,19 +359,19 @@ class CaptchasManager {
 	private checkForCheats(text: string) {
 		if (text.toLowerCase() == "win level") {
 			smorball.game.enemiesKilled = smorball.spawning.enemySpawnsThisLevel;
-			smorball.game.enemyTouchdowns = Math.round(Math.random() * (smorball.config.enemyTouchdowns - 1));
+			smorball.game.levelScore = Math.round(1000 + Math.random() * 5000);
 			smorball.game.gameOver(true);
 			return true;
 		}
 		else if (text.toLowerCase() == "loose level") {
 			smorball.game.enemiesKilled = Math.round(Math.random() * smorball.spawning.enemySpawnsThisLevel);
-			smorball.game.enemyTouchdowns = smorball.config.enemyTouchdowns;
+			smorball.game.levelScore = 0;
 			smorball.game.gameOver(false);
 			return true;
 		}
 		else if (text.toLowerCase() == "win all levels") {
 			smorball.game.enemiesKilled = Math.round(Math.random() * smorball.spawning.enemySpawnsThisLevel);
-			smorball.game.enemyTouchdowns = smorball.config.enemyTouchdowns;
+			smorball.game.levelScore = Math.round(1000 + Math.random() * 5000);
 			smorball.user.cash += 99999;
 
 			for (var i = 0; i < smorball.game.levels.length; i++)

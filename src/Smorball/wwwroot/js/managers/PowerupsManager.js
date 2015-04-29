@@ -61,7 +61,7 @@ var PowerupsManager = (function () {
             this.spawnPowerup("cleats", l);
         else if (r < cleatsChance + helmetChance)
             this.spawnPowerup("helmet", l);
-        else if (r < cleatsChance + bullhornChance)
+        else if (r < cleatsChance + helmetChance + bullhornChance)
             this.spawnPowerup("bullhorn", l);
     };
     return PowerupsManager;

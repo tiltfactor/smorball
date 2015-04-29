@@ -15,7 +15,8 @@ class ResourcesManager
 	bgQueue: createjs.LoadQueue;
 
 	constructor() {
-		this.fgQueue = new createjs.LoadQueue(true, "", true);		
+		this.fgQueue = new createjs.LoadQueue(true, "", true);		// true, "", true
+		this.fgQueue.setMaxConnections(10);
 		this.bgQueue = new createjs.LoadQueue(false, "", false);		
 	}
 

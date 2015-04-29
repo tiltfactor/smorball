@@ -90,7 +90,7 @@ class PowerupsManager {
 		var l = Utils.randomOne(smorball.game.level.lanes);
 		if (r < cleatsChance) this.spawnPowerup("cleats", l);
 		else if (r < cleatsChance + helmetChance) this.spawnPowerup("helmet", l);
-		else if (r < cleatsChance + bullhornChance) this.spawnPowerup("bullhorn", l);
+		else if (r < cleatsChance + helmetChance + bullhornChance) this.spawnPowerup("bullhorn", l);
 	}
 	
 }

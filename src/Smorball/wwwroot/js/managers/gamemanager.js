@@ -43,8 +43,8 @@ var GameManager = (function (_super) {
         this.levelIndex = levelIndex;
         this.level = this.getLevel(levelIndex);
         this.enemiesKilled = 0;
-        this.enemyTouchdowns = 0;
         this.enemySpeedBuff = 0;
+        this.levelScore = smorball.config.maxScore;
         this.passesRemaining = this.level.passes == null ? smorball.config.passes : this.level.passes;
         // Load the resources needed
         smorball.resources.loadLevelResources(levelIndex);
@@ -59,6 +59,7 @@ var GameManager = (function (_super) {
         this.athletes = [];
         this.timeOnLevel = 0;
         this.knockbackMultiplier = 1;
+        this.levelScore = smorball.config.maxScore;
         // Let these know about the new level starting (order is important here)
         smorball.screens.open(smorball.screens.game);
         smorball.screens.game.newLevel();
@@ -88,6 +89,8 @@ var GameManager = (function (_super) {
             if (e != null)
                 e.update(delta);
         });
+        if (this.levelScore <= 0)
+            this.gameOver(false);
     };
     GameManager.prototype.gameOver = function (win) {
         // Set these
@@ -125,7 +128,10 @@ var GameManager = (function (_super) {
             smorball.screens.game.showDefeat(0);
     };
     GameManager.prototype.enemyReachedGoaline = function (enemy) {
-        this.enemyTouchdowns++;
+        // Decrement 1000 from the score
+        this.levelScore -= 1000;
+        // Rememberthis too
+        this.enemiesKilled++;
         // Show some floating text
         smorball.screens.game.actors.addChild(new FloatingText("-1000", enemy.x, enemy.y - enemy.getBounds().height));
         // Flash the score red
@@ -136,14 +142,9 @@ var GameManager = (function (_super) {
         // If its a time trail then only one enemy is allowed to reach the goaline
         if (this.level.timeTrial)
             this.gameOver(false);
-        else if (this.enemyTouchdowns >= smorball.config.enemyTouchdowns)
-            this.gameOver(false);
     };
     GameManager.prototype.getOpponentsRemaining = function () {
-        return smorball.spawning.enemySpawnsThisLevel - smorball.game.enemiesKilled - this.enemyTouchdowns;
-    };
-    GameManager.prototype.getScore = function () {
-        return (smorball.config.enemyTouchdowns - this.enemyTouchdowns) * 1000;
+        return smorball.spawning.enemySpawnsThisLevel - smorball.game.enemiesKilled;
     };
     GameManager.prototype.enemyKilled = function (enemy) {
         this.enemiesKilled++;

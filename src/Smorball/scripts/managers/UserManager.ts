@@ -44,7 +44,7 @@ class UserManager {
 	levelWon(level:number) : number {
 
 		var l = this.levels[level];
-		var score = smorball.game.getScore();
+		var score = smorball.game.levelScore;
 		var diff = score - l.score;
 		l.score = Math.max(score - l.score);
 
