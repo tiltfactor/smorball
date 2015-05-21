@@ -66,6 +66,7 @@
 		{ "src": "images/Level Select Map/stadium_base.png", "id": "map_stadium_base" },
 		{ "src": "images/Level Select Map/shop_icon.png", "id": "shop_icon" },
 		{ "src": "images/Level Select Map/stopwatch_icon.png", "id": "stopwatch_icon" },
+		{ "src": "images/Level Select Map/spend-your-winnings.png", "id": "spend_your_winnings_banner" },
 
 		{ "src": "data/map data.json", "id": "map_data" },
 		{ "src": "data/levels data.json", "id": "levels_data" },

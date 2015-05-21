@@ -158,8 +158,10 @@ interface SmorballConfig {
 	fbAppId: string;
 	timeTrialUnlockLevel: number;
 	captchaScaleLimitConstantN: number;
-	minCaptchaPixelSize: number;
-	incorrectCaptchaScorePenalty: number;
+    minCaptchaPixelSize: number;
+    physicsIterations: number;
+    incorrectCaptchaScorePenalty: number;
+    shopUnlockLevel: number;
 }
 
 interface Upgrade {

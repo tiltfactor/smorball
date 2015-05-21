@@ -4,7 +4,7 @@
 
 	constructor() {
 		super();
-		this.text = new createjs.Text("99", "50px Boogaloo", "white");
+		this.text = new createjs.Text("99", "50px Boogaloo", "#333333");
 		this.addChild(this.text);
 	}
 

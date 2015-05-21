@@ -1945,15 +1945,24 @@
 						"enemy": "weak",
 						"type": "spawn"
 					},
-					{
-						"time": 3,
-						"noSkip": true,
-						"type": "delay"
+          {
+            "time": 3,
+            "noSkip": true,
+            "type": "delay"
+          },
+          {
+						"enemy": "regular",
+						"type": "spawn"
 					},
-					{
-						"sound": "smorball_enemy_score_06_sound",
-						"type": "play sound"
-					}
+          {
+            "time": 3,
+            "noSkip": true,
+            "type": "delay"
+          },
+          {
+            "enemy": "fast",
+            "type": "spawn"
+          }         
 				]
 			},
 			{

@@ -12,21 +12,27 @@ class UserManager {
 	bestSurvivalTime: number;
 	lastSurvivalTime: number;
 	lastLevelPlayed: number;
-	hasSaveGame: boolean;
+    hasSaveGame: boolean;
+    hasShownShopSign: boolean;
 
 	constructor() {
-		this.levels = [{ isUnlocked: true, score: 0 }];
-		this.cash = 0;
-		this.bestSurvivalTime = 0;
-		this.lastLevelPlayed = -1;
-		this.lastSurvivalTime = 0;
-	}
+        this.reset();
+    }
+
+    reset() {
+        this.levels = [{ isUnlocked: true, score: 0 }];
+        this.cash = 0;
+        this.bestSurvivalTime = 0;
+        this.lastLevelPlayed = -1;
+        this.lastSurvivalTime = 0;
+        this.hasShownShopSign = false;
+    }
 
 	newGame() {
-		this.levels = [{ isUnlocked: true, score: 0 }];
-		this.cash = 0;
-		this.hasSaveGame = true;
+        this.reset();
+        smorball.upgrades.newGame();
 		smorball.persistance.persist();
+        this.hasSaveGame = true;
 	}
 
 	newLevel() {
@@ -46,7 +52,7 @@ class UserManager {
 		var l = this.levels[level];
 		var score = smorball.game.levelScore;
 		var diff = score - l.score;
-		l.score = Math.max(score - l.score);
+		l.score = Math.max(score, l.score);
 
 		// If this is the first level then we earn nothing!
 		if (level == 0) diff = 0;

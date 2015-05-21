@@ -10,9 +10,9 @@ var AudienceMember = (function (_super) {
     function AudienceMember(type) {
         _super.call(this);
         this.type = type;
-        var ss = this.getSpritesheet();
-        this.member = new createjs.Sprite(ss, "idle");
-        this.member.currentAnimationFrame = Math.floor(ss.getNumFrames("idle") * Math.random());
+        //var ss = this.getSpritesheet();
+        this.member = new SBSprite(smorball.sprites.getSpriteSheet(this.type.id, this.getSpritesheet()), "idle");
+        //this.member.currentAnimationFrame = Math.floor(ss.getNumFrames("idle") * Math.random());
         this.member.regX = this.type.offsetX;
         this.member.regY = this.type.offsetY;
         this.member.scaleX = this.member.scaleY = this.type.scale;
@@ -22,7 +22,6 @@ var AudienceMember = (function (_super) {
         this.addChild(this.member);
     }
     AudienceMember.prototype.getSpritesheet = function () {
-        var level = smorball.game.levelIndex;
         var jsonName = this.type.id + "_json";
         var pngName = this.type.id + "_png";
         var data = smorball.resources.getResource(jsonName);

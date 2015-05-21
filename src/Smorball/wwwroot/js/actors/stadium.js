@@ -74,6 +74,7 @@ var Stadium = (function (_super) {
         // Find all seats
         _.chain(this.children).filter(function (obj) { return obj instanceof createjs.Bitmap && obj.image == seatImg; }).each(function (seat) {
             // Lets put an audience member on that seat.
+            //var member = new AudienceMember(Utils.randomOne(audienceTypes));
             var member = new AudienceMember(Utils.randomOne(audienceTypes));
             _this.audienceMembers.push(member);
             member.x = seat.x;

@@ -84,8 +84,8 @@ class MapScreen extends ScreenBase
 		super.show();
 		_.each(this.levels, l => l.updateLockedState());
 		this.cashEl.textContent = smorball.user.cash + "";
-		this.onLevelRollover(this.levels[0]);
-		this.shop.updateLockedState();		
+		this.onLevelRollover(this.levels[0]); 
+        this.shop.show();	
 		this.survival.updateLockedState();		
 	}
 

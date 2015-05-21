@@ -11,7 +11,7 @@
 	constructor() {
 		this.soundsPlaying = [];
 		//createjs.Sound.initializeDefaultPlugins();
-		createjs.Sound.registerPlugins([createjs.WebAudioPlugin, createjs.HTMLAudioPlugin, createjs.FlashAudioPlugin]);
+		//createjs.Sound.registerPlugins([createjs.WebAudioPlugin, createjs.HTMLAudioPlugin, createjs.FlashAudioPlugin]);
 		//createjs.Sound.alternateExtensions = ["mp3"];
 		createjs.Sound.defaultInterruptBehavior = createjs.Sound.INTERRUPT_NONE;
 		//smorball.resources.fgQueue.installPlugin(<any>createjs.Sound);

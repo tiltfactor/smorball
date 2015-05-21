@@ -18,7 +18,8 @@ class SmorballManager {
 	upgrades: UpgradesManager;
 	powerups: PowerupsManager;
 	timeTrial: TimeTrailManager;
-	social: SocialManager;
+    social: SocialManager;
+    sprites: SpriteSheetManager;
 
 	constructor(config: SmorballConfig) {
 		this.config = config;
@@ -59,7 +60,8 @@ class SmorballManager {
 		this.upgrades = new UpgradesManager();
 		this.powerups = new PowerupsManager();
 		this.timeTrial = new TimeTrailManager();
-		this.social = new SocialManager();
+        this.social = new SocialManager();
+        this.sprites = new SpriteSheetManager();
 
 		// Start off things invisible
 		this.loadingScreen.visible = false;

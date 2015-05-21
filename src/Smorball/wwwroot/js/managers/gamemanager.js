@@ -23,6 +23,11 @@ var GameManager = (function (_super) {
         this.levels = smorball.resources.getResource("levels_data");
         this.enemyTypes = smorball.resources.getResource("enemies_data");
         this.athleteTypes = smorball.resources.getResource("athletes_data");
+        // Lets make sure that all the athlete spritesheets have been created at the start
+        _.each(this.athleteTypes, function (type) {
+            var a = new Athlete(type, 0);
+            _.each(["helmet", "bullhorn", "cleats"], function (p) { return a.selectedPowerupChanged(p); });
+        });
         // Listen for keyboard presses
         document.onkeydown = function (e) { return _this.onKeyDown(e); };
     };
@@ -54,6 +59,8 @@ var GameManager = (function (_super) {
         smorball.screens.open(smorball.screens.loadingLevel);
     };
     GameManager.prototype.play = function () {
+        // Force one of each enemy to be created, this will ensure that the spritesheet cache is correctly constructed
+        _.each(smorball.game.enemyTypes, function (t) { return new Enemy(t, 0); });
         // Reset these
         this.enemies = [];
         this.athletes = [];

@@ -23,11 +23,14 @@ var UpgradesManager = (function () {
         if (this.isOwned("strength"))
             smorball.game.knockbackMultiplier = this.getUpgrade("strength").multiplier;
     };
+    UpgradesManager.prototype.newGame = function () {
+        this.upgradesOwned = _.map(this.upgradesOwned, function (u) { return false; });
+    };
     UpgradesManager.prototype.isUpgradeLocked = function (indx) {
         return (smorball.user.getHighestUnlockedLevel() + 2) <= this.upgrades[indx].unlocksAt;
     };
     UpgradesManager.prototype.isShopUnlocked = function () {
-        return smorball.user.levels.length > 2;
+        return smorball.user.levels.length >= smorball.config.shopUnlockLevel;
     };
     UpgradesManager.prototype.purchase = function (upgrade) {
         this.upgradesOwned[upgrade] = true;

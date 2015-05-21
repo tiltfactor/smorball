@@ -36,6 +36,7 @@ var SmorballManager = (function () {
         this.powerups = new PowerupsManager();
         this.timeTrial = new TimeTrailManager();
         this.social = new SocialManager();
+        this.sprites = new SpriteSheetManager();
         // Start off things invisible
         this.loadingScreen.visible = false;
         // Load the last session (if there is one)

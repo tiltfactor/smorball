@@ -22,7 +22,11 @@ var ShopScreen = (function (_super) {
         $("#shopScreen .back").click(function () { return smorball.screens.open(smorball.screens.map); });
         $("#shopScreen .items").mCustomScrollbar({
             scrollbarPosition: "outside",
-            theme: "smorball"
+            theme: "smorball",
+            advanced: {
+                autoScrollOnFocus: false,
+                updateOnImageLoad: false
+            }
         });
         // Handle the buy button
         $("#shopScreen .shop-item button").click(function (e) { return _this.onItemButtonClicked(e); });
@@ -44,6 +48,8 @@ var ShopScreen = (function (_super) {
         this.cashEl.textContent = smorball.user.cash + "";
     };
     ShopScreen.prototype.show = function () {
+        smorball.user.hasShownShopSign = true;
+        smorball.persistance.persist();
         _super.prototype.show.call(this);
         this.cashEl.textContent = smorball.user.cash + "";
         this.updateItems();

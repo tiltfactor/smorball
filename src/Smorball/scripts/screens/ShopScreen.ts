@@ -26,7 +26,12 @@ class ShopScreen extends ScreenBase
 		
 		$("#shopScreen .items").mCustomScrollbar({
 			scrollbarPosition: "outside",
-			theme: "smorball"
+            theme: "smorball",           
+            advanced: {
+                autoScrollOnFocus: false,
+                updateOnImageLoad: false
+            }           
+
 		});
 
 		// Handle the buy button
@@ -53,7 +58,9 @@ class ShopScreen extends ScreenBase
 		this.cashEl.textContent = smorball.user.cash + "";
 	}
 
-	show() {
+    show() {
+        smorball.user.hasShownShopSign = true;
+        smorball.persistance.persist();
 		super.show();
 		this.cashEl.textContent = smorball.user.cash + "";
 		this.updateItems();

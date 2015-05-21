@@ -8,7 +8,7 @@ var Framerate = (function (_super) {
     __extends(Framerate, _super);
     function Framerate() {
         _super.call(this);
-        this.text = new createjs.Text("99", "50px Boogaloo", "white");
+        this.text = new createjs.Text("99", "50px Boogaloo", "#333333");
         this.addChild(this.text);
     }
     Framerate.prototype.update = function (delta) {

@@ -4,16 +4,16 @@
 class AudienceMember extends createjs.Container {
 
 	type: AudienceMemberType;
-	member: createjs.Sprite;
+    member: SBSprite;
 
 	constructor(type: AudienceMemberType) {
 		super();
 
 		this.type = type;
 
-		var ss = this.getSpritesheet();
-		this.member = new createjs.Sprite(ss, "idle");
-		this.member.currentAnimationFrame = Math.floor(ss.getNumFrames("idle") * Math.random());
+        //var ss = this.getSpritesheet();
+        this.member = new SBSprite(smorball.sprites.getSpriteSheet(this.type.id, this.getSpritesheet()), "idle");
+		//this.member.currentAnimationFrame = Math.floor(ss.getNumFrames("idle") * Math.random());
 		this.member.regX = this.type.offsetX;
 		this.member.regY = this.type.offsetY;
 		this.member.scaleX = this.member.scaleY = this.type.scale;
@@ -25,12 +25,11 @@ class AudienceMember extends createjs.Container {
 	}
 
 	private getSpritesheet(): createjs.SpriteSheet {
-		var level = smorball.game.levelIndex;
 		var jsonName = this.type.id + "_json";
 		var pngName = this.type.id + "_png";
 		var data = smorball.resources.getResource(jsonName);
 		var sprite = smorball.resources.getResource(pngName);
-		data.images = [sprite];
+        data.images = [sprite];
 		return new createjs.SpriteSheet(data);
 	}
 

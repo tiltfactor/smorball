@@ -225,6 +225,8 @@ button.right-arrow {
 	width: 96px;
 	height: 130px;
 	transform: scale(-1, 1);
+    -webkit-transform: scale(-1,1);
+    -ms-transform: scale(-1,1);
 }
 
 button.right-arrow:hover {
@@ -241,6 +243,8 @@ button.forward {
 	width: 163px;
 	height: 147px;
 	transform: scale(-1,1);
+    -webkit-transform: scale(-1,1);
+    -ms-transform: scale(-1,1);
 }
 
 button.forward:hover {

@@ -83,10 +83,14 @@ class CaptchasManager {
 
 	hideCaptchas() {
 		_.each(this.captchas, c => c.visible = false);
-	}
+    }
+
+    getCaptcha(lane: number) {
+        return _.find(this.captchas, c => c.lane == lane);
+    }
 
 	refreshCaptcha(lane: number) {
-		var captcha = _.find(this.captchas, c => c.lane == lane);
+        var captcha = this.getCaptcha(lane);
 
 		// Get the visible captchas on screen 
 		var visibleCapatchas = _.filter(this.getActiveCaptchas(), c => c.lane != lane);
@@ -487,7 +491,7 @@ class CaptchasManager {
 		});
 	}
 
-	loadPageFromServer() {
+    loadPageFromServer() {
 		$.ajax({
 			url: smorball.config.PageAPIUrl,
 			success: data => this.parsePageAPIData(data),

@@ -11,7 +11,7 @@ class Athlete extends createjs.Container {
 
 	lane: number;
 	type: AthleteType;
-	sprite: createjs.Sprite;
+    sprite: SBSprite;
 	state: AthleteState = AthleteState.ReadyToRun;
 
 	powerup: string;
@@ -38,8 +38,8 @@ class Athlete extends createjs.Container {
 		this.x = startPos.x;
 		this.y = startPos.y;
 
-		// Setup the spritesheet
-        this.sprite = new createjs.Sprite(this.getSpritesheet(), "idle");
+        // Setup the spritesheet
+        this.sprite = new SBSprite(this.getSpritesheet(), "idle");
 		this.sprite.regX = this.type.offsetX;
 		this.sprite.regY = this.type.offsetY;
 		this.sprite.framerate = 20;
@@ -64,7 +64,7 @@ class Athlete extends createjs.Container {
 		this.sprite.gotoAndPlay("run");
 	}
 
-	private getSpritesheet(): createjs.SpriteSheet {
+    private getSpritesheet(): SBSpriteSheet {
 		var level = smorball.game.levelIndex;
 
 		// The variation depends upon the selected powerup
@@ -103,7 +103,9 @@ class Athlete extends createjs.Container {
 
 		// Update the data with the image and return
 		data.images = [sprite];
-		return new createjs.SpriteSheet(data);
+        var cjsSS = new createjs.SpriteSheet(data);
+
+        return smorball.sprites.getSpriteSheet(this.type.id + "_" + variation, cjsSS);
 	}
 
 	update(delta: number) {
@@ -118,10 +120,15 @@ class Athlete extends createjs.Container {
 			// Move the enemy along
 			var speed = this.type.speed;
 			if (this.powerup == "cleats") speed *= smorball.powerups.types.cleats.speedMultiplier;
-			this.x = this.x + speed * delta;
 
-			// Check for collisions
-			this.checkCollisions();
+            // We need to iterate this a few times as at low FPS the athletes can potentially run through the enemies and powerups etc
+            for (var i = 0; i < smorball.config.physicsIterations; i++) {
+                this.x += (speed * delta) / smorball.config.physicsIterations;
+
+                // Check for collisions, if we collide then stop checking
+                if (this.checkCollisions())
+                    break;
+            }
 
 			// If we get to the end of the world then die
 			if (this.x > smorball.config.width) 
@@ -130,32 +137,39 @@ class Athlete extends createjs.Container {
 				
 	}
 
-	private checkCollisions() {
-
+    private checkCollisions(): boolean {
 		var myBounds = this.getTransformedBounds();
 
-		// Check collisions with enemies
-		_.chain(smorball.game.enemies)
-			.filter(e => e.state == EnemyState.Alive && e.lane == this.lane && this.enemiesTackled.indexOf(e) == -1)
-			.every(e => {
-				var theirBounds = e.getTransformedBounds();
-				if (myBounds.intersects(theirBounds)) {
-					e.tackled(this);
-					this.tackle(e);
-					return false;			
-				}
-				return true;
-			});
+        // Look for enemies in the correct state
+        var enemies = _.filter(smorball.game.enemies, e => e.state == EnemyState.Alive && e.lane == this.lane && this.enemiesTackled.indexOf(e) == -1);
+
+        // Return true if there was one
+        for (var i = 0; i < enemies.length; i++)
+        {
+            var e = enemies[i];
+            var theirBounds = e.getTransformedBounds();
+            if (myBounds.intersects(theirBounds)) {
+                e.tackled(this);
+                this.tackle(e);
+                return true;
+            }
+        }
 
 		// Check collisions with powerups
-		_.chain(smorball.powerups.views)
-			.filter(p => p.lane == this.lane && p.state == PowerupState.NotCollected)
-			.each(p => {
-			var theirBounds = p.getTransformedBounds();
-			if (myBounds.intersects(theirBounds)) {
-				p.collect();				
-			}
-		});
+        var powerups = _.filter(smorball.powerups.views, p => p.lane == this.lane && p.state == PowerupState.NotCollected)
+
+        // Check for collisions with powerups, dont break if we hit one as it shouldnt stop play
+        for (var i = 0; i < powerups.length; i++)
+        {
+            var p = powerups[i];
+            var theirBounds = p.getTransformedBounds();
+            if (myBounds.intersects(theirBounds)) {
+                p.collect();
+            }
+        }
+
+        // Dont stop play
+        return false;
 	}
 
 	private tackle(enemy: Enemy) {
@@ -192,8 +206,10 @@ class Athlete extends createjs.Container {
 	private setReadyToRun() {
 		this.x = this.startX;
 		this.state = AthleteState.ReadyToRun;
-		this.sprite.gotoAndPlay("idle");
-		smorball.captchas.refreshCaptcha(this.lane);
+        this.sprite.gotoAndPlay("idle");
+
+        var captcha = smorball.captchas.getCaptcha(this.lane);
+        if (captcha.chunk == null)	smorball.captchas.refreshCaptcha(this.lane);
 	}
 
 	destroy() {
@@ -211,8 +227,8 @@ class Athlete extends createjs.Container {
 		// If we arent in one of the states that cares then dont dont anything
 		if (this.state != AthleteState.Entering && this.state != AthleteState.ReadyToRun) return;
 
-		this.powerup = powerup;
-		this.sprite.spriteSheet = this.getSpritesheet();
+        this.powerup = powerup;
+        this.sprite.spriteSheet = this.getSpritesheet();
 	}
 
 }

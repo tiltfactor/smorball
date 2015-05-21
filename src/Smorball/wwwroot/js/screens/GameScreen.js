@@ -70,8 +70,8 @@ var GameScreen = (function (_super) {
         };
         // If the window looses focus then lets pause the game if we are running
         window.onblur = function (event) {
-            if (smorball.game.state == 2 /* Playing */)
-                smorball.game.timeout();
+            //if (smorball.game.state == GameState.Playing)
+            //smorball.game.timeout();
         };
         this.framerate = new Framerate();
         this.framerate.x = smorball.config.width - 80;

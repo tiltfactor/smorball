@@ -10,7 +10,7 @@ class Enemy extends createjs.Container {
 	type: EnemyType;
 	startingLane: number;
 	lane: number;
-	sprite: createjs.Sprite;
+    sprite: SBSprite;
 	state: EnemyState = EnemyState.Alive;
 	heartsContainer: createjs.Container;
 
@@ -30,9 +30,8 @@ class Enemy extends createjs.Container {
 		this.x = startPos.x;
 		this.y = startPos.y;
 
-		// Setup the spritesheet
-		var ss = new createjs.SpriteSheet(this.getSpritesheetData());
-        this.sprite = new createjs.Sprite(ss, "run");
+        // Setup the spritesheet
+        this.sprite = new SBSprite(this.getSpritesheet(), "run");
 		this.sprite.framerate = 20;
 		this.sprite.regX = this.type.offsetX;
 		this.sprite.regY = this.type.offsetY;
@@ -73,8 +72,7 @@ class Enemy extends createjs.Container {
 	
 	private addHearts() {
 		// Set the hearts container
-		this.heartsContainer = new createjs.Container();
-		this.heartsContainer.y = -(this.sprite.getTransformedBounds().height + 50);
+		this.heartsContainer = new createjs.Container();		
 		this.addChild(this.heartsContainer);
 
 		// Add a number of hearts
@@ -86,14 +84,16 @@ class Enemy extends createjs.Container {
 		}
 	}
 
-	private getSpritesheetData(): any {
+    private getSpritesheet(): SBSpriteSheet {
 		var level = smorball.game.levelIndex;
 		var jsonName = this.type.id + "_" + Utils.zeroPad(level, 2) + "_json";
 		var pngName = this.type.id + "_" + Utils.zeroPad(level, 2) + "_png";
 		var data = smorball.resources.getResource(jsonName);
 		var sprite = smorball.resources.getResource(pngName);
-		data.images = [sprite];
-		return data;
+        data.images = [sprite];
+
+        var cjsSpritesheet = new createjs.SpriteSheet(data);
+        return smorball.sprites.getSpriteSheet(this.type.id + "_" + Utils.zeroPad(level, 2), cjsSpritesheet);
 	}
 
 	update(delta: number) {
@@ -101,7 +101,10 @@ class Enemy extends createjs.Container {
 		if (this.state == EnemyState.Alive) {
 
 			// Move the enemy along
-			this.x = this.x - (this.type.speed + smorball.game.enemySpeedBuff) * delta;
+            this.x = this.x - (this.type.speed + smorball.game.enemySpeedBuff) * delta;
+
+            // Make sure the hearts are in the right place
+            this.heartsContainer.y = -(this.sprite.getTransformedBounds().height + 50);
 
 			// If we get the goal line then happy days!
 			if (this.x < smorball.config.goalLine) {

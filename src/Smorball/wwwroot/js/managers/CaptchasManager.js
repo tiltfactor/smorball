@@ -55,9 +55,12 @@ var CaptchasManager = (function () {
     CaptchasManager.prototype.hideCaptchas = function () {
         _.each(this.captchas, function (c) { return c.visible = false; });
     };
+    CaptchasManager.prototype.getCaptcha = function (lane) {
+        return _.find(this.captchas, function (c) { return c.lane == lane; });
+    };
     CaptchasManager.prototype.refreshCaptcha = function (lane) {
         var _this = this;
-        var captcha = _.find(this.captchas, function (c) { return c.lane == lane; });
+        var captcha = this.getCaptcha(lane);
         // Get the visible captchas on screen 
         var visibleCapatchas = _.filter(this.getActiveCaptchas(), function (c) { return c.lane != lane; });
         for (var i = 0; i < 100; i++) {

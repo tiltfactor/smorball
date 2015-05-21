@@ -112,8 +112,8 @@ class GameScreen extends ScreenBase
 
 		// If the window looses focus then lets pause the game if we are running
 		window.onblur = (event) => {
-			if (smorball.game.state == GameState.Playing)
-				smorball.game.timeout();
+			//if (smorball.game.state == GameState.Playing)
+				//smorball.game.timeout();
 		}
 
 		this.framerate = new Framerate();
@@ -178,9 +178,9 @@ class GameScreen extends ScreenBase
 		createjs.Tween.get(this).to({}, time).call(() => $(el).removeAttr("style"));
 	}
 
-	update(delta: number) {
+    update(delta: number) {
 
-		if (smorball.game.level.timeTrial) {
+      	if (smorball.game.level.timeTrial) {
 			this.opponentsEl.textContent = smorball.game.enemiesKilled + "";
 			this.scoreEl.textContent = Utils.formatTime(smorball.game.timeOnLevel);
 		}

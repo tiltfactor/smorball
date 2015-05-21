@@ -34,7 +34,13 @@ class GameManager extends createjs.Container {
 	init() {
 		this.levels = smorball.resources.getResource("levels_data");
 		this.enemyTypes = smorball.resources.getResource("enemies_data");
-		this.athleteTypes = smorball.resources.getResource("athletes_data");
+        this.athleteTypes = smorball.resources.getResource("athletes_data");
+
+        // Lets make sure that all the athlete spritesheets have been created at the start
+        _.each(this.athleteTypes, type => {
+            var a = new Athlete(type, 0);
+            _.each(["helmet", "bullhorn", "cleats"], p => a.selectedPowerupChanged(p));
+        });
 
 		// Listen for keyboard presses
 		document.onkeydown = e => this.onKeyDown(e);	
@@ -72,7 +78,10 @@ class GameManager extends createjs.Container {
 		smorball.screens.open(smorball.screens.loadingLevel);
 	}
 
-	play() {
+    play() {
+
+        // Force one of each enemy to be created, this will ensure that the spritesheet cache is correctly constructed
+        _.each(smorball.game.enemyTypes, t => new Enemy(t, 0));
 
 		// Reset these
 		this.enemies = [];

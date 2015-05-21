@@ -33,7 +33,6 @@ class Stadium extends createjs.Container {
 
 		this.speakers = [];
 
-
 		_.each(data.parts, part => {
 
 			var obj: createjs.DisplayObject;
@@ -89,12 +88,14 @@ class Stadium extends createjs.Container {
 		this.audienceMembers = [];
 
 		// Find all seats
-		_.chain(this.children)
-			.filter(obj => obj instanceof createjs.Bitmap && obj.image == seatImg)
+        _.chain(this.children)
+            .filter(obj => obj instanceof createjs.Bitmap && obj.image == seatImg)
+            //.take(1)
 			.each(seat => {
 
 			// Lets put an audience member on that seat.
-			var member = new AudienceMember(Utils.randomOne(audienceTypes));
+			//var member = new AudienceMember(Utils.randomOne(audienceTypes));
+            var member = new AudienceMember(Utils.randomOne(audienceTypes));
 			this.audienceMembers.push(member);
 			member.x = seat.x;
 			member.y = seat.y;

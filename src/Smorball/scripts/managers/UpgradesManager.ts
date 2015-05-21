@@ -21,14 +21,18 @@ class UpgradesManager {
 		if (this.isOwned("loudmouth")) smorball.powerups.powerups.bullhorn.spawnRateMultiplier = this.getUpgrade("loudmouth").multiplier;
 		if (this.isOwned("nightclass")) smorball.captchas.confusedTimeMuliplier = this.getUpgrade("nightclass").multiplier;
 		if (this.isOwned("strength")) smorball.game.knockbackMultiplier = this.getUpgrade("strength").multiplier;
-	}
+    }
+
+    newGame() {
+        this.upgradesOwned = _.map(this.upgradesOwned, u => false);
+    }
 
 	isUpgradeLocked(indx: number) {
 		return (smorball.user.getHighestUnlockedLevel()+2) <= this.upgrades[indx].unlocksAt;
 	}
 
-	isShopUnlocked(): boolean {
-		return smorball.user.levels.length > 2;
+    isShopUnlocked(): boolean {
+        return smorball.user.levels.length >= smorball.config.shopUnlockLevel;
 	}
 
 	purchase(upgrade: number) {

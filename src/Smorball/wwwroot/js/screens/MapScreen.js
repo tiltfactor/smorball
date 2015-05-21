@@ -57,7 +57,7 @@ var MapScreen = (function (_super) {
         _.each(this.levels, function (l) { return l.updateLockedState(); });
         this.cashEl.textContent = smorball.user.cash + "";
         this.onLevelRollover(this.levels[0]);
-        this.shop.updateLockedState();
+        this.shop.show();
         this.survival.updateLockedState();
     };
     MapScreen.prototype.onLevelRollover = function (level) {
