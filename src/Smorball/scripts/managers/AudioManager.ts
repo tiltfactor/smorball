@@ -6,27 +6,41 @@
 	musicVolumeMultiplier = 0.6;
 
 	private music: createjs.AbstractSoundInstance;
-	private soundsPlaying: createjs.AbstractSoundInstance[];
+    private soundsPlaying: createjs.AbstractSoundInstance[];
+    private capsOutputted: boolean;
 
 	constructor() {
-		this.soundsPlaying = [];
+        this.soundsPlaying = [];
+        this.capsOutputted = false;
 		//createjs.Sound.initializeDefaultPlugins();
 		//createjs.Sound.registerPlugins([createjs.WebAudioPlugin, createjs.HTMLAudioPlugin, createjs.FlashAudioPlugin]);
 		//createjs.Sound.alternateExtensions = ["mp3"];
 		createjs.Sound.defaultInterruptBehavior = createjs.Sound.INTERRUPT_NONE;
 		//smorball.resources.fgQueue.installPlugin(<any>createjs.Sound);
-		console.log("AUDIO CAPABILITIESss: ", createjs.Sound.getCapabilities());
-	}
+        this.outputCaps();
+    }
 
-	init() {
+    private outputCaps() {
+        if (this.capsOutputted) return;
+        if (createjs.Sound.getCapabilities() == null) return;        
+        this.capsOutputted = true;
+        console.log("AUDIO CAPABILITIES: ", createjs.Sound.getCapabilities());
+        console.log("Active Plugin", createjs.Sound.activePlugin);
+    }
+
+    init() {        
 		createjs.Sound.on("fileload",(e: any) => this.onSoundLoaded(e.id));
 		var manifest = smorball.resources.getResource("audio_manifest");
-		createjs.Sound.registerSounds(manifest);
+        createjs.Sound.registerSounds(manifest);
+        this.outputCaps();
 	}
 
-	private onSoundLoaded(id: string) {
-		if (id == "main_theme_sound" && smorball.screens.current != null && smorball.screens.current != smorball.screens.game)
-			this.playMusic();
+    private onSoundLoaded(id: string) {
+        
+        if (id == "main_theme_sound" && smorball.screens.current != null && smorball.screens.current != smorball.screens.game) {
+            this.playMusic();
+            this.outputCaps();
+        }
 	}
 
 	setMusicVolume(volume: number) {
@@ -47,7 +61,7 @@
 		this.music = createjs.Sound.play("main_theme_sound");		
 		this.music.loop = -1;
 		this.music.volume = this.musicVolume * this.musicVolumeMultiplier;
-
+        this.outputCaps();
 		if (this.music.playState == "playFailed")
 			this.music = null;
 	}
