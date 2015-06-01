@@ -234,8 +234,8 @@ class CaptchasManager {
 		if (text == null || text == "") return; // skip if no text entered
 		$("#gameScreen .entry input").val("");
 
-		// Check for cheats first
-		if (this.checkForCheats(text))
+        // Check for cheats first (if we are in debug mode)
+        if (smorball.config.debug && this.checkForCheats(text))
 			return;
 
 		// Get the visible captchas on screen 

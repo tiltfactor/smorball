@@ -45,7 +45,7 @@ class MapShop extends createjs.Container {
     show() {
         this.updateLockedState();	
 
-        if (smorball.user.levels.length == smorball.config.shopUnlockLevel && !smorball.user.hasShownShopSign)
+        if (smorball.user.levels.length >= smorball.config.shopUnlockLevel && !smorball.user.hasShownShopSign)
             this.popupSign();
     }
 

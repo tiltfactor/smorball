@@ -22,11 +22,14 @@ class SmorballManager {
     sprites: SpriteSheetManager;
 
 	constructor(config: SmorballConfig) {
-		this.config = config;
-		this.config.debug = location.hostname == "localhost";
+		this.config = config;       
 	}
 
-	init() {
+    init() {
+        // if we arent debugging then dont show the log messages
+        if (!this.config.debug)
+            console.log = function () { }
+
 		console.log("starting up Smorball");
 
 		// Create the main stage
@@ -64,7 +67,7 @@ class SmorballManager {
         this.sprites = new SpriteSheetManager();
 
 		// Start off things invisible
-		this.loadingScreen.visible = false;
+        this.loadingScreen.visible = false;        
 
 		// Load the last session (if there is one)
 		this.persistance.depersist();

@@ -160,6 +160,7 @@ var Enemy = (function (_super) {
         var _this = this;
         // Stop animating and play a fade out effect
         this.sprite.stop();
+        this.sprite.goToLastFrame();
         createjs.Tween.get(this).to({ alpha: 0 }, 500).call(function () { return _this.destroy(); });
         // If this enemy has a speed buff dont forget to remove it on death
         if (this.type.speedBuff != undefined)

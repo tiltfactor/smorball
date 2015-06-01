@@ -1,21 +1,19 @@
-﻿/// <reference path="../../scripts/managers/smorballmanager.ts" />
-/// <reference path="../../scripts/managers/splashscreensmanager.ts" />
-/// <reference path="../../scripts/managers/resourcesmanager.ts" />
-/// <reference path="../tsd.d.ts" />
-/// <reference path="../../scripts/main.ts" />
-/// <reference path="../../scripts/actors/backgroundstar.ts" />
-/// <reference path="../../scripts/utils/utils.ts" />
-/// <reference path="../../scripts/managers/gamemanager.ts" />
-/// <reference path="../../scripts/managers/audiomanager.ts" />
-/// <reference path="../../scripts/managers/persistancemanager.ts" />
-/// <reference path="../../scripts/actors/maplevel.ts" />
-/// <reference path="../../scripts/actors/mapdot.ts" />
-/// <reference path="../../scripts/screens/initialloadingscreen.ts" />
-/// <reference path="../../scripts/actors/stadium.ts" />
-/// <reference path="../../scripts/managers/screensmanager.ts" />
-/// <reference path="../../scripts/screens/mainmenu.ts" />
+﻿/// <reference path="../../scripts/managers/audio-manager.ts" />
+/// <reference path="../../scripts/managers/capatchas-manager.ts" />
+/// <reference path="../../scripts/managers/difficulty-manager.ts" />
+/// <reference path="../../scripts/managers/game-manager.ts" />
+/// <reference path="../../scripts/managers/persistance-manager.ts" />
+/// <reference path="../../scripts/managers/powerups-manager.ts" />
+/// <reference path="../../scripts/managers/resources-manager.ts" />
+/// <reference path="../../scripts/managers/screens-manager.ts" />
+/// <reference path="../../scripts/managers/smorball-manager.ts" />
+/// <reference path="../../scripts/managers/social-manager.ts" />
 /// <reference path="../../scripts/managers/spawningmanager.ts" />
-/// <reference path="../../scripts/actors/athlete.ts" />
+/// <reference path="../../scripts/managers/spash-screens-manager.ts" />
+/// <reference path="../../scripts/managers/sprite-sheet-manager.ts" />
+/// <reference path="../../scripts/managers/time-trial-manager.ts" />
+/// <reference path="../../scripts/managers/upgrades-manager.ts" />
+/// <reference path="../../scripts/managers/user-manager.ts" />
 
 interface SurvivalEnemyData {
 	startTime: number;

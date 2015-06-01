@@ -39,7 +39,8 @@
 
 	"width": 1600,
 	"height":  1200,
-	"goalLine":  345,
+  "goalLine": 345,
+  "debug":  false,
 	"penaltyTime": 3,
 	"entriesBeforeServerSubmission":  50,
 	"maxScore": 6000,

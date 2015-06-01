@@ -45,7 +45,7 @@ module.exports = function (grunt) {
                 files: {
                 	'wwwroot/index.html': ['wwwroot/lib/jquery/**/*.js',
 						'wwwroot/lib/**/*.js',
-						'wwwroot/js/screens/ScreenBase.js',
+						'wwwroot/js/screens/screen-base.js',
 						'wwwroot/js/**/*.js',
                 		"!wwwroot/lib/modernizr/**/*.*"],
                 }

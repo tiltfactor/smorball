@@ -118,8 +118,11 @@ class GameScreen extends ScreenBase
 
 		this.framerate = new Framerate();
 		this.framerate.x = smorball.config.width - 80;
-		this.framerate.y = smorball.config.height - 60;
-		this.addChild(this.framerate);
+        this.framerate.y = smorball.config.height - 60;
+
+        // Only add the framerate if we are in debug mode
+        if (smorball.config.debug)
+		    this.addChild(this.framerate);
 	}
 
 	private onKeyDown(event: JQueryEventObject) {

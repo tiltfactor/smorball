@@ -189,7 +189,8 @@ class Enemy extends createjs.Container {
 	private onDeathAnimationComplete() {
 
 		// Stop animating and play a fade out effect
-		this.sprite.stop();
+        this.sprite.stop();
+        this.sprite.goToLastFrame();
 		createjs.Tween.get(this).to({ alpha: 0 }, 500).call(() => this.destroy());
 
 		// If this enemy has a speed buff dont forget to remove it on death

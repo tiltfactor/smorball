@@ -2,10 +2,13 @@
 var SmorballManager = (function () {
     function SmorballManager(config) {
         this.config = config;
-        this.config.debug = location.hostname == "localhost";
     }
     SmorballManager.prototype.init = function () {
         var _this = this;
+        // if we arent debugging then dont show the log messages
+        if (!this.config.debug)
+            console.log = function () {
+            };
         console.log("starting up Smorball");
         // Create the main stage
         this.stage = new createjs.Stage("mainCanvas");

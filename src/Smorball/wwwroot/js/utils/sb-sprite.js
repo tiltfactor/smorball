@@ -98,6 +98,9 @@ var SBSprite = (function (_super) {
     SBSprite.prototype.getCurrentFrame = function () {
         return this.spriteSheet.getFrame(this.animation, this.currentAnimationFrame);
     };
+    SBSprite.prototype.goToLastFrame = function () {
+        this.currentAnimationFrame = this.spriteSheet.getNumFrames(this.animation) - 1;
+    };
     SBSprite.prototype.stop = function () {
         this.isPlaying = false;
     };

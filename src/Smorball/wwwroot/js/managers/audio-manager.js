@@ -61,6 +61,7 @@ var AudioManager = (function () {
         var sound = createjs.Sound.play(id);
         sound.volume = this.soundVolume * volumeMultipler;
         this.soundsPlaying.push(sound);
+        console.log("sounds: ", this.soundsPlaying.length);
         return sound;
     };
     AudioManager.prototype.playAudioSprite = function (id, options, volumeMultipler) {
@@ -85,6 +86,7 @@ var AudioManager = (function () {
         for (var i = 0; i < this.soundsPlaying.length; i++) {
             var s = this.soundsPlaying[i];
             if (s.playState == "playFinished") {
+                s.destroy();
                 this.soundsPlaying.splice(i, 1);
                 i--;
             }

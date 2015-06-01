@@ -92,6 +92,10 @@
         return this.spriteSheet.getFrame(this.animation, this.currentAnimationFrame);
     }
 
+    goToLastFrame() {
+        this.currentAnimationFrame = this.spriteSheet.getNumFrames(this.animation) - 1;
+    }
+
     stop() {
         this.isPlaying = false;
     }
