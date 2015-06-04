@@ -115,9 +115,9 @@ var Enemy = (function (_super) {
     Enemy.prototype.tackled = function (athlete) {
         var _this = this;
         // Decrement the life
-        var damage = 1 * athlete.damageMultiplier;
+        var damage = 1 + athlete.damageBonus;
         if (athlete.powerup == "cleats")
-            damage *= smorball.powerups.types.cleats.damageMultiplier;
+            damage += smorball.powerups.types.cleats.damageBonus;
         damage = Math.min(damage, this.lifeRemaining);
         for (var i = 0; i < damage; i++) {
             this.lifeRemaining--;

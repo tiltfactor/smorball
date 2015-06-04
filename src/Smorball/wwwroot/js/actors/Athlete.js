@@ -19,7 +19,7 @@ var Athlete = (function (_super) {
         this.state = 1 /* ReadyToRun */;
         this.lane = lane;
         this.type = type;
-        this.damageMultiplier = 1;
+        this.damageBonus = 0;
         this.speedMultiplier = 1;
         this.enemiesTackled = [];
         // If a powerup is already selected then make sure we have it set
