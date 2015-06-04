@@ -267,7 +267,7 @@ var CaptchasManager = (function () {
     CaptchasManager.prototype.checkForCheats = function (text) {
         if (text.toLowerCase() == "win level") {
             smorball.game.enemiesKilled = smorball.spawning.enemySpawnsThisLevel;
-            smorball.game.levelScore = Math.round(1000 + Math.random() * 5000);
+            smorball.game.levelScore = Math.round(100 + Math.random() * 500);
             smorball.game.gameOver(true);
             return true;
         }
@@ -279,7 +279,7 @@ var CaptchasManager = (function () {
         }
         else if (text.toLowerCase() == "win all levels") {
             smorball.game.enemiesKilled = Math.round(Math.random() * smorball.spawning.enemySpawnsThisLevel);
-            smorball.game.levelScore = Math.round(1000 + Math.random() * 5000);
+            smorball.game.levelScore = Math.round(100 + Math.random() * 500);
             smorball.user.cash += 99999;
             for (var i = 0; i < smorball.game.levels.length; i++)
                 smorball.user.levelWon(i);

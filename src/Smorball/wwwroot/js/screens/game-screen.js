@@ -104,7 +104,7 @@ var GameScreen = (function (_super) {
         this.captchas.removeAllChildren();
         this.stadium.idleAudience();
         this.stadium.setTeam(smorball.game.level.team);
-        this.score = 6000;
+        this.score = 600;
     };
     GameScreen.prototype.showTimeout = function () {
         console.log("timeout changed!");

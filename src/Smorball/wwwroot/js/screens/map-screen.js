@@ -67,14 +67,14 @@ var MapScreen = (function (_super) {
             var img = smorball.resources.getResource(l.team.id + "_logo_small");
             this.teamLogoEl.src = img.src;
             this.teamNameEl.textContent = l.team.name;
-            this.scoreEl.textContent = Math.floor(usrLvl.score / 1000) + "/" + (smorball.config.maxScore / 1000);
+            this.scoreEl.textContent = Math.floor(usrLvl.score) + "/" + smorball.config.maxScore;
             this.lockIconEl.hidden = true;
             this.teamLogoEl.hidden = false;
         }
         else {
             this.teamLogoEl.hidden = true;
             this.teamNameEl.textContent = "Locked";
-            this.scoreEl.textContent = "0/6";
+            this.scoreEl.textContent = "0/600";
             this.lockIconEl.hidden = false;
         }
     };

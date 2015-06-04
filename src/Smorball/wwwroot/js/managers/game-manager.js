@@ -136,11 +136,11 @@ var GameManager = (function (_super) {
     };
     GameManager.prototype.enemyReachedGoaline = function (enemy) {
         // Decrement 1000 from the score
-        this.levelScore -= 1000;
+        this.levelScore -= 100;
         // Rememberthis too
         this.enemiesKilled++;
         // Show some floating text
-        smorball.screens.game.actors.addChild(new FloatingText("-1000", enemy.x, enemy.y - enemy.getBounds().height));
+        smorball.screens.game.actors.addChild(new FloatingText("-100", enemy.x, enemy.y - enemy.getBounds().height));
         // Flash the score red
         smorball.screens.game.flashRed(smorball.screens.game.scoreEl, 800);
         smorball.screens.game.flashRed(smorball.screens.game.opponentsEl, 800);

@@ -47,11 +47,11 @@ var SocialManager = (function () {
             return "Checkout this great game! http://smorball.com";
         else {
             var level = smorball.game.levels[smorball.user.lastLevelPlayed];
-            var score = 6000 - smorball.user.levels[smorball.user.lastLevelPlayed].score;
+            var score = 600 - smorball.user.levels[smorball.user.lastLevelPlayed].score;
             if (level.timeTrial)
-                return Utils.format("I just lasted {0}s in Smorball's infinite mode. http://smorball.com", Math.round(smorball.user.lastSurvivalTime));
+                return Utils.format("I just lasted {0}s in Smorball's Time Challenge!. http://smorball.com", Math.round(smorball.user.lastSurvivalTime));
             else
-                return Utils.format("I just defeated the {0}. They scored {1} against me! http://smorball.com", level.team.name, score);
+                return Utils.format("I just defeated the {0}. I scored {1} against them! http://smorball.com", level.team.name, score);
         }
     };
     return SocialManager;
