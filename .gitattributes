@@ -1,1 +1,8 @@
 * text eol=lf
+
+# Declare binary files
+*.mp3 binary
+
+*.png binary
+*.psd binary
+*.jpg binary
