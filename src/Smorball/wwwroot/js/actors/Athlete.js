@@ -20,6 +20,7 @@ var Athlete = (function (_super) {
         this.lane = lane;
         this.type = type;
         this.damageMultiplier = 1;
+        this.speedMultiplier = 1;
         this.enemiesTackled = [];
         // If a powerup is already selected then make sure we have it set
         if (smorball.screens.game.selectedPowerup != null)
@@ -95,8 +96,9 @@ var Athlete = (function (_super) {
         else if (this.state == 2 /* Running */) {
             // Move the enemy along
             var speed = this.type.speed;
-            if (this.powerup == "cleats")
+            if (this.powerup == "cleats" || this.powerup == "helmet" || this.powerup == "bullhorn")
                 speed *= smorball.powerups.types.cleats.speedMultiplier;
+            speed = Math.max(speed, this.type.speed * this.speedMultiplier);
             for (var i = 0; i < smorball.config.physicsIterations; i++) {
                 this.x += (speed * delta) / smorball.config.physicsIterations;
                 // Check for collisions, if we collide then stop checking

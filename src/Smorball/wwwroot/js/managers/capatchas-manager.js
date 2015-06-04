@@ -210,6 +210,9 @@ var CaptchasManager = (function () {
         var damageMultiplier = 1;
         if (text.length > 7 && smorball.upgrades.isOwned("breakfast"))
             damageMultiplier = smorball.upgrades.getUpgrade("breakfast").multiplier;
+        var speedMultiplier = 1;
+        if (smorball.upgrades.isOwned("speeddrills"))
+            speedMultiplier = smorball.upgrades.getUpgrade("speeddrills").speedMultiplier;
         // If we have the bullhorn powerup selected then send all athletes running
         var powerup = smorball.screens.game.selectedPowerup;
         if (powerup != null) {
@@ -217,10 +220,10 @@ var CaptchasManager = (function () {
             smorball.audio.playSound("word_typed_correctly_with_powerup_sound");
             // If its a bullhorn then send every athlete in the 
             if (powerup.type == "bullhorn") {
-                _.chain(smorball.game.athletes).filter(function (a) { return a.state == 1 /* ReadyToRun */; }).each(function (a) { return _this.sendAthleteInLane(a.lane, text, damageMultiplier); });
+                _.chain(smorball.game.athletes).filter(function (a) { return a.state == 1 /* ReadyToRun */; }).each(function (a) { return _this.sendAthleteInLane(a.lane, text, damageMultiplier, speedMultiplier); });
             }
             else
-                this.sendAthleteInLane(captcha.lane, text, damageMultiplier);
+                this.sendAthleteInLane(captcha.lane, text, damageMultiplier, speedMultiplier);
             // Decrement the powerup
             smorball.powerups.powerups[powerup.type].quantity--;
             // Deselect the powerup
@@ -229,7 +232,7 @@ var CaptchasManager = (function () {
         else {
             // Play a sound
             smorball.audio.playSound("word_typed_correct_sound");
-            this.sendAthleteInLane(captcha.lane, text, damageMultiplier);
+            this.sendAthleteInLane(captcha.lane, text, damageMultiplier, speedMultiplier);
             // If this is the tutorial level then make sure the captcha is now hidden so the user cant enter before the next wave
             if (smorball.game.levelIndex == 0)
                 captcha.visible = false;
@@ -255,10 +258,11 @@ var CaptchasManager = (function () {
         // Finally lock
         this.lock();
     };
-    CaptchasManager.prototype.sendAthleteInLane = function (lane, text, damageMultiplier) {
+    CaptchasManager.prototype.sendAthleteInLane = function (lane, text, damageMultiplier, speedMultiplier) {
         // Start the athlete running
         var athelete = _.find(smorball.game.athletes, function (a) { return a.lane == lane && a.state == 1 /* ReadyToRun */; });
         athelete.damageMultiplier = damageMultiplier;
+        athelete.speedMultiplier = speedMultiplier;
         athelete.knockback = Utils.clamp(text.length * smorball.config.knockbackWordLengthMultiplier, smorball.config.knockbackMin, smorball.config.knockbackMax);
         athelete.run();
         // Spawn another in the same lane

@@ -22,6 +22,8 @@ var UpgradesManager = (function () {
             smorball.captchas.confusedTimeMuliplier = this.getUpgrade("nightclass").multiplier;
         if (this.isOwned("strength"))
             smorball.game.knockbackMultiplier = this.getUpgrade("strength").multiplier;
+        if (this.isOwned("speeddrills"))
+            smorball.game.speedMultiplier = this.getUpgrade("speeddrills").speedMultiplier;
     };
     UpgradesManager.prototype.newGame = function () {
         this.upgradesOwned = _.map(this.upgradesOwned, function (u) { return false; });
