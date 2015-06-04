@@ -12,6 +12,7 @@ var SplashScreensManager = (function (_super) {
     }
     SplashScreensManager.prototype.showSplashScreens = function (completeCallback) {
         var _this = this;
+        this.delay = 2500;
         this.logo = new createjs.Bitmap(null);
         this.addChild(this.logo);
         this.showLogo("MBG_logo", function () {
@@ -28,7 +29,8 @@ var SplashScreensManager = (function (_super) {
         this.logo.y = smorball.config.height / 2 - this.logo.getBounds().height / 2;
         // Start it off invisible, fade in then fade out
         this.logo.alpha = 0;
-        createjs.Tween.get(this.logo).to({ alpha: 1 }, 1000, createjs.Ease.linear).wait(1000).to({ alpha: 0 }, 1000, createjs.Ease.linear).call(function () { return completeCallback(); });
+        createjs.Tween.get(this.logo).to({ alpha: 1 }, 250, createjs.Ease.linear).wait(this.delay).to({ alpha: 0 }, 250, createjs.Ease.linear).call(function () { return completeCallback(); });
+        this.delay = 0;
     };
     return SplashScreensManager;
 })(createjs.Container);
