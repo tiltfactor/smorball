@@ -20,44 +20,45 @@
 		"difficulties": [
 		{
 			"name": "easy",
-			"requiredTime": 260,
-			"multiplier": 3
+			"requiredTime": 196,
+			"multiplier": 5
 		},
 		{
 			"name": "medium",
-			"requiredTime": 180,
-			"multiplier": 2
+			"requiredTime": 165,
+			"multiplier": 3
 		},
 		{
 			"name": "hard",
-			"requiredTime": 120,
-			"multiplier": 1
+			"requiredTime": 145,
+			"multiplier": 1.5
 		}
 	],
 
 	"fbAppId": "1572394949706252",
 
+	"debug": true,
 	"width": 1600,
-	"height":  1200,
-  "goalLine": 345,
-  "debug":  false,
-	"penaltyTime": 3,
+	"height": 1200,
+	"goalLine":  345,
+	"penaltyTime": 1,
 	"entriesBeforeServerSubmission":  50,
-	"maxScore": 6000,
-	"incorrectCaptchaScorePenalty":  250,
-	"passes": 2,
+	"maxScore": 600,
+	"incorrectCaptchaScorePenalty":  25,
+	"passes": 3,
 	"maxCaptchaSize": 200,
 	"timeTrialUnlockLevel": 6,
-  "captchaScaleLimitConstantN": 12,
-  "shopUnlockLevel":  3,
+	"captchaScaleLimitConstantN":  12,
+    "shopUnlockLevel":  3,
 	"knockbackMin": 10,
 	"knockbackMax": 200,
 	"knockbackWordLengthMultiplier": 15,
-  "minCaptchaPixelSize": 10,
-  "physicsIterations":  4,
-	"PageAPIUrl": "http://tiltfactor1.dartmouth.edu:8080/api/page",
-	"DifferenceAPIUrl": "http://tiltfactor1.dartmouth.edu:8080/api/difference",
+    "minCaptchaPixelSize": 13,
+    "physicsIterations":  4,
+	"PageAPIUrl": "http://tiltfactor1.dartmouth.edu:8081/api/page",
+	"DifferenceAPIUrl": "http://tiltfactor1.dartmouth.edu:8081/api/difference",
 	"PageAPITimeout":  3000,
-	"PageAPIAccessToken":  "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJHYW1lIiwiaWF0IjoxNDE1MzQxNjMxMjY4LCJpc3MiOiJCSExTZXJ2ZXIifQ.bwRps5G6lAd8tGZKK7nExzhxFrZmAwud0C2RW26sdRM"
+	"PageAPIAccessToken":  "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJUaWx0ZmFjdG9yIiwiaWF0IjoxNDI3OTE2MTIxNDI1LCJpc3MiOiJCSExTZXJ2ZXIifQ.T19ejRiQPnVzCmh-PFKULwNQ4yhebbQac4o61NcZkvA"
+
 
 }

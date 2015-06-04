@@ -5,53 +5,86 @@
 			1
 		],
 		"powerups": [ ],
-		"name": "Pre Season Scrimmage",
+		"name": "Local Qualifiers",
+		"tip": "Tip: Reading the instructions helps you win",
 		"passes": 0,
 		"team": {
-			"name": "Eugene Melonballers",
-			"id": "eugene_melonballers",
+			"name": "Carson City Cardinals",
+			"id": "carson_city",
 			"outfit":  1
 		},
 		"waves": [
 			{
 				"actions": [
 					{
-						"commentry": "Opponents come from the right",
-						"type": "commentate",
-						"bubble":  "green"
-					},
-					{
 						"type": "hide captchas"
 					},
 					{
-						"time": 6,
-						"noSkip":  true,
+						"commentry": "Engel and Gurd here at opening day for the International Smorball Federation!",
+						"type": "commentate",
+						"bubble": "green"
+					},
+					{
+						"time": 5,
+						"noSkip": true,
+						"noScale": true,
 						"type": "delay"
 					},
 					{
-						"commentry": "Keep them from scoring in your end zone", 
+						"commentry": "No idea what to expect from our first human team, the Eugene Mellonballers!",
 						"type": "commentate"
 					},
 					{
-						"time": 6,
-						"noSkip":  true,
+						"time": 5,
+						"noSkip": true,
+						"noScale": true,
 						"type": "delay"
+					}
+				] 
+			},
+			{
+				"actions": [
+					{
+						"commentry": "The first Cardinal will soon be coming down the field!",
+						"type": "commentate",
+						"bubble": "green"
 					},
 					{
-						"commentry": "Type the word and press enter to tackle the opponent",
+						"time": 5,
+						"noSkip": true,
+						"type": "delay",
+						"noScale": true
+					},
+					{
+						"commentry": "Can Eugene’s coach call the plays to keep the opponent from the endzone?", 
+						"type": "commentate",
+						"bubble": "green"
+					},
+					{
+						"time": 6,
+						"noSkip": true,
+						"type": "delay",
+						"noScale": true
+					},
+					{
+     					"type": "show entry"
+					},
+					{
+						"type": "show captchas"
+					},
+					{
+						"commentry": "Why isn’t the coach typing that phrase and pressing enter? What a newbie!",
 						"type": "commentate"
 					},
 					{
-						"time": 2,
-						"noSkip":  true,
-						"type": "delay"
+						"time": 5,
+						"noSkip": true,
+						"type": "delay",
+						"noScale": true
 					},
 					{
 						"enemy": "weak",
 						"type": "spawn"
-					},
-					{
-						"type": "show captchas"
 					}
 				]
 			},
@@ -62,16 +95,18 @@
 						"type": "spawn"
 					},
 					{
-						"commentry": "Careful, because punctuation matters!",
-						"type": "commentate"
+						"commentry": "We’re in the big leagues now; punctuation actually matters in the ISF.",
+						"type": "commentate",
+						"bubble": "green"
 					},
 					{
 						"type": "hide captchas"
 					},
 					{
-						"time": 2,
-						"noSkip":  true,
-						"type": "delay"
+						"time": 3,
+						"noSkip": true,
+						"type": "delay",
+						"noScale": true
 					},
 					{
 						"type": "show captchas"
@@ -86,16 +121,17 @@
 						"type": "spawn"
 					},
 					{
-						"commentry": "Capitalization does not matter!",
+						"commentry": "Yes, Engel but capitalization doesn’t!",
 						"type": "commentate"
 					},
 					{
 						"type": "hide captchas"
 					},
 					{
-						"time": 2,
-						"noSkip":  true,
-						"type": "delay"
+						"time": 3,
+						"noSkip": true,
+						"type": "delay",
+						"noScale": true
 					},
 					{
 						"type": "show captchas"
@@ -112,9 +148,15 @@
 						"type": "hide captchas"
 					},
 					{
-						"time": 2,
-						"noSkip":  true,
-						"type": "delay"
+						"commentry": "Right you are Gurd! Capitalization does not matter.",
+						"type": "commentate",
+						"bubble": "green"
+					},
+					{
+						"time": 3,
+						"noSkip": true,
+						"type": "delay",
+						"noScale": true
 					},
 					{
 						"type": "show captchas"
@@ -128,16 +170,18 @@
 						"type": "spawn"
 					},
 					{
-						"commentry": "Use a space to separate multiple words.",
-						"type": "commentate"
+						"commentry": "Also, those spaces in between words are crucial.",
+						"type": "commentate",
+						"bubble": "green"
 					},
 					{
 						"type": "hide captchas"
 					},
 					{
-						"time": 2,
-						"noSkip":  true,
-						"type": "delay"
+						"time": 3,
+						"noSkip": true,
+						"type": "delay",
+						"noScale": true
 					},
 					{
 						"type": "show captchas"
@@ -151,16 +195,18 @@
 						"type": "spawn"
 					},
 					{
-						"commentry": "Type Æ as AE...",
-						"type": "commentate"
+						"commentry": "I hope the Melonballers’ coach was told to type Æ as AE.",
+						"type": "commentate",
+						"bubble": "green"
 					},
 					{
 						"type": "hide captchas"
 					},
 					{
-						"time": 2,
-						"noSkip":  true,
-						"type": "delay"
+						"time": 3,
+						"noSkip": true,
+						"type": "delay",
+						"noScale": true
 					},
 					{
 						"type": "show captchas"
@@ -174,16 +220,17 @@
 						"type": "spawn"
 					},
 					{
-						"commentry": "... and use / for fractions.",
+						"commentry": "The regulations for fractions changed this season! Coaches must use a ‘/’.",
 						"type": "commentate"
 					},
 					{
 						"type": "hide captchas"
 					},
 					{
-						"time": 2,
-						"noSkip":  true,
-						"type": "delay"
+						"time": 3,
+						"noSkip": true,
+						"type": "delay",
+						"noScale": true
 					},
 					{
 						"type": "show captchas"
@@ -197,16 +244,18 @@
 						"type": "spawn"
 					},
 					{
-						"commentry": "You don’t need to type accents.",
-						"type": "commentate"
+						"commentry": "The ISF has also decreed coaches don’t need to type accents.",
+						"type": "commentate",
+						"bubble": "green"
 					},
 					{
 						"type": "hide captchas"
 					},
 					{
-						"time": 2,
-						"noSkip":  true,
-						"type": "delay"
+						"time": 3,
+						"noSkip": true,
+						"type": "delay",
+						"noScale": true
 					},
 					{
 						"type": "show captchas"
@@ -220,16 +269,17 @@
 						"type": "spawn"
 					},
 					{
-						"commentry": "If you can’t type it, click ‘Pass’.",
+						"commentry": "Coaches can still click ‘Pass’ or press ‘ALT’ if they can’t type the phrase!",
 						"type": "commentate"
 					},
 					{
 						"type": "hide captchas"
 					},
 					{
-						"time": 2,
-						"noSkip":  true,
-						"type": "delay"
+						"time": 3,
+						"noSkip": true,
+						"type": "delay",
+						"noScale": true
 					},
 					{
 						"type": "show captchas"
@@ -243,16 +293,17 @@
 			{
 				"actions": [
 					{
-						"commentry": "Look out! Here they come!",
+						"commentry": "The Melonballers are doing great! Can they hold on through this last push?",
 						"type": "commentate"
 					},
 					{
 						"type": "hide captchas"
 					},
 					{
-						"time": 2,
-						"noSkip":  true,
-						"type": "delay"
+						"time": 3,
+						"noSkip": true,
+						"type": "delay",
+						"noScale": true
 					},
 					{
 						"type": "show captchas"
@@ -271,6 +322,31 @@
 					{
 						"enemy": "weak",
 						"type": "spawn"
+					}
+				]
+			},
+			{
+				"actions": [
+					{
+						"commentry": "The Melonballers are a bit of a wild card this season, Gurd.",
+						"type": "commentate",
+						"bubble": "green"
+					},
+					{
+						"time": 6,
+						"noSkip": true,
+						"type": "delay",
+						"noScale": true
+					},
+					{
+						"commentry": "Sure, Engel, but their new coach has caught on fast!",
+						"type": "commentate"
+					},
+					{
+						"time": 6,
+						"noSkip": true,
+						"type": "delay",
+						"noScale": true
 					}
 				]
 			}
@@ -284,31 +360,63 @@
 			2
 		],
 		"powerups": [ ],
-		"name": "Local Qualifiers",
+		"name": "Local Quarterfinals",
+		"tip": "Tip: Change your difficulty in the “Options” menu",
 		"team": {
-			"name": "Carson City Cardinals",
-			"id": "carson_city",
-			"outfit":  2
+			"name": "Tucson Walruses",
+			"id": "walruses",
+			"outfit": 1
 		},
 		"waves": [
 			{
 				"actions": [
 					{
-						"commentry": "Opponents come in 3 different rows",
-						"type": "commentate"
+						"type": "hide captchas"
 					},
 					{
-						"time": 4,
-						"noSkip":  true,
+						"commentry": "The Melonballers dominated their first game! Can they dismantle the Walruses?",
+						"type": "commentate",
+						"bubble": "green"
+					},
+					{
+						"time": 6,
+						"noSkip": true,
+						"noScale": true,
 						"type": "delay"
 					},
 					{
-						"commentry": "Type the phrase in the bottom row",
+						"commentry": "I don’t know, Engel, looks like the Walruses plan to use all three lanes!",
 						"type": "commentate"
 					},
 					{
-						"time": 2,
+						"time": 6.5,
+						"noSkip": true,
+						"noScale": true,
 						"type": "delay"
+					}	
+				]
+			},
+			{
+				"actions": [
+					{
+						"commentry": "Here comes a Walking-back! The coach must call the bottom play!",
+						"type": "commentate",
+						"bubble": "green"
+					},
+					{
+						"time": 5,
+						"noSkip": true,
+						"type": "delay",
+						"noScale": true
+					},
+					{
+						"type": "show captchas"
+					},
+					{
+						"time": 1,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
 					},
 					{
 						"enemy": "weak",
@@ -320,6 +428,16 @@
 			{
 				"actions": [
 					{
+						"commentry": "Now the top lane! The top Melonballer is just waiting for the call.",
+						"type": "commentate"
+					},
+					{
+						"time": 5,
+						"noSkip": true,
+						"type": "delay",
+						"noScale": true
+					},
+					{
 						"enemy": "weak",
 						"lane": 0,
 						"type": "spawn"
@@ -328,6 +446,16 @@
 			},
 			{
 				"actions": [
+				{
+						"commentry": "Now there’s a smorbot in the middle lane! Strong start for the Walruses.",
+						"type": "commentate"
+					},
+					{
+						"time": 5,
+						"noSkip": true,
+						"type": "delay",
+						"noScale": true
+					},
 					{
 						"enemy": "weak",
 						"lane": 1,
@@ -342,16 +470,16 @@
 						"type": "spawn"
 					},
 					{
-						"time": 4,
+						"time": 3,
 						"type": "delay"
 					},
 					{
-						"enemy": "weak",
+						"enemy": "fast",
 						"type": "spawn",
 						"sameLane": true
 					},
 					{
-						"time": 15,
+						"time": 6,
 						"type": "delay"
 					},
 					{
@@ -371,10 +499,23 @@
 						"type": "delay"
 					},
 					{
-						"enemy": "weak",
+						"enemy": "fast",
 						"type": "spawn",
 						"sameLane": true
+					},
+					{
+						"enemy": "weak",
+						"type": "spawn"
+					},
+					{
+						"time": 3,
+						"type": "delay"
+					},
+					{
+						"enemy": "fast",
+						"type": "spawn"
 					}
+
 				]
 			},
 			{
@@ -393,7 +534,7 @@
 						"sameLane": true
 					},
 					{
-						"time": 10,
+						"time": 5,
 						"type": "delay"
 					},
 					{
@@ -414,13 +555,28 @@
 			{
 				"actions": [
 					{
-						"enemy": "regular",
-						"type": "spawn"
-					}
-				]
-			},
-			{
-				"actions": [
+						"type": "hide captchas"
+					},
+					{
+						"commentry": "The Walruses sent a Tallstop! It’ll take three players to scrap that smorbot.",
+						"type": "commentate",
+						"bubble": "green"
+					},
+					{
+						"time": 5,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
+					},
+					{
+						"type": "show captchas"
+					},
+					{
+						"time": 1,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
+					},
 					{
 						"enemy": "regular",
 						"type": "spawn"
@@ -438,9 +594,60 @@
 						"type": "delay"
 					},
 					{
-						"enemy": "weak",
+						"enemy": "regular",
+						"type": "spawn",
+						"sameLane": false
+					}
+				]
+			},
+			{
+				"actions": [
+					{
+						"enemy": "regular",
+						"type": "spawn"
+					},
+					{
+						"time": 2,
+						"type": "delay"
+					},
+					{
+						"enemy": "fast",
 						"type": "spawn",
 						"sameLane": true
+					},
+					{
+						"time": 1,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
+					}
+				]
+			},
+			{
+				"actions": [
+					{
+						"type": "hide captchas"
+					},
+					{
+						"type": "commentate",
+						"commentry": "The Melonballers made some great plays to keep from running out of points.",
+						"bubble": "green"
+					},
+					{
+						"time": 6.5,
+						"noSkip": true,
+						"type": "delay",
+						"noScale": true
+					},
+					{
+						"commentry": "They’ll be able to cash those points in and load up at the Shop!",
+						"type": "commentate"
+					},
+					{
+						"time": 6,
+						"noSkip": true,
+						"type": "delay",
+						"noScale": true
 					}
 				]
 			}
@@ -448,60 +655,107 @@
 	},
 	{
 		"index": 2,
+		"powerups": [ ],
 		"lanes": [
 			0,
 			1,
 			2
 		],
-		"powerups": [],
-		"name": "Local Quarterfinals",
+		"name": "Local Semifinals",
+	       "tip": "Tip: You only need to type phrases in lanes with smorbots",
 		"team": {
-			"name": "Los Angeles Beige",
-			"id": "beige",
-			"outfit":  3
+			"name": "Billings Bronies",
+			"id": "bronies",
+			"outfit":  1
 		},
 		"waves": [
 			{
 				"actions": [
 					{
-						"commentry": "Equipment makes your next word super powerful",
+						"type": "hide captchas"
+					},
+					{
+						"commentry": "Looks like the ISF authorized Bawling brand helmets for use this season.",
+						"type": "commentate",
+						"bubble": "green"
+					},
+					{
+						"time": 6,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
+					},
+					{
+						"commentry": "This is certainly going to change up the game, Engel!",
 						"type": "commentate"
 					},
 					{
-						"time": 4,
+						"time": 6,
 						"type": "delay",
-						"noSkip": true
-					},
+						"noSkip": true,
+						"noScale": true
+					}
+				]
+			},
+			{
+				"actions": [
 					{
 						"type": "spawn",
-						"powerup": "helmet"
+						"powerup": "helmet",
+						"lane": 0
 					},
 					{
-						"commentry": "Type the phrase to pick up the helmet",
+						"commentry": "There’s a helmet, Gurd! Will the Melonballers send a player to get it?",
+						"type": "commentate",
+						"bubble": "green"
+					},
+					{
+						"time": 6,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
+					},
+					{
+						"time": 2.5,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
+					},
+					{
+						"type": "show captchas"
+					},
+					{
+						"time": 6,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
+					},
+					{
+						"type": "hide captchas"
+					},
+					{
+						"commentry": "Coaches can use ‘TAB’ to equip a helmet to their next athlete.",
+						"type": "commentate",
+						"bubble": "green"
+					},
+					{
+						"time": 6,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
+					},
+					{
+						"type": "show captchas"
+					},
+					{
+						"commentry": "Melonballers wearing helmets will tackle every smorbot in their lane.",
 						"type": "commentate"
 					},
 					{
-						"time": 8,
+						"time": 3.5,
 						"type": "delay",
-						"noSkip": true
-					},
-					{
-						"commentry": "Press 'TAB' to equip the helmet.",
-						"type": "commentate"
-					},
-					{
-						"time": 5,
-						"type": "delay",
-						"noSkip": true
-					},
-					{
-						"commentry": "Athletes with helmets hit every opponent in the row. Try it now!",
-						"type": "commentate"
-					},
-					{
-						"time": 2,
-						"type": "delay",
-						"noSkip": true
+						"noSKip": true,
+						"noDelay": true
 					},
 					{
 						"enemy": "weak",
@@ -527,9 +781,10 @@
 						"sameLane": true
 					},
 					{
-						"time": 7,
+						"time": 5,
 						"type": "delay",
-						"noSkip": true
+						"noSkip": true,
+						"noScale": true
 					},
 					{
 						"type": "spawn",
@@ -537,34 +792,38 @@
 						"lane": 0
 					},
 					{
-						"commentry": "Pick up another helmet!",
+						"commentry": "And here’s another helmet!",
 						"type": "commentate"
 					},
 					{
-						"time": 8,
-						"type": "delay",
-						"noSkip": true
+						"time": 7,
+						"type": "delay"
 					}
 				]
 			},
 			{
 				"actions": [
 					{
-						"commentry": "'TAB' equips the helmet!",
-						"type": "commentate"
+						"commentry": "The coach seems to have an issue with pressing the ‘TAB’ button, Gurd.",
+						"type": "commentate",
+						"bubble": "green"
 					},
 					{
-						"enemy": "regular",
+						"enemy": "weak",
+						"type": "spawn",
+						"lane": 1
+					},
+					{
+						"time": 6,
+						"type": "delay"
+					},
+					{
+						"enemy": "weak",
 						"type": "spawn",
 						"lane": 2
 					},
 					{
-						"enemy": "weak",
-						"type": "spawn",
-						"sameLane": true
-					},
-					{
-						"time": 0.5,
+						"time": 1,
 						"type": "delay"
 					},
 					{
@@ -573,27 +832,21 @@
 						"sameLane": true
 					},
 					{
-						"time": 0.5,
+						"time": 1,
 						"type": "delay"
 					},
 					{
-						"enemy": "weak",
+						"enemy": "fast",
 						"type": "spawn",
 						"sameLane": true
 					},
 					{
-						"time": 9,
-						"type": "delay",
-						"noSkip": true
+						"time": 8,
+						"type": "delay"
 					},
 					{
 						"type": "spawn",
 						"powerup": "helmet"
-					},
-					{
-						"time": 8,
-						"type": "delay",
-						"noSkip": true
 					}
 				]
 			},
@@ -604,6 +857,10 @@
 						"type": "spawn"
 					},
 					{
+						"time": 2,
+						"type": "delay"
+					},
+					{
 						"enemy": "weak",
 						"type": "spawn",
 						"sameLane": true
@@ -617,9 +874,9 @@
 						"type": "delay"
 					},
 					{
-						"enemy": "regular",
+						"enemy": "fast",
 						"type": "spawn",
-						"sameLane": true
+						"sameLane": false
 					},
 					{
 						"time": 3,
@@ -631,9 +888,8 @@
 						"sameLane": true
 					},
 					{
-						"time": 8,
-						"type": "delay",
-						"noSkip": true
+						"time": 4,
+						"type": "delay"
 					},
 					{
 						"type": "spawn",
@@ -644,26 +900,22 @@
 						"type": "spawn"
 					},
 					{
+						"time": 1,
+						"type": "delay"
+					},
+					{
+						"type": "spawn",
+						"powerup": "helmet"
+					},
+					{
 						"enemy": "weak",
 						"type": "spawn",
 						"sameLane": true
 					},
 					{
 						"type": "spawn",
-						"powerup": "helmet"
-					},
-					{
-						"type": "spawn",
-						"powerup": "helmet"
-					},
-					{
-						"type": "spawn",
-						"powerup": "helmet"
-					},
-					{
-						"time": 5,
-						"type": "delay",
-						"noSkip": true
+						"powerup": "helmet",
+						"quantity": 2
 					}
 				]
 			},
@@ -675,7 +927,7 @@
 					},
 					{
 						"type": "delay",
-						"time": 0.5
+						"time": 1
 					},
 					{
 						"type": "spawn",
@@ -684,7 +936,7 @@
 					},
 					{
 						"type": "delay",
-						"time": 0.5
+						"time": 1
 					},
 					{
 						"type": "spawn",
@@ -693,7 +945,7 @@
 					},
 					{
 						"type": "delay",
-						"time": 0.5
+						"time": 1
 					},
 					{
 						"type": "spawn",
@@ -702,19 +954,12 @@
 					},
 					{
 						"type": "delay",
-						"time": 6
+						"time": 8
 					},
 					{
 						"type": "spawn",
-						"powerup": "helmet"
-					},
-					{
-						"type": "spawn",
-						"enemy": "regular"
-					},
-					{
-						"type": "delay",
-						"time": 0.5
+						"powerup": "helmet",
+						"sameLane": false
 					},
 					{
 						"type": "spawn",
@@ -723,7 +968,16 @@
 					},
 					{
 						"type": "delay",
-						"time": 0.5
+						"time": 2
+					},
+					{
+						"type": "spawn",
+						"enemy": "weak",
+						"sameLane": true
+					},
+					{
+						"type": "delay",
+						"time": 2
 					},
 					{
 						"type": "spawn",
@@ -732,17 +986,16 @@
 					},
 					{
 						"type": "delay",
-						"time": 0.5
+						"time": 2
 					},
 					{
 						"type": "spawn",
-						"enemy": "regular",
+						"enemy": "weak",
 						"sameLane": true
 					},
 					{
 						"type": "delay",
-						"time": 4,
-						"noSkip": true
+						"time": 4
 					},
 					{
 						"type": "spawn",
@@ -754,60 +1007,120 @@
 				"actions": [
 					{
 						"type": "spawn",
-						"lane": 1,
-						"enemy": "regular"
+						"enemy": "fast"
+					},
+					{
+						"type": "spawn",
+						"enemy": "regular",
+						"sameLane": false
 					},
 					{
 						"type": "delay",
-						"time": 0.5
+						"time": 2
 					},
 					{
 						"type": "spawn",
-						"lane": 1,
-						"enemy": "regular"
+						"enemy": "fast",
+						"sameLane": true
 					},
 					{
 						"type": "delay",
-						"time": 0.5
+						"time": 2
 					},
 					{
 						"type": "spawn",
-						"lane": 1,
-						"enemy": "regular"
+						"enemy": "regular",
+						"sameLane": true
 					},
 					{
 						"type": "spawn",
-						"powerup": "helmet",
-						"lane": 1
+						"powerup": "helmet"
 					},
 					{
 						"type": "delay",
-						"time": 4,
-						"noSkip": true
+						"time": 8
 					},
 					{
 						"type": "spawn",
 						"enemy": "weak"
 					},
 					{
-						"type": "spawn",
-						"enemy": "weak"
+						"time": 3,
+						"type": "delay"
 					},
 					{
 						"type": "spawn",
-						"enemy": "weak"
+						"enemy": "weak",
+						"samelane": true 
+					},
+					{
+						"time": 1,
+						"type": "delay"
 					},
 					{
 						"type": "spawn",
-						"enemy": "weak"
+						"enemy": "weak",
+						"samelane": true 
+					},
+					{
+						"time": 1,
+						"type": "delay"
 					},
 					{
 						"type": "spawn",
-						"enemy": "weak"
+						"enemy": "weak",
+						"samelane": true 
+					},
+					{
+						"time": 1,
+						"type": "delay"
 					},
 					{
 						"type": "spawn",
-						"enemy": "weak"
+						"enemy": "weak",
+						"samelane": true 
+					},
+					{
+						"time": 1,
+						"type": "delay"
+					},
+					{
+						"type": "spawn",
+						"enemy": "fast"
+					},
+					{
+						"time": 1,
+						"noSkip": true,
+						"type": "delay",
+						"noScale": true
+					}
+				]
+			},
+			{
+				"actions": [
+					{
+						"type": "hide captchas"
+					},
+					{
+						"commentry": "Wow, Engel! The Melonballers worked together like a well-oiled machine!",
+						"type": "commentate"
+					},
+					{
+						"time": 6,
+						"noSkip": true,
+						"type": "delay",
+						"noScale": true
+					},
+					{
+						"commentry": "Well, they say teamwork is magic, Gurd.",
+						"type": "commentate",
+						"bubble": "green"
+					},
+					{
+						"time": 6,
+						"noSkip": true,
+						"type": "delay",
+						"noScale": true
 					}
 				]
 			}
@@ -820,72 +1133,543 @@
 			1,
 			2
 		],		
-		"name": "Local Semifinals",
+		"powerups": [ "helmet" ],
+		"name": "Local Championship",
+		"tip": "Tip: The ‘tab’ key is in the top left of the keyboard",
 		"team": {
-			"name": "Tucson Walruses",
-			"id": "walruses",
-			"outfit": 4
+			"name": "Fargo 4.9ers",
+			"id": "fargo",
+			"outfit":  1
 		},
-		"powerups": [ ],
+		"powerups": [],
 		"waves": [
 			{
 				"actions": [
 					{
-						"commentry": "Cleats make your next word super powerful!",
-						"type": "commentate"
+						"type": "hide captchas"
 					},
 					{
-						"time": 3,
-						"type": "delay",
-						"noSkip": true
-					},
-					{
-						"powerup": "cleats",
-						"type": "spawn",
-						"lane": 0
-					},
-					{
-						"commentry": "Pick up the cleats. This one deals extra damage!",
-						"type": "commentate"
-					},
-					{
-						"time": 4,
-						"type": "delay",
-						"noSkip": true
-					},
-					{
-						"commentry": "Use tab to select them. Try it now!",
+						"commentry": "Did you know Smorball is the only sport with different equipment every season?",
 						"type": "commentate"
 					},
 					{
 						"time": 6,
 						"type": "delay",
-						"noSkip": true
+						"noSkip": true,
+						"noScale": true
+					},
+					{
+						"commentry": "The Melonballers’ coach made great use of helmets against the Bronies.",
+						"type": "commentate",
+						"bubble": "green"
+					},
+					{
+						"time": 6,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
+					},
+					{
+						"type": "show captchas"
+					},
+					{
+						"time": 1.5,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
+					}
+				]
+			},  
+			{
+				"actions": [
+					{
+						"powerup": "helmet",
+						"type": "spawn",
+						"quantity": 2
+					},
+					{
+						"time": 6,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
 					},
 					{
 						"enemy": "regular",
 						"type": "spawn",
-						"lane": 2
+						"samelane": false
 					},
 					{
-						"time": 8,
-						"type": "delay",
-						"noSkip": true
+						"time": 3,
+						"type": "delay"
 					},
 					{
-						"powerup": "cleats",
+						"enemy": "weak",
 						"type": "spawn"
 					},
 					{
-						"powerup": "cleats",
-						"type": "spawn"
+						"time": 1,
+						"type": "delay"
+					},
+					{
+						"enemy": "fast",
+						"type": "spawn",
+						"samelane": true
 					},
 					{
 						"time": 4,
-						"type": "delay",
-						"noSkip": true
+						"type": "delay"
+					},
+					{
+						"powerup": "helmet",
+						"type": "spawn"
+					},
+					{
+						"time": 3,
+						"type": "delay"
+					},
+					{
+						"enemy": "regular",
+						"type": "spawn",
+						"samelane": false
+					},
+					{
+						"time": 3,
+						"type": "delay"
+					},
+					{
+						"enemy": "regular",
+						"type": "spawn",
+						"samelane": true
+					},
+					{
+						"time": 3,
+						"type": "delay"
+					},
+					{
+						"enemy": "regular",
+						"type": "spawn",
+						"samelane": false
 					}
-				
+				]
+			},
+			{
+				"actions": [
+					{
+						"powerup": "helmet",
+						"type": "spawn",
+						"quantity": 2
+					},
+					{
+						"time": 3,
+						"type": "delay",
+						"noSkip": true,
+						"noDelay": true
+					},
+					{
+						"enemy": "fast",
+						"type": "spawn"
+					},
+					{
+						"time": 0.5,
+						"type": "delay"
+					},
+					{
+						"enemy": "fast",
+						"type": "spawn",
+						"samelane": true
+					},
+					{
+						"time": 0.5,
+						"type": "delay"
+					},
+					{
+						"enemy": "fast",
+						"type": "spawn",
+						"samelane": true
+					},
+					{
+						"time": 2,
+						"type": "delay",
+						"noSKip": true,
+						"noDelay": true
+					},
+					{
+						"commentry": "Yikes, Engel, the mechanics are going to have fun repairing those smorbots!",
+						"type": "commentate"
+					},
+					{
+						"time": 6,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
+					},
+					{
+						"enemy": "fast",
+						"type": "spawn",
+						"samelane": true
+					},
+					{
+						"time": 0.5,
+						"type": "delay"
+					},
+					{
+						"enemy": "fast",
+						"type": "spawn",
+						"samelane": true
+					},
+					{
+						"time": 0.5,
+						"type": "delay"
+					},
+					{
+						"enemy": "fast",
+						"type": "spawn",
+						"samelane": false
+					},
+					{
+						"time": 3,
+						"type": "delay",
+						"noSkip": true,
+						"noDelay": true
+					},
+					{
+						"enemy": "regular",
+						"type": "spawn"
+					},
+					{
+						"time": 2,
+						"type": "delay"
+					},
+					{
+						"enemy": "weak",
+						"type": "spawn",
+						"samelane": true
+					},
+					{
+						"powerup": "helmet",
+						"type": "spawn"
+					},
+					{
+						"time": 5,
+						"type": "delay"
+					},
+					{
+						"enemy": "regular",
+						"type": "spawn"
+					},
+					{
+						"time": 2,
+						"type": "delay"
+					},
+					{
+						"enemy": "weak",
+						"type": "spawn",
+						"sameLane": true
+					},
+					{
+						"time": 1,
+						"type": "delay"
+					},
+					{
+						"enemy": "weak",
+						"type": "spawn",
+						"sameLane": true
+					},
+					{
+						"time": 1,
+						"type": "delay"
+					},
+					{
+						"enemy": "weak",
+						"type": "spawn",
+						"sameLane": true
+					}
+				]
+			}, 
+			{
+				"actions": [
+					{
+						"time": 1,
+						"noSkip": true,
+						"type": "delay",
+						"noScale": true
+					},
+					{	
+						"commentry": "If the Melonballers want another win they’ll need those helmets, Gurd.",
+						"type": "commentate",
+						"bubble": "green"
+					},
+					{
+						"time": 4,
+						"noSkip": true,
+						"type": "delay",
+						"noScale": true
+					},
+					{
+						"powerup": "helmet",
+						"type": "spawn",
+						"lane": 0
+					},
+					{
+						"time": 2,
+						"noSkip": true,
+						"type": "delay",
+						"noScale": true
+					},
+					{	
+						"powerup": "helmet",
+						"type": "spawn",
+						"lane": 1
+					},
+					{
+						"time": 3,
+						"noSkip": true,
+						"type": "delay",
+						"noScale": true
+					},
+					{	
+						"powerup": "helmet",
+						"type": "spawn",
+						"lane": 2
+					},
+					{
+						"time": 2,
+						"noSkip": true,
+						"type": "delay",
+						"noScale": true
+					},
+					{	
+						"powerup": "helmet",
+						"type": "spawn",
+						"lane": 1
+					},
+					{
+						"time": 5,
+						"noSkip": true,
+						"type": "delay",
+						"noScale": true
+					},
+					{
+						"enemy": "regular",
+						"type": "spawn"
+					},
+					{
+						"time": 2,
+						"type": "delay"
+					},
+					{
+						"enemy": "weak",
+						"type": "spawn",
+						"sameLane": true
+					},
+					{
+						"time": 6,
+						"type": "delay"
+					},
+					{
+						"enemy": "weak",
+						"type": "spawn",
+						"sameLane": false
+					},
+					{
+						"time": 2,
+						"type": "delay"
+					},
+					{
+						"enemy": "regular",
+						"type": "spawn",
+						"sameLane": true
+					},
+					{
+						"time": 2,
+						"type": "delay"
+					},
+					{	
+						"powerup": "helmet",
+						"type": "spawn",
+						"sameLane": false
+					},
+					{
+						"time": 2,
+						"type": "delay"
+					},
+					{
+						"enemy": "fast",
+						"type": "spawn"
+					},
+					{
+						"time": 5,
+						"type": "delay"
+					},
+					{
+						"enemy": "weak",
+						"type": "spawn",
+						"sameLane": false
+					},
+					{
+						"time": 2,
+						"type": "delay"
+					},
+					{	
+						"powerup": "helmet",
+						"type": "spawn",
+						"sameLane": true
+					},
+					{
+						"time": 1,
+						"type": "delay"
+					},
+					{
+						"enemy": "regular",
+						"type": "spawn"
+					},
+					{
+						"time": 1,
+						"type": "delay"
+					},
+					{
+						"enemy": "weak",
+						"type": "spawn",
+						"sameLane": true
+					},
+					{
+						"time": 1,
+						"type": "delay"
+					},
+					{
+						"enemy": "fast",
+						"type": "spawn",
+						"sameLane": true
+					},
+					{
+						"time": 1,
+						"type": "delay"
+					},
+					{
+						"enemy": "fast",
+						"type": "spawn",
+						"sameLane": true
+					},
+					{
+						"time": 7,
+						"type": "delay"
+					},
+					{
+						"enemy": "weak",
+						"type": "spawn",
+						"sameLane": false
+					},
+					{
+						"time": 1,
+						"type": "delay"
+					},
+					{
+						"enemy": "weak",
+						"type": "spawn",
+						"sameLane": true
+					},
+					{
+						"time": 1,
+						"type": "delay"
+					},
+					{
+						"enemy": "fast",
+						"type": "spawn",
+						"sameLane": true
+					},
+					{
+						"time": 2,
+						"type": "delay"
+					},
+					{
+						"enemy": "fast",
+						"type": "spawn",
+						"sameLane": true
+					},
+					{
+						"time": 2,
+						"type": "delay"
+					},
+					{
+						"enemy": "weak",
+						"type": "spawn",
+						"sameLane": false
+					},
+					{
+						"time": 4,
+						"type": "delay"
+					},
+					{
+						"enemy": "fast",
+						"type": "spawn",
+						"sameLane": true
+					},
+					{
+						"time": 1,
+						"type": "delay"
+					},
+					{
+						"enemy": "regular",
+						"type": "spawn",
+						"sameLane": true
+					},
+					{
+						"time": 1,
+						"type": "delay"
+					},
+					{
+						"enemy": "weak",
+						"type": "spawn",
+						"sameLane": true
+					},
+					{
+						"time": 2,
+						"type": "delay"
+					},
+					{
+						"commentry": "It looks like the 4.9ers are almost out of smorbots!",
+						"type": "commentate",
+						"bubble": "green"
+					},
+					{
+						"time": 6,
+						"noSkip": true,
+						"type": "delay",
+						"noScale": true
+					},
+					{
+						"enemy": "fast",
+						"type": "spawn",
+						"sameLane": true
+					}
+				]
+			},
+			{
+				"actions": [
+					{
+						"type": "hide captchas"
+					},
+					{
+						"commentry": "There were some close calls that game Engel!",
+						"type": "commentate"
+					},
+					{
+						"time": 6,
+						"noSkip": true,
+						"type": "delay",
+						"noScale": true
+					},
+					{
+						"commentry": "The Melonballers might want to hit the shop for some more training, Gurd.",
+						"type": "commentate",
+						"bubble": "green"
+					},
+					{
+						"time": 6,
+						"noSkip": true,
+						"type": "delay",
+						"noScale": true
+					}
 				]
 			}
 		]
@@ -897,24 +1681,46 @@
 			1,
 			2
 		],
-		"powerups": [ "cleats" ],
-		"name": "Local Finals",
+		"powerups": [ "cleats", "helmet" ],
+		"name": "Regional Quarterfinals",
+		"tip":"Tip: Equipment can't be saved; use everything you get",
 		"team": {
-			"name": "Salt Lake City Diacritics",
-			"id": "diacritics",
-			"outfit":  5
-		},
+			"name": "Omaha Hoarders",
+			"id": "hoarders",
+			"outfit":  1		},
 		"waves": [
 			{
 				"actions": [
 					{
-						"commentry": "Cleats make your next word super powerful!",
+						"type": "hide captchas"
+					},
+					{
+						"commentry": "The Hoarders organized their stadium after last season, I can see the field!",
+						"type": "commentate",
+						"bubble": "green"
+					},
+					{
+						"time": 6,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
+					}
+				]
+			},
+			{
+				"actions": [
+					{
+						"type": "hide captchas"
+					},
+					{
+						"commentry": "It appears they missed a few pairs of cleats, though.",
 						"type": "commentate"
 					},
 					{
-						"time": 3,
+						"time": 5,
 						"type": "delay",
-						"noSkip": true
+						"noSkip": true,
+						"noScale": true
 					},
 					{
 						"powerup": "cleats",
@@ -922,22 +1728,29 @@
 						"lane": 0
 					},
 					{
-						"commentry": "Pick up the cleats. This one deals extra damage!",
+						"time": 2,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
+					},
+					{
+						"type": "show captchas"
+					},
+					{
+						"time": 2,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
+					},
+					{
+						"commentry": "Those will make the Melonballers’ tackles do more damage!",
 						"type": "commentate"
 					},
 					{
-						"time": 4,
+						"time": 5,
 						"type": "delay",
-						"noSkip": true
-					},
-					{
-						"commentry": "Use tab to select them. Try it now!",
-						"type": "commentate"
-					},
-					{
-						"time": 6,
-						"type": "delay",
-						"noSkip": true
+						"noSkip": true,
+						"noScale": true
 					},
 					{
 						"enemy": "regular",
@@ -947,11 +1760,18 @@
 					{
 						"time": 8,
 						"type": "delay",
-						"noSkip": true
+						"noSkip": true,
+						"noScale": true
 					},
 					{
 						"powerup": "cleats",
 						"type": "spawn"
+					},
+					{
+						"time": 1,
+						"type": "delay",
+						"noSkip": true,
+						"noscale": true
 					},
 					{
 						"powerup": "cleats",
@@ -960,7 +1780,8 @@
 					{
 						"time": 4,
 						"type": "delay",
-						"noSkip": true
+						"noSkip": true,
+						"noScale": true
 					}
 				]
 			},
@@ -977,6 +1798,15 @@
 					{
 						"enemy": "regular",
 						"type": "spawn"
+					},
+					{
+						"time": 1,
+						"type": "delay"
+					},
+					{
+						"enemy": "regular",
+						"type": "spawn",
+						"sameLane": false
 					}
 				]
 			},
@@ -991,7 +1821,18 @@
 						"type": "spawn"
 					},
 					{
-						"commentry": "Watch out for the boss! He’s very strong!",
+						"commentry": "Here comes a Wide-center. It’s going to take a lot players to scrap it.",
+						"type": "commentate",
+						"bubble": "green"
+					},
+					{
+						"time": 5,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
+					},
+					{
+						"commentry": "Or a few wearing cleats!",
 						"type": "commentate"
 					}
 				]
@@ -1011,7 +1852,7 @@
 						"type": "spawn"
 					},
 					{
-						"time": 5,
+						"time": 4,
 						"type": "delay"
 					},
 					{
@@ -1067,26 +1908,52 @@
 						"type": "spawn"
 					},
 					{
+						"powerup": "cleats",
+						"type": "spawn",
+						"quantity": 2
+					},
+					{
 						"time": 7,
 						"type": "delay",
-						"noSkip": true
+						"noSkip": true,
+						"noScale": true
 					},
 					{
-						"commentry": "Use tab to switch between different equipment.",
+						"commentry": "New regulations this season: players can only use one piece of gear at a time.",
 						"type": "commentate"
 					},
 					{
-						"commentry": "Select a helemet or cleats for the incoming opponents!",
-						"type": "commentate"
-					},
-					{
-						"time": 4,
+						"time": 5,
 						"type": "delay",
-						"noSkip": true
+						"noSkip": true,
+						"noScale": true
+					},
+					{
+						"commentry": "Right Gurd! The Melonballers must decide which equipment to use when.",
+						"type": "commentate",
+						"bubble": "green"
+					},
+					{
+						"time": 5,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
+					},
+					{
+						"commentry": "Hopefully even the Melonballers’ coach can cycle between equipment with ‘TAB’.",
+						"type": "commentate",
+						"bubble": "green"
+					},
+					{
+						"time": 5,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
 					},
 					{
 						"enemy": "boss",
-						"type": "spawn"
+						"type": "spawn",
+						"sameLane": false
 					},
 					{
 						"time": 2,
@@ -1129,8 +1996,1245 @@
 						"type": "spawn"
 					},
 					{
+						"time": 1,
+						"type": "delay",
+						"noSkip": true,
+						"noscale": true
+					},
+					{
+						"powerup": "cleats",
+						"type": "spawn",
+						"sameLane": false
+					},
+					{
+						"enemy": "boss",
+						"type": "spawn"
+					},
+					{
 						"powerup": "cleats",
 						"type": "spawn"
+					},
+					{
+						"time": 10,
+						"type": "delay"
+					},
+					{
+						"powerup": "helmet",
+						"type": "spawn",
+						"sameLane": false
+					},
+					{
+						"time": 1,
+						"type": "delay",
+						"noSkip": true,
+						"noscale": true
+					},
+					{
+						"powerup": "helmet",
+						"type": "spawn",
+						"sameLane": false
+					},
+					{
+						"enemy": "boss",
+						"type": "spawn"
+					},
+					{
+						"time": 4,
+						"type": "delay"
+					},
+					{
+						"enemy": "regular",
+						"type": "spawn"
+					},
+					{
+						"powerup": "cleats",
+						"type": "spawn"
+					},
+					{
+						"time": 4,
+						"type": "delay"
+					},
+					{
+						"enemy": "boss",
+						"type": "spawn"
+					},
+					{
+						"time": 1,
+						"type": "delay"
+					},
+					{
+						"enemy": "boss",
+						"type": "spawn"
+					},
+					{
+						"time": 1,
+						"type": "delay"
+					},
+					{
+						"enemy": "fast",
+						"type": "spawn"
+					}
+				]
+			},
+			{
+				"actions": [
+					{
+						"type": "hide captchas"
+					},
+					{
+						"commentry": "At the start of the season we had no idea if the Melonballers could hack it!",
+						"type": "commentate"
+					},
+					{
+						"time": 6,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
+					},
+					{
+						"commentry": "If this keeps up, we’ll be seeing them in the Smorbowl.",
+						"type": "commentate",
+						"bubble": "green"
+					},
+					{
+						"time": 6,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
+					}
+				]
+			}
+		]
+	},	
+	{
+		"index": 5,
+		"lanes": [
+			0,
+			1,
+			2
+		],
+		"powerups": [ "cleats", "helmet" ],
+		"name": "Regional Semifinals",
+		"tip": "Tip: Press ‘tab’ repeatedly to cycle through equipment",
+		"team": {
+			"name": "Amarillo Pantyhose",
+			"id": "pantyhose",
+			"outfit":  1
+		},
+		"waves": [
+			{
+				"actions": [
+					{
+						"type": "hide captchas"
+					},
+					{
+						"commentry": "It’s a fine afternoon in Amarillo for a game of Smorball, Gurd!",
+						"type": "commentate",
+						"bubble": "green"
+					},
+					{
+						"time": 6,
+						"noSkip": true,
+						"type": "delay",
+						"noScale": true
+					},
+					{
+						"commentry": "Let’s see if the Pantyhose get a run against the Melonballers!",
+						"type": "commentate"
+					},
+					{
+						"time": 6,
+						"noSkip": true,
+						"type": "delay",
+						"noScale": true
+					}
+				]
+			},
+			{
+				"actions": [
+					{
+						"type": "show captchas"
+					},
+					{
+						"time": 1.5,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
+					},
+					{
+						"type": "spawn",
+						"powerup": "helmet"
+					},
+					{
+						"time": 0.5,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
+					},
+					{
+						"type": "spawn",
+						"powerup": "helmet"
+					},
+					{
+						"time": 0.5,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
+					},
+					{
+						"type": "spawn",
+						"powerup": "cleats"
+					},
+					{
+						"time": 5,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
+					},
+					{
+						"type": "spawn",
+						"powerup": "cleats",
+						"quantity": 2
+					},
+					{
+						"enemy": "boss",
+						"type": "spawn"
+					},
+					{
+						"time": 0.5,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
+					},
+					{
+						"type": "spawn",
+						"powerup": "cleats"
+					},
+					{
+						"time": 4,
+						"type": "delay"
+					},
+					{
+						"enemy": "boss",
+						"type": "spawn",
+						"sameLane": false
+					},
+					{
+						"time": 4,
+						"type": "delay"
+					},
+					{
+						"type": "spawn",
+						"powerup": "helmet"
+					}
+				]
+			},
+			{
+				"actions": [
+					{
+						"commentry": "I see the Pantyhose have been stocking up on Wide-centers!",
+						"type": "commentate"
+					},
+					{
+						"time": 6,
+						"noSkip": true,
+						"type": "delay",
+						"noScale": true
+					},
+					{
+						"commentry": "Everything is bigger in Texas, Gurd!",
+						"type": "commentate",
+						"bubble": "green"
+					},
+					{
+						"time": 6,
+						"noSkip": true,
+						"type": "delay",
+						"noScale": true
+					},
+					{
+						"type": "spawn",
+						"powerup": "helmet"
+					},
+					{
+						"enemy": "fast",
+						"type": "spawn",
+						"lane": 2
+					},
+					{
+						"time": 0.5,
+						"type": "delay"
+					},
+					{
+						"enemy": "fast",
+						"type": "spawn",
+						"sameLane": true
+					},
+					{
+						"time": 0.5,
+						"type": "delay"
+					},
+					{
+						"enemy": "fast",
+						"type": "spawn",
+						"sameLane": true
+					},
+					{
+						"type": "spawn",
+						"powerup": "cleats",
+						"sameLane": true
+					},
+					{
+						"type": "spawn",
+						"powerup": "helmet",
+						"Lane": 1,
+						"quantity": 2
+					},
+					{
+						"time": 6,
+						"type": "delay"
+					},
+					{
+						"enemy": "regular",
+						"type": "spawn",
+						"lane": 0
+					},
+					{
+						"time": 1,
+						"type": "delay"
+					},
+					{
+						"enemy": "regular",
+						"type": "spawn",
+						"sameLane": true
+					},
+					{
+						"time": 1,
+						"type": "delay"
+					},
+					{
+						"enemy": "regular",
+						"type": "spawn",
+						"sameLane": true
+					},
+					{
+						"type": "spawn",
+						"powerup": "cleats",
+						"lane": 2,
+						"quantity": 1
+					},
+					{
+						"type": "spawn",
+						"powerup": "helmet",
+						"sameLane": true
+					},
+					{
+						"time": 7,
+						"type": "delay"
+					},
+					{
+						"enemy": "boss",
+						"type": "spawn",
+						"lane": 1
+					},
+					{
+						"time": 2,
+						"type": "delay"
+					},
+					{
+						"enemy": "boss",
+						"type": "spawn",
+						"lane": 2
+					}
+				]
+			},
+			{
+				"actions": [
+					{
+						"enemy": "regular",
+						"type": "spawn"
+					},
+					{
+						"time": 0.5,
+						"type": "delay"
+					},
+					{
+						"type": "spawn",
+						"powerup": "helmet"
+					},
+					{
+						"enemy": "weak",
+						"type": "spawn"
+					},
+					{
+						"time": 0.5,
+						"type": "delay"
+					},
+					{
+						"enemy": "fast",
+						"type": "spawn"
+					},
+					{
+						"time": 4,
+						"type": "delay"
+					},
+					{
+						"enemy": "weak",
+						"type": "spawn"
+					},
+					{
+						"time": 0.5,
+						"type": "delay"
+					},
+					{
+						"enemy": "regular",
+						"type": "spawn"
+					},
+					{
+						"time": 0.5,
+						"type": "delay"
+					},
+					{
+						"enemy": "fast",
+						"type": "spawn"
+					}
+				]
+			},
+			{
+				"actions": [
+					{
+						"type": "spawn",
+						"powerup": "helmet"
+					},
+					{
+						"type": "spawn",
+						"lane": 0,
+						"enemy": "regular"
+					},
+					{
+						"type": "delay",
+						"time": 0.5
+					},
+					{
+						"type": "spawn",
+						"lane": 1,
+						"enemy": "regular"
+					},
+					{
+						"type": "delay",
+						"time": 0.5
+					},
+					{
+						"type": "spawn",
+						"lane": 2,
+						"enemy": "regular"
+					},
+					{
+						"type": "spawn",
+						"powerup": "cleats"
+					},
+					{
+						"type": "delay",
+						"time": 5
+					},
+					{
+						"type": "spawn",
+						"lane": 0,
+						"enemy": "fast"
+					},
+					{
+						"type": "spawn",
+						"powerup": "cleats"
+					},
+					{
+						"type": "delay",
+						"time": 0.5
+					},
+					{
+						"type": "spawn",
+						"lane": 1,
+						"enemy": "fast"
+					},
+					{
+						"type": "delay",
+						"time": 0.5
+					},
+					{
+						"type": "spawn",
+						"lane": 2,
+						"enemy": "fast"
+					},
+					{
+						"type": "delay",
+						"time": 5
+					},
+					{
+						"type": "spawn",
+						"lane": 0,
+						"enemy": "boss"
+					},
+					{
+						"type": "spawn",
+						"powerup": "cleats"
+					},
+					{
+						"type": "delay",
+						"time": 0.5
+					},
+					{
+						"type": "spawn",
+						"lane": 2,
+						"enemy": "boss"
+					}
+				]
+			},
+			{
+				"actions": [
+					{
+						"commentry": "Well, I guess it is ok to mess with Texas, Engel!",
+						"type": "commentate"
+					},
+					{
+						"time": 6,
+						"noSkip": true,
+						"type": "delay",
+						"noScale": true
+					}
+				]
+			}
+		]
+	},
+	{
+		"index": 6,
+		"lanes": [
+			0,
+			1,
+			2
+		],
+		"powerups": [ "cleats", "helmet", "bullhorn" ],
+		"name": "Regional Championship",
+		"tip": "Tip: The Breakfast Club makes long words the best",
+		"team": {
+			"name": "Fort Worth",
+			"id": "ffd",
+			"outfit":  1
+		},
+		"waves": [
+			{	
+				"actions": [
+					{
+						"type": "hide captchas"
+					},
+					{
+						"commentry": "Can the Five Finger Discount steal victory?",
+						"type": "commentate"
+					},
+					{
+						"time": 6,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
+					},
+					{
+						"commentry": "I hear the Five Finger Discount has plenty of tricks up their sleeves!",
+						"type": "commentate",
+						"bubble": "green"
+					},
+					{
+						"time": 6,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
+					}
+				]
+			},
+			 {
+				"actions": [
+					{
+						"type": "show captchas"
+					},
+					{
+						"time": 1.5,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
+					},
+					{
+						"enemy": "weak",
+						"type": "spawn",
+						"lane": 0
+					},
+					{
+						"type": "delay",
+						"time": 0.5
+					},
+					{
+						"enemy": "weak",
+						"type": "spawn",
+						"lane": 1
+					},
+					{
+						"type": "delay",
+						"time": 0.5
+					},
+					{
+						"enemy": "weak",
+						"type": "spawn",
+						"lane": 2
+					},
+					{
+						"type": "delay",
+						"time": 10
+					},
+					{
+						"enemy": "fast",
+						"type": "spawn",
+						"lane": 2
+					},
+					{
+						"type": "delay",
+						"time": 1
+					},
+					{
+						"enemy": "fast",
+						"type": "spawn",
+						"lane": 1
+					},
+					{
+						"type": "delay",
+						"time": 1
+					},
+					{
+						"enemy": "fast",
+						"type": "spawn",
+						"lane": 0
+					}
+				]
+			},
+			{
+				"actions": [
+					{
+						"type": "hide captchas"
+					},	
+					{
+						"commentry": "Those new bullhorns will really help the Melonballers hear their coach.",
+						"type": "commentate"
+					},
+					{
+						"time": 5,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
+					},
+					{
+						"powerup": "bullhorn",
+						"type": "spawn",
+						"lane": 1
+					},
+					{
+						"time": 2,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
+					},
+					{
+						"type": "show captchas"
+					},
+					{
+						"time": 2.5,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
+					},
+					{
+						"commentry": "A bullhorn lets the coach send all the Melonballers down the field at once!",
+						"type": "commentate"
+					},
+					{
+						"time": 8,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
+					},
+					{
+						"enemy": "weak",
+						"type": "spawn",
+						"lane": 1
+					},
+					{
+						"time": 3,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
+					},
+					{
+						"enemy": "fast",
+						"type": "spawn",
+						"lane": 2
+					},
+					{
+						"type": "delay",
+						"time": 0.5
+					},
+					{
+						"enemy": "fast",
+						"type": "spawn",
+						"lane": 0
+					},
+					{
+						"type": "delay",
+						"time": 0.5
+					},
+					{
+						"enemy": "fast",
+						"type": "spawn",
+						"lane": 1
+					}
+				]
+			},
+			{
+				"actions": [
+					{
+						"enemy": "regular",
+						"type": "spawn",
+						"lane": 2
+					},
+					{
+						"type": "delay",
+						"time": 0.5
+					},
+					{
+						"powerup": "bullhorn",
+						"type": "spawn",
+						"lane": 0 
+					},
+					{
+						"type": "delay",
+						"time": 0.5
+					},
+					{
+						"powerup": "bullhorn",
+						"type": "spawn",
+						"lane": 1
+					},
+					{
+						"type": "delay",
+						"time": 0.5
+					},
+					{
+						"powerup": "bullhorn",
+						"type": "spawn",
+						"lane": 0 
+					},
+					{
+						"type": "delay",
+						"time": 10
+					},
+					{
+						"enemy": "regular",
+						"type": "spawn",
+						"lane": 2
+					},
+					{
+						"type": "delay",
+						"time": 1
+					},
+					{
+						"enemy": "regular",
+						"type": "spawn",
+						"lane": 0
+					},
+					{
+						"type": "delay",
+						"time": 1
+					},
+					{
+						"enemy": "regular",
+						"type": "spawn",
+						"lane": 1
+					}
+				]
+			}, 
+			{	
+				"actions": [
+					{
+						"type": "hide captchas"
+					},
+					{
+						"time": 1,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
+					},
+					{
+						"powerup": "bullhorn",
+						"type": "spawn"
+					},
+					{
+						"commentry": "It appears Fort Worth has built some Wingers! Those smorbots are shifty!",
+						"type": "commentate",
+						"bubble": "green"
+					},
+					{
+						"time": 5,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
+					},
+					{
+						"commentry": "Absolutely, Engel, their lane changes will work against the Melonballers.",
+						"type": "commentate"
+					},
+					{
+						"time": 5,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
+					},
+					{
+						"type": "show captchas"
+					},
+					{
+						"time": 2,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
+					},
+					{
+						"powerup": "bullhorn",
+						"type": "spawn"
+					},
+					{
+						"time": 2,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
+					},
+					{
+						"enemy": "lanechange",
+						"type": "spawn"
+					}
+				]
+			}, 
+			{	
+				"actions": [
+					{
+						"time": 2,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
+					},
+					{
+						"enemy": "weak",
+						"type": "spawn"
+					},
+					{
+						"time": 2,
+						"type": "delay"
+					},
+					{
+						"enemy": "lanechange",
+						"type": "spawn"
+					}
+				]
+			},
+			{
+				"actions": [
+					{
+						"powerup": "bullhorn",
+						"type": "spawn"
+					},
+					{
+						"type": "delay",
+						"time": 4
+					},
+					{
+						"enemy": "regular",
+						"type": "spawn"
+					},
+					{
+						"type": "delay",
+						"time": 6
+					},
+					{
+						"enemy": "lanechange",
+						"type": "spawn",
+						"lane": 2
+					},
+					{
+						"enemy": "weak",
+						"type": "spawn",
+						"lane": 1
+					},
+					{
+						"enemy": "weak",
+						"type": "spawn",
+						"lane": 0
+					},
+					{
+						"type": "delay",
+						"time": 6
+					},
+					{
+						"powerup": "bullhorn",
+						"type": "spawn"
+					},
+					{
+						"type": "delay",
+						"time": 2
+					},
+					{
+						"enemy": "regular",
+						"type": "spawn",
+						"sameLane": false
+					},
+					{
+						"type": "delay",
+						"time": 6
+					},
+					{
+						"enemy": "lanechange",
+						"type": "spawn",
+						"lane": 1
+					},
+					{
+						"type": "delay",
+						"time": 1
+					},
+					{
+						"enemy": "regular",
+						"type": "spawn",
+						"lane": 0
+					},
+					{
+						"type": "delay",
+						"time": 1
+					},
+					{
+						"enemy": "lanechange",
+						"type": "spawn",
+						"lane": 2
+					}
+				]
+			},
+			{	
+				"actions": [
+					{
+						"type": "hide captchas"
+					},
+					{
+						"commentry": "The Melonballers really took a byte out of the Five Finger Discount there!",
+						"type": "commentate",
+						"bubble": "green"
+					},
+					{
+						"time": 6,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
+					},
+					{
+						"commentry": "Next stop, Atlanta!",
+						"type": "commentate"
+					},
+					{
+						"time": 6,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
+					}
+				]
+			}
+		]
+	},
+	{
+		"index": 7,
+		"lanes": [
+			0,
+			1,
+			2
+		],
+		"powerups": [ "cleats", "helmet", "bullhorn" ],
+		"name": "National Quarterfinals",
+		"tip": "Tip: Use bullhorns to defeat Wingers",
+		"team": {
+			"name": "Atlanta Portents",
+			"id": "portents",
+			"outfit":  1
+		},
+		"waves": [
+			{
+				"actions": [
+					{
+						"type": "hide captchas"
+					},
+					{
+						"commentry": "We’re in the US-East bracket, now, and 3 games from the Smorbowl!",
+						"type": "commentate",
+						"bubble": "green"
+					},
+					{
+						"time": 6,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
+					},
+					{
+						"commentry": "I hope the Portents don’t signal doom for our crowd favorite.",
+						"type": "commentate"
+					},
+					{
+						"time": 6,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
+					},
+					{
+						"type": "show captchas"
+					},
+					{
+						"time": 1.5,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
+					},
+					{
+						"powerup": "bullhorn",
+						"type": "spawn"
+					},
+					{
+						"time": 3,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
+					},
+					{
+						"enemy": "regular",
+						"type": "spawn",
+						"lane": 2
+					},
+					{
+						"time": 1,
+						"type": "delay"
+					},
+					{
+						"enemy": "regular",
+						"type": "spawn",
+						"lane": 0
+					},
+					{
+						"time": 1,
+						"type": "delay"
+					},
+					{
+						"enemy": "regular",
+						"type": "spawn",
+						"lane": 1
+					},
+					{
+						"powerup": "helmet",
+						"type": "spawn"
+					},
+					{
+						"time": 6,
+						"type": "delay"
+					},
+					{
+						"enemy": "lanechange",
+						"type": "spawn"
+					},
+					{
+						"powerup": "cleats",
+						"type": "spawn"
+					},
+					{
+						"time": 9,
+						"type": "delay"
+					},
+					{
+						"enemy": "boss",
+						"type": "spawn"
+					},
+					{
+						"time": 5,
+						"type": "delay"
+					},
+					{
+						"powerup": "helmet",
+						"type": "spawn"
+					},
+					{
+						"enemy": "weak",
+						"type": "spawn"
+					},
+					{
+						"time": 6,
+						"type": "delay"
+					},
+					{
+						"powerup": "helmet",
+						"type": "spawn"
+					},
+					{
+						"time": 9,
+						"type": "delay"
+					},
+					{
+						"commentry": "I see the Portents are gearing up for a big rush!",
+						"type": "commentate"
+					},
+					{
+						"time": 6,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
+					},
+					{
+						"commentry": "Looks like they really want to score, Gurd.",
+						"type": "commentate",
+						"bubble": "green"
+					},
+					{
+						"time": 6,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
+					},
+					{
+						"enemy": "regular",
+						"type": "spawn"
+					},
+					{
+						"time": 1,
+						"type": "delay"
+					},
+					{
+						"enemy": "regular",
+						"type": "spawn",
+						"sameLane": true
+					},
+					{
+						"time": 1,
+						"type": "delay"
+					},
+					{
+						"enemy": "regular",
+						"type": "spawn",
+						"sameLane": true
+					}
+				]
+			},
+			{
+				"actions": [
+					{
+						"powerup": "helmet",
+						"type": "spawn"
+					},
+					{
+						"time": 1,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
+					},
+					{
+						"enemy": "lanechange",
+						"type": "spawn"
+					},
+					{
+						"time": 1,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
+					},
+					{
+						"powerup": "cleats",
+						"type": "spawn"
+					},
+					{
+						"time": 1,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
+					},
+					{
+						"enemy": "fast",
+						"type": "spawn",
+						"sameLane": true
+					},
+					{
+						"time": 1,
+						"type": "delay"
+					},
+					{
+						"enemy": "weak",
+						"type": "spawn",
+						"sameLane": true
+					},
+					{
+						"time": 1,
+						"type": "delay"
+					},
+					{
+						"enemy": "weak",
+						"type": "spawn",
+						"sameLane": true
+					},
+					{
+						"powerup": "cleats",
+						"type": "spawn"
+					},
+					{
+						"time": 1,
+						"type": "delay"
+					},
+					{
+						"enemy": "lanechange",
+						"type": "spawn",
+						"sameLane": true
+					},
+					{
+						"time": 1,
+						"type": "delay"
+					},
+					{
+						"powerup": "helmet",
+						"type": "spawn"
+					},
+					{
+						"enemy": "weak",
+						"type": "spawn",
+						"sameLane": false
+					},
+					{
+						"time": 1,
+						"type": "delay"
+					},
+					{
+						"enemy": "weak",
+						"type": "spawn",
+						"sameLane": true
+					},
+					{
+						"time": 1,
+						"type": "delay"
+					},
+					{
+						"enemy": "weak",
+						"type": "spawn",
+						"sameLane": true
+					},
+					{
+						"time": 1,
+						"type": "delay"
+					},
+					{
+						"enemy": "weak",
+						"type": "spawn",
+						"sameLane": true
+					},
+					{
+						"time": 10,
+						"type": "delay"
 					},
 					{
 						"enemy": "boss",
@@ -1149,11 +3253,27 @@
 						"type": "spawn"
 					},
 					{
-						"time": 4,
+						"time": 8,
+						"type": "delay"
+					},
+					{
+						"enemy": "lanechange",
+						"type": "spawn"
+					},
+					{
+						"time": 2,
 						"type": "delay"
 					},
 					{
 						"enemy": "regular",
+						"type": "spawn"
+					}
+				]
+			},
+			{
+				"actions": [
+					{
+						"enemy": "fast",
 						"type": "spawn"
 					},
 					{
@@ -1161,7 +3281,7 @@
 						"type": "spawn"
 					},
 					{
-						"time": 4,
+						"time": 1,
 						"type": "delay"
 					},
 					{
@@ -1169,169 +3289,107 @@
 						"type": "spawn"
 					},
 					{
+						"powerup": "bullhorn",
+						"type": "spawn"
+					},
+					{
+						"time": 5,
+						"type": "delay"
+					},
+					{
+						"powerup": "helmet",
+						"type": "spawn"
+					},
+					{
+						"enemy": "fast",
+						"type": "spawn"
+					},
+					{
+						"time": 1,
+						"type": "delay"
+					},
+					{
+						"powerup": "cleats",
+						"type": "spawn"
+					},
+					{
+						"enemy": "regular",
+						"type": "spawn"
+					},
+					{
+						"time": 2.5,
+						"type": "delay"
+					},
+					{
 						"enemy": "boss",
 						"type": "spawn"
 					},
 					{
+						"time": 5,
+						"type": "delay"
+					},
+					{
+						"enemy": "weak",
+						"type": "spawn"
+					},
+					{
+						"time": 1,
+						"type": "delay"
+					},
+					{
 						"enemy": "fast",
 						"type": "spawn"
 					}
 				]
-			}
-		]
-	},
-	
-		
-	{
-		"index": 5,
-		"lanes": [
-			0,
-			1,
-			2
-		],
-		"powerups": [ "cleats" ],
-		"name": "State Qualifiers",
-		"team": {
-			"name": "Billings Bronies",
-			"id": "bronies",
-			"outfit":  6
-		},
-		"waves": [
-			{
-				"actions": [
-					{
-						"commentry": "Pick up the powerup.",
-						"type": "commentate"
-					},
-					{
-						"type": "spawn",
-						"powerup": "helmet"
-					},
-					{
-						"time": 5,
-						"type": "delay",
-						"noSkip": true
-					},
-					{
-						"commentry": "Use tab to select it.",
-						"type": "commentate"
-					},
-					{
-						"time": 5,
-						"type": "delay",
-						"noSkip": true
-					},
-					{
-						"commentry": "This one hits every Jujube in the row!",
-						"type": "commentate"
-					},
-					{
-						"enemy": "weak",
-						"type": "spawn"
-					},
-					{
-						"time": 0.5,
-						"type": "delay"
-					},
-					{
-						"enemy": "weak",
-						"type": "spawn",
-						"sameLane": true
-					},
-					{
-						"time": 0.5,
-						"type": "delay"
-					},
-					{
-						"enemy": "weak",
-						"type": "spawn",
-						"sameLane": true
-					},
-					{
-						"type": "spawn",
-						"powerup": "helmet"
-					}
-				]
 			},
 			{
 				"actions": [
 					{
-						"enemy": "regular",
+						"enemy": "lanechange",
 						"type": "spawn"
 					},
 					{
-						"enemy": "weak",
+						"powerup": "bullhorn",
 						"type": "spawn"
 					},
 					{
-						"time": 0.5,
+						"time": 1,
 						"type": "delay"
 					},
 					{
-						"enemy": "weak",
-						"type": "spawn",
-						"sameLane": true
-					},
-					{
-						"time": 0.5,
-						"type": "delay"
-					},
-					{
-						"enemy": "weak",
-						"type": "spawn",
-						"sameLane": true
-					},
-					{
-						"type": "spawn",
-						"powerup": "helmet"
-					}
-				]
-			},
-			{
-				"actions": [
-					{
-						"type": "spawn",
-						"powerup": "helmet"
+						"enemy": "lanechange",
+						"type": "spawn"
 					},
 					{
 						"time": 5,
 						"type": "delay"
 					},
-
 					{
-						"enemy": "regular",
-						"type": "spawn",
-						"lane": 0
+						"powerup": "bullhorn",
+						"type": "spawn"
 					},
 					{
-						"time": 0,
+						"enemy": "fast",
+						"type": "spawn"
+					},
+					{
+						"time": 1,
 						"type": "delay"
 					},
 					{
 						"enemy": "weak",
-						"type": "spawn",
-						"sameLane": true
+						"type": "spawn"
 					},
 					{
-						"time": 2,
+						"time": 2.5,
 						"type": "delay"
 					},
 					{
-						"enemy": "regular",
-						"type": "spawn",
-						"sameLane": true
+						"enemy": "lanechange",
+						"type": "spawn"
 					},
 					{
-						"time": 4,
-						"type": "delay"
-					},
-					{
-						"enemy": "weak",
-						"type": "spawn",
-						"sameLane": true
-					},
-					{
-						"time": 2,
+						"time": 5,
 						"type": "delay"
 					},
 					{
@@ -1339,11 +3397,11 @@
 						"type": "spawn"
 					},
 					{
-						"time": 7,
+						"time": 1,
 						"type": "delay"
 					},
 					{
-						"enemy": "weak",
+						"enemy": "regular",
 						"type": "spawn"
 					}
 				]
@@ -1351,399 +3409,28 @@
 			{
 				"actions": [
 					{
-						"type": "spawn",
-						"lane": 0,
-						"enemy": "regular"
+						"type": "hide captchas"
 					},
 					{
+						"commentry": "I’ve never seen anything like that match before, Engel!",
+						"type": "commentate"
+					},
+					{
+						"time": 6,
 						"type": "delay",
-						"time": 4
+						"noSkip": true,
+						"noScale": true
 					},
 					{
-						"type": "spawn",
-						"lane": 0,
-						"enemy": "fast"
+						"commentry": "I can’t imagine the Chargers will pose a challenge to the Melonballers.",
+						"type": "commentate",
+						"bubble": "green"
 					},
 					{
+						"time": 6,
 						"type": "delay",
-						"time": 2
-					},
-					{
-						"type": "spawn",
-						"lane": 0,
-						"enemy": "fast"
-					},
-					{
-						"type": "delay",
-						"time": 2
-					},
-					{
-						"type": "spawn",
-						"lane": 1,
-						"enemy": "weak"
-					},
-					{
-						"type": "spawn",
-						"powerup": "helmet"
-					},
-					{
-						"type": "delay",
-						"time": 5
-					},
-					{
-						"type": "spawn",
-						"lane": 2,
-						"enemy": "weak"
-					},
-					{
-						"type": "delay",
-						"time": 2
-					},
-					{
-						"type": "spawn",
-						"lane": 2,
-						"enemy": "weak"
-					},
-					{
-						"type": "delay",
-						"time": 2
-					},
-					{
-						"type": "spawn",
-						"lane": 2,
-						"enemy": "weak"
-					},
-					{
-						"type": "delay",
-						"time": 2
-					},
-					{
-						"type": "spawn",
-						"lane": 2,
-						"enemy": "weak"
-					},
-					{
-						"type": "spawn",
-						"lane": 1,
-						"enemy": "weak"
-					},
-					{
-						"type": "delay",
-						"time": 3
-					},
-					{
-						"type": "spawn",
-						"lane": 1,
-						"enemy": "weak"
-					}
-				]
-			},
-			{
-				"actions": [
-					{
-						"type": "spawn",
-						"powerup": "helmet"
-					},
-					{
-						"type": "spawn",
-						"lane": 2,
-						"enemy": "weak"
-					},
-					{
-						"type": "delay",
-						"time": 3
-					},
-					{
-						"type": "spawn",
-						"lane": 2,
-						"enemy": "weak"
-					},
-					{
-						"type": "delay",
-						"time": 3
-					},
-					{
-						"type": "spawn",
-						"lane": 2,
-						"enemy": "weak"
-					},
-					{
-						"type": "delay",
-						"time": 3
-					},
-					{
-						"type": "spawn",
-						"lane": 2,
-						"enemy": "weak"
-					},
-					{
-						"type": "delay",
-						"time": 7
-					},
-					{
-						"type": "spawn",
-						"lane": 0,
-						"enemy": "weak"
-					},
-					{
-						"type": "spawn",
-						"lane": 0,
-						"enemy": "weak"
-					},
-					{
-						"type": "delay",
-						"time": 2
-					},
-					{
-						"type": "spawn",
-						"lane": 0,
-						"enemy": "weak"
-					},
-					{
-						"type": "spawn",
-						"powerup": "helmet"
-					}
-				]
-			},
-			{
-				"actions": [
-					{
-						"type": "spawn",
-						"powerup": "helmet"
-					},
-					{
-						"type": "delay",
-						"time": 2
-					},
-					{
-						"type": "spawn",
-						"enemy": "boss"
-					},
-					{
-						"type": "delay",
-						"time": 6
-					},
-					{
-						"type": "spawn",
-						"enemy": "weak"
-					},
-					{
-						"type": "delay",
-						"time": 6
-					},
-					{
-						"type": "spawn",
-						"enemy": "weak"
-					},
-					{
-						"type": "delay",
-						"time": 6
-					},
-					{
-						"type": "spawn",
-						"powerup": "helmet"
-					},
-					{
-						"type": "spawn",
-						"lane": 1,
-						"enemy": "weak"
-					},
-					{
-						"type": "spawn",
-						"lane": 1,
-						"enemy": "weak"
-					},
-					{
-						"type": "delay",
-						"time": 5
-					},
-					{
-						"type": "spawn",
-						"powerup": "helmet"
-					},
-					{
-						"type": "delay",
-						"time": 2
-					},
-					{
-						"type": "spawn",
-						"enemy": "regular"
-					},
-					{
-						"type": "delay",
-						"time": 2
-					},
-					{
-						"type": "spawn",
-						"enemy": "weak"
-					},
-					{
-						"type": "delay",
-						"time": 2
-					},
-					{
-						"type": "spawn",
-						"enemy": "fast"
-					},
-					{
-						"type": "delay",
-						"time": 2
-					},
-					{
-						"type": "spawn",
-						"enemy": "fast"
-					},
-					{
-						"type": "delay",
-						"time": 2
-					},
-					{
-						"type": "spawn",
-						"enemy": "fast"
-					},
-					{
-						"type": "delay",
-						"time": 2
-					},
-					{
-						"type": "spawn",
-						"enemy": "fast"
-					},
-					{
-						"type": "delay",
-						"time": 2
-					},
-					{
-						"type": "spawn",
-						"enemy": "fast"
-					},
-					{
-						"type": "delay",
-						"time": 4
-					},
-					{
-						"type": "spawn",
-						"powerup": "helmet"
-					},
-					{
-						"type": "spawn",
-						"enemy": "boss"
-					}
-				]
-			},
-			{
-				"actions": [
-					{
-						"type": "spawn",
-						"powerup": "helmet"
-					},
-					{
-						"type": "delay",
-						"time": 2
-					},
-					{
-						"type": "spawn",
-						"enemy": "weak"
-					},
-					{
-						"type": "delay",
-						"time": 5
-					},
-					{
-						"type": "spawn",
-						"enemy": "weak"
-					},
-					{
-						"type": "delay",
-						"time": 5
-					},
-					{
-						"type": "spawn",
-						"enemy": "fast"
-					}
-				]
-			},
-			{
-				"actions": [
-					{
-						"type": "spawn",
-						"lane": 0,
-						"enemy": "fast"
-					},
-					{
-						"type": "spawn",
-						"lane": 0,
-						"enemy": "fast"
-					},
-					{
-						"type": "spawn",
-						"lane": 0,
-						"enemy": "fast"
-					},
-					{
-						"type": "spawn",
-						"lane": 1,
-						"enemy": "fast"
-					},
-					{
-						"type": "spawn",
-						"lane": 1,
-						"enemy": "fast"
-					},
-					{
-						"type": "spawn",
-						"lane": 1,
-						"enemy": "fast"
-					}
-				]
-			}
-		]
-	},
-	{
-		"index": 6,
-		"lanes": [
-			0,
-			1,
-			2
-		],
-		"powerups": [ "cleats", "helmet" ],
-		"name": "State Quarterfinals",
-		"team": {
-			"name": "Fargo 4.9ers",
-			"id": "fargo",
-			"outfit":  7
-		},
-		"waves": [
-			{
-				"actions": [
-					{
-						"enemy": "weak",
-						"type": "spawn"
-					}
-				]
-			}
-		]
-	},
-	{
-		"index": 7,
-		"lanes": [
-			0,
-			1,
-			2
-		],
-		"powerups": [ "cleats", "helmet" ],
-		"name": "State Semifinals",
-		"team": {
-			"name": "Amarillo Pantyhose",
-			"id": "pantyhose",
-			"outfit":  8
-		},
-		"waves": [
-			{
-				"actions": [
-					{
-						"enemy": "weak",
-						"type": "spawn"
+						"noSkip": true,
+						"noScale": true
 					}
 				]
 			}
@@ -1756,19 +3443,445 @@
 			1,
 			2
 		],
-		"powerups": [ "cleats", "helmet" ],
-		"name": "State Finals",
+		"powerups": [ "cleats", "helmet", "bullhorn" ],
+		"name": "National Semifinals",
+		"tip": "Tip: Combine the Breakfast Club upgrade with equipment!",
 		"team": {
-			"name": "Omaha Hoarders",
-			"id": "hoarders",
-			"outfit":  9
+			"name": "Chicago Chargers",
+			"id": "chargers",
+			"outfit":  1
 		},
 		"waves": [
 			{
 				"actions": [
 					{
+						"type": "hide captchas"
+					},
+					{
+						"commentry": "Word is the Chargers’ coach purchased some serious smorbots for this match.",
+						"type": "commentate"
+					},
+					{
+						"time": 8,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
+					},
+					{
+						"commentry": "Exactly what I would expect from the wealthiest team in the Federation, Gurd.",
+						"type": "commentate",
+						"bubble": "green"
+					},
+					{
+						"time": 8,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
+					}
+				]
+			 },
+			 {
+				"actions": [
+					{
+						"type": "show captchas"
+					},
+					{
+						"powerup": "cleats",
+						"type": "spawn",
+						"quantity": 2
+					},
+					{
+						"time": 1.5,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
+					},
+					{
+						"enemy": "boss",
+						"type": "spawn"
+					},
+					{
+						"time": 1,
+						"type": "delay"
+					},
+					{
+						"enemy": "boss",
+						"type": "spawn",
+						"sameLane": false
+					},
+					{
+						"time": 1,
+						"type": "delay"
+					},
+					{
+						"enemy": "boss",
+						"type": "spawn",
+						"sameLane": false
+					}
+				]
+			},
+			{
+				"actions": [
+					{
+						"enemy": "regular",
+						"type": "spawn"
+					},
+					{
+						"time": 1,
+						"type": "delay"
+					},
+					{
+						"powerup": "bullhorn",
+						"type": "spawn"
+					},
+					{
+						"enemy": "lanechange",
+						"type": "spawn"
+					},
+					{
+						"time": 3,
+						"type": "delay"
+					},
+					{
+						"enemy": "boss",
+						"type": "spawn"
+					}
+				]
+			},
+			{
+				"actions": [
+					{
+						"type": "hide captchas"
+					},
+					{
+						"commentry": "Gurd, is that the mythical TX Destroyer?",
+						"type": "commentate",
+						"bubble": "green"
+					},
+					{
+						"time": 6,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
+					},
+					{
+						"commentry": "It must be! The TX Destroyer speeds up all other smorbots on the field!",
+						"type": "commentate"
+					},
+					{
+						"time": 6,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
+					},
+					{
+						"type": "show captchas"
+					},
+					{
+						"powerup": "bullhorn",
+						"type": "spawn"
+					},
+					{
+						"time": 4,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
+					},
+					{
+						"enemy": "coach",
+						"type": "spawn"
+					},
+					{
+						"time": 4,
+						"type": "delay"
+					},
+					{
 						"enemy": "weak",
 						"type": "spawn"
+					},
+					{
+						"time": 4,
+						"type": "delay"
+					},
+					{
+						"enemy": "fast",
+						"type": "spawn"
+					}
+				]
+			},
+			{
+				"actions": [
+					{
+						"type": "hide captchas"
+					},
+					{
+						"commentry": "That last minute referee intervention gives the Melonballers extra passes!",
+						"type": "commentate",
+						"bubble": "green"
+					},
+					{
+						"time": 1,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
+					},
+					{
+						"quantity": "3",
+						"type": "add pass"
+					},
+					{
+						"time": 6,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
+					},
+					{
+						"type": "show captchas"
+					},
+					{
+						"powerup": "cleats",
+						"type": "spawn"
+					},
+					{
+						"time": 1,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
+					},
+					{
+						"enemy": "lanechange",
+						"type": "spawn"
+					},
+					{
+						"powerup": "cleats",
+						"type": "spawn"
+					},
+					{
+						"time": 2,
+						"type": "delay"
+					},
+					{
+						"enemy": "coach",
+						"type": "spawn"
+					},
+					{
+						"powerup": "bullhorn",
+						"type": "spawn"
+					},
+					{
+						"time": 4,
+						"type": "delay"
+					},
+					{
+						"enemy": "regular",
+						"type": "spawn"
+					},
+					{
+						"time": 5,
+						"type": "delay"
+					},
+					{
+						"powerup": "helmet",
+						"type": "spawn"
+					},
+					{
+						"enemy": "weak",
+						"type": "spawn"
+					},
+					{
+						"time": 3,
+						"type": "delay"
+					},
+					{
+						"powerup": "bullhorn",
+						"type": "spawn"
+					},
+					{
+						"enemy": "lanechange",
+						"type": "spawn"
+					}
+				]
+			},
+			{
+				"actions": [
+					{
+						"powerup": "cleats",
+						"type": "spawn"
+					},
+					{
+						"enemy": "lanechange",
+						"type": "spawn"
+					},
+					{
+						"time": 2,
+						"type": "delay"
+					},
+					{
+						"enemy": "fast",
+						"type": "spawn",
+						"sameLane": false
+					},
+					{
+						"time": 2,
+						"type": "delay"
+					},
+					{
+						"powerup": "bullhorn",
+						"type": "spawn"
+					},
+					{
+						"enemy": "lanechange",
+						"type": "spawn",
+						"sameLane": false
+					},
+					{
+						"time": 3,
+						"type": "delay"
+					},
+					{
+						"powerup": "cleats",
+						"type": "spawn"
+					},
+					{
+						"enemy": "coach",
+						"type": "spawn"
+					},
+					{
+						"time": 5,
+						"type": "delay"
+					},
+					{
+						"enemy": "fast",
+						"type": "spawn"
+					},
+					{
+						"time": 1,
+						"type": "delay"
+					},
+					{
+						"enemy": "weak",
+						"type": "spawn"
+					},
+						{
+						"time": 1,
+						"type": "delay"
+					},
+					{
+						"enemy": "fast",
+						"type": "spawn"
+					}
+				]
+			},
+			{
+				"actions": [
+					{
+						"enemy": "weak",
+						"type": "spawn"
+					},
+					{
+						"time": 2,
+						"type": "delay"
+					},
+					{
+						"enemy": "fast",
+						"type": "spawn"
+					},
+					{
+						"powerup": "cleats",
+						"type": "spawn"
+					},
+					{
+						"time": 4,
+						"type": "delay"
+					},
+					{
+						"enemy": "regular",
+						"type": "spawn"
+					},
+					{
+						"time": 4,
+						"type": "delay"
+					},
+					{
+						"enemy": "lanechange",
+						"type": "spawn"
+					},
+					{
+						"time": 4,
+						"type": "delay"
+					},
+					{
+						"enemy": "coach",
+						"type": "spawn"
+					},
+					{
+						"time": 2,
+						"type": "delay"
+					},
+					{
+						"enemy": "fast",
+						"type": "spawn"
+					},
+					{
+						"time": 5,
+						"type": "delay"
+					},
+					{
+						"enemy": "regular",
+						"type": "spawn"
+					},
+					{
+						"time": 5,
+						"type": "delay"
+					},
+					{
+						"enemy": "regular",
+						"type": "spawn"
+					},
+					{
+						"time": 5,
+						"type": "delay"
+					},
+					{
+						"enemy": "lanechange",
+						"type": "spawn"
+					},
+					{
+						"time": 5,
+						"type": "delay"
+					},
+					{
+						"enemy": "coach",
+						"type": "spawn"
+					}
+				]
+			},
+			{
+				"actions": [
+					{
+						"type": "hide captchas"
+					},
+					{
+						"commentry": "The crowd is going wild, Gurd! This is unprecedented.",
+						"type": "commentate",
+						"bubble": "green"
+					},
+					{
+						"time": 6,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
+					},
+					{
+						"commentry": "Say that again, Engel. The Melonballers are the Smorbowl’s first human team!",
+						"type": "commentate",
+						"bubble": "green"
+					},
+					{
+						"time": 6,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
 					}
 				]
 			}
@@ -1781,200 +3894,582 @@
 			1,
 			2
 		],
-		"powerups": [ "cleats", "helmet" ],
-		"name": "Regional Qualifiers",
-		"team": {
-			"name": "Fort Worth",
-			"id": "ffd",
-			"outfit":  10
-		},
-		"waves": [
-			{
-				"actions": [
-					{
-						"enemy": "weak",
-						"type": "spawn"
-					}
-				]
-			}
-		]
-	},
-	{
-		"index": 10,
-		"lanes": [
-			0,
-			1,
-			2
-		],
-		"powerups": [ "cleats", "helmet" ],
-		"name": "Regional Quarterfinals",
-		"team": {
-			"name": "Kansas City Cupcakes",
-			"id": "cupcakes",
-			"outfit":  11
-		},
-		"waves": [
-			{
-				"actions": [
-					{
-						"enemy": "weak",
-						"type": "spawn"
-					}
-				]
-			}
-		]
-	},
-	{
-		"index": 11,
-		"lanes": [
-			0,
-			1,
-			2
-		],
-		"powerups": [ "cleats", "helmet" ],
-		"name": "Regional Semifinals",
-		"team": {
-			"name": "Chicago Chargers",
-			"id": "chargers",
-			"outfit":  12
-		},
-		"waves": [
-			{
-				"actions": [
-					{
-						"enemy": "weak",
-						"type": "spawn"
-					}
-				]
-			}
-		]
-	},
-	{
-		"index": 12,
-		"lanes": [
-			0,
-			1,
-			2
-		],
 		"powerups": [ "cleats", "helmet", "bullhorn" ],
-		"name": "Regional Finals",
-		"team": {
-			"name": "Memphis Metaphors",
-			"id": "metaphors",
-			"outfit":  13
-		},
-		"waves": [
-			{
-				"actions": [
-					{
-						"enemy": "weak",
-						"type": "spawn"
-					}
-				]
-			}
-		]
-	},
-	{
-		"index": 13,
-		"lanes": [
-			0,
-			1,
-			2
-		],
-		"powerups": [ "cleats", "helmet", "bullhorn" ],
-		"name": "National Qualifiers",
-		"team": {
-			"name": "Atlanta Portents",
-			"id": "portents",
-			"outfit":  14
-		},
-		"waves": [
-			{
-				"actions": [
-					{
-						"enemy": "weak",
-						"type": "spawn"
-					}
-				]
-			}
-		]
-	},
-	{
-		"index": 14,
-		"lanes": [
-			0,
-			1,
-			2
-		],
-		"powerups": [ "cleats", "helmet", "bullhorn" ],
-		"name": "National Quarterfinals",
-		"team": {
-			"name": "Cincinnati Pharmacists",
-			"id": "pharmacists",
-			"outfit":  15
-		},
-		"waves": [
-			{
-				"actions": [
-					{
-						"enemy": "weak",
-						"type": "spawn"
-					}
-				]
-			}
-		]
-	},
-	{
-		"index": 15,
-		"lanes": [
-			0,
-			1,
-			2
-		],
-		"powerups": [ "cleats", "helmet", "bullhorn" ],
-		"name": "National Semifinals",
+		"name": "National Championship",
+		"tip": "Tip: Take out TX Destroyers before they speed up opponents",
 		"team": {
 			"name": "New England Nerds",
 			"id": "nerds",
-			"outfit":  16
+			"outfit":  1
 		},
 		"waves": [
 			{
 				"actions": [
 					{
-						"enemy": "weak",
-						"type": "spawn"
+						"type": "hide captchas"
 					},
-          {
-            "time": 3,
-            "noSkip": true,
-            "type": "delay"
-          },
-          {
-						"enemy": "regular",
-						"type": "spawn"
+					{
+						"commentry": "Coming to you live from the DweebDome in scenic Hartford for the Smorbowl!",
+						"type": "commentate"
 					},
-          {
-            "time": 3,
-            "noSkip": true,
-            "type": "delay"
-          },
-          {
-            "enemy": "fast",
-            "type": "spawn"
-          }         
+					{
+						"time": 6,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
+					},
+					{
+						"commentry": "The Nerds are the ISF’s finest – do the Melonballers stand a chance?",
+						"type": "commentate",
+						"bubble": "green"
+					},
+					{
+						"time": 6,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
+					},
+					{
+						"commentry": "They’ve played well, but I don’t think they have a shot at the Dalahast Trophy.",
+						"type": "commentate"
+					},
+					{
+						"time": 6,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
+					}
 				]
 			},
 			{
 				"actions": [
 					{
-						"commentry": "WEEEEEEEEEEE",
+						"type": "show captchas"
+					},
+					{
+						"powerup": "bullhorn",
+						"type": "spawn",
+						"quantity": 1
+					},
+					{
+						"time": 1.5,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
+					},
+					{
+						"enemy": "lanechange",
+						"type": "spawn",
+						"sameLane": false
+					},
+					{
+						"time": 1,
+						"type": "delay"
+					},
+					{
+						"enemy": "lanechange",
+						"type": "spawn",
+						"sameLane": false
+					},
+					{
+						"time": 1,
+						"type": "delay"
+					},
+						{
+						"enemy": "lanechange",
+						"type": "spawn",
+						"sameLane": false
+					},
+					{
+						"time": 6,
+						"type": "delay"
+					},
+					{
+						"enemy": "coach",
+						"type": "spawn"
+					},
+					{
+						"time": 1,
+						"type": "delay"
+					},
+					{
+						"enemy": "fast",
+						"type": "spawn",
+						"sameLane": false
+					},
+						{
+						"time": 1,
+						"type": "delay"
+					},
+					{
+						"enemy": "fast",
+						"type": "spawn",
+						"sameLane": false
+					},
+					{
+						"time": 1,
+						"type": "delay"
+					},
+					{
+						"enemy": "fast",
+						"type": "spawn",
+						"sameLane": false
+					}
+				]
+			},
+			{
+				"actions": [
+					{
+						"quantity": "2",
+						"type": "add pass"
+					},
+					{
+						"enemy": "weak",
+						"type": "spawn",
+						"sameLane": false
+					},
+						{
+						"time": 1,
+						"type": "delay"
+					},
+					{
+						"enemy": "weak",
+						"type": "spawn",
+						"sameLane": false
+					},
+					{
+						"time": 1,
+						"type": "delay"
+					},
+					{
+						"enemy": "weak",
+						"type": "spawn",
+						"sameLane": false
+					},
+					{
+						"powerup": "bullhorn",
+						"type": "spawn",
+						"quantity": 1
+					},
+					{
+						"time": 1,
+						"type": "delay"
+					},
+					{
+						"enemy": "fast",
+						"type": "spawn",
+						"sameLane": false
+					},
+					{
+						"time": 1,
+						"type": "delay"
+					},
+					{
+						"enemy": "fast",
+						"type": "spawn",
+						"sameLane": false
+					},
+					{
+						"time": 1,
+						"type": "delay"
+					},
+					{
+						"enemy": "fast",
+						"type": "spawn",
+						"sameLane": false
+					},
+					{
+						"powerup": "cleat",
+						"type": "spawn",
+						"quantity": 2
+					},
+					{
+						"time": 1,
+						"type": "delay"
+					},
+					{
+						"enemy": "regular",
+						"type": "spawn",
+						"sameLane": false
+					},
+					{
+						"time": 1,
+						"type": "delay"
+					},
+					{
+						"powerup": "helmet",
+						"type": "spawn",
+						"quantity": 2
+					},
+					{
+						"enemy": "regular",
+						"type": "spawn",
+						"sameLane": false
+					},
+					{
+						"time": 1,
+						"type": "delay"
+					},
+					{
+						"enemy": "regular",
+						"type": "spawn",
+						"sameLane": false
+					},
+					{
+						"time": 1,
+						"type": "delay"
+					},
+					{
+						"powerup": "bullhorn",
+						"type": "spawn",
+						"quantity": 2
+					},
+					{
+						"enemy": "lanechange",
+						"type": "spawn",
+						"sameLane": false
+					},
+					{
+						"time": 1,
+						"type": "delay"
+					},
+					{
+						"enemy": "lanechange",
+						"type": "spawn",
+						"sameLane": false
+					},
+					{
+						"time": 1,
+						"type": "delay"
+					},
+					{
+						"enemy": "lanechange",
+						"type": "spawn",
+						"sameLane": false
+					}
+				]
+			},
+			{
+				"actions": [
+					{
+						"commentry": "I would love to see the Melonballers take home the Dalahast Trophy, Gurd!",
+						"type": "commentate",
+						"bubble": "green"
+					},
+					{
+						"time": 6,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
+					},
+					{
+						"commentry": "I disagree. The way the Nerds have been playing, they deserve to win.",
 						"type": "commentate"
 					},
 					{
 						"time": 6,
-						"noSkip":  true,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
+					},
+					{
+						"powerup": "cleats",
+						"type": "spawn",
+						"quantity": 2
+					},
+					{
+						"enemy": "regular",
+						"type": "spawn",
+						"sameLane": false
+					},
+					{
+						"time": 1,
 						"type": "delay"
+					},
+					{
+						"enemy": "regular",
+						"type": "spawn",
+						"sameLane": false
+					},
+					{
+						"time": 1,
+						"type": "delay"
+					},
+					{
+						"enemy": "regular",
+						"type": "spawn",
+						"sameLane": false
+					},
+					{
+						"powerup": "bullhorn",
+						"type": "spawn",
+						"quantity": 1
+					},
+					{
+						"time": 3,
+						"type": "delay"
+					},
+					{
+						"enemy": "boss",
+						"type": "spawn",
+						"sameLane": false
+					},
+					{
+						"powerup": "cleats",
+						"type": "spawn",
+						"quantity": 1
+					},
+					{
+						"time": 3,
+						"type": "delay"
+					},
+					{
+						"enemy": "coach",
+						"type": "spawn",
+						"sameLane": false
+					}
+				]
+			},
+			{
+				"actions": [
+					{
+						"enemy": "lanechange",
+						"type": "spawn",
+						"saneLane": true
+					},
+					{
+						"time": 1,
+						"type": "delay"
+					},
+					{
+						"enemy": "lanechange",
+						"type": "spawn",
+						"sameLane": true
+					},
+					{
+						"time": 1,
+						"type": "delay"
+					},
+					{
+						"enemy": "lanechange",
+						"type": "spawn",
+						"sameLane": true
+					},
+					{
+						"enemy": "lanechange",
+						"type": "spawn",
+						"saneLane": true
+					},
+					{
+						"time": 1,
+						"type": "delay"
+					},
+					{
+						"enemy": "lanechange",
+						"type": "spawn",
+						"sameLane": true
+					},
+					{
+						"time": 1,
+						"type": "delay"
+					},
+					{
+						"enemy": "lanechange",
+						"type": "spawn",
+						"sameLane": true
+					}
+				]
+			},
+			{
+				"actions": [
+					{
+						"enemy": "coach",
+						"type": "spawn",
+						"sameLane": true
+					},
+					{
+						"time": 4,
+						"type": "delay"
+					},
+					{
+						"enemy": "regular",
+						"type": "spawn",
+						"sameLane": false
+					},
+					{
+						"time": 1,
+						"type": "delay"
+					},
+					{
+						"enemy": "lanechange",
+						"type": "spawn",
+						"sameLane": true
+					},
+						{
+						"time": 1,
+						"type": "delay"
+					},
+					{
+						"enemy": "regular",
+						"type": "spawn",
+						"sameLane": false
+					},
+					{
+						"time": 1,
+						"type": "delay"
+					},
+					{
+						"enemy": "lanechange",
+						"type": "spawn",
+						"sameLane": true
+					},
+					{
+						"time": 1,
+						"type": "delay"
+					},
+					{
+						"enemy": "regular",
+						"type": "spawn",
+						"sameLane": false
+					},
+					{
+						"time": 1,
+						"type": "delay"
+					},
+					{
+						"enemy": "lanechange",
+						"type": "spawn",
+						"sameLane": true
+					},
+					{
+						"time": 1,
+						"type": "delay"
+					}
+				]
+			},
+			{
+				"actions": [
+					{
+						"enemy": "boss",
+						"type": "spawn",
+						"sameLane": true
+					},
+					{
+						"time": 4,
+						"type": "delay"
+					},
+					{
+						"enemy": "coach",
+						"type": "spawn",
+						"samelane": true
+					},
+					{
+						"time": 4,
+						"type": "delay"
+					},
+					{
+						"enemy": "boss",
+						"type": "spawn",
+						"sameLane": false
+					},
+					{
+						"time": 4,
+						"type": "delay"
+					},
+					{
+						"enemy": "coach",
+						"type": "spawn",
+						"samelane": true
+					},
+					{
+						"time": 11,
+						"type": "delay"
+					},
+					{
+						"enemy": "lanechange",
+						"type": "spawn",
+						"samelane": true
+					},
+					{
+						"time": 1,
+						"type": "delay"
+					},
+					{
+						"enemy": "lanechange",
+						"type": "spawn",
+						"samelane": false
+					},
+					{
+						"time": 1,
+						"type": "delay"
+					},
+					{
+						"enemy": "lanechange",
+						"type": "spawn",
+						"samelane": false
+					},
+					{
+						"time": 15,
+						"type": "delay"
+					},
+					{
+						"enemy": "boss",
+						"type": "spawn"
+					},
+					{
+						"time": 1,
+						"type": "delay"
+					},
+					{
+						"enemy": "coach",
+						"type": "spawn"
+					},
+					{
+						"time": 1,
+						"type": "delay"
+					},
+					{
+						"enemy": "boss",
+						"type": "spawn"
+					}
+				]
+			},
+			{
+				"actions": [
+					{
+						"type": "hide captchas"
+					},
+					{
+						"commentry": "I can’t believe it, Gurd – did the Melonballers just win the Smorbowl!?",
+						"type": "commentate",
+						"bubble": "green"
+					},
+					{
+						"time": 6,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
+					},
+					{
+						"commentry": "They came out of left field as the first human Smorball team, Engel.",
+						"type": "commentate"
+					},
+					{
+						"time": 6,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
+					},
+					{
+						"commentry": "They certainly were up to the challenge. I’ve never seen Smorballing like that!",
+						"type": "commentate",
+						"bubble": "green"
+					},
+					{
+						"time": 6,
+						"type": "delay",
+						"noSkip": true,
+						"noScale": true
 					}
 				]
 			}
@@ -1991,15 +4486,15 @@
 		"powerups": [ "cleats", "helmet", "bullhorn" ],
 		"name": "Time Challenge",
 		"team": {
-			"name": "New England Nerds",
-			"id": "nerds",
-			"outfit":  16
+			"name": "Time",
+			"id": "survival",
+			"outfit":  1
 		},
 		"waves": [
 			{
 				"actions": [
 					{
-						"enemy": "lanechange",
+						"enemy": "weak",
 						"type": "spawn"
 					}
 				]

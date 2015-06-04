@@ -11,8 +11,8 @@
 			}
 		},
 		"changeLane": false,
-		"speed": 80,
-		"life": 6,
+		"speed": 32,
+		"life": 8,
 		"speedBuff":  40,
 		"offsetX": 265,
 		"offsetY": 369,
@@ -32,10 +32,10 @@
 			}
 		},
 		"changeLane": false,
-		"speed": 160,
+		"speed": 144,
 		"life": 1,
-		"offsetX": 265,
-		"offsetY": 369,
+		"offsetX": 260,
+		"offsetY": 382,
 		"scale":  1.3,
 		"spritesPathTemplate": "images/Characters/enemy/Skater Enemy S{0}"
 	},
@@ -52,10 +52,10 @@
 			}
 		},
 		"changeLane": false,
-		"speed": 80,
+		"speed": 72,
 		"life": 3,
-		"offsetX": 265,
-		"offsetY": 369,
+		"offsetX": 238,
+		"offsetY": 425,
 		"scale":  1.3,
 		"spritesPathTemplate": "images/Characters/enemy/Tennis Enemy T{0}"
 	},
@@ -68,14 +68,14 @@
 				"variations": 3
 			},
 			"hit": {
-				"variations": 3
+				"variations": 0
 			}
 		},
 		"changeLane": false,
-		"speed": 80,
+		"speed": 72,
 		"life": 1,
-		"offsetX": 265,
-		"offsetY": 340,
+		"offsetX": 262,
+		"offsetY": 385,
 		"scale":  1.3,
 		"spritesPathTemplate": "images/Characters/enemy/Hooligan Enemy H{0}"
 	},
@@ -92,10 +92,10 @@
 			}
 		},
 		"changeLane": true,
-		"speed": 100,
+		"speed": 90,
 		"life": 2,
-		"offsetX": 265,
-		"offsetY": 369,
+		"offsetX": 247,
+		"offsetY": 400,
 		"scale":  1.3,
 		"spritesPathTemplate": "images/Characters/enemy/Grand Mother Enemy GB{0}"
 	},
@@ -103,7 +103,7 @@
 	{
 		"id": "boss",
 		"audio": {
-			"id": "hooligan",
+			"id": "weightlifter",
 			"die": {
 				"variations": 5
 			},
@@ -112,11 +112,11 @@
 			}
 		},
 		"changeLane": false,
-		"speed": 50,
+		"speed": 45,
 		"life": 6,
-		"offsetX": 129,
-		"offsetY": 182,
-		"scale":  2,
+		"offsetX": 250,
+		"offsetY": 425,
+		"scale":  1.5,
 		"spritesPathTemplate": "images/Characters/enemy/Weightlifter Enemy W{0}"
 	}
 }

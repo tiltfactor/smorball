@@ -2,15 +2,15 @@
 	"cleats": {
 		"name": "Cleats",
 		"speedMultiplier": 1.5,
-		"damageMultiplier": 3,
-		"spawnChance": 60  
+		"damageMultiplier": 2, 
+		"spawnChance": 6000 
 	},
 	"helmet": {
 		"name": "Helmet",
-		"spawnChance": 60
+		"spawnChance": 6000
 	},
 	"bullhorn": {
 		"name": "Bullhorn",
-		"spawnChance": 60
+		"spawnChance": 6000
 	}	
 }

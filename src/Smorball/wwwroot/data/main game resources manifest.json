@@ -10,6 +10,7 @@
 
     { "src": "images/Clubhouse/bawling_icon.png", "id": "bawling_icon" },
     { "src": "images/Clubhouse/breakfast_club_icon.png", "id": "breakfast_club_icon" },
+	{ "src": "images/Clubhouse/speed_drills_icon.png", "id": "speed_drills_icon" },
     { "src": "images/Clubhouse/loudmouth_icon.png", "id": "loudmouth_icon" },
     { "src": "images/Clubhouse/night_classes_icon.png", "id": "night_classes_icon" },
     { "src": "images/Clubhouse/snike_icon.png", "id": "snike_icon" },
@@ -67,6 +68,7 @@
     { "src": "images/Level Select Map/shop_icon.png", "id": "shop_icon" },
     { "src": "images/Level Select Map/stopwatch_icon.png", "id": "stopwatch_icon" },
     { "src": "images/Level Select Map/spend-your-winnings.png", "id": "spend_your_winnings_banner" },
+    { "src": "images/Level Select Map/start-here.png", "id": "start_here_banner" },
 
     { "src": "data/map data.json", "id": "map_data" },
     { "src": "data/levels data.json", "id": "levels_data" },
