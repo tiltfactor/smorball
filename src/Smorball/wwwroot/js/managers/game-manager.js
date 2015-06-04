@@ -40,6 +40,13 @@ var GameManager = (function (_super) {
             smorball.screens.game.selectNextPowerup();
             e.preventDefault();
         }
+        // Alt
+        if (e.keyCode == 18) {
+            if (smorball.game.passesRemaining > 0) {
+                smorball.captchas.pass();
+            }
+            e.preventDefault();
+        }
     };
     GameManager.prototype.loadLevel = function (levelIndex) {
         console.log("starting level", levelIndex);

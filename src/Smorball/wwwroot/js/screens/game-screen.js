@@ -61,11 +61,27 @@ var GameScreen = (function (_super) {
         $("#gameScreen .entry input").on("keydown", function (event) { return _this.onKeyDown(event); });
         // When any keyboard event happens focus the input
         window.onkeydown = function (event) {
-            if (smorball.game.state == 2 /* Playing */) {
-                $("#gameScreen .entry input").focus();
-                // If the key is escape then lets timeout
+            if (smorball.game.state == GameState.Playing /* Timeout */) {
+                $("#gameScreen .entry input").focus();  // When any keyboard event happens focus the input
+                // If the key is escape then lets resume
                 if (event.keyCode == 27)
                     smorball.game.timeout();
+            }
+            else if (smorball.game.state == GameState.Timeout /* Playing */) {
+                // If the key is escape then lets timeout
+                if (event.keyCode == 27)
+                    smorball.game.resume();
+            }
+            else if (smorball.game.state == GameState.Loading /* LoadingLevel */) {
+                // If the key is enter then lets play
+                if (event.keyCode == 13) {
+                    smorball.game.play();
+                    console.log ("enter pressed");
+                // If the key is escape then lets go back to the map screen
+                } else if (event.keycode == 27) {
+                    smorball.game.returntoMap();
+                    console.log ("esc pressed");
+                }
             }
         };
         // If the window looses focus then lets pause the game if we are running
