@@ -19,7 +19,7 @@
     { "src": "images/Clubhouse/spare_helmet_icon.png", "id": "spare_helmet_icon" },
     { "src": "images/Clubhouse/strength_conditioning_icon.png", "id": "strength_conditioning_icon" },
 
-    { "src": "images/Main Menu/menu_background.png", "id": "main_menu_background" },
+    { "src": "images/Main Menu/menu_background.jpg", "id": "main_menu_background" },
     { "src": "images/Main Menu/menu_btn_back.png", "id": "main_menu_bottom_background" },
 
     { "src": "images/UI/SB_logo.png", "id": "smorball_logo" },
