@@ -208,7 +208,7 @@ var CaptchasManager = (function () {
         smorball.screens.game.indicator.showCorrect();
         // This is needed as the Breakfast Club powerup is dependant on the length of the captcha
         var damageMultiplier = 1;
-        if (text.length > 8 && smorball.upgrades.isOwned("breakfast"))
+        if (text.length > 7 && smorball.upgrades.isOwned("breakfast"))
             damageMultiplier = smorball.upgrades.getUpgrade("breakfast").multiplier;
         // If we have the bullhorn powerup selected then send all athletes running
         var powerup = smorball.screens.game.selectedPowerup;
