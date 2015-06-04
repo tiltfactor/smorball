@@ -19,14 +19,14 @@ var TimeTrailManager = (function () {
             return;
         // Increment the currency, this is used to spawn powerups depending on their cost
         if (this.nextPowerup != null)
-            this.powerupCurrency += delta + (smorball.game.timeOnLevel / 60) * delta;
+            this.powerupCurrency += delta + (Math.min(smorball.game.timeOnLevel / 60, 2.5)) * delta;
         // If we should spawn then do so then calculate what the next one to spawn is
         if (this.shouldSpawnPowerup()) {
             this.spawnPowerup();
             this.nextPowerup = this.calculateNextPowerup();
         }
         // Increment the currency, this is used to spawn enemies depending on their cost
-        this.enemyCurrency += delta + (smorball.game.timeOnLevel / 60) * delta;
+        this.enemyCurrency += delta + ((smorball.game.timeOnLevel+30) / 60) * delta;
         // If we should spawn the enemy then do so now and work out the next enemy to spawn
         if (this.shouldSpawnEnemy()) {
             this.spawnEnemy();
