@@ -152,12 +152,12 @@ var CaptchasManager = (function () {
         this.updatePassButton();
     };
     CaptchasManager.prototype.updatePassButton = function () {
-        if (smorball.game.passesRemaining == 0) {
-            $("#gameScreen .entry .pass-btn").prop("disabled", true).text("PASS");
-        }
-        else {
+        if (smorball.game.passesRemaining > 0) {
             $("#gameScreen .entry .pass-btn").prop("disabled", false);
             $("#gameScreen .entry .pass-btn").text("PASS (" + smorball.game.passesRemaining + ")");
+        }
+        else {
+            $("#gameScreen .entry .pass-btn").prop("disabled", true).text("PASS");
         }
     };
     CaptchasManager.prototype.testTextEntry = function () {
