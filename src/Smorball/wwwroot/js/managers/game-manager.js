@@ -160,6 +160,15 @@ var GameManager = (function (_super) {
     GameManager.prototype.getOpponentsRemaining = function () {
         return smorball.spawning.enemySpawnsThisLevel - smorball.game.enemiesKilled;
     };
+    GameManager.prototype.getEnemyProximity = function (lane) {
+        var enemiesInLane = _.where(this.enemies, {"lane": lane});
+        if (enemiesInLane.length == 0) // there are no enemies in the lane
+            return 0;
+        var closestEnemy = _.min(enemiesInLane, "x");
+        var enemyDistance = closestEnemy.x - smorball.config.goalLine;
+        var laneWidth = smorball.config.enemySpawnPositions[lane].x - smorball.config.goalLine;
+        return 1 - enemyDistance / laneWidth;
+    }
     GameManager.prototype.enemyKilled = function (enemy) {
         this.enemiesKilled++;
         smorball.powerups.onEnemyKilled(enemy);

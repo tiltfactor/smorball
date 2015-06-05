@@ -177,6 +177,11 @@ var CaptchasManager = (function () {
         // If there are no visible then lets just jump out until they are
         if (visibleCapatchas.length == 0)
             return;
+        // Sort active captchas based on enemy proximity in each lane
+        //  (in case two captchas match, this will prioritize the lane with a closer enemy)
+        visibleCapatchas = _.sortBy(visibleCapatchas, function(c) {
+            return -smorball.game.getEnemyProximity(c.lane);
+        });
         // Log
         console.log("Comparing text", text, _.map(this.captchas, function (c) { return c.chunk; }));
         // Convert them into a form that the closestWord algo needs
