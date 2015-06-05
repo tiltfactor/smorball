@@ -152,7 +152,8 @@ var GameManager = (function (_super) {
         smorball.screens.game.flashRed(smorball.screens.game.scoreEl, 800);
         smorball.screens.game.flashRed(smorball.screens.game.opponentsEl, 800);
         // Change the captcha
-        smorball.captchas.refreshCaptcha(enemy.lane);
+        if (this.levelIndex == 0)
+            smorball.captchas.refreshCaptcha(enemy.lane);
         // If its a time trail then only one enemy is allowed to reach the goaline
         if (this.level.timeTrial)
             this.gameOver(false);
