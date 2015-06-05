@@ -65,7 +65,7 @@ var CaptchasManager = (function () {
         var visibleCapatchas = _.filter(this.getActiveCaptchas(), function (c) { return c.lane != lane; });
         for (var i = 0; i < 100; i++) {
             // Grab the next chunk from the stack
-            var nextChunk = this.getNextChunk();
+            var nextChunk = this.getNextChunkByProximity(lane);
             console.log("Next captcha pulled from stack, isLocal:", nextChunk.page.isLocal, nextChunk);
             // Must ensure that the next chunk does not equal one that is already on screen
             var match = _.find(visibleCapatchas, function (c) { return _this.doChunksMatch(c.chunk, nextChunk); });
@@ -129,6 +129,26 @@ var CaptchasManager = (function () {
                 return Utils.randomOne(this.localChunks);
             // Else lets return back one
             var chunk = Utils.popRandomOne(this.remoteChunks);
+            // If there is nothing left in there lets grab another page
+            if (this.remoteChunks.length == 0)
+                this.loadPageFromServer();
+            // Return the chunk popped
+            return chunk;
+        }
+    };
+    CaptchasManager.prototype.getNextChunkByProximity = function (lane) {
+        // If its a tutorial level then we need to use a speacially prepared list
+        if (smorball.game.levelIndex == 0)
+            return this.localChunks.pop();
+        else {
+            // If there arent any chunks remaining then just chunk our local store in there
+            if (this.remoteChunks.length == 0)
+                return Utils.randomOne(this.localChunks);
+            // Else return a captcha based on enemy proximity in the lane
+            //  The closer the enemy is, the shorter the captcha should be
+            var percent = 1 - smorball.game.getEnemyProximity(lane);
+            var index = Math.min(this.remoteChunks.length - 1, Math.floor(this.remoteChunks.length * percent));
+            var chunk = this.remoteChunks.splice(index, 1)[0];
             // If there is nothing left in there lets grab another page
             if (this.remoteChunks.length == 0)
                 this.loadPageFromServer();
@@ -428,6 +448,10 @@ var CaptchasManager = (function () {
                 d.page = data;
                 ssData.frames.push([x, y, w, h]);
                 _this.remoteChunks.push(d);
+            });
+            // Sort incoming captchas by length (ascending)
+            _this.remoteChunks = _.sortBy(_this.remoteChunks, function(c) {
+                return (c.texts[0].length + c.texts[1].length) / 2;
             });
             ssData.images = [image];
             data.spritesheet = new createjs.SpriteSheet(ssData);
