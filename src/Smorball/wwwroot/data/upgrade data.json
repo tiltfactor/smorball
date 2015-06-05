@@ -2,7 +2,7 @@
 	{
 		"name": "Strength Conditioning",
 		"id": "strength",
-		"description": "When an opponent is hit but not tackled he or she is pushed back twice as far.",
+		"description": "When you tackle a smorbot it’s pushed back twice as far as it normally would be.",
 		"type": "strength",
 		"price": 600,
 		"icon": "strength_conditioning_icon",
@@ -12,7 +12,7 @@
 	{
 		"name": "Breakfast Club",
 		"id": "breakfast",
-		"description": "Phrases longer than 7 characters make your athletes a bit stronger, and tackle opponents a bit quicker.",
+		"description": "Correctly typing phrases longer than 7 characters makes the Melonballers stronger – they'll scrap smorbots with fewer tackles.",
 		"type": "breakfast",
 		"price": 500,
 		"icon": "breakfast_club_icon",
@@ -22,9 +22,9 @@
 	{
 		"name": "Night Classes",
 		"id": "nightclass",
-		"description": "Decreases the confused time when you make a mistake while typing a phrase by 50%",
+		"description": "Halves the time it takes for you to get a new phrase after you've made a typo.",
 		"type": "nightclass",
-		"price": 400,
+		"price": 200,
 		"icon": "night_classes_icon",
 		"unlocksAt": 2,
 		"multiplier":  0.5
@@ -32,9 +32,9 @@
 	{
 		"name": "Speed Drills",
 		"id": "speeddrills",
-		"description": "Doubles your players' running speed - keep your opponents far from the endzone.",
+		"description": "Doubles the Melonballers' running speeds so that they can more easily keep opponents from reaching your endzone.",
 		"type": "speeddrills",
-		"price": 400,
+		"price": 300,
 		"icon": "speed_drills_icon",
 		"unlocksAt": 2,
 		"speedMultiplier":  2
@@ -51,7 +51,7 @@
 	{
 		"name": "Bawling™ Sponsorship",
 		"id": "bawling",
-		"description": "More helmets will appear on the field each level.",
+		"description": "More helmets will appear on the field during each level.",
 		"type": "sponserShip",
 		"price": 300,
 		"icon": "bawling_icon",
@@ -70,7 +70,7 @@
 	{
 		"name": "Snike™ Sponsorship ",
 		"id": "snike",
-		"description": "More cleats will appear on the field each level.",
+		"description": "More cleats will appear on the field during each level.",
 		"type": "sponserShip",
 		"price": 300,
 		"icon": "snike_icon",
@@ -90,7 +90,7 @@
 	{
 		"name": "Loudmouth™ Sponsorship",
 		"id": "loudmouth",
-		"description": "More bullhorns will appear on the field each level.",
+		"description": "More bullhorns will appear on the field during each level.",
 		"type": "sponserShip",
 		"price": 300,
 		"icon": "loudmouth_icon",
