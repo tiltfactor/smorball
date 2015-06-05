@@ -1,5 +1,5 @@
 [
-	{"image": "instructions1", "description": "Lead your Smorball team, the Eugene Mellonballers, to victory as they travel all across the country."},
+    {"image": "instructions1", "description": "Lead your Smorball team, the Eugene Mellonballers, to victory as they travel all across the country."},
     {"image": "instructions2", "description": "When an opponent tries to reach your endzone, stop it by typing the phrase in the corresponding row and pressing ‘enter.’"},
     {"image": "instructions3", "description": "Some opponents must be tackled multiple times before they actually go down - type fast!"},
     {"image": "instructions4", "description": "Opponents will come at you in different lanes — type the word in the corresponding lane to get your players to tackle them!"},
@@ -19,7 +19,6 @@
     {"image": "instructions18", "description": "With a piece of equipment selected, the next phrase you type will convey that bonus to your athlete!"},
     {"image": "instructions19", "description": "The helmet allows your athlete to hit all of the opponents in one lane!"},
     {"image": "instructions20", "description": "The cleats allow your athlete to tackle strong opponents faster. "},
-    {"image": "instructions21", "description": "The bullhorn lets you command all of your athletes at once!"}
+    {"image": "instructions21", "description": "The bullhorn lets you command all of your athletes at once!"},
+    {"image": "instructions22", "description": "Comments or suggestions about Smorball? We would love to hear them! Please leave us feedback <a href='https://docs.google.com/forms/d/1HalguBsZdSh8R3vPlJzHfQPls0tRsJrMICHg-tMAl7g/viewform?usp=send_form'>here</a>."}
 ]
-
-

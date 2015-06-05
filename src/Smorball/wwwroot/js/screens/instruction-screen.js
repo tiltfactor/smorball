@@ -47,9 +47,9 @@ var InstructionsScreen = (function (_super) {
         var instruction = this.instructions[this.selectedInstruction];
         // Update the image
         var img = $("#instructionsScreen .instruction-img").get(0);
-        img.src = "images/Instructions/" + instruction.image + ".png";
+        img.src = "images/Instructions/" + instruction.image + ".jpg";
         // Update the text
-        $("#instructionsScreen .smorball-bordered-container span").text(instruction.description);
+        $("#instructionsScreen .smorball-bordered-container span").html(instruction.description);
         // Update the paging elements
         $("#instructionsScreen .paging img").each(function (i, e) {
             if (i == _this.selectedInstruction)
