@@ -122,6 +122,12 @@ var GameScreen = (function (_super) {
         this.stadium.setTeam(smorball.game.level.team);
         this.score = 600;
     };
+    GameScreen.prototype.showEntry = function() {
+            $("#gameScreen .entry").show();
+    };
+    GameScreen.prototype.hideEntry = function() {
+            $("#gameScreen .entry").hide();
+    };
     GameScreen.prototype.showTimeout = function () {
         console.log("timeout changed!");
         smorball.screens.game.timeoutEl.hidden = false;

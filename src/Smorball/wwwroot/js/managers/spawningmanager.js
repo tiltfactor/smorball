@@ -10,6 +10,11 @@ var SpawningManager = (function () {
         this.logAction();
         this.lastEnemySpawnLane = 1;
         this.survivalData = smorball.resources.getResource("survival_data");
+        if (this.level.index == 0) {
+                smorball.screens.game.hideEntry();
+        } else {
+                smorball.screens.game.showEntry();
+        }
         // Spawn some starting athletes
         _.each(this.level.lanes, function (i) { return smorball.spawning.spawnAthlete(i); });
     };
@@ -109,6 +114,14 @@ var SpawningManager = (function () {
         }
         else if (this.action.type == "play sound") {
             smorball.audio.playSound(this.action.sound);
+            this.action = this.getNextAction();
+        }
+        else if (this.action.type == "hide entry") {
+            smorball.screens.game.hideEntry();
+            this.action = this.getNextAction();
+        }
+        else if (this.action.type == "show entry") {
+            smorball.screens.game.showEntry();
             this.action = this.getNextAction();
         }
     };
