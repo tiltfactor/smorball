@@ -365,7 +365,7 @@
 		"team": {
 			"name": "Tucson Walruses",
 			"id": "walruses",
-			"outfit": 1
+			"outfit": 2
 		},
 		"waves": [
 			{
@@ -666,7 +666,7 @@
 		"team": {
 			"name": "Billings Bronies",
 			"id": "bronies",
-			"outfit":  1
+			"outfit":  3
 		},
 		"waves": [
 			{
@@ -1139,7 +1139,7 @@
 		"team": {
 			"name": "Fargo 4.9ers",
 			"id": "fargo",
-			"outfit":  1
+			"outfit":  4
 		},
 		"powerups": [],
 		"waves": [
@@ -1687,7 +1687,7 @@
 		"team": {
 			"name": "Omaha Hoarders",
 			"id": "hoarders",
-			"outfit":  1		},
+			"outfit":  5		},
 		"waves": [
 			{
 				"actions": [
@@ -2119,7 +2119,7 @@
 		"team": {
 			"name": "Amarillo Pantyhose",
 			"id": "pantyhose",
-			"outfit":  1
+			"outfit":  6
 		},
 		"waves": [
 			{
@@ -2517,7 +2517,7 @@
 		"team": {
 			"name": "Fort Worth",
 			"id": "ffd",
-			"outfit":  1
+			"outfit":  7
 		},
 		"waves": [
 			{	
@@ -2960,7 +2960,7 @@
 		"team": {
 			"name": "Atlanta Portents",
 			"id": "portents",
-			"outfit":  1
+			"outfit":  8
 		},
 		"waves": [
 			{
@@ -3449,7 +3449,7 @@
 		"team": {
 			"name": "Chicago Chargers",
 			"id": "chargers",
-			"outfit":  1
+			"outfit":  9
 		},
 		"waves": [
 			{
@@ -3900,7 +3900,7 @@
 		"team": {
 			"name": "New England Nerds",
 			"id": "nerds",
-			"outfit":  1
+			"outfit":  10
 		},
 		"waves": [
 			{
