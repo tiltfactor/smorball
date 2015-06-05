@@ -89,6 +89,8 @@ var Enemy = (function (_super) {
             if (this.x < smorball.config.goalLine) {
                 this.state = 2 /* Scoring */;
                 smorball.game.enemyReachedGoaline(this);
+                if (this.type.speedBuff != undefined)
+                    smorball.game.enemySpeedBuff -= this.type.speedBuff;
                 this.sprite.gotoAndPlay("scoring");
                 smorball.audio.playSound("smorball_enemy_score_06_sound");
                 this.sprite.on("animationend", function (e) { return _this.destroy(); }, this, false);
