@@ -97,7 +97,7 @@ var CaptchasManager = (function () {
                 console.log("Scaling captcha down to:", scale);
                 captcha.scaleX = captcha.scaleY = scale;
                 // If the new size of the captch is too small in either dimension then lets discard it
-                if (captcha.getBounds().width < smorball.config.minCaptchaPixelSize || captcha.getBounds().height < smorball.config.minCaptchaPixelSize) {
+                if (captcha.getBounds().width * scale < smorball.config.minCaptchaPixelSize || captcha.getBounds().height * scale < smorball.config.minCaptchaPixelSize) {
                     console.log("Cannot use captcha, width or height is less than minimum Captcha pixel size", captcha.getBounds(), smorball.config.minCaptchaPixelSize);
                     continue;
                 }
