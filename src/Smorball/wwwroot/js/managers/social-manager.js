@@ -51,7 +51,7 @@ var SocialManager = (function () {
             if (level.timeTrial)
                 return Utils.format("I just lasted {0}s in Smorball's Time Challenge! http://smorballgame.org", Math.round(smorball.user.lastSurvivalTime));
             else
-                return Utils.format("I just defeated the {0}. I scored {1} against them! http://smorballgame.org", level.team.name, score);
+                return Utils.format("I just played the {0} and scored {1} against them! http://smorballgame.org", level.team.name, 600-score);
         }
     };
     return SocialManager;
