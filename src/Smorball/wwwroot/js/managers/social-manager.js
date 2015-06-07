@@ -27,7 +27,7 @@ var SocialManager = (function () {
             method: 'feed',
             caption: this.getShareText(),
             //description: this.getShareText(),
-            link: 'http://tiltfactor.pepwuper.com/Smorball/',
+            link: 'http://smorballgame.org',
         }, function (response) {
             console.log("FB Feed response", response);
         });
@@ -44,14 +44,14 @@ var SocialManager = (function () {
     SocialManager.prototype.getShareText = function () {
         // If the player has only just started then we cant do anything fancy
         if (smorball.user.lastLevelPlayed < 0)
-            return "Checkout this great game! http://smorball.com";
+            return "Play Smorball! http://smorballgame.org";
         else {
             var level = smorball.game.levels[smorball.user.lastLevelPlayed];
             var score = 600 - smorball.user.levels[smorball.user.lastLevelPlayed].score;
             if (level.timeTrial)
-                return Utils.format("I just lasted {0}s in Smorball's Time Challenge!. http://smorball.com", Math.round(smorball.user.lastSurvivalTime));
+                return Utils.format("I just lasted {0}s in Smorball's Time Challenge! http://smorballgame.org", Math.round(smorball.user.lastSurvivalTime));
             else
-                return Utils.format("I just defeated the {0}. I scored {1} against them! http://smorball.com", level.team.name, score);
+                return Utils.format("I just defeated the {0}. I scored {1} against them! http://smorballgame.org", level.team.name, score);
         }
     };
     return SocialManager;
