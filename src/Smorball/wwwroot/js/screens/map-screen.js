@@ -82,7 +82,7 @@ var MapScreen = (function (_super) {
         if (smorball.user.isSurvivalUnlocked()) {
             var img = smorball.resources.getResource("survival_logo_small");
             this.teamLogoEl.src = img.src;
-            this.teamNameEl.textContent = "Time Trail";
+            this.teamNameEl.textContent = "Time Challenge";
             this.scoreEl.textContent = Utils.formatTime(smorball.user.bestSurvivalTime);
             this.lockIconEl.hidden = true;
             this.teamLogoEl.hidden = false;
