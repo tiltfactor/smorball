@@ -62,6 +62,7 @@ var GameManager = (function (_super) {
         // Load the resources needed
         smorball.resources.loadLevelResources(levelIndex);
         // Take this oppertunity to grab a new page from the API
+        if(!isChrome || smorball.captchas.remoteChunks.length == 0)
         smorball.captchas.loadPagesFromServer(1, isChrome ? 40 : 0);
         // Show the loading screen
         smorball.screens.open(smorball.screens.loadingLevel);
