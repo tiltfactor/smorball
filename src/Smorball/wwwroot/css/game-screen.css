@@ -38,6 +38,10 @@
 	padding-bottom: 16px;
 }
 
+#gameScreen .entry input::-ms-clear{
+	display: none;
+}
+
 #gameScreen .range-slider {
 	width: 665px;
 }
