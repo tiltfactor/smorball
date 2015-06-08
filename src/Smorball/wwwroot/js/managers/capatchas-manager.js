@@ -131,7 +131,7 @@ var CaptchasManager = (function () {
             var chunk = Utils.popRandomOne(this.remoteChunks);
             // If there is nothing left in there lets grab another page
             if (this.remoteChunks.length == 0)
-                this.loadPageFromServer();
+                this.loadPagesFromServer(2);
             // Return the chunk popped
             return chunk;
         }
@@ -151,7 +151,7 @@ var CaptchasManager = (function () {
             var chunk = this.remoteChunks.splice(index, 1)[0];
             // If there is nothing left in there lets grab another page
             if (this.remoteChunks.length == 0)
-                this.loadPageFromServer();
+                this.loadPagesFromServer(2);
             // Return the chunk popped
             return chunk;
         }
@@ -408,6 +408,19 @@ var CaptchasManager = (function () {
         $.ajax({
             url: smorball.config.PageAPIUrl,
             success: function (data) { return _this.parsePageAPIData(data); },
+            headers: { "x-access-token": smorball.config.PageAPIAccessToken },
+            timeout: smorball.config.PageAPITimeout
+        });
+    };
+    CaptchasManager.prototype.loadPagesFromServer = function (numPages) {
+        var _this = this;
+        $.ajax({
+            url: smorball.config.PageAPIUrl,
+            success: function (data) {
+                if (numPages > 1)
+                    _this.loadPagesFromServer(numPages - 1);
+                return _this.parsePageAPIData(data);
+            },
             headers: { "x-access-token": smorball.config.PageAPIAccessToken },
             timeout: smorball.config.PageAPITimeout
         });
