@@ -138,6 +138,7 @@ var CaptchasManager = (function () {
     };
     CaptchasManager.prototype.getNextChunkByProximity = function (lane) {
         // If its a tutorial level then we need to use a speacially prepared list
+        var isChrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
         if (smorball.game.levelIndex == 0)
             return this.localChunks.pop();
         else {
@@ -150,7 +151,7 @@ var CaptchasManager = (function () {
             var index = Math.min(this.remoteChunks.length - 1, Math.floor(this.remoteChunks.length * percent));
             var chunk = this.remoteChunks.splice(index, 1)[0];
             // If there is nothing left in there lets grab another page
-            if (this.remoteChunks.length == 0)
+            if (this.remoteChunks.length == 0 && !isChrome)
                 this.loadPagesFromServer(2);
             // Return the chunk popped
             return chunk;
@@ -412,7 +413,8 @@ var CaptchasManager = (function () {
             timeout: smorball.config.PageAPITimeout
         });
     };
-    CaptchasManager.prototype.loadPagesFromServer = function (numPages) {
+    CaptchasManager.prototype.loadPagesFromServer = function (numPages, captchasPerPage) {
+        if (typeof(captchasPerPage)==='undefined') captchasPerPage = 0;
         var _this = this;
         $.ajax({
             url: smorball.config.PageAPIUrl,
@@ -422,7 +424,8 @@ var CaptchasManager = (function () {
                 return _this.parsePageAPIData(data);
             },
             headers: { "x-access-token": smorball.config.PageAPIAccessToken },
-            timeout: smorball.config.PageAPITimeout
+            timeout: smorball.config.PageAPITimeout,
+            data: { wordAmount: captchasPerPage }
         });
     };
     CaptchasManager.prototype.parsePageAPIData = function (data) {
