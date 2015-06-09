@@ -19,7 +19,7 @@ var LoadingScreen = (function (_super) {
         Utils.centre(this.logo, true, false);
         this.logo.y = 0;
         this.addChild(this.logo);
-        this.bar = new LoadingBar();
+        this.bar = new LoadingBar(1000);
         this.bar.init();
         this.addChild(this.bar);
     };

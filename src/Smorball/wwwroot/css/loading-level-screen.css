@@ -22,6 +22,10 @@
 	width: 600px;
 }
 
+#loadingLevelScreen h3 {
+	margin-top: -60px;
+}
+
 #loadingLevelScreen .play-btn {
 	position: absolute;
 	bottom: 30px;

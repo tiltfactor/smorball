@@ -19,7 +19,7 @@ var LoadingLevelScreen = (function (_super) {
         this.background = new StarBackground();
         this.addChild(this.background);
         // Create a loading bar
-        this.bar = new LoadingBar();
+        this.bar = new LoadingBar(1080);
         this.bar.init();
         this.addChild(this.bar);
         // Add some listeners
