@@ -37,7 +37,7 @@
 
 	"fbAppId": "1572394949706252",
 
-	"debug": true,
+	"debug": false,
 	"width": 1600,
 	"height": 1200,
 	"goalLine":  345,
