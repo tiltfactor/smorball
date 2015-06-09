@@ -67,7 +67,7 @@
 						"noScale": true
 					},
 					{
-     					"type": "show entry"
+							"type": "show entry"
 					},
 					{
 						"type": "show captchas"
@@ -3874,8 +3874,7 @@
 					},
 					{
 						"commentry": "Say that again, Engel. The Melonballers are the Smorbowl’s first human team!",
-						"type": "commentate",
-						"bubble": "green"
+						"type": "commentate"
 					},
 					{
 						"time": 6,
