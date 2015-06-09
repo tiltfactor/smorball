@@ -34,7 +34,7 @@
 		"id": "speeddrills",
 		"description": "Doubles the Melonballers' running speeds so that they can more easily keep opponents from reaching your endzone.",
 		"type": "speeddrills",
-		"price": 300,
+		"price": 450,
 		"icon": "speed_drills_icon",
 		"unlocksAt": 2,
 		"speedMultiplier":  2
@@ -53,7 +53,7 @@
 		"id": "bawling",
 		"description": "More helmets will appear on the field during each level.",
 		"type": "sponserShip",
-		"price": 300,
+		"price": 350,
 		"icon": "bawling_icon",
 		"unlocksAt": 4,
 		"multiplier":  0.01
@@ -72,7 +72,7 @@
 		"id": "snike",
 		"description": "More cleats will appear on the field during each level.",
 		"type": "sponserShip",
-		"price": 300,
+		"price": 350,
 		"icon": "snike_icon",
 		"unlocksAt": 6,
 		"multiplier":  0.01
@@ -92,7 +92,7 @@
 		"id": "loudmouth",
 		"description": "More bullhorns will appear on the field during each level.",
 		"type": "sponserShip",
-		"price": 300,
+		"price": 350,
 		"icon": "loudmouth_icon",
 		"unlocksAt": 8,
 		"multiplier":  0.01
