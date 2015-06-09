@@ -29,7 +29,7 @@ var UserManager = (function () {
     UserManager.prototype.levelWon = function (level) {
         var l = this.levels[level];
         var score = smorball.game.levelScore;
-        var diff = score - l.score;
+        var diff = Math.max(score - l.score, 0); // user cannot lose money
         l.score = Math.max(score, l.score);
         // If this is the first level then we earn nothing!
         // if (level == 0)
