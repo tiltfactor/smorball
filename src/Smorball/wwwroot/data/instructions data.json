@@ -12,7 +12,7 @@
     {"image": "instructions11", "description": "Some phrases have multiple words.  Use spaces to separate these words."},
     {"image": "instructions12", "description": "Do the best you can with a standard keyboard.  For example, type é as e, and æ as ae."},
     {"image": "instructions13", "description": "Use the slash character, ‘/’, for fractions."},
-    {"image": "instructions14", "description": "Some phrases will be impossible to type.  If you run into one of these press “pass” to skip it.  You don’t have unlimited passes, so use them wisely."},
+    {"image": "instructions14", "description": "Some phrases will be impossible to type. Press “pass” or the 'alt' key to skip them. You have limited passes."},
     {"image": "instructions15", "description": "Equipment makes your athletes stronger!"},
     {"image": "instructions16", "description": "When one of your athletes runs over a piece of equipment, you’ll get that equipment."},
     {"image": "instructions17", "description": "To use a piece of equipment, press tab to select it.  If you have multiple different types of equipment, press tab multiple times to cycle through them."},
