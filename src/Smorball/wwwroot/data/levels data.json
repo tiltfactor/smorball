@@ -4079,7 +4079,7 @@
 						"sameLane": false
 					},
 					{
-						"powerup": "cleat",
+						"powerup": "cleats",
 						"type": "spawn",
 						"quantity": 2
 					},
