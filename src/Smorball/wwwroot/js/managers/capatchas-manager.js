@@ -2,6 +2,7 @@ var CaptchasManager = (function () {
     function CaptchasManager() {
         this.localChunks = [];
         this.remoteChunks = [];
+        this.loadingData = false;
     }
     CaptchasManager.prototype.init = function () {
         var _this = this;
@@ -139,20 +140,49 @@ var CaptchasManager = (function () {
     CaptchasManager.prototype.getNextChunkByProximity = function (lane) {
         // If its a tutorial level then we need to use a speacially prepared list
         var isChrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
+        //Check to see if all of the captchas on the screen are local
         if (smorball.game.levelIndex == 0)
             return this.localChunks.pop();
         else {
+            
+            // If there is nothing left in there lets grab another page
+            // Because chrome has hardware acceleration issues when showing captchas
+            // from two different pages at once, only load a new page when all of the
+            // current captchas are local (if on chrome).  Otherwise, load some more pages
+            if (this.remoteChunks.length == 0)
+            {
+				var visibleCapatchas = this.getActiveCaptchas();
+				console.log(visibleCapatchas);
+				var allLocal = true;
+				for (var i = 0; i<visibleCapatchas.length; i++)
+				{
+					allLocal = (visibleCapatchas[i].chunk.page.isLocal);
+					if(!allLocal)
+					{
+						break;
+					}
+				}
+            	if (isChrome && allLocal && !this.loadingData)	
+            	{
+                	this.loadPagesFromServer(1);
+                	this.loadingData = true;
+                }
+                if (!isChrome)
+                	this.loadPagesFromServer(2);
+                	
+            }
             // If there arent any chunks remaining then just chunk our local store in there
             if (this.remoteChunks.length == 0)
                 return Utils.randomOne(this.localChunks);
+            else 
+            	this.loadingData = false;
             // Else return a captcha based on enemy proximity in the lane
             //  The closer the enemy is, the shorter the captcha should be
             var percent = 1 - smorball.game.getEnemyProximity(lane);
             var index = Math.min(this.remoteChunks.length - 1, Math.floor(this.remoteChunks.length * percent));
             var chunk = this.remoteChunks.splice(index, 1)[0];
-            // If there is nothing left in there lets grab another page
-            if (this.remoteChunks.length == 0 && !isChrome)
-                this.loadPagesFromServer(2);
+            
+          
             // Return the chunk popped
             return chunk;
         }
@@ -169,7 +199,7 @@ var CaptchasManager = (function () {
         // Decrement the number of passes remaining
         smorball.game.passesRemaining--;
         // Set new entries for the visible captcahs
-        _.chain(this.captchas).filter(function (c) { return c.chunk != null; }).each(function (c) { return c.setChunk(_this.getNextChunk()); });
+        _.chain(this.captchas).filter(function (c) { return c.chunk != null; }).each(function (c) { return c.setChunk(_this.getNextChunkByProximity()); });
         this.updatePassButton();
     };
     CaptchasManager.prototype.updatePassButton = function () {
