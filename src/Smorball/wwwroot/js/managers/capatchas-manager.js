@@ -200,6 +200,7 @@ var CaptchasManager = (function () {
         smorball.game.passesRemaining--;
         // Set new entries for the visible captcahs
         _.chain(this.captchas).filter(function (c) { return c.chunk != null; }).each(function (c) { return c.setChunk(_this.getNextChunkByProximity()); });
+        $("#gameScreen .entry input").val("");
         this.updatePassButton();
     };
     CaptchasManager.prototype.updatePassButton = function () {
