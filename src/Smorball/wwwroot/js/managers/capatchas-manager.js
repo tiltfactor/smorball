@@ -174,8 +174,6 @@ var CaptchasManager = (function () {
             // If there arent any chunks remaining then just chunk our local store in there
             if (this.remoteChunks.length == 0)
                 return Utils.randomOne(this.localChunks);
-            else 
-            	this.loadingData = false;
             // Else return a captcha based on enemy proximity in the lane
             //  The closer the enemy is, the shorter the captcha should be
             var percent = 1 - smorball.game.getEnemyProximity(lane);
@@ -502,6 +500,7 @@ var CaptchasManager = (function () {
             });
             ssData.images = [image];
             data.spritesheet = new createjs.SpriteSheet(ssData);
+            _this.loadingData = false;
         };
     };
     return CaptchasManager;
