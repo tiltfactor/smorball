@@ -28,7 +28,7 @@ var LoadingLevelScreen = (function (_super) {
     };
     LoadingLevelScreen.prototype.show = function () {
         _super.prototype.show.call(this);
-        $("#loadingLevelScreen h1").text(smorball.game.level.name);
+        $("#loadingLevelScreen h1").html(smorball.game.level.name);
         // Populate tips text
         $("#loadingLevelScreen h3").text(smorball.game.level.tip);
         // Set the correct logo

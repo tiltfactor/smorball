@@ -4483,7 +4483,7 @@
 			2
 		],
 		"powerups": [ "cleats", "helmet", "bullhorn" ],
-		"name": "Time Challenge",
+		"name": "Time<br/>Challenge",
 		"team": {
 			"name": "Time",
 			"id": "survival",
