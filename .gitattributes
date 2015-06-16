@@ -7,3 +7,9 @@
 *.psd binary
 *.jpg binary
 *.ico binary
+*.ai binary
+*.eps binary
+*.pdf binary
+
+*.eot binary
+*.ttf binary
