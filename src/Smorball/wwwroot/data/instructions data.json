@@ -20,5 +20,6 @@
     {"image": "instructions19", "description": "The helmet allows your athlete to hit all of the opponents in one lane!"},
     {"image": "instructions20", "description": "The cleats allow your athlete to tackle strong opponents faster. "},
     {"image": "instructions21", "description": "The bullhorn lets you command all of your athletes at once!"},
-    {"image": "instructions22", "description": "Comments or suggestions about Smorball? We would love to hear them! Please leave us feedback <a href='https://docs.google.com/forms/d/1HalguBsZdSh8R3vPlJzHfQPls0tRsJrMICHg-tMAl7g/viewform?usp=send_form'>here</a>."}
+    {"image": "instructions22", "description": "This game was made possible by these institutions. Find more info about Smorball and the Purposeful Gaming project <a target='_blank' href='http://tiltfactor.org/game/smorball'>here</a>."},
+    {"image": "instructions23", "description": "Comments or suggestions about Smorball? We would love to hear them! Please leave us feedback <a target='_blank' href='https://docs.google.com/forms/d/1HalguBsZdSh8R3vPlJzHfQPls0tRsJrMICHg-tMAl7g/viewform?usp=send_form'>here</a>."}
 ]
