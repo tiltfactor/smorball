@@ -66,7 +66,7 @@ var CaptchasManager = (function () {
         var visibleCapatchas = _.filter(this.getActiveCaptchas(), function (c) { return c.lane != lane; });
         for (var i = 0; i < 100; i++) {
             // Grab the next chunk from the stack
-            var nextChunk = this.getNextChunkByProximity(lane);
+            var nextChunk = this.getNextChunk(lane);
             console.log("Next captcha pulled from stack, isLocal:", nextChunk.page.isLocal, nextChunk);
             // Must ensure that the next chunk does not equal one that is already on screen
             var match = _.find(visibleCapatchas, function (c) { return _this.doChunksMatch(c.chunk, nextChunk); });
@@ -120,24 +120,10 @@ var CaptchasManager = (function () {
                     return true;
         return false;
     };
-    CaptchasManager.prototype.getNextChunk = function () {
-        // If its a tutorial level then we need to use a speacially prepared list
-        if (smorball.game.levelIndex == 0)
-            return this.localChunks.pop();
-        else {
-            // If there arent any chunks remaining then just chunk our local store in there 
-            if (this.remoteChunks.length == 0)
-                return Utils.randomOne(this.localChunks);
-            // Else lets return back one
-            var chunk = Utils.popRandomOne(this.remoteChunks);
-            // If there is nothing left in there lets grab another page
-            if (this.remoteChunks.length == 0)
-                this.loadPagesFromServer(2);
-            // Return the chunk popped
-            return chunk;
-        }
-    };
-    CaptchasManager.prototype.getNextChunkByProximity = function (lane) {
+    CaptchasManager.prototype.getNextChunk = function (lane, byProximity) {
+        if (typeof byProximity === "undefined")
+            byProximity = true;
+
         // If its a tutorial level then we need to use a speacially prepared list
         var isChrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
         //Check to see if all of the captchas on the screen are local
@@ -169,20 +155,34 @@ var CaptchasManager = (function () {
                 }
                 if (!isChrome)
                 	this.loadPagesFromServer(2);
-                	
-            }
-            // If there arent any chunks remaining then just chunk our local store in there
-            if (this.remoteChunks.length == 0)
+
+                // If there arent any chunks remaining then just chunk our local store in there
                 return Utils.randomOne(this.localChunks);
+            }
             // Else return a captcha based on enemy proximity in the lane
             //  The closer the enemy is, the shorter the captcha should be
-            var percent = 1 - smorball.game.getEnemyProximity(lane);
-            var index = Math.min(this.remoteChunks.length - 1, Math.floor(this.remoteChunks.length * percent));
-            var chunk = this.remoteChunks.splice(index, 1)[0];
             
-          
-            // Return the chunk popped
-            return chunk;
+            if (byProximity) {
+                var percent = 1 - smorball.game.getEnemyProximity(lane);
+                // Select a random percentage within rangeSize of percent
+                // This is to prevent captchas from being too deterministic
+                var rangeSize = 0.1
+                var rangeMin = percent - rangeSize/2;
+                var rangeMax = percent + rangeSize/2;
+                if (rangeMin < 0) {
+                    rangeMin = 0;
+                    rangeMax = rangeSize;
+                } else if (rangeMax > 1) {
+                    rangeMax = 1;
+                    rangeMin = 1 - rangeSize;
+                }
+                var randPercent = Math.random() * (rangeMax - rangeMin) + rangeMin;
+                console.log("percent: " + percent + ", randPercent: " + randPercent);
+                var index = Math.min(this.remoteChunks.length - 1, Math.floor(this.remoteChunks.length * randPercent));
+                return this.remoteChunks.splice(index, 1)[0];
+            } else {
+                return Utils.popRandomOne(this.remoteChunks);
+            }
         }
     };
     CaptchasManager.prototype.update = function (delta) {
@@ -197,7 +197,7 @@ var CaptchasManager = (function () {
         // Decrement the number of passes remaining
         smorball.game.passesRemaining--;
         // Set new entries for the visible captcahs
-        _.chain(this.captchas).filter(function (c) { return c.chunk != null; }).each(function (c) { return c.setChunk(_this.getNextChunkByProximity()); });
+        _.chain(this.captchas).filter(function (c) { return c.chunk != null; }).each(function (c) { return c.setChunk(_this.getNextChunk(c.lane)); });
         $("#gameScreen .entry input").val("");
         this.updatePassButton();
     };
