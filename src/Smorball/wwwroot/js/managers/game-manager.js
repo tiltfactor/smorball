@@ -215,7 +215,7 @@ var GameManager = (function (_super) {
         // Send inputs to server
         smorball.captchas.sendInputsToServer();
         // Stop the ambience
-        if (this.ambienceSound)
+        if (this.ambienceSound && this.ambienceSound.playState != "playFinished")
             smorball.audio.fadeOutAndStop(this.ambienceSound, 2000);
     };
     return GameManager;
