@@ -219,13 +219,13 @@ var CaptchasManager = (function () {
             $("#gameScreen .entry .pass-btn").prop("disabled", true).text("PASS");
         }
     };
-    CaptchaManager.prototype.markAsPassed = function (ocr) {
+    CaptchasManager.prototype.markAsPassed = function (ocr) {
         if (!ocr.page.isLocal) {
             this.attemptsNotSent.push({
                 closestOcr: ocr,
                 pass: true
             });
-            if (this.attemptsNotSent.length > beanstalk.config.entriesBeforeServerSubmission)
+            if (this.attemptsNotSent.length > smorball.config.entriesBeforeServerSubmission)
                 this.sendInputsToServer();
         }
     }
