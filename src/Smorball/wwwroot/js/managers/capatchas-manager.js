@@ -80,6 +80,8 @@ var CaptchasManager = (function () {
             // If the new size of the captch is too small in either dimension then lets discard it
             if (captcha.getBounds().width < smorball.config.minCaptchaPixelSize || captcha.getBounds().height < smorball.config.minCaptchaPixelSize) {
                 console.log("Cannot use captcha, width or height is less than minimum Captcha pixel size", captcha.getBounds(), smorball.config.minCaptchaPixelSize);
+                // Because it can't be used, we should mark the captcha as passed
+                this.markAsPassed(captcha.chunk);
                 continue;
             }
             // Lets check the pre-scaled size of the captcha to anything too big
@@ -91,6 +93,8 @@ var CaptchasManager = (function () {
                 // If the result is less than a specific constant value then throw out this word and try another
                 if (result < smorball.config.captchaScaleLimitConstantN) {
                     console.log("Cannot use captcha, its too wide compared to contant! result:", result);
+                    // Because it can't be used, we should mark the captcha as passed
+                    this.markAsPassed(captcha.chunk);
                     continue;
                 }
                 // Else lets scale the captcha down some
@@ -100,6 +104,8 @@ var CaptchasManager = (function () {
                 // If the new size of the captch is too small in either dimension then lets discard it
                 if (captcha.getBounds().width * scale < smorball.config.minCaptchaPixelSize || captcha.getBounds().height * scale < smorball.config.minCaptchaPixelSize) {
                     console.log("Cannot use captcha, width or height is less than minimum Captcha pixel size", captcha.getBounds(), smorball.config.minCaptchaPixelSize);
+                    // Because it can't be used, we should mark the captcha as passed
+                    this.markAsPassed(captcha.chunk);
                     continue;
                 }
             }
@@ -196,8 +202,11 @@ var CaptchasManager = (function () {
         var _this = this;
         // Decrement the number of passes remaining
         smorball.game.passesRemaining--;
-        // Set new entries for the visible captcahs
-        _.chain(this.captchas).filter(function (c) { return c.chunk != null; }).each(function (c) { return c.setChunk(_this.getNextChunk(c.lane)); });
+        // Add entries to submission and add new entries for the visible captchas
+        _.chain(this.captchas).filter(function (c) { return c.chunk != null; }).each(function (c) {
+            _this.markAsPassed(c.chunk);
+            return c.setChunk(_this.getNextChunk(c.lane));
+        });
         $("#gameScreen .entry input").val("");
         this.updatePassButton();
     };
@@ -210,6 +219,16 @@ var CaptchasManager = (function () {
             $("#gameScreen .entry .pass-btn").prop("disabled", true).text("PASS");
         }
     };
+    CaptchaManager.prototype.markAsPassed = function (ocr) {
+        if (!ocr.page.isLocal) {
+            this.attemptsNotSent.push({
+                closestOcr: ocr,
+                pass: true
+            });
+            if (this.attemptsNotSent.length > beanstalk.config.entriesBeforeServerSubmission)
+                this.sendInputsToServer();
+        }
+    }
     CaptchasManager.prototype.testTextEntry = function () {
         // Cant test if the game is not running
         if (smorball.game.state != 2 /* Playing */)
@@ -407,7 +426,7 @@ var CaptchasManager = (function () {
         // Convert it into the format needed by the server
         var data = {
             differences: _.map(this.attemptsNotSent, function (a) {
-                return { _id: a.closestOcr._id, text: a.text };
+                return { _id: a.closestOcr._id, text: a.text || "", pass: a.pass || false};
             })
         };
         // Make a copy of the attempts not sent and reset the list ready for the next send
