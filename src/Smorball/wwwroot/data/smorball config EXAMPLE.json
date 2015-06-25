@@ -1,6 +1,6 @@
 ﻿/**
  * This is an example configuration file. To set up your own, copy this file to
- *  "config.js", fill out the marked fields below, and REMOVE this entire comment.
+ *  "smorball config.json", fill out the marked fields below, and REMOVE this entire comment.
  *
  * Smorball
  * Tiltfactor, 2015
@@ -43,8 +43,6 @@
 		}
 	],
 
-	"fbAppId": /* enter Facebook App ID here for sharing scores */,
-
 	"debug": false,
 	"width": 1600,
 	"height": 1200,
@@ -67,6 +65,7 @@
 	"DifferenceAPIUrl": /* http://[url]:8081/api/difference */,
 	"PageAPITimeout":  3000,
 	"PageAPIAccessToken": /* enter Game token here */,
+	"fbAppId": /* enter Facebook App ID here for sharing scores */
 
 
 }
