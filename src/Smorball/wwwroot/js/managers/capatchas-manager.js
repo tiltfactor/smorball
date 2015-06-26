@@ -81,7 +81,7 @@ var CaptchasManager = (function () {
             var maxWidth = smorball.config.maxCaptchaSize;
             var maxHeight = maxWidth * 174/212; //this is determined from the various heights of things on the screen
             var minHeight = smorball.config.minCaptchaPixelSize; //we can't show a captcha to the player if it's less than this height because it will be unreadably small
-            var minWidth = this.getAverageTextLength(nextChunk)*smorball.config.minCaptchaPixelSize; //we throw out the captcha if it's less wide than 13 pixels per character in the word - in other words, VERY SMALL
+            var minWidth = this.getSmallestTextLength(nextChunk)*smorball.config.minCaptchaPixelSize; //we throw out the captcha if it's less wide than 13 pixels per character in the word - in other words, VERY SMALL
             var width = captcha.getBounds().width;
             var height = captcha.getBounds().height;
             var scale = Math.min(maxHeight/height, maxWidth/width, 1); //the captcha will be scaled down if the height exceeds the max height or the width exceeds the max width. Never scaled up.
@@ -105,6 +105,11 @@ var CaptchasManager = (function () {
         var len = 0;
         _.each(chunk.texts, function (t) { return len += t.length; });
         return len / chunk.texts.length;
+    };
+    CaptchasManager.prototype.getSmallestTextLength = function (chunk) {
+        var len = 1000;
+        _.each(chunk.texts, function (t) { return len = Math.min(t.length, len); });
+        return len;
     };
     CaptchasManager.prototype.doChunksMatch = function (a, b) {
         for (var i = 0; i < a.texts.length; i++)
