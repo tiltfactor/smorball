@@ -74,41 +74,28 @@ var CaptchasManager = (function () {
                 console.log("Cannot use captcha, same one is already on the screen");
                 continue;
             }
-            // Ensure that the chunk isnt too wide
+            
+            // Ensure that the chunk isn't too big or too small
             captcha.scaleX = captcha.scaleY = 1;
             captcha.setChunk(nextChunk);
-            // If the new size of the captch is too small in either dimension then lets discard it
-            if (captcha.getBounds().width < smorball.config.minCaptchaPixelSize || captcha.getBounds().height < smorball.config.minCaptchaPixelSize) {
-                console.log("Cannot use captcha, width or height is less than minimum Captcha pixel size", captcha.getBounds(), smorball.config.minCaptchaPixelSize);
-                // Because it can't be used, we should mark the captcha as passed
+            var maxWidth = smorball.config.maxCaptchaSize;
+            var maxHeight = maxWidth * 174/212; //this is determined from the various heights of things on the screen
+            var minHeight = smorball.config.minCaptchaPixelSize; //we can't show a captcha to the player if it's less than this height because it will be unreadably small
+            var minWidth = this.getAverageTextLength(nextChunk)*smorball.config.minCaptchaPixelSize; //we throw out the captcha if it's less wide than 13 pixels per character in the word - in other words, VERY SMALL
+            var width = captcha.getBounds().width;
+            var height = captcha.getBounds().height;
+            var scale = Math.min(maxHeight/height, maxWidth/width, 1); //the captcha will be scaled down if the height exceeds the max height or the width exceeds the max width. Never scaled up.
+            captcha.scaleX = captcha.scaleY = scale;
+            if (scale < 1)
+            	console.log("scale factor is "+scale+", width "+width+"-->"+width*scale+", height "+height+"-->"+height*scale);
+            
+            if (scale * height < minHeight || scale * width < minWidth) {
+            	console.log("cannot use captcha; width or height is too small after scaling");
+            	// Because it can't be used, we should mark the captcha as passed
                 this.markAsPassed(captcha.chunk);
                 continue;
             }
-            // Lets check the pre-scaled size of the captcha to anything too big
-            var width = captcha.getWidth();
-            if (width > smorball.config.maxCaptchaSize) {
-                // If the chunk is too wide then lets see if we should scale it down or not
-                var L = this.getAverageTextLength(nextChunk);
-                var result = Math.min(width, smorball.config.maxCaptchaSize) / L;
-                // If the result is less than a specific constant value then throw out this word and try another
-                if (result < smorball.config.captchaScaleLimitConstantN) {
-                    console.log("Cannot use captcha, its too wide compared to contant! result:", result);
-                    // Because it can't be used, we should mark the captcha as passed
-                    this.markAsPassed(captcha.chunk);
-                    continue;
-                }
-                // Else lets scale the captcha down some
-                var scale = smorball.config.maxCaptchaSize / width;
-                console.log("Scaling captcha down to:", scale);
-                captcha.scaleX = captcha.scaleY = scale;
-                // If the new size of the captch is too small in either dimension then lets discard it
-                if (captcha.getBounds().width * scale < smorball.config.minCaptchaPixelSize || captcha.getBounds().height * scale < smorball.config.minCaptchaPixelSize) {
-                    console.log("Cannot use captcha, width or height is less than minimum Captcha pixel size", captcha.getBounds(), smorball.config.minCaptchaPixelSize);
-                    // Because it can't be used, we should mark the captcha as passed
-                    this.markAsPassed(captcha.chunk);
-                    continue;
-                }
-            }
+            
             // If we get here then we are done
             captcha.animateIn();
             break;
