@@ -475,44 +475,69 @@ var CaptchasManager = (function () {
         data.isLocal = false;
         // This seems to be the only way I can get the CORS image to work
         var image = new Image();
-        image.src = data.url;
-        image.onload = function () {
-            console.log("OCRPage image loaded..", image);
-            var ssData = {
-                frames: [],
-                images: []
-            };
-            _.each(data.differences, function (d) {
-                var x = d.coords[3].x;
-                var y = d.coords[3].y;
-                var w = d.coords[1].x - d.coords[3].x;
-                var h = d.coords[1].y - d.coords[3].y;
-                // A few error catches here
-                if (x < 0)
-                    console.error("X LESS THAN ZERO!! ", d);
-                if (y < 0)
-                    console.error("Y LESS THAN ZERO!! ", d);
-                if (w <= 0)
-                    console.error("WIDTH LESS THAN OR EQUAL TO ZERO!! ", d);
-                if (h <= 0)
-                    console.error("HEIGHT LESS THAN OR EQUAL TO ZERO!! ", d);
-                if (x + w > image.width)
-                    console.error("WIDTH GREATER THAN IMAGE!! ", d);
-                if (y + h > image.height)
-                    console.error("WIDTH GREATER THAN IMAGE!! ", d);
-                d.frame = ssData.frames.length;
-                d.page = data;
-                ssData.frames.push([x, y, w, h]);
-                _this.remoteChunks.push(d);
-            });
-            // Sort incoming captchas by length (ascending)
-            _this.remoteChunks = _.sortBy(_this.remoteChunks, function(c) {
-                return (c.texts[0].length + c.texts[1].length) / 2;
-            });
-            ssData.images = [image];
-            data.spritesheet = new createjs.SpriteSheet(ssData);
-            _this.loadingData = false;
+        image.onload = function() {
+            if (image.height > smorball.config.maxPageSize || image.width > smorball.config.maxPageSize) {
+                console.log("retrieving scaled image");
+                var scaledImage = new Image();
+                scaledImage.onload = function() {
+                    _this.loadImage(scaledImage, data, true);
+                };
+                // if unable to retrieve the scaled image, use the original image
+                scaledImage.onerror = function() {
+                    _this.loadImage(image, data, true);
+                };
+                // appending _s2 to url returns image scaled down by a factor of 2
+                // See Open Library documentation for more information
+                scaledImage.src = data.url + "_s2";
+            } else {
+                _this.loadImage(image, data, false);
+            }
         };
+        image.src = data.url; //start loading
+    }
+    CaptchasManager.prototype.loadImage = function (image, data, scaled) {
+        var _this = this;
+        console.log("OCRPage image loaded..", image);
+        var ssData = {
+            frames: [],
+            images: []
+        };
+        _.each(data.differences, function (d) {
+            var x = d.coords[3].x;
+            var y = d.coords[3].y;
+            var w = d.coords[1].x - d.coords[3].x;
+            var h = d.coords[1].y - d.coords[3].y;
+            if (scaled) {
+                x /= 2;
+                y /= 2;
+                w /= 2;
+                h /= 2;
+            }
+            // A few error catches here
+            if (x < 0)
+                console.error("X LESS THAN ZERO!! ", d);
+            if (y < 0)
+                console.error("Y LESS THAN ZERO!! ", d);
+            if (w <= 0)
+                console.error("WIDTH LESS THAN OR EQUAL TO ZERO!! ", d);
+            if (h <= 0)
+                console.error("HEIGHT LESS THAN OR EQUAL TO ZERO!! ", d);
+            if (x + w > image.width)
+                console.error("WIDTH GREATER THAN IMAGE!! ", d);
+            if (y + h > image.height)
+                console.error("WIDTH GREATER THAN IMAGE!! ", d);
+            d.frame = ssData.frames.length;
+            d.page = data;
+            ssData.frames.push([x, y, w, h]);
+            _this.remoteChunks.push(d);
+        });
+        // Sort incoming captchas by length (ascending)
+        _this.remoteChunks = _.sortBy(_this.remoteChunks, function(c) {
+            return (c.texts[0].length + c.texts[1].length) / 2;
+        });
+        ssData.images = [image];
+        data.spritesheet = new createjs.SpriteSheet(ssData);
+        _this.loadingData = false;
     };
     return CaptchasManager;
 })();
