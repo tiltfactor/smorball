@@ -100,6 +100,11 @@ button:disabled {
 	background-image: url("../images/UI/btn1_grey.png");	
 }
 
+.container {
+	padding-right: 0px;
+	padding-left: 0px;
+}
+
 #menusContainer {
 	position: absolute;
 	padding: 0;
