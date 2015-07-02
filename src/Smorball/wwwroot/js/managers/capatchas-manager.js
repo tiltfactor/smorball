@@ -123,8 +123,6 @@ var CaptchasManager = (function () {
             byProximity = true;
 
         // If its a tutorial level then we need to use a speacially prepared list
-        var isChrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
-        //Check to see if all of the captchas on the screen are local
         if (smorball.game.levelIndex == 0)
             return this.localChunks.pop();
         else {
@@ -135,6 +133,7 @@ var CaptchasManager = (function () {
             // current captchas are local (if on chrome).  Otherwise, load some more pages
             if (this.remoteChunks.length == 0)
             {
+                //Check to see if all of the captchas on the screen are local
 				var visibleCapatchas = this.getActiveCaptchas();
 				console.log(visibleCapatchas);
 				var allLocal = true;
@@ -146,12 +145,12 @@ var CaptchasManager = (function () {
 						break;
 					}
 				}
-            	if (isChrome && allLocal && !this.loadingData)	
-            	{
+                if (createjs.BrowserDetect.isChrome && allLocal && !this.loadingData)
+                {
                 	this.loadPagesFromServer(1);
                 	this.loadingData = true;
                 }
-                if (!isChrome)
+                if (!createjs.BrowserDetect.isChrome)
                 	this.loadPagesFromServer(2);
 
                 // If there arent any chunks remaining then just chunk our local store in there
@@ -476,7 +475,9 @@ var CaptchasManager = (function () {
         // This seems to be the only way I can get the CORS image to work
         var image = new Image();
         image.onload = function() {
-            if (image.height > smorball.config.maxPageSize || image.width > smorball.config.maxPageSize) {
+            if (createjs.BrowserDetect.isChrome
+                && (image.height > smorball.config.maxPageSize
+                    || image.width > smorball.config.maxPageSize)) {
                 console.log("retrieving scaled image");
                 var scaledImage = new Image();
                 scaledImage.onload = function() {

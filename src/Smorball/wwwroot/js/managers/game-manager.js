@@ -49,7 +49,6 @@ var GameManager = (function (_super) {
         }
     };
     GameManager.prototype.loadLevel = function (levelIndex) {
-        var isChrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
         console.log("starting level", levelIndex);
         // Set these now
         this.state = 1 /* Loading */;
@@ -62,7 +61,7 @@ var GameManager = (function (_super) {
         // Load the resources needed
         smorball.resources.loadLevelResources(levelIndex);
         // Take this oppertunity to grab a new page from the API
-        if(isChrome)
+        if(createjs.BrowserDetect.isChrome)
         {
         	smorball.captchas.remoteChunks = [];
        		//smorball.captchas.loadPagesFromServer(1, 0);
