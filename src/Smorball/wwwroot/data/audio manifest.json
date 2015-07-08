@@ -1,9 +1,5 @@
 [
     {
-        "src": "audio/Baseball Bat Hit.mp3",
-        "id": "baseball_bat_hit_sound"
-    },
-    {
         "src": "audio/Click.mp3",
         "id": "click_sound"
     },
@@ -24,18 +20,6 @@
         "id": "mouse_over_button_sound"
     },
     {
-        "src": "audio/Opponent Take Damage 1.mp3",
-        "id": "opponent_take_damage_1_sound"
-    },
-    {
-        "src": "audio/Opponent Take Damage 2.mp3",
-        "id": "opponent_take_damage_2_sound"
-    },
-    {
-        "src": "audio/Opponent Take Damage 3.mp3",
-        "id": "opponent_take_damage_3_sound"
-    },
-    {
         "src": "audio/Powerup Activated.mp3",
         "id": "powerup_activated_sound"
     },
@@ -52,28 +36,12 @@
         "id": "smorball_coach_die_01_sound"
     },
     {
-        "src": "audio/Smorball_Coach_die_02.mp3",
-        "id": "smorball_coach_die_02_sound"
-    },
-    {
-        "src": "audio/Smorball_Coach_die_03.mp3",
-        "id": "smorball_coach_die_03_sound"
-    },
-    {
         "src": "audio/Smorball_Coach_hit_01.mp3",
         "id": "smorball_coach_hit_01_sound"
     },
     {
         "src": "audio/Smorball_Coach_hit_02.mp3",
         "id": "smorball_coach_hit_02_sound"
-    },
-    {
-        "src": "audio/Smorball_Coach_hit_03.mp3",
-        "id": "smorball_coach_hit_03_sound"
-    },
-    {
-        "src": "audio/Smorball_Enemy_Score_02.mp3",
-        "id": "smorball_enemy_score_02_sound"
     },
     {
         "src": "audio/Smorball_Enemy_Score_06.mp3",
@@ -92,40 +60,12 @@
         "id": "smorball_grandmother_die_01_sound"
     },
     {
-        "src": "audio/Smorball_grandmother_die_02.mp3",
-        "id": "smorball_grandmother_die_02_sound"
-    },
-    {
         "src": "audio/Smorball_grandmother_hit_01.mp3",
         "id": "smorball_grandmother_hit_01_sound"
     },
     {
-        "src": "audio/Smorball_grandmother_hit_02.mp3",
-        "id": "smorball_grandmother_hit_02_sound"
-    },
-    {
         "src": "audio/Smorball_hooligan_die_01.mp3",
         "id": "smorball_hooligan_die_01_sound"
-    },
-    {
-        "src": "audio/Smorball_hooligan_die_02.mp3",
-        "id": "smorball_hooligan_die_02_sound"
-    },
-    {
-        "src": "audio/Smorball_hooligan_die_03.mp3",
-        "id": "smorball_hooligan_die_03_sound"
-    },
-    {
-        "src": "audio/Smorball_hooligan_hit_01.mp3",
-        "id": "smorball_hooligan_hit_01_sound"
-    },
-    {
-        "src": "audio/Smorball_hooligan_hit_02.mp3",
-        "id": "smorball_hooligan_hit_02_sound"
-    },
-    {
-        "src": "audio/Smorball_hooligan_hit_03.mp3",
-        "id": "smorball_hooligan_hit_03_sound"
     },
     {
         "src": "audio/Smorball_skater_die_01.mp3",
@@ -136,22 +76,6 @@
         "id": "smorball_skater_die_02_sound"
     },
     {
-        "src": "audio/Smorball_skater_hit_01.mp3",
-        "id": "smorball_skater_hit_01_sound"
-    },
-    {
-        "src": "audio/Smorball_skater_hit_02.mp3",
-        "id": "smorball_skater_hit_02_sound"
-    },
-    {
-        "src": "audio/Smorball_skater_hit_03.mp3",
-        "id": "smorball_skater_hit_03_sound"
-    },
-    {
-        "src": "audio/Smorball_Tackle_05.mp3",
-        "id": "smorball_tackle_05_sound"
-    },
-    {
         "src": "audio/Smorball_tenniswoman_die_01.mp3",
         "id": "smorball_tenniswoman_die_01_sound"
     },
@@ -160,28 +84,8 @@
         "id": "smorball_tenniswoman_hit_01_sound"
     },
     {
-        "src": "audio/Smorball_tenniswoman_hit_02.mp3",
-        "id": "smorball_tenniswoman_hit_02_sound"
-    },
-    {
         "src": "audio/Smorball_weightlifter_die_01.mp3",
         "id": "smorball_weightlifter_die_01_sound"
-    },
-    {
-        "src": "audio/Smorball_weightlifter_die_02.mp3",
-        "id": "smorball_weightlifter_die_02_sound"
-    },
-    {
-        "src": "audio/Smorball_weightlifter_die_03.mp3",
-        "id": "smorball_weightlifter_die_03_sound"
-    },
-    {
-        "src": "audio/Smorball_weightlifter_die_04.mp3",
-        "id": "smorball_weightlifter_die_04_sound"
-    },
-    {
-        "src": "audio/Smorball_weightlifter_die_05.mp3",
-        "id": "smorball_weightlifter_die_05_sound"
     },
     {
         "src": "audio/Smorball_weightlifter_hit_01.mp3",
@@ -192,24 +96,8 @@
         "id": "smorball_weightlifter_hit_02_sound"
     },
     {
-        "src": "audio/Smorball_weightlifter_hit_03.mp3",
-        "id": "smorball_weightlifter_hit_03_sound"
-    },
-    {
         "src": "audio/Stadium Ambience Looping.mp3",
         "id": "stadium_ambience_looping_sound"
-    },
-    {
-        "src": "audio/Stadium Ambience.mp3",
-        "id": "stadium_ambience_sound"
-    },
-    {
-        "src": "audio/Strong Opponent Take Damage And Die.mp3",
-        "id": "strong_opponent_take_damage_and_die_sound"
-    },
-    {
-        "src": "audio/Strong Opponent Take Damage.mp3",
-        "id": "strong_opponent_take_damage_sound"
     },
     {
         "src": "audio/Text Entry 1.mp3",

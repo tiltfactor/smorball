@@ -4,10 +4,10 @@
 		"audio": {
 			"id": "coach",
 			"die": {
-				"variations": 3
+				"variations": 1
 			},
 			"hit": {
-				"variations": 3
+				"variations": 2
 			}
 		},
 		"changeLane": false,
@@ -28,7 +28,7 @@
 				"variations": 2
 			},
 			"hit": {
-				"variations": 3
+				"variations": 0
 			}
 		},
 		"changeLane": false,
@@ -48,7 +48,7 @@
 				"variations": 1
 			},
 			"hit": {
-				"variations": 2
+				"variations": 1
 			}
 		},
 		"changeLane": false,
@@ -65,7 +65,7 @@
 		"audio": {
 			"id": "hooligan",
 			"die": {
-				"variations": 3
+				"variations": 1
 			},
 			"hit": {
 				"variations": 0
@@ -85,10 +85,10 @@
 		"audio": {
 			"id": "grandmother",
 			"die": {
-				"variations": 2
+				"variations": 1
 			},
 			"hit": {
-				"variations": 2
+				"variations": 1
 			}
 		},
 		"changeLane": true,
@@ -105,10 +105,10 @@
 		"audio": {
 			"id": "weightlifter",
 			"die": {
-				"variations": 5
+				"variations": 1
 			},
 			"hit": {
-				"variations": 3
+				"variations": 2
 			}
 		},
 		"changeLane": false,
