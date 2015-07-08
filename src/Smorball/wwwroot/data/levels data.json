@@ -8,6 +8,7 @@
 		"name": "Local Qualifiers",
 		"tip": "Tip: Reading the instructions helps you win",
 		"passes": 0,
+		"enemytypes":["weak","fast"],
 		"team": {
 			"name": "Carson City Cardinals",
 			"id": "carson_city",
@@ -360,6 +361,7 @@
 			2
 		],
 		"powerups": [ ],
+		"enemytypes": ["weak","fast","regular"],
 		"name": "Local Quarterfinals",
 		"tip": "Tip: Change your difficulty in the “Options” menu",
 		"team": {
@@ -656,6 +658,7 @@
 	{
 		"index": 2,
 		"powerups": [ ],
+		"enemytypes": ["weak","fast","regular"],
 		"lanes": [
 			0,
 			1,
@@ -1134,6 +1137,7 @@
 			2
 		],		
 		"powerups": [ "helmet" ],
+		"enemytypes": ["weak","fast","regular"],
 		"name": "Local Championship",
 		"tip": "Tip: The ‘tab’ key is in the top left of the keyboard",
 		"team": {
@@ -1682,6 +1686,7 @@
 			2
 		],
 		"powerups": [ "cleats", "helmet" ],
+		"enemytypes": ["weak","fast","regular","boss"],
 		"name": "Regional Quarterfinals",
 		"tip":"Tip: Equipment can't be saved; use everything you get",
 		"team": {
@@ -2115,6 +2120,7 @@
 		],
 		"powerups": [ "cleats", "helmet" ],
 		"name": "Regional Semifinals",
+		"enemytypes": ["weak","fast","regular","boss"],
 		"tip": "Tip: Press ‘tab’ repeatedly to cycle through equipment",
 		"team": {
 			"name": "Amarillo Pantyhose",
@@ -2512,6 +2518,7 @@
 			2
 		],
 		"powerups": [ "cleats", "helmet", "bullhorn" ],
+		"enemytypes": ["weak","fast","regular","boss","lanechange"],
 		"name": "Regional Championship",
 		"tip": "Tip: The Breakfast Club makes long words the best",
 		"team": {
@@ -2955,6 +2962,7 @@
 			2
 		],
 		"powerups": [ "cleats", "helmet", "bullhorn" ],
+		"enemytypes": ["weak","fast","regular","boss","lanechange"],
 		"name": "National Quarterfinals",
 		"tip": "Tip: Use bullhorns to defeat Wingers",
 		"team": {
@@ -3444,6 +3452,7 @@
 			2
 		],
 		"powerups": [ "cleats", "helmet", "bullhorn" ],
+		"enemytypes": ["weak","fast","regular","boss","lanechange","coach"],
 		"name": "National Semifinals",
 		"tip": "Tip: Combine the Breakfast Club upgrade with equipment!",
 		"team": {
@@ -3895,6 +3904,7 @@
 		],
 		"powerups": [ "cleats", "helmet", "bullhorn" ],
 		"name": "National Championship",
+		"enemytypes": ["weak","fast","regular","boss","lanechange","coach"],
 		"tip": "Tip: Take out TX Destroyers before they speed up opponents",
 		"team": {
 			"name": "New England Nerds",
@@ -4483,6 +4493,7 @@
 			2
 		],
 		"powerups": [ "cleats", "helmet", "bullhorn" ],
+		"enemytypes": ["weak","regular","fast","boss","coach","lanechange"],
 		"name": "Time<br/>Challenge",
 		"team": {
 			"name": "Time",

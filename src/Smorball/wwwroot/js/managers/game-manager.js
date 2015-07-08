@@ -22,6 +22,7 @@ var GameManager = (function (_super) {
         var _this = this;
         this.levels = smorball.resources.getResource("levels_data");
         this.enemyTypes = smorball.resources.getResource("enemies_data");
+        this.levelEnemyTypes = this.enemyTypes;
         this.athleteTypes = smorball.resources.getResource("athletes_data");
         // Lets make sure that all the athlete spritesheets have been created at the start
         _.each(this.athleteTypes, function (type) {
@@ -54,6 +55,27 @@ var GameManager = (function (_super) {
         this.state = 1 /* Loading */;
         this.levelIndex = levelIndex;
         this.level = this.getLevel(levelIndex);
+        
+        //to save game size, we want to avoid trying to load a spritesheet if that
+        //enemy type is not used in this level. To that end, we set the path of all
+        //enemies not used in this level to spritePath "01" so it just loads the one 
+        //from the first level
+        this.levelEnemyTypes = jQuery.extend(true, {}, this.enemyTypes);
+        _.each(smorball.game.levelEnemyTypes, function(enemy){
+        	var enemyNeeded = false;
+        	for (var i=0; i<smorball.game.level.enemytypes.length; i++){
+        		console.log("checking "+enemy.id+" against "+smorball.game.level.enemytypes[i]);
+        		if (enemy.id == smorball.game.level.enemytypes[i]) {
+        			console.log("needed");
+        			enemyNeeded = true;
+        		}
+        	}
+        	if (!enemyNeeded){
+        		console.log("deleting "+enemy.id);
+				enemy.spritesPathTemplate=enemy.spritesPathTemplate.replace("{0}","01");
+        	}
+        });
+        
         this.enemiesKilled = 0;
         this.enemySpeedBuff = 0;
         this.levelScore = smorball.config.maxScore;
@@ -73,7 +95,7 @@ var GameManager = (function (_super) {
     };
     GameManager.prototype.play = function () {
         // Force one of each enemy to be created, this will ensure that the spritesheet cache is correctly constructed
-        _.each(smorball.game.enemyTypes, function (t) { return new Enemy(t, 0); });
+        _.each(smorball.game.levelEnemyTypes, function (t) { return new Enemy(t, 0); });
         // Reset these
         this.enemies = [];
         this.athletes = [];

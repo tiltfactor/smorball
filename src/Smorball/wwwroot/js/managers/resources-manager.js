@@ -18,7 +18,7 @@ var ResourcesManager = (function () {
         // We need to dynamically construct the manifest to load here
         var entries = [];
         // Add the required enemy variation
-        _.each(smorball.game.enemyTypes, function (enemy) {
+        _.each(smorball.game.levelEnemyTypes, function (enemy) {
             var path = Utils.format(enemy.spritesPathTemplate, Utils.zeroPad(level.team.outfit, 2));
             entries.push({ src: path + ".json", id: enemy.id + "_" + Utils.zeroPad(levelIndx, 2) + "_json" });
             entries.push({ src: path + ".png", id: enemy.id + "_" + Utils.zeroPad(levelIndx, 2) + "_png" });
